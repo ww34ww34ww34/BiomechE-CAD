@@ -1,0 +1,47 @@
+name: Validate project fixtures
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "schemas/**"
+      - "fixtures/**"
+      - "tools/validate_fixtures.py"
+      - "requirements-dev.txt"
+      - ".github/workflows/validate-fixtures.yml"
+  pull_request:
+    paths:
+      - "schemas/**"
+      - "fixtures/**"
+      - "tools/validate_fixtures.py"
+      - "requirements-dev.txt"
+      - ".github/workflows/validate-fixtures.yml"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install validator dependencies
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Validate Project Schema fixtures
+        run: python tools/validate_fixtures.py | tee fixture-validation.log
+
+      - name: Upload validation log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fixture-validation-log
+          path: fixture-validation.log
+          if-no-files-found: warn
