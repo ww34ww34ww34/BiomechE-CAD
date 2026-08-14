@@ -332,6 +332,30 @@ Rules:
 
 ---
 
+## D-CAD-022 — Project Schema v0 uses immutable revisions, exact definition snapshots and an implementation-neutral manifest
+
+**Status:** BASELINE  
+**Date:** 2026-08-14
+
+The logical project contract is defined in `docs/spec/02_project_schema.md` and is independent from database, package/container and geometry-kernel choices.
+
+Rules:
+
+1. committed `DesignRevision` objects are immutable; edits create successor revisions;
+2. raw acquisition/source assets are immutable and hash-addressable for integrity/provenance;
+3. reusable definitions that influence a committed revision (`BaseTemplate`, `IndicationProfile`, `MaterialDefinition`, `PROMInstrumentDefinition`, `ManufacturingProfile`, presets) resolve to the exact version used plus content hash/snapshot semantics;
+4. semantic prescription/operation state is authoritative for native projects; derived meshes are caches/artifacts, while legacy imports may explicitly use `IMPORTED_LEGACY_GEOMETRY` authority mode;
+5. physical manufactured copies have identities separate from CAD revisions;
+6. measured, predicted, nominal, manufactured and service-aged values remain distinct classes;
+7. the reference portable serialization is UTF-8 JSON with JSON Schema Draft 2020-12 validation; this does not select a document database;
+8. provenance uses a lightweight Entity/Activity/Agent-compatible graph; W3C PROV is an interoperability model, not a requirement to store RDF;
+9. optional FHIR mappings may expose observations, questionnaire responses and provenance without making FHIR the internal authoring schema;
+10. package/container format, encryption/signature profile and storage engine remain OPEN.
+
+Machine-readable reference schema: `schemas/biomeche-cad-project-0.1.schema.json`.
+
+---
+
 ## OPEN DECISIONS
 
 Architecture / implementation decisions intentionally deferred:
@@ -339,22 +363,23 @@ Architecture / implementation decisions intentionally deferred:
 - OpenSubdiv vs openNURBS/ON_SubD as P0 SubD foundation;
 - exact canonical cage topology/resolution and topology-family count;
 - C++20 / C ABI / WASM deployment details;
-- exact project storage/container format;
+- exact project package/container format and storage engine;
 - exact coordinate/registration contract;
 - exact mathematical realization of heel/arch/wedge operations;
 - corrective-element internal representation;
 - scan-conform implementation;
 - production lower-surface/closure algorithms;
 - whether Manifold or another solid/mesh library is needed;
-- whether STEP/.3dm interoperability becomes a product requirement.
+- whether STEP/.3dm interoperability becomes a product requirement;
+- encryption-at-rest and digital-signature/attestation profile;
+- final FHIR implementation-guide/profile mappings.
 
 Functional/specification work still active:
 
-- Project Schema v0;
-- kernel-independent acceptance suite;
-- coordinate/registration freeze;
-- BiomechE integration contract;
-- reporting/traceability contract;
+- kernel-independent cross-domain acceptance suite;
+- coordinate/registration contract freeze;
+- BiomechE integration spec;
+- reporting/traceability spec;
 - final built-in PROM set after population fit + licensing review;
 - shear/COP depth after target acquisition hardware is fixed;
 - product-specific manufacturing qualification/tolerances and actual material/process library entries.
