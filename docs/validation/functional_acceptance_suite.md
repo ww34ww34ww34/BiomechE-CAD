@@ -108,7 +108,7 @@ The following 25 validated behavior groups must have an explicit BiomechE-CAD ac
 | US2 | create patient | `XACC-001` + app acceptance |
 | US3 | search/edit/delete patient | app/data acceptance |
 | US4 | language + units | `XACC-002` |
-| US5 | printer/CNC settings | `MAN-*`, `XACC-023` |
+| US5 | 3D printer + CNC settings | `MAN-*` + manufacturing-profile versioning |
 | US6 | DX→SX mirror | `XACC-003..005` |
 | US7 | DIMA/template + L/W | `XACC-006` |
 | US8 | pressure import/transform | `XACC-007..010` |
@@ -122,13 +122,13 @@ The following 25 validated behavior groups must have an explicit BiomechE-CAD ac
 | US16 | stiffness/material modifier region | `MAT-*`, `XACC-020` |
 | US17 | sculpt radius/strength | `XACC-021` |
 | US18 | scan-driven conform | `XACC-022` |
-| US19 | section + height constraints | `XACC-024` |
-| US20 | two-point ruler | `XACC-025` |
-| US21 | production closure + STL/GCODE | `MAN-*`, `XACC-026` |
+| US19 | section + height constraints | `XACC-046` |
+| US20 | two-point ruler | `XACC-047` |
+| US21 | production closure + STL/GCODE | `MAN-*`, `XACC-048` |
 | US22 | global/per-element hardness/density | `MAT-*`, `XACC-020` |
-| US23 | report | `XACC-027` |
-| US24 | min-thickness detect/fix | `XACC-028` |
-| US25 | save + close protection/history | `SCHEMA-*`, `XACC-029..030` |
+| US23 | report | `XACC-049` |
+| US24 | min-thickness detect/fix | `XACC-050` |
+| US25 | save + accidental-close protection | `SCHEMA-*`, `XACC-037..039` + app close-protection gate |
 
 The old `easycad2_geometry_parity.md` remains useful history, but this suite supersedes any implication that parity itself selects OpenSubdiv or another engine.
 
@@ -209,7 +209,7 @@ Import a scan, crop/clean/derive an aligned representation.
 
 ## `XACC-012` — landmark registration
 
-Use heel + first/ fifth metatarsal landmarks on a known fixture.
+Use heel + first/fifth metatarsal landmarks on a known fixture.
 
 **Pass:** registration records landmark set version, source/target frames, method and error metric; replay produces equivalent transform.
 
@@ -243,7 +243,7 @@ Create an arch with geometry dose and mechanical profile.
 
 Change hardness/stiffness only.
 
-**Pass:** arch geometric parameters remain bitwise/semantically unchanged; outcome/mechanical state references the changed material profile separately; see `ARCH-*`, `MAT-*`.
+**Pass:** arch geometric parameters remain semantically unchanged; outcome/mechanical state references the changed material profile separately; see `ARCH-*`, `MAT-*`.
 
 ## `XACC-017` — wedge angle/reference semantics
 
@@ -267,7 +267,7 @@ Edit a corrective element and save a custom preset.
 
 Assign different stiffness/hardness to a semantic ROI without changing external geometry.
 
-**Pass:** material state changes while design geometry hash/metrics remain unchanged except where the production realization intentionally depends on material structure.
+**Pass:** material state changes while design geometry semantics remain unchanged except where the production realization intentionally depends on material structure.
 
 ## `XACC-021` — sculpt is replayable
 
@@ -449,7 +449,43 @@ Update a global indication profile/evidence interpretation after a project targe
 
 ---
 
-# 12. Geometry-independent numerical policy
+# 12. EasyCAD geometry/query/production completion cases
+
+These cases close EasyCAD2 parity items that are not naturally represented by the cross-domain scenarios above.
+
+## `XACC-046` — arbitrary section + height constraint
+
+Create a known geometry fixture, define a section by two points/plane, and apply a fixed-height constraint to a controlled region.
+
+**Pass:** section intersects the expected reference geometry within tolerance; constrained heights satisfy the specified target/tolerance; operation is replayable and source geometry/revision remains traceable.
+
+## `XACC-047` — two-point ruler
+
+Measure two known 3D points and two known projected/2D points.
+
+**Pass:** returned physical distance agrees with fixture truth within coordinate-system tolerance; camera/view changes do not alter physical measurement.
+
+## `XACC-048` — production closure + export lineage
+
+Generate a production body using a named closure rule and export STL and, when the profile enables it, CNC/GCODE artifact.
+
+**Pass:** output identifies DesignRevision + ManufacturingProfile + generator version + hash; required body-validity/DFM gates pass; changing the export/profile does not mutate the clinical design revision.
+
+## `XACC-049` — report source exactness
+
+Generate the product report from a controlled revision containing acquisition, design, material/manufacturing and outcome data.
+
+**Pass:** report references exact source revision/artifacts/profile versions and can be regenerated semantically from the same inputs; a later project revision does not alter the historical report record.
+
+## `XACC-050` — minimum-thickness DFM detect + correction provenance
+
+Use a fixture containing a deliberate below-profile-minimum region.
+
+**Pass:** QC identifies the correct region/value; correction creates an explicit DFM/manufacturing operation or successor realization; the configured minimum is profile/material/process scoped rather than a universal hard-coded 0.8 mm; original clinical prescription remains traceable.
+
+---
+
+# 13. Geometry-independent numerical policy
 
 The suite distinguishes:
 
@@ -473,7 +509,7 @@ Exact tolerances remain to be frozen in coordinate/geometry/manufacturing qualif
 
 ---
 
-# 13. Fixture catalog
+# 14. Fixture catalog
 
 ## Existing
 
@@ -498,13 +534,16 @@ fixtures/acceptance/prom-versioning.json
 fixtures/acceptance/offload-safety-ring.json
 fixtures/acceptance/material-property-provenance.json
 fixtures/acceptance/blocking-qc.json
+fixtures/acceptance/section-height.json
+fixtures/acceptance/ruler-known-distance.json
+fixtures/acceptance/min-thickness-dfm.json
 ```
 
 Geometry fixtures may additionally include OBJ/STL/mesh/reference numeric data, but their semantics must be described independently of a chosen kernel.
 
 ---
 
-# 14. Test implementation rules
+# 15. Test implementation rules
 
 1. Every automated test uses a stable test ID.
 2. Every fixture states schema/version and expected result.
@@ -519,7 +558,7 @@ Geometry fixtures may additionally include OBJ/STL/mesh/reference numeric data, 
 
 ---
 
-# 15. Release gate categories
+# 16. Release gate categories
 
 Each P0 requirement receives one of:
 
@@ -536,14 +575,14 @@ A product configuration may legitimately mark some modules not applicable, e.g. 
 
 ---
 
-# 16. Next work
+# 17. Next work
 
 Immediate implementation/specification sequence:
 
 ```text
 1. create richer Project Schema fixtures
 2. implement schema validator tests for SCHEMA-001..030
-3. map XACC-001..045 to executable test cases
+3. map XACC-001..050 to executable test cases
 4. freeze spec/01_coordinate_registration.md
 5. add numerical tolerance registry once coordinate contract is frozen
 6. define BiomechE integration/report traceability
