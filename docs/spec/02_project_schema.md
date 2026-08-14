@@ -57,7 +57,7 @@ source evidence
 algorithm version
 ```
 
-Legacy imported projects may explicitly use `IMPORTED_GEOMETRY` authority mode when reconstructable semantic operations do not exist.
+Legacy imported projects may explicitly use `IMPORTED_LEGACY_GEOMETRY` authority mode when reconstructable semantic operations do not exist.
 
 ## SCHEMA-PRINC-002 — Revisions are immutable snapshots
 
@@ -139,7 +139,7 @@ Activity
 Agent
 ```
 
-[STD-W3C-PROV-O-2013]
+[STD-W3C-PROV-O-2013, §2; §3.1]
 
 BiomechE-CAD does not need RDF internally, but its provenance model SHALL retain enough structure to answer:
 
@@ -207,7 +207,7 @@ Rules:
 
 ## 2.4 Timestamps
 
-Persisted event timestamps SHALL use RFC 3339 offset-aware date-time strings [STD-RFC-3339].
+Persisted event timestamps SHALL use RFC 3339 offset-aware date-time strings [STD-RFC-3339, §5.6].
 
 Example:
 
@@ -241,7 +241,7 @@ P0 recommended method:
 JCS / RFC 8785
 ```
 
-[STD-RFC-8785]
+[STD-RFC-8785, §3]
 
 Binary assets are hashed over their raw bytes; JCS applies only to JSON metadata selected for canonical hashing.
 
@@ -445,11 +445,12 @@ BiomechECADProject
 
   patientLink
   case
-
   orthosisProjects[]
 
   definitions
   assets[]
+
+  frameDefinitions[]
   acquisitions[]
   registrations[]
   landmarkSets[]
@@ -460,15 +461,30 @@ BiomechECADProject
   outcomeMeasurements[]
   outcomeComparisons[]
 
+  promMeasurements[]
+  comfortAssessments[]
+  fitUsabilityAssessments[]
+  satisfactionAssessments[]
+  adherenceMeasurements[]
+  patientExperienceBundles[]
+
   materialLots[]
+  materialRegions[]
+  materialStacks[]
+  structuralMaterialRegions[]
   mechanicalPropertyMeasurements[]
+  postProcessMaterialStates[]
   durabilityTests[]
 
   manufacturingRuns[]
   manufacturingArtifacts[]
   physicalOrthoses[]
+  qcRequirements[]
   qcMeasurements[]
   serviceStates[]
+
+  exportArtifacts[]
+  reportArtifacts[]
 
   provenanceRecords[]
   auditEvents[]
@@ -519,14 +535,14 @@ Case
   clinicalIntentText?
   clinicalContextRefs[]?
 
-  attachedProfileRefs[]
+  attachedProfiles[]
   activeInterpretationProfileRef?
 
   sourceAcquisitionIds[]
   notes[]
 ```
 
-Selecting an `IndicationProfile` does not assert a diagnosis by itself.
+`attachedProfiles[]` uses the `AttachedProfile` contract in §15, including confirmation state. Selecting or suggesting an `IndicationProfile` does not assert a diagnosis by itself.
 
 ---
 
@@ -701,7 +717,7 @@ The precise anatomical/global axes are intentionally deferred to `spec/01_coordi
 
 The project schema nevertheless SHALL require explicit directionality.
 
-## 10.1 `FrameRef`
+## 10.1 `FrameDefinition`
 
 ```text
 FrameDefinition
@@ -1136,6 +1152,8 @@ PatientExperienceBundle
 InterpretationRule
 ```
 
+Root project collections persist measurement/bundle instances explicitly; reusable PROM instrument definitions remain under `ProjectDefinitions`.
+
 ## 17.1 PROM link invariant
 
 Every `PROMMeasurement` SHALL identify:
@@ -1325,9 +1343,37 @@ A new `ServiceState` is appended; previous service-state observations are not ov
 
 ---
 
-# 21. Provenance record
+# 21. Export and report artifacts
 
-## 21.1 W3C-inspired lightweight structure
+Exports and reports are explicit wrappers around immutable asset bytes so their source revision/context remains queryable without inferring semantics from a file name.
+
+```text
+ExportArtifact
+  exportArtifactId
+  artifactType
+  assetRef
+  sourceDesignRevisionId
+  manufacturingProfileRef?
+  generatedAt
+  generatorVersion
+  validationState
+
+ReportArtifact
+  reportArtifactId
+  reportType
+  assetRef
+  generatedAt
+  generatorVersion
+  sourceRefs[]
+```
+
+The same asset bytes can be referenced by provenance/report/manufacturing records without duplication.
+
+---
+
+# 22. Provenance record
+
+## 22.1 W3C-inspired lightweight structure
 
 ```text
 ProvenanceRecord
@@ -1353,11 +1399,11 @@ ProvenanceRecord
   warnings[]?
 ```
 
-This intentionally maps cleanly to the W3C `Entity / Activity / Agent` mental model [STD-W3C-PROV-O-2013].
+This intentionally maps cleanly to the W3C `Entity / Activity / Agent` mental model [STD-W3C-PROV-O-2013, §3.1].
 
-FHIR Provenance likewise emphasizes version-specific targets and the agents/entities involved in creating or revising information; this is a useful external mapping target [STD-HL7-FHIR-R5-PROVENANCE].
+FHIR Provenance likewise provides an external healthcare mapping for provenance around versioned targets/agents/entities; this is useful for interoperability but does not govern internal CAD persistence [STD-HL7-FHIR-R5-PROVENANCE].
 
-## 21.2 Provenance vs audit
+## 22.2 Provenance vs audit
 
 ```text
 ProvenanceRecord
@@ -1371,7 +1417,7 @@ They can overlap but SHALL not be conflated.
 
 ---
 
-# 22. Audit event
+# 23. Audit event
 
 ```text
 AuditEvent
@@ -1391,7 +1437,7 @@ Audit should cover at least clinically/manufacturing significant state changes, 
 
 ---
 
-# 23. Migration model
+# 24. Migration model
 
 ```text
 MigrationRecord
@@ -1425,7 +1471,7 @@ Rules:
 
 ---
 
-# 24. Extension mechanism
+# 25. Extension mechanism
 
 All extensibility SHALL be explicit.
 
@@ -1445,7 +1491,7 @@ Rules:
 
 ---
 
-# 25. Package / container independence
+# 26. Package / container independence
 
 The logical project package consists of:
 
@@ -1474,7 +1520,7 @@ A future extension such as `.biomechecad` SHALL therefore be a packaging decisio
 
 ---
 
-# 26. Privacy / minimum-necessary export
+# 27. Privacy / minimum-necessary export
 
 The schema SHALL support creating derived export packages that do not require full patient demographics.
 
@@ -1492,7 +1538,7 @@ Privacy/security policy itself is deployment/regulatory scope and is not fully s
 
 ---
 
-# 27. Optional FHIR interoperability map — P1
+# 28. Optional FHIR interoperability map — P1
 
 BiomechE-CAD remains internally domain-specific, but the schema intentionally permits controlled external mapping.
 
@@ -1506,15 +1552,15 @@ Indicative map:
 | derivation/version activity | `Provenance` |
 | device/source metadata | Device / Observation device references as applicable |
 
-FHIR `Observation` is intended for measured/simple assertions and explicitly distinguishes itself from questionnaire-answer capture; `QuestionnaireResponse` retains the questionnaire definition/answer structure [STD-HL7-FHIR-R5-OBSERVATION; STD-HL7-FHIR-R5-QUESTIONNAIRE].
+FHIR `Observation` is intended for measurements/simple assertions, while `QuestionnaireResponse` retains the questionnaire/answer capture structure [STD-HL7-FHIR-R5-OBSERVATION; STD-HL7-FHIR-R5-QUESTIONNAIRE].
 
 No FHIR mapping is allowed to discard BiomechE-CAD-specific revision, ROI, material or manufacturing semantics merely because the target resource is less expressive.
 
 ---
 
-# 28. Machine-readable JSON Schema
+# 29. Machine-readable JSON Schema
 
-P0 target:
+P0 reference schema:
 
 ```text
 schemas/biomeche-cad-project-0.1.schema.json
@@ -1524,6 +1570,7 @@ The machine schema SHALL:
 
 - declare JSON Schema Draft 2020-12;
 - validate the project envelope and common primitives;
+- expose all P0 domain collections explicitly;
 - validate required identity/version/hash/reference semantics;
 - use tagged unions or `$ref` definitions for major entity types;
 - leave algorithm/kernel-specific geometry payloads outside the project contract;
@@ -1533,7 +1580,7 @@ The Markdown document remains the semantic authority until machine/schema accept
 
 ---
 
-# 29. P0 schema invariants / acceptance semantics
+# 30. P0 schema invariants / acceptance semantics
 
 ## `SCHEMA-001` — project round-trip
 
@@ -1655,9 +1702,17 @@ A derived acquisition/design/manufacturing artifact can identify the input entit
 
 A pseudonymized/manufacturing-minimum export can omit full demographics without breaking design/manufacturing lineage.
 
+## `SCHEMA-029` — profile confirmation state
+
+A profile attached as `SUGGESTED_NOT_CONFIRMED` cannot be silently interpreted as clinician/user-confirmed context.
+
+## `SCHEMA-030` — root-domain completeness
+
+Machine serialization exposes P0 frame, patient-experience, material, QC, export/report and physical-part collections explicitly rather than hiding them in untyped extensions.
+
 ---
 
-# 30. P0 / P1 / P2
+# 31. P0 / P1 / P2
 
 ## P0
 
@@ -1670,16 +1725,17 @@ SHA-256 asset hashes
 versioned definition refs/snapshots
 raw asset registry
 PatientLink + Case + L/R OrthosisProject
-acquisitions
-frame/registration hooks\ ROI/landmark versioning
+frame/registration hooks
+ROI/landmark versioning
 immutable DesignRevision
 operation stack
 profiles/targets
 outcome measurement/comparison
-PROM/adherence links
-material definitions/lots/regions/stacks
+PROM/comfort/fit/satisfaction/adherence links
+material definitions/lots/regions/stacks/effective states
 manufacturing profile/run/artifact/physical part
 QC and service state
+export/report artifact lineage
 provenance + audit
 migration records
 reference JSON serialization
@@ -1711,60 +1767,39 @@ cross-site manufacturing qualification exchange
 
 ---
 
-# 31. Minimal illustrative manifest
+# 32. Minimal illustrative manifest
 
-Illustrative only; the machine JSON Schema will be authoritative for syntax.
+A concrete schema-valid minimal fixture is maintained at:
+
+```text
+fixtures/project/minimal-valid-project.json
+```
+
+Conceptually it begins as:
 
 ```json
 {
   "schemaId": "biomeche-cad-project",
   "schemaVersion": "0.1",
-  "projectId": "0198...uuidv7...",
+  "projectId": "...",
   "projectCreatedAt": "2026-08-14T18:29:00+02:00",
   "patientLink": {
-    "projectPatientId": "0198...",
+    "projectPatientId": "...",
     "privacyClass": "PSEUDONYMIZED",
     "externalIdentifiers": []
   },
   "case": {
-    "caseId": "0198...",
-    "attachedProfileRefs": []
-  },
-  "orthosisProjects": [
-    {
-      "orthosisProjectId": "0198...",
-      "side": "LEFT",
-      "currentDesignRevisionId": "0198..."
-    }
-  ],
-  "designRevisions": [
-    {
-      "revisionId": "0198...",
-      "orthosisProjectId": "0198...",
-      "side": "LEFT",
-      "parentRevisionIds": [],
-      "authorityMode": "SEMANTIC_PARAMETRIC",
-      "operationStack": [],
-      "contentHash": {
-        "algorithm": "sha256",
-        "value": "..."
-      }
-    }
-  ],
-  "assets": [],
-  "acquisitions": [],
-  "registrations": [],
-  "outcomeMeasurements": [],
-  "manufacturingRuns": [],
-  "physicalOrthoses": [],
-  "provenanceRecords": [],
-  "migrationHistory": []
+    "caseId": "...",
+    "attachedProfiles": []
+  }
 }
 ```
 
+The fixture file, not this excerpt, is the syntax-level reference example.
+
 ---
 
-# 32. Deferred decisions
+# 33. Deferred decisions
 
 This v0 intentionally leaves OPEN:
 
@@ -1784,15 +1819,22 @@ These are not reasons to postpone the logical domain schema.
 
 ---
 
-# 33. Next implementation artifacts
+# 34. Next implementation artifacts
+
+Already created:
 
 ```text
-1. schemas/biomeche-cad-project-0.1.schema.json
-2. fixtures/project/minimal-valid-project.json
-3. fixtures/project/bilateral-project.json
-4. fixtures/project/pressure-design-outcome-loop.json
-5. fixtures/project/manufacturing-qc-lineage.json
-6. tests/schema/SCHEMA-001..SCHEMA-028
+schemas/biomeche-cad-project-0.1.schema.json
+fixtures/project/minimal-valid-project.json
+```
+
+Next fixtures/tests:
+
+```text
+1. fixtures/project/bilateral-project.json
+2. fixtures/project/pressure-design-outcome-loop.json
+3. fixtures/project/manufacturing-qc-lineage.json
+4. tests/schema/SCHEMA-001..SCHEMA-030
 ```
 
 Then build the kernel-independent acceptance suite that combines:
@@ -1811,7 +1853,7 @@ MAN-*
 
 ---
 
-# 34. Source / standards notes
+# 35. Source / standards notes
 
 Technical schema/provenance choices above are informed by:
 
