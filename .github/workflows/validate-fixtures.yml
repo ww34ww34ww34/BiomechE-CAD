@@ -18,19 +18,23 @@ on:
       - ".github/workflows/validate-fixtures.yml"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   validate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
+          cache-dependency-path: requirements-dev.txt
 
       - name: Install validator dependencies
         run: python -m pip install -r requirements-dev.txt
@@ -40,7 +44,7 @@ jobs:
 
       - name: Upload validation log
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: fixture-validation-log
           path: fixture-validation.log
