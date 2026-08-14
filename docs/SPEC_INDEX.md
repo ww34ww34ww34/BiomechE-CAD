@@ -63,7 +63,7 @@ OpenSubdiv vs openNURBS/ON_SubD remains intentionally parked.
 
 | File | Status | Purpose |
 |---|---|---|
-| [validation/functional_acceptance_suite.md](validation/functional_acceptance_suite.md) | **ACTIVE v0** | Kernel-independent release contract joining `SCHEMA/OFF/CE/ARCH/HEEL/PROF/PROM/MAT/MAN`, EasyCAD parity and cross-domain `XACC-001..045` |
+| [validation/functional_acceptance_suite.md](validation/functional_acceptance_suite.md) | **ACTIVE v0** | Kernel-independent release contract joining `SCHEMA/OFF/CE/ARCH/HEEL/PROF/PROM/MAT/MAN`, EasyCAD parity and cross-domain `XACC-001..050` |
 | [validation/easycad2_geometry_parity.md](validation/easycad2_geometry_parity.md) | Historical architecture-coverage record | 25 EasyCAD user stories; useful behavioral inventory but no longer an engine-selection baseline |
 | `validation_strategy.md` | Planned | Validation hierarchy |
 | `geometry_invariants.md` | Planned | Numerical invariants after coordinate/tolerance freeze |
