@@ -41,6 +41,7 @@ OpenSubdiv vs openNURBS/ON_SubD remains intentionally parked.
 | [spec/06_corrective_elements.md](spec/06_corrective_elements.md) | **ACTIVE v0** | Corrective-element taxonomy, metatarsal/offload semantics and acceptance tests |
 | [spec/09_analysis_qc_dfm.md](spec/09_analysis_qc_dfm.md) | **ACTIVE v0** | Pressure/PTI/contact area/force/COP/shear, protocol provenance, QC/DFM |
 | [spec/13_use_case_profiles.md](spec/13_use_case_profiles.md) | **ACTIVE v0** | Evidence-context profiles, target provenance and non-transfer guards |
+| [spec/14_prom_comfort_adherence.md](spec/14_prom_comfort_adherence.md) | **ACTIVE v0** | PROM registry, pain/function/comfort/fit/satisfaction/adherence separation, wear exposure and licensing governance |
 
 ---
 
@@ -53,7 +54,8 @@ OpenSubdiv vs openNURBS/ON_SubD remains intentionally parked.
 | [research/FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md](research/FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md) | Batch 03 complete | Relief/aperture, redistribution, target+safety-ring semantics |
 | [research/FUNCTIONAL_EVIDENCE_BATCH_04_ARCH.md](research/FUNCTIONAL_EVIDENCE_BATCH_04_ARCH.md) | Batch 04 complete | `ARCH-001`; geometry/mechanics/context/outcomes; `ARCH-001..014` |
 | [research/FUNCTIONAL_EVIDENCE_BATCH_05_HEEL.md](research/FUNCTIONAL_EVIDENCE_BATCH_05_HEEL.md) | Batch 05 complete | `HEEL-001`; containment/relief/camber/material; `HEEL-001..015` |
-| [research/FUNCTIONAL_EVIDENCE_BATCH_06_USE_CASE_PROFILES.md](research/FUNCTIONAL_EVIDENCE_BATCH_06_USE_CASE_PROFILES.md) | **Batch 06 complete** | Diabetes, metatarsalgia, flatfoot, heel pain, sport and neutral generic profiles |
+| [research/FUNCTIONAL_EVIDENCE_BATCH_06_USE_CASE_PROFILES.md](research/FUNCTIONAL_EVIDENCE_BATCH_06_USE_CASE_PROFILES.md) | Batch 06 complete | Diabetes, metatarsalgia, flatfoot, heel pain, sport and neutral generic profiles |
+| [research/FUNCTIONAL_EVIDENCE_BATCH_07_PROM_COMFORT_ADHERENCE.md](research/FUNCTIONAL_EVIDENCE_BATCH_07_PROM_COMFORT_ADHERENCE.md) | **Batch 07 complete** | `PROM-001`: instrument/version/language, multidimensional patient experience and objective/subjective adherence semantics |
 | [research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md](research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md) | ARCHIVED / valid background | Library/portability research; not current work priority |
 
 ---
@@ -73,7 +75,12 @@ OpenSubdiv vs openNURBS/ON_SubD remains intentionally parked.
 11. `IndicationProfile` is a versioned evidence-context layer, not a diagnostic engine.
 12. Pediatric/adult, symptomatic/asymptomatic and walking/running evidence do not transfer silently.
 13. An active diabetic plantar ulcer can trigger a different guideline pathway rather than merely another CAD preset.
-14. Pressure, PROM, adherence and clinical-event outcomes remain separate observations.
+14. Pain, function, comfort, fit/usability, satisfaction and adherence are separate outcome constructs.
+15. PROM identity includes exact instrument version, language/adaptation and scoring algorithm version.
+16. MID/MCID/MDC/SEM values are instrument/domain/population/context specific rather than universal constants.
+17. Adherence must preserve its measurement method and denominator; hours worn, weight-bearing exposure and percentage of steps are not interchangeable.
+18. No hidden universal `BiomechE Score` is allowed without an independently validated, transparent profile-specific definition.
+19. Questionnaire text/translations/scoring assets require explicit licensing/redistribution review before bundling.
 
 ---
 
@@ -97,9 +104,9 @@ See `spec/13_use_case_profiles.md` and research Batch 06.
 | File | Status | Purpose |
 |---|---|---|
 | `spec/01_coordinate_registration.md` | Planned | Coordinate spaces, units, acquisitions and registration |
-| `spec/02_project_schema.md` | Planned after current evidence promotion | Versioned project schema including profiles, targets, outcomes, revisions and hashes |
+| `spec/02_project_schema.md` | Planned after current evidence promotion | Versioned project schema including profiles, targets, PROM/adherence, outcomes, revisions and hashes |
 | `spec/07_sculpt_and_roi_deformation.md` | Planned | Local authoring semantics and ROI provenance |
-| `spec/08_material_stiffness.md` | **Research-driven next after PROM** | Material/stiffness properties, regional maps and evidence boundaries |
+| `spec/08_material_stiffness.md` | **Research-driven next** | Material/stiffness properties, regional maps, aging/durability and evidence boundaries |
 | `spec/10_manufacturing.md` | Planned | Manufacturing profiles / tolerances / export semantics |
 | `spec/11_biomeche_integration.md` | Planned | Quantitative pressure bridge and pre/post outcome loop |
 | `spec/12_reporting_traceability.md` | Planned | Prescription/design/manufacturing/outcome reports |
@@ -108,13 +115,13 @@ See `spec/13_use_case_profiles.md` and research Batch 06.
 
 # Research queue — NEXT
 
-1. **PROM / comfort / fit / adherence** — cross-profile outcome specification.
-2. **Material durability / manufacturing evidence** — hardness/modulus/durability/process/tolerance.
-3. Promote mature Batch 03–06 findings into the consolidated P0/P1 functional specification.
-4. Derive Project Schema v0 from the evidence-led domain model.
-5. Derive a kernel-independent acceptance suite.
-6. Refine shear/COP policy after target acquisition hardware is fixed.
-7. Competitor functional gap audit can proceed in parallel.
+1. **Material durability / manufacturing evidence** — hardness/modulus/density, fatigue, creep/compression set, process/tolerance and aging provenance.
+2. Promote mature Batch 03–07 findings into the consolidated P0/P1 functional specification.
+3. Derive Project Schema v0 from the evidence-led domain model.
+4. Derive a kernel-independent acceptance suite.
+5. Refine shear/COP policy after target acquisition hardware is fixed.
+6. Competitor functional gap audit can proceed in parallel.
+7. Select actual built-in PROMs only after profile fit, psychometric and licensing review.
 8. Only later resume OpenSubdiv vs openNURBS/ON_SubD.
 
 ---
@@ -140,6 +147,7 @@ See `spec/13_use_case_profiles.md` and research Batch 06.
 5. Vendor material is market evidence, not clinical efficacy evidence.
 6. Model/FE evidence remains explicitly model-based.
 7. Every P0 feature/profile eventually needs an acceptance criterion.
-8. Update `RESUME_HERE.md` after substantial work.
-9. Preserve superseded architecture/history in Git.
-10. Do not redistribute third-party EasyCAD PDFs/screenshots publicly without rights clearance.
+8. PROM/instrument definitions preserve exact version/language and licensing status.
+9. Update `RESUME_HERE.md` after substantial work.
+10. Preserve superseded architecture/history in Git.
+11. Do not redistribute third-party EasyCAD PDFs/screenshots or questionnaire content publicly without rights clearance.
