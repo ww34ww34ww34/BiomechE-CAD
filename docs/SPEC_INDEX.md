@@ -9,6 +9,7 @@ Markdown in this repository is the canonical specification source.
 - [Research sources](research/SOURCES.md) — primary EasyCAD2 documents and scientific source inventory.
 - [Functional + Scientific Evidence Matrix](research/FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md) — **current active research baseline**: feature → EasyCAD2 evidence → literature → parameters → outcomes → priority.
 - [Parameter / dose evidence batch](research/FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md) — forefoot wedge, metatarsal placement, arch geometry/hardness and heel containment/cushioning evidence.
+- [Relief / offloading evidence batch](research/FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md) — relief/aperture semantics, target ROI + surrounding safety region, load redistribution and offloading acceptance rules.
 - [EasyCAD2 primary reference pack](references/easycad2/README.md) — manual, validation plan/report, versions, source links and page map.
 
 ## Current work priority
@@ -38,6 +39,7 @@ The OpenSubdiv vs openNURBS/ON_SubD decision is intentionally parked.
 | [03_geometry_operation_model.md](spec/03_geometry_operation_model.md) | **Hypothesis / not frozen** | Earlier control-cage/operation-stack model retained for later qualification |
 | [04_base_template.md](spec/04_base_template.md) | **Fixture candidate / not frozen** | `ORTHO_CAGE_41x17_V0` candidate and BT qualification gates |
 | [05_parametric_orthosis_geometry.md](spec/05_parametric_orthosis_geometry.md) | **Provisional math / not clinical evidence** | Reference formulas created for implementation experiments; not claimed EasyCAD2 or literature formulas |
+| [06_corrective_elements.md](spec/06_corrective_elements.md) | **ACTIVE functional baseline v0** | Evidence-led corrective element taxonomy, anatomical placement, metatarsal pad/bar/dome/relief semantics and acceptance tests |
 
 ---
 
@@ -47,6 +49,7 @@ The OpenSubdiv vs openNURBS/ON_SubD decision is intentionally parked.
 |---|---|---|
 | [FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md](research/FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md) | **ACTIVE / batch 1** | Main feature/evidence matrix; separates EC2 evidence, literature confidence, product requirement and P0/P1/P2 |
 | [FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md](research/FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md) | **ACTIVE / batch 2** | Dose/placement detail for forefoot wedge, metatarsal pad, arch and heel features |
+| [FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md](research/FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md) | **ACTIVE / batch 3** | Relief/aperture evidence, redistribution risks, target+safety-ring outcome model and OFF-001..009 acceptance semantics |
 | [GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md](research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md) | **ARCHIVED / valid background** | Validated library/portability research; preserved but not current work priority |
 
 ---
@@ -71,7 +74,7 @@ These should now be driven from the functional/evidence matrix rather than from 
 |---|---|---|
 | `spec/01_coordinate_registration.md` | Planned | Coordinate spaces, units and acquisition registration |
 | `spec/02_project_schema.md` | Planned | Versioned project schema, acquisitions, prescriptions, outcomes, revisions and hashes |
-| `spec/06_corrective_elements.md` | **Research-driven next** | Clinically named element library, anatomical placement, dimensions/dose and acceptance metrics |
+| [06_corrective_elements.md](spec/06_corrective_elements.md) | **v0 ACTIVE** | Clinically named element library, anatomical placement, dimensions/dose, metatarsal family, neighboring-load analysis and acceptance metrics |
 | `spec/07_sculpt_and_roi_deformation.md` | Planned | Local authoring semantics and ROI provenance |
 | `spec/08_material_stiffness.md` | **Research-driven next** | Material/stiffness properties, regional maps and evidence boundaries |
 | `spec/09_analysis_qc_dfm.md` | **Research-driven next** | Sections, pressure/outcome metrics, angles, thickness, target/neighbor safety and manufacturing QC |
@@ -91,6 +94,8 @@ These should now be driven from the functional/evidence matrix rather than from 
 6. Geometry and material/mechanical properties are separate prescription dimensions.
 7. PROM/comfort/fit/adherence should link to the exact design/manufacturing revision.
 8. No architecture library should be selected simply because it contains more features.
+9. Offloading is treated as redistribution: local benefit must be checked against adjacent and remote loading.
+10. Literature-derived placement values may become evidence-linked presets, never universal hidden defaults.
 
 ---
 
@@ -98,15 +103,13 @@ These should now be driven from the functional/evidence matrix rather than from 
 
 ### Functional/scientific
 
-1. forefoot posting/wedge — broaden dose/clinical evidence;
-2. arch height/length/position dose;
-3. heel cup/wrap/camber geometry vs cushioning;
-4. metatarsal bar/dome height/shape/placement;
-5. relief/aperture depth/transition + neighboring-pressure effect;
-6. peak pressure vs PTI/FTI/contact area/COP/shear metric policy;
-7. population-specific profiles: diabetic offloading, flatfoot, plantar heel pain, metatarsalgia, sport;
-8. comfort/fit/adherence and PROM selection;
-9. material durability/manufacturing evidence.
+1. pressure/outcome metric policy: peak, mean, PTI/FTI, contact area, COP and shear when supported;
+2. arch height/length/position dose + hardness interaction;
+3. heel cup/wrap/camber geometry vs cushioning/material;
+4. use-case/population profiles: diabetic offloading, metatarsalgia, flatfoot, plantar heel pain, sport;
+5. comfort/fit/adherence and PROM selection;
+6. material durability/manufacturing evidence;
+7. refine corrective-element presets only where evidence and population context justify them.
 
 ### Competitors
 
