@@ -312,6 +312,26 @@ Evidence batch: `docs/research/FUNCTIONAL_EVIDENCE_BATCH_08_MATERIAL_MANUFACTURI
 
 ---
 
+## D-CAD-021 — Functional specification v2 is the canonical product-scope baseline
+
+**Status:** BASELINE  
+**Date:** 2026-08-14
+
+`docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md` is the canonical consolidated functional specification after evidence Batches 03–08.
+
+The previous `docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md` is preserved as a historical detailed baseline and shall not be destructively rewritten merely to remove superseded prose.
+
+Rules:
+
+1. v2 governs product scope and P0/P1/P2 prioritization;
+2. detailed subordinate specs govern the semantics of their own domains;
+3. evidence metadata remains in `docs/BIBLIOGRAPHY.md` and research batches rather than being duplicated in full;
+4. v2 remains implementation-neutral and shall not be altered to fit a preferred geometry kernel;
+5. every P0 requirement must ultimately map to at least one kernel-independent acceptance criterion;
+6. Project Schema v0 is derived from this functional baseline, not from the current architecture hypothesis.
+
+---
+
 ## OPEN DECISIONS
 
 Architecture / implementation decisions intentionally deferred:
@@ -330,9 +350,11 @@ Architecture / implementation decisions intentionally deferred:
 
 Functional/specification work still active:
 
-- promote mature Batches 03–08 into consolidated P0/P1 functional spec;
 - Project Schema v0;
 - kernel-independent acceptance suite;
+- coordinate/registration freeze;
+- BiomechE integration contract;
+- reporting/traceability contract;
 - final built-in PROM set after population fit + licensing review;
 - shear/COP depth after target acquisition hardware is fixed;
 - product-specific manufacturing qualification/tolerances and actual material/process library entries.
