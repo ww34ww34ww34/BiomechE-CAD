@@ -5,7 +5,7 @@
 **Repository:** `ww34ww34ww34/BiomechE-CAD`  
 **Canonical branch:** `main`  
 **Canonical documentation:** Markdown under `docs/`  
-**Current checkpoint:** 2026-08-14 — EasyCAD2 primary evidence consolidated; CAD capability baseline revised after OpenSubdiv evidence/context; canonical control-cage/operation model and EasyCAD2 25-story parity matrix added.
+**Current checkpoint:** 2026-08-14 — EasyCAD2 primary evidence consolidated; CAD capability baseline revised after OpenSubdiv evidence/context; canonical control-cage/operation model, concrete `ORTHO_CAGE_41x17_V0` candidate, orthosis-operator math and EasyCAD2 25-story parity matrix added.
 
 ---
 
@@ -38,33 +38,17 @@ Patient / Case
 
 ### EC2-MANUAL-1.1
 
-`EasyCAD2 Manuale ITA 2.0.pdf`  
-software 1.1.x.x, 13/01/2024.
+`EasyCAD2 Manuale ITA 2.0.pdf` — software 1.1.x.x, 13/01/2024.
 
-Detailed UI/geometry source for:
-
-- DIMA;
-- pressure/scan acquisition;
-- MODIFICA;
-- ELEMENTI;
-- POST PROCESSING;
-- CONTROLLO;
-- PRODUCI;
-- history/save/warnings.
+Detailed UI/geometry source for DIMA, acquisition, MODIFICA, ELEMENTI, POST PROCESSING, CONTROLLO, PRODUCI and history/save/warnings.
 
 ### EC2-VAL-PLAN-1.4
 
-`PdV0001_EasyCAD2 software validation plan.pdf`  
-15/01/2026.
-
-Defines 25 validation user stories.
+`PdV0001_EasyCAD2 software validation plan.pdf` — 15/01/2026 — defines 25 validation user stories.
 
 ### EC2-VAL-REPORT-1.4
 
-`RdT001_Rapporto di Test di validazione software EasyCAD2 versione 14xx.pdf`  
-20/01/2026.
-
-Result:
+`RdT001_Rapporto di Test di validazione software EasyCAD2 versione 14xx.pdf` — 20/01/2026.
 
 ```text
 25 planned
@@ -192,9 +176,36 @@ q ∈ [-1,1] lateral -> medial
 - reusable anatomical region weights/masks;
 - minimize extraordinary vertices in critical edit/high-curvature zones.
 
+### Concrete topology candidate
+
+`docs/spec/04_base_template.md` now defines:
+
+```text
+ORTHO_CAGE_41x17_V0
+Ns = 41 longitudinal stations
+Nq = 17 transverse stations
+697 control vertices
+640 regular quad faces
+```
+
+Intrinsic grid:
+
+```text
+s_i = i / 40        -> 2.5% longitudinal steps
+q_j = -1 + 2*j/16  -> fixed lateral/medial correspondence
+```
+
+Mirror mapping is exact in index space:
+
+```text
+mirror(i,j) = (i, 16-j)
+```
+
+The cage is **not frozen** until BT-001..BT-013 pass.
+
 ### OpenSubdiv role
 
-OpenSubdiv is the expected P0 **surface evaluator**, not the business/domain model.
+OpenSubdiv is the expected P0 surface evaluator, not the business/domain model.
 
 ```text
 BiomechCage
@@ -284,7 +295,7 @@ FEM
 prediction/optimization/AI
 ```
 
-General-purpose NURBS/B-Rep is therefore **not a P0 prerequisite**.
+General-purpose NURBS/B-Rep is **not a P0 prerequisite**.
 
 ---
 
@@ -292,7 +303,7 @@ General-purpose NURBS/B-Rep is therefore **not a P0 prerequisite**.
 
 See `docs/DECISIONS.md`.
 
-New decisions added:
+New decisions:
 
 - `D-CAD-011` — OpenSubdiv-first canonical control-cage architecture;
 - `D-CAD-012` — general-purpose NURBS/B-Rep not P0;
@@ -303,60 +314,15 @@ OCCT, CGAL, Manifold and openNURBS are **not selected dependencies** at this che
 
 ---
 
-## 9. New canonical documents
+## 9. Current canonical geometry documents
 
-### Current capability baseline
+- `docs/spec/CAD_ENGINE_CAPABILITY_SPEC.md` — v2 OpenSubdiv-first capability baseline.
+- `docs/spec/03_geometry_operation_model.md` — cage/field/operation-stack/OpenSubdiv contract.
+- `docs/spec/04_base_template.md` — concrete `41x17` cage candidate + BT-001..BT-013 tests.
+- `docs/spec/05_parametric_orthosis_geometry.md` — provisional formulas for arch/wedge/heel/elements/sculpt/scan/thickness.
+- `docs/validation/easycad2_geometry_parity.md` — maps all 25 EasyCAD2 1.4 stories to this architecture.
 
-`docs/spec/CAD_ENGINE_CAPABILITY_SPEC.md`
-
-v2 replaces the old P0 classification. The previous version remains in Git history.
-
-### Canonical cage and operation model
-
-`docs/spec/03_geometry_operation_model.md`
-
-Defines:
-
-- authoritative representations;
-- quad-dominant canonical cage;
-- stable IDs;
-- intrinsic `(s,q)`;
-- anatomical masks;
-- OpenSubdiv adapter contract;
-- operation stack;
-- field composition;
-- corrective-element semantics;
-- scan layer;
-- production separation;
-- CQ-001..CQ-012 cage qualification tests.
-
-### Parametric geometry operators
-
-`docs/spec/05_parametric_orthosis_geometry.md`
-
-Defines a provisional deterministic math model for:
-
-- smooth compact masks/falloffs;
-- medial/lateral arch;
-- rear/forefoot wedge;
-- heel wrap/camber;
-- thickness/flatten;
-- corrective elements;
-- sculpt;
-- smooth;
-- scan conform;
-- height constraints;
-- min-thickness fix.
-
-These are BiomechE-CAD formulas, not claimed EasyCAD2 formulas.
-
-### EasyCAD2 parity gate
-
-`docs/validation/easycad2_geometry_parity.md`
-
-All 25 EasyCAD2 1.4 validation stories have an implementation path in the proposed architecture.
-
-This proves functional architecture coverage only; it does not prove the exact internal EasyCAD2 implementation.
+The formulas in `05` are BiomechE-CAD formulas, not claimed EasyCAD2 formulas.
 
 ---
 
@@ -364,15 +330,11 @@ This proves functional architecture coverage only; it does not prove the exact i
 
 Use intrinsic field-based deformation over stable cage vertices.
 
-Generic concept:
-
 ```text
 Mask(v) -> [0,1]
 Displacement(v) -> Vector3
 P'(v) = P(v) + Mask(v) * Displacement(v)
 ```
-
-Examples:
 
 ### Arch
 
@@ -414,13 +376,11 @@ with replay stored as sparse stable-vertex displacement layer or compact stroke 
 
 ## 11. Clinical surface vs production body
 
-Current BiomechE-CAD decision:
+Current design:
 
 - canonical cage primarily authors the **upper clinical/contact surface**;
 - thickness, lower surface and sidewalls are derived manufacturing semantics;
 - production closure is orthosis-specific, not a generic CAD shell requirement.
-
-Conceptually:
 
 ```text
 UpperClinicalSurface
@@ -434,34 +394,13 @@ This separation still needs qualification against all production modes.
 
 ---
 
-## 12. Geometry parity result against EasyCAD2
+## 12. EasyCAD2 parity result
 
-The proposed architecture covers:
+All 25 EasyCAD2 1.4 validation stories have an implementation path in the proposed architecture.
 
-```text
-US6 mirror
-US7 DIMA
-US8 pressure registration
-US9 Scan3D/Image2D alignment
-US10 thickness/flatten
-US11 heel
-US12 arches
-US13 wedges
-US14 elements
-US15 custom elements
-US16 material modifiers
-US17 sculpt
-US18 scan conform
-US19 section/fix heights
-US20 ruler
-US21 closure + STL/GCODE
-US22 differentiated hardness
-US24 minimum-thickness fix
-```
+Geometry-heavy stories US6–US22/US24 do not currently force general NURBS/B-Rep into P0.
 
-Non-geometry stories US1–US5/US23/US25 are covered by project/settings/report/persistence layers.
-
-No validated EasyCAD2 story currently forces general NURBS/B-Rep into P0.
+This is functional architecture coverage, not proof of exact EasyCAD2 internals.
 
 ---
 
@@ -469,12 +408,12 @@ No validated EasyCAD2 story currently forces general NURBS/B-Rep into P0.
 
 1. Final coordinate/registration contract.
 2. Project Schema v0.
-3. First concrete quad-dominant cage topology.
-4. Cage vertex count/resolution and edge-loop layout.
-5. Whether all template families share one topology family.
-6. OpenSubdiv boundary/crease settings.
+3. Whether `ORTHO_CAGE_41x17_V0` passes BT-001..BT-013.
+4. Boundary interpolation/corner quality in OpenSubdiv.
+5. Whether 41x17 has enough resolution for 5–10 mm sculpt and metatarsal features.
+6. Whether all template categories share one topology family.
 7. Arch displacement direction: anatomical vertical vs cage/limit normal.
-8. Calibration of EasyCAD-like arch `roundness/depth/curvature` semantics.
+8. Calibration of arch `roundness/depth/curvature` semantics.
 9. Heel wrap/camber reference formula and limits.
 10. Wedge pivot/reference axis fixture.
 11. Corrective element representation: field vs small cage vs hybrid.
@@ -482,35 +421,31 @@ No validated EasyCAD2 story currently forces general NURBS/B-Rep into P0.
 13. Scan-conform projection method.
 14. Production lower-surface/closure algorithms.
 15. Minimum-thickness repair policy.
-16. Performance budget desktop + any WASM/server target.
-17. Whether any fixture actually requires a second geometry library.
+16. Desktop + any WASM/server performance budget.
+17. Whether any failing fixture actually requires a second geometry library.
 
 ---
 
 ## 14. Exact restart point
 
-**Do not evaluate OCCT/CGAL/Manifold first.**
+Do **not** evaluate OCCT/CGAL/Manifold first.
 
 Next work order:
 
 ```text
 1. docs/spec/01_coordinate_registration.md
 2. docs/spec/02_project_schema.md
-3. docs/spec/04_base_template.md
-   -> design first real canonical quad cage
-4. create OpenSubdiv proof-of-concept fixture
-5. implement intrinsic (s,q) mapping + semantic masks
-6. implement reference operators:
-   - medial arch
-   - lateral arch
-   - rearfoot/forefoot wedge
-   - heel/wrap/camber
-   - metatarsal bar/dome
-7. execute CQ-001..CQ-012
-8. only if a concrete test fails, evaluate a second geometry library
+3. build a headless OpenSubdiv proof of concept for ORTHO_CAGE_41x17_V0
+4. generate/load neutral_41x17 fixture
+5. implement intrinsic (s,q) + mirror mapping
+6. run BT-001 / BT-002 / BT-005
+7. implement reference medial arch + 4° wedge
+8. run BT-008 / BT-009
+9. continue BT-003..BT-013
+10. only if a concrete test fails, evaluate a second geometry library
 ```
 
-Parallel research may continue with ParoContour/DIERS and other competitors, but must not derail the geometry qualification sequence.
+Parallel competitor research may continue, but must not derail the geometry qualification sequence.
 
 ---
 
@@ -527,6 +462,7 @@ Parallel research may continue with ParoContour/DIERS and other competitors, but
 - [x] OpenSubdiv-first architecture adopted as baseline.
 - [x] General NURBS/B-Rep removed from P0.
 - [x] Canonical cage/operation model written.
+- [x] Concrete `ORTHO_CAGE_41x17_V0` candidate written.
 - [x] Provisional orthosis operator math written.
 - [x] 25-story architecture parity matrix written.
 - [x] Decision ledger updated.
@@ -540,11 +476,10 @@ Parallel research may continue with ParoContour/DIERS and other competitors, but
 
 - [ ] Freeze coordinate/registration specification.
 - [ ] Freeze Project Schema v0.
-- [ ] Design canonical cage fixture.
-- [ ] Freeze base-template specification.
+- [ ] Create actual `neutral_41x17` fixture.
 - [ ] Build OpenSubdiv proof of concept.
-- [ ] Implement and test intrinsic anatomical coordinates.
-- [ ] Implement CQ-001..CQ-012.
+- [ ] Execute BT-001..BT-013.
+- [ ] Freeze first cage topology family if tests pass.
 - [ ] Freeze reference operator versions after fixtures.
 - [ ] Define production closure algorithms.
 - [ ] Define geometry invariants/golden fixtures.
