@@ -1,520 +1,216 @@
 # BiomechE-CAD — RESUME HERE
 
-> **Purpose:** first document to read when resuming BiomechE-CAD. It records the current source hierarchy, architecture baseline, decisions, validation state, open questions and exact next work.
-
 **Repository:** `ww34ww34ww34/BiomechE-CAD`  
 **Canonical branch:** `main`  
-**Canonical documentation:** Markdown under `docs/`  
-**Current checkpoint:** 2026-08-14 — EasyCAD2 primary evidence consolidated; CAD capability baseline revised after OpenSubdiv evidence/context; canonical control-cage/operation model, concrete `ORTHO_CAGE_41x17_V0` candidate, orthosis-operator math and EasyCAD2 25-story parity matrix added.
-
----
+**Current checkpoint:** 2026-08-14 — architecture selection is parked; current work is functionality + EasyCAD2 parity + scientific/biomechanical evidence.
 
 ## 1. Product goal
 
-BiomechE-CAD is a professional vertical CAD for custom foot orthoses/insoles integrated with BiomechE.
+BiomechE-CAD is a professional CAD for custom foot orthoses integrated with BiomechE.
 
-EasyCAD2 is the initial detailed behavioral benchmark, not the architectural ceiling.
-
-Target product flow:
+The target product chain is:
 
 ```text
-Patient / Case
- -> OrthosisProject [LEFT/RIGHT]
- -> AcquisitionLayer[]
- -> Registration
- -> BaseTemplate / Canonical Cage
- -> Versioned Clinical Operations
- -> Corrective Elements
- -> Material Modifiers
- -> Analysis + DFM/QC
- -> Manufacturing Profile
- -> Export Artifacts
- -> Report
+Acquisition
+ -> quantitative evidence
+ -> prescription
+ -> design revision
+ -> material/manufacturing profile
+ -> production artifact
+ -> outcome measurement
+ -> comparison / iteration
 ```
 
----
+EasyCAD2 is the detailed behavioral benchmark, not the scientific truth or architectural ceiling.
 
-## 2. Primary EasyCAD2 evidence
+## 2. EasyCAD2 primary baseline
 
-### EC2-MANUAL-1.1
+Primary sources:
 
-`EasyCAD2 Manuale ITA 2.0.pdf` — software 1.1.x.x, 13/01/2024.
+- EasyCAD2 Manual 1.1.x.x — 13/01/2024;
+- EasyCAD2 Validation Plan 1.4.x.x — 15/01/2026;
+- EasyCAD2 Validation Report 1.4.x.x — 20/01/2026, 25/25 PASS.
 
-Detailed UI/geometry source for DIMA, acquisition, MODIFICA, ELEMENTI, POST PROCESSING, CONTROLLO, PRODUCI and history/save/warnings.
+Confirmed workflow includes DIMA, pressure, Scan3D, thickness/flatten, heel/camber, medial/lateral arch, rear/forefoot wedge, corrective elements, custom element editing, material/rigidity regions, sculpt, scan-conform deformation, sections/measurements, minimum-thickness handling, production, STL/GCODE, reporting and history.
 
-### EC2-VAL-PLAN-1.4
+See `docs/references/easycad2/README.md` and `docs/validation/easycad2_geometry_parity.md`.
 
-`PdV0001_EasyCAD2 software validation plan.pdf` — 15/01/2026 — defines 25 validation user stories.
+## 3. Current work mode
 
-### EC2-VAL-REPORT-1.4
+Architecture/library selection is intentionally deferred.
 
-`RdT001_Rapporto di Test di validazione software EasyCAD2 versione 14xx.pdf` — 20/01/2026.
+Current order:
 
 ```text
-25 planned
-25 executed
-25 PASS
-0 FAIL
-0 BLOCKED
+EasyCAD2 behavior
++ literature
++ meaningful dose / placement / units
++ measurable outcome
++ acceptance criterion
+        ↓
+product requirement
+        ↓
+architecture later
 ```
 
-Reference links and page map live in `docs/references/easycad2/README.md`.
+Active canonical research:
 
-Do not commit the third-party PDF/screenshots to the public repo without explicit rights clearance.
+- `docs/research/FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md`
+- `docs/research/FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md`
+- `docs/research/SOURCES.md`
 
----
+Architecture background is preserved in:
 
-## 3. EasyCAD2 geometry behavior confirmed by primary documents
+- `docs/research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md`
+- `docs/spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md`
 
-Important confirmed behaviors:
+## 4. Main functional conclusions now supported
 
-- DX/SX mirror;
-- DIMA templates SPORT/SANDALO/CLASSIC/COMFORT/DONNA;
-- L/W/proportion editing;
-- pressure `.bpe/.csv` registration;
-- STL scan with heel/1st/5th landmarks and alignment;
-- global thickness + flatten;
-- heel/wrap/camber;
-- medial/lateral arch with start/center/end/height/depth/curvature;
-- rear/forefoot wedge in degrees, full/partial;
-- corrective-element library;
-- element position/rotation/XYZ scale;
-- `SOMMA` / `INTERSEZIONE` integration described relative to upper/lower orthosis surfaces;
-- direct XYZ element-vertex editing + CUSTOM preset;
-- material/rigidity regions;
-- local sculpt radius/strength;
-- global deformation toward scan data;
-- freehand/circle ROI deformation;
-- section, height, ruler and fixed-height tools;
-- minimum-thickness warning/fix;
-- Bridge/Straight/Oblique/advanced production closure;
-- STL/GCODE;
-- PDF report;
-- history/undo/redo/safe close.
+1. **Pressure remains quantitative data.** It needs provenance, registration, ROI queries and revision-to-revision comparison.
+2. **Outcome targets are context-specific.** Literature/guideline thresholds must carry population, protocol, ROI, metric and source; they are not universal constants.
+3. **Dose matters.** Rearfoot/forefoot posting, metatarsal placement, arch geometry and mechanical properties should remain structured prescription variables.
+4. **Local offloading redistributes load.** Target ROI and surrounding regions should both be measurable.
+5. **Geometry and mechanical properties are separate design dimensions.** Material, hardness, stiffness, density and regional structures should not be encoded only as geometry.
+6. **Acquisition conditions matter.** Scan device/protocol/weight-bearing and registration provenance belong to the project.
+7. **Clinical response is heterogeneous.** The software must not hardcode one universal orthotic doctrine.
+8. **Outcome traceability matters.** The design/material/manufacturing revision should be linkable to later pressure and patient-reported outcomes.
 
-The documents repeatedly use mesh/vertex semantics for core editing and validation.
+## 5. Current evidence matrix coverage
 
----
-
-## 4. New implementation-context fact
-
-The project owner states with certainty that **EasyCAD2 uses OpenSubdiv**.
-
-This fact is accepted as project context, but the EasyCAD2 manual/validation docs do not state how OpenSubdiv is internally used.
-
-Therefore distinguish:
+`FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md` currently covers:
 
 ```text
-USER-PROVIDED FACT:
-EasyCAD2 uses OpenSubdiv.
-
-ENGINEERING INFERENCE:
-EasyCAD2 likely benefits from control-cage / subdivision-surface editing for at least part of the orthosis workflow.
+FSE-001 Scan3D acquisition/provenance
+FSE-002 quantitative plantar pressure
+FSE-003 pressure-guided ROI target
+FSE-004 patient-specific template/morphology
+FSE-005 medial/lateral arch
+FSE-006 rearfoot posting/wedge
+FSE-007 forefoot posting/wedge
+FSE-008 heel cup/wrap/camber
+FSE-009 metatarsal bar/dome/pad
+FSE-010 local relief/offloading
+FSE-011 global material/stiffness
+FSE-012 regional stiffness/density/metamaterial
+FSE-013 custom element/sculpt
+FSE-014 scan-conform/global deformation
+FSE-015 geometric QC
+FSE-016 manufacturing profile/artifact
+FSE-017 post-production verification loop
+FSE-018 PROM/comfort/fit/adherence
+FSE-019 prescription -> design -> outcome traceability
 ```
 
-Do not claim exact EasyCAD2 internal formulas/topology without independent evidence.
+Batch 02 adds direct parameter/placement evidence for forefoot wedge, metatarsal pad, arch support and heel design.
 
----
+## 6. Domain entities emerging from evidence
 
-## 5. Official OpenSubdiv facts relevant to architecture
-
-Official documentation states that OpenSubdiv:
-
-- implements high-performance subdivision-surface evaluation;
-- is optimized for deforming surfaces with static topology at interactive frame rates;
-- works from polygonal control cages provided by the host application;
-- exposes a smooth limit surface;
-- supports arbitrary topology but regular quad-dominant regions are simpler/more predictable;
-- warns that an arbitrary polygon mesh is not automatically a good subdivision cage.
-
-References:
-
-- `https://www.opensubdiv.org/docs/intro.html`
-- `https://www.opensubdiv.org/docs/subdivision_surfaces.html`
-
----
-
-## 6. Current geometry architecture baseline
-
-The previous B-Rep/NURBS-heavy P0 hypothesis has been superseded.
-
-Current baseline:
+Independent of the eventual CAD kernel, the product model increasingly needs:
 
 ```text
-Canonical Orthosis Control Cage
-+ stable persistent vertex IDs
-+ intrinsic anatomical coordinates
-+ OpenSubdiv limit-surface evaluation
-+ versioned parametric clinical operations
-+ mask/field engine
-+ scan/registration/query layer
-+ orthosis-specific production-body generator
-+ DFM validation
+Prescription
+Acquisition
+OutcomeTarget
+OutcomeMeasurement
+MaterialRegion
+StiffnessRegion
+DesignRevision
+ManufacturingProfile
+ClinicalOutcome
+PROMMeasurement
 ```
 
-### Authoritative clinical model
+A meaningful feature should preserve where applicable:
 
 ```text
-BaseCage + Operations + AlgorithmVersions
+feature type
+side / anatomical region
+dose
+units
+reference frame / landmark
+placement / extent
+material/mechanical properties
+intent
+source/evidence reference
+algorithm/version
 ```
 
-The final STL is derived, not authoritative.
+## 7. Architecture state — PARKED
 
-### Canonical cage direction
+The generic B-Rep/NURBS-heavy P0 was already rejected.
 
-- quad-dominant;
-- stable topology during ordinary clinical edits;
-- persistent vertex IDs;
-- LEFT/RIGHT compatible topology;
-- intrinsic coordinates:
+A SubD/control-cage strategy remains a strong hypothesis, but no foundation engine is selected.
+
+When architecture resumes, compare at least:
 
 ```text
-s ∈ [0,1]   heel -> toe
-q ∈ [-1,1] lateral -> medial
+A) product-owned clinical layer + OpenSubdiv
+B) product-owned clinical layer + openNURBS / ON_SubD
 ```
 
-- reusable anatomical region weights/masks;
-- minimize extraordinary vertices in critical edit/high-curvature zones.
+P0 should avoid keeping both SubD representations synchronized unless a specific requirement justifies it.
 
-### Concrete topology candidate
+See `docs/DECISIONS.md`, especially `D-CAD-011` through `D-CAD-017`.
 
-`docs/spec/04_base_template.md` now defines:
+## 8. Exact restart point
+
+Do not resume kernel selection yet.
+
+Next work:
 
 ```text
-ORTHO_CAGE_41x17_V0
-Ns = 41 longitudinal stations
-Nq = 17 transverse stations
-697 control vertices
-640 regular quad faces
+1. relief/aperture evidence:
+   size, depth, transition, neighboring load transfer
+
+2. metatarsal element evidence:
+   bar vs dome/pad, height, shape, placement
+
+3. arch evidence:
+   height, extent, position, hardness/stiffness interaction
+
+4. heel evidence:
+   cup height/shape, wrap/camber, cushioning/material
+
+5. pressure/outcome metric policy:
+   peak, mean, PTI/FTI, contact area, COP, shear when supported
+
+6. separate evidence by use-case/population
+
+7. promote mature matrix rows into formal functional requirements
+
+8. derive acceptance tests independent of geometry kernel
 ```
 
-Intrinsic grid:
-
-```text
-s_i = i / 40        -> 2.5% longitudinal steps
-q_j = -1 + 2*j/16  -> fixed lateral/medial correspondence
-```
-
-Mirror mapping is exact in index space:
-
-```text
-mirror(i,j) = (i, 16-j)
-```
-
-The cage is **not frozen** until BT-001..BT-013 pass.
-
-### OpenSubdiv role
-
-OpenSubdiv is the expected P0 surface evaluator, not the business/domain model.
-
-```text
-BiomechCage
- -> OpenSubdiv adapter
- -> smooth limit surface
- -> display/query/tessellation
-```
-
-### Clinical operations
-
-P0 operations include:
-
-```text
-TemplateMorph
-HeelWrap
-Camber
-MedialArch
-LateralArch
-RearfootWedge
-ForefootWedge
-CorrectiveElement
-Sculpt
-Smooth
-ScanConform
-HeightConstraint
-Thickness
-DFMFix
-MaterialModifier
-ProductionClosure
-```
-
-Each operation is versioned, deterministic and replayable.
-
----
-
-## 7. Current capability classification
-
-### P0
-
-```text
-control-cage topology
-stable IDs / adjacency / boundary
-OpenSubdiv Catmull-Clark evaluation
-intrinsic anatomical parameterization
-template morph / L/W / mirror
-clinical deformation fields
-ROI/mask/falloff engine
-corrective elements
-vertex edit / sculpt / smooth
-STL scan + landmarks + registration
-BVH / closest-point / projection
-section / distance / height / angle / thickness
-orthosis-specific production body
-Bridge/Straight/Oblique/Hybrid closure
-watertight/min-thickness/DFM checks
-versioned operation history
-```
-
-### P1
-
-```text
-utility B-spline curves
-advanced custom-element cage editor
-ICP
-advanced mesh repair
-local/adaptive production remeshing if needed
-3MF/material-region export
-curvature/geodesic helpers
-positive mould
-text emboss/deboss
-```
-
-### P2 / adapter / future
-
-```text
-NURBS surface authoring
-trimmed B-Rep
-STEP/IGES
-Rhino exact interchange
-general loft/sweep/revolve
-general shell/offset
-fillet/chamfer kernel
-general solid boolean kernel
-implicit/SDF
-lattice/metamaterial
-FEM
-prediction/optimization/AI
-```
-
-General-purpose NURBS/B-Rep is **not a P0 prerequisite**.
-
----
-
-## 8. Important decisions
-
-See `docs/DECISIONS.md`.
-
-New decisions:
-
-- `D-CAD-011` — OpenSubdiv-first canonical control-cage architecture;
-- `D-CAD-012` — general-purpose NURBS/B-Rep not P0;
-- `D-CAD-013` — any additional geometry library must earn entry through a failing fixture;
-- `D-CAD-014` — separate clinical upper surface from derived manufacturing body.
-
-OCCT, CGAL, Manifold and openNURBS are **not selected dependencies** at this checkpoint.
-
----
-
-## 9. Current canonical geometry documents
-
-- `docs/spec/CAD_ENGINE_CAPABILITY_SPEC.md` — v2 OpenSubdiv-first capability baseline.
-- `docs/spec/03_geometry_operation_model.md` — cage/field/operation-stack/OpenSubdiv contract.
-- `docs/spec/04_base_template.md` — concrete `41x17` cage candidate + BT-001..BT-013 tests.
-- `docs/spec/05_parametric_orthosis_geometry.md` — provisional formulas for arch/wedge/heel/elements/sculpt/scan/thickness.
-- `docs/validation/easycad2_geometry_parity.md` — maps all 25 EasyCAD2 1.4 stories to this architecture.
-
-The formulas in `05` are BiomechE-CAD formulas, not claimed EasyCAD2 formulas.
-
----
-
-## 10. Current mathematical direction
-
-Use intrinsic field-based deformation over stable cage vertices.
-
-```text
-Mask(v) -> [0,1]
-Displacement(v) -> Vector3
-P'(v) = P(v) + Mask(v) * Displacement(v)
-```
-
-### Arch
-
-```text
-longitudinal start/center/end bump
-× transverse medial/lateral profile
-× anatomical mask
-× target height
-```
-
-### Wedge
-
-```text
-h = tan(angle) * signed_distance_from_pivot_axis
-× rearfoot/forefoot mask
-× full/partial application mask
-```
-
-### Element
-
-Prefer clinically named field/cage semantics:
-
-```text
-ADD_FROM_TOP
-PLACE_FROM_BASE
-```
-
-rather than forcing general B-Rep booleans.
-
-### Sculpt
-
-```text
-radius + strength + smooth compact falloff
-```
-
-with replay stored as sparse stable-vertex displacement layer or compact stroke history.
-
----
-
-## 11. Clinical surface vs production body
-
-Current design:
-
-- canonical cage primarily authors the **upper clinical/contact surface**;
-- thickness, lower surface and sidewalls are derived manufacturing semantics;
-- production closure is orthosis-specific, not a generic CAD shell requirement.
-
-```text
-UpperClinicalSurface
-+ ThicknessField
-+ LowerSurfaceRule
-+ ClosureProfile
- -> ManufacturingBody
-```
-
-This separation still needs qualification against all production modes.
-
----
-
-## 12. EasyCAD2 parity result
-
-All 25 EasyCAD2 1.4 validation stories have an implementation path in the proposed architecture.
-
-Geometry-heavy stories US6–US22/US24 do not currently force general NURBS/B-Rep into P0.
-
-This is functional architecture coverage, not proof of exact EasyCAD2 internals.
-
----
-
-## 13. Critical open questions
-
-1. Final coordinate/registration contract.
-2. Project Schema v0.
-3. Whether `ORTHO_CAGE_41x17_V0` passes BT-001..BT-013.
-4. Boundary interpolation/corner quality in OpenSubdiv.
-5. Whether 41x17 has enough resolution for 5–10 mm sculpt and metatarsal features.
-6. Whether all template categories share one topology family.
-7. Arch displacement direction: anatomical vertical vs cage/limit normal.
-8. Calibration of arch `roundness/depth/curvature` semantics.
-9. Heel wrap/camber reference formula and limits.
-10. Wedge pivot/reference axis fixture.
-11. Corrective element representation: field vs small cage vs hybrid.
-12. Exact `PLACE_FROM_BASE` semantics.
-13. Scan-conform projection method.
-14. Production lower-surface/closure algorithms.
-15. Minimum-thickness repair policy.
-16. Desktop + any WASM/server performance budget.
-17. Whether any failing fixture actually requires a second geometry library.
-
----
-
-## 14. Exact restart point
-
-Do **not** evaluate OCCT/CGAL/Manifold first.
-
-Next work order:
-
-```text
-1. docs/spec/01_coordinate_registration.md
-2. docs/spec/02_project_schema.md
-3. build a headless OpenSubdiv proof of concept for ORTHO_CAGE_41x17_V0
-4. generate/load neutral_41x17 fixture
-5. implement intrinsic (s,q) + mirror mapping
-6. run BT-001 / BT-002 / BT-005
-7. implement reference medial arch + 4° wedge
-8. run BT-008 / BT-009
-9. continue BT-003..BT-013
-10. only if a concrete test fails, evaluate a second geometry library
-```
-
-Parallel competitor research may continue, but must not derail the geometry qualification sequence.
-
----
-
-## 15. DONE
-
-- [x] EasyCAD2 feature-by-feature research baseline.
-- [x] EasyCAD2 manual 1.1 acquired and indexed.
-- [x] EasyCAD2 validation plan/report 1.4 acquired and integrated.
-- [x] 25/25 validation result recorded.
-- [x] Unified product functional specification.
-- [x] EasyCAD2 primary reference pack.
-- [x] Initial generic CAD capability taxonomy.
-- [x] Re-audit against actual EasyCAD2 geometry behavior.
-- [x] OpenSubdiv-first architecture adopted as baseline.
-- [x] General NURBS/B-Rep removed from P0.
-- [x] Canonical cage/operation model written.
-- [x] Concrete `ORTHO_CAGE_41x17_V0` candidate written.
-- [x] Provisional orthosis operator math written.
-- [x] 25-story architecture parity matrix written.
-- [x] Decision ledger updated.
-- [x] Spec index updated.
-
----
-
-## 16. TODO
-
-### Geometry / architecture
-
-- [ ] Freeze coordinate/registration specification.
-- [ ] Freeze Project Schema v0.
-- [ ] Create actual `neutral_41x17` fixture.
-- [ ] Build OpenSubdiv proof of concept.
-- [ ] Execute BT-001..BT-013.
-- [ ] Freeze first cage topology family if tests pass.
-- [ ] Freeze reference operator versions after fixtures.
-- [ ] Define production closure algorithms.
-- [ ] Define geometry invariants/golden fixtures.
-- [ ] Decide whether a second geometry library is actually needed.
-
-### Clinical/manufacturing
-
-- [ ] Complete corrective-element spec.
-- [ ] Complete sculpt/ROI spec.
-- [ ] Complete material/stiffness spec.
-- [ ] Complete analysis/QC/DFM spec.
-- [ ] Complete manufacturing spec.
-- [ ] Complete BiomechE integration spec.
-- [ ] Complete reporting/traceability spec.
-
-### Research
-
-- [ ] Deep audit ParoContour / DIERS.
-- [ ] Audit FitFoot360.
-- [ ] Audit Rodin4D/Neo.
-- [ ] Audit Vorum/Canfit.
-- [ ] Continue scientific source ledger.
-- [ ] Add regulatory/privacy analysis.
-
----
-
-## 17. Handover maintenance protocol
-
-After substantial work:
-
-1. update canonical specs;
-2. preserve evidence provenance;
-3. distinguish source facts from inference/decision;
-4. update DONE/TODO;
-5. update critical open questions;
-6. state exact restart point;
-7. keep superseded architecture in Git history rather than pretending it never existed;
-8. do not leave a major decision only in chat.
+Competitor research can proceed in parallel, but competitors are feature evidence, not scientific evidence.
+
+## 9. DONE
+
+- [x] EasyCAD2 primary behavior consolidated.
+- [x] 25-story validation baseline preserved.
+- [x] Functional product baseline created.
+- [x] Architecture research preserved.
+- [x] Architecture selection explicitly parked.
+- [x] Functional + Scientific Evidence Matrix created.
+- [x] Scientific source ledger expanded through current 2026 literature.
+- [x] Pressure-guided design evidence integrated.
+- [x] Scan-provenance evidence integrated.
+- [x] Rearfoot and forefoot wedge dose evidence integrated.
+- [x] Metatarsal pressure and placement evidence integrated.
+- [x] Heel geometry/cushioning evidence started.
+- [x] Material/stiffness/regional-property evidence integrated.
+- [x] PROM/comfort/fit/adherence direction integrated.
+- [x] Parameter/dose evidence batch 02 created.
+- [x] Decisions and spec index updated for the functionality-first phase.
+
+## 10. TODO
+
+- [ ] Relief/aperture evidence batch.
+- [ ] Metatarsal shape/height evidence batch.
+- [ ] Arch dose/position evidence batch.
+- [ ] Heel geometry/material evidence batch.
+- [ ] Pressure metric policy.
+- [ ] Use-case/population evidence profiles.
+- [ ] PROM/comfort/fit/adherence specification.
+- [ ] Material durability/manufacturing evidence.
+- [ ] Promote mature matrix rows into P0/P1 functional specification.
+- [ ] Later: OpenSubdiv vs openNURBS/ON_SubD shoot-out.
