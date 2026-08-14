@@ -2,7 +2,7 @@
 
 **Repository:** `ww34ww34ww34/BiomechE-CAD`  
 **Canonical branch:** `main`  
-**Checkpoint:** 2026-08-14 — functional/scientific research is consolidated through Batch 08. **`docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md` is now the canonical functional baseline.** Architecture selection remains parked. Canonical bibliography extends through `REF-CAD-106` plus `STD-*` standards.
+**Checkpoint:** 2026-08-14 — functional/scientific research is consolidated through Batch 08; `docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md` is the canonical functional baseline; **Project Schema v0 is now active** with a Draft 2020-12 JSON reference schema and initial fixture. Architecture selection remains parked.
 
 ---
 
@@ -15,7 +15,7 @@ Acquisition
  -> quantitative evidence
  -> indication/context
  -> prescription
- -> design revision
+ -> immutable design revision
  -> material / manufacturing realization
  -> physical artifact + QC
  -> wear exposure / service state
@@ -27,7 +27,7 @@ EasyCAD2 remains the detailed behavioral benchmark, not scientific truth or the 
 
 ---
 
-## 2. Evidence governance
+## 2. Evidence / standards governance
 
 `docs/BIBLIOGRAPHY.md` is the single bibliographic authority.
 
@@ -42,7 +42,23 @@ VENDOR-*
 ARCH-*
 ```
 
-Cite exact truthful locators. Never invent pages. Standards entries support official scope/test/qualification semantics but do not imply automatic conformance.
+Cite exact truthful locators. Never invent pages.
+
+The canonical bibliography now also records the technical references used by Project Schema v0:
+
+```text
+STD-JSON-SCHEMA-2020-12
+STD-W3C-PROV-O-2013
+STD-RFC-9562
+STD-RFC-3339
+STD-RFC-8785
+STD-NIST-FIPS-180-4
+STD-HL7-FHIR-R5-PROVENANCE
+STD-HL7-FHIR-R5-OBSERVATION
+STD-HL7-FHIR-R5-QUESTIONNAIRE
+```
+
+These constrain representation/interoperability/provenance, not clinical prescription semantics.
 
 ---
 
@@ -53,9 +69,9 @@ EASYCAD2 + LITERATURE + BATCH 03–08
         ↓
 FUNCTIONAL SPEC v2 — DONE
         ↓
-PROJECT SCHEMA v0 — NEXT
+PROJECT SCHEMA v0 — DONE BASELINE
         ↓
-KERNEL-INDEPENDENT ACCEPTANCE SUITE
+KERNEL-INDEPENDENT ACCEPTANCE SUITE — NEXT
         ↓
 COORDINATE / REGISTRATION FREEZE
         ↓
@@ -70,22 +86,11 @@ Do **not** resume OpenSubdiv vs ON_SubD yet.
 
 ## 4. Canonical functional specification
 
-### Current canonical
+Current canonical:
 
 `docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md`
 
-It consolidates normative requirements from:
-
-```text
-Batch 03 — relief/offloading
-Batch 04 — arch
-Batch 05 — heel
-Batch 06 — indication profiles
-Batch 07 — PROM/comfort/fit/adherence
-Batch 08 — material/manufacturing
-```
-
-and active subordinate specs:
+It consolidates normative requirements from Batches 03–08 and active subordinate specs:
 
 ```text
 spec/06_corrective_elements.md
@@ -96,113 +101,135 @@ spec/13_use_case_profiles.md
 spec/14_prom_comfort_adherence.md
 ```
 
-The previous `docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md` is preserved as the historical detailed baseline instead of being destructively overwritten.
-
-### Functional P0 now explicitly includes
-
-```text
-patient/case/revision management
-DX/SX + semantic mirror
-DIMA/template custom
-quantitative pressure import/registration/ROI
-Scan3D landmarks/registration/provenance
-Scan2D/Image2D calibration
-thickness/flatten
-heel containment/relief/camber/mechanics
-medial/lateral arch
-rearfoot/forefoot wedges
-corrective elements + metatarsal placement
-relief/aperture + safety-ring assessment
-material/stiffness regions
-sculpt/smooth
-scan conform
-sections/ruler/height/thickness
-PeakPressure/PTI/ContactArea when available
-context-bound targets/thresholds
-IndicationProfile
-PROM registry + measurement provenance
-comfort/fit/satisfaction as separate outcomes
-adherence/wear exposure
-ManufacturingProfile/Run/PhysicalOrthosis
-DFM + profile-specific minimum thickness
-QC state distinct from export success
-STL/project package
-report + revision/hash traceability
-undo/history/replay
-offline authoring
-```
+The previous `docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md` is preserved as historical detailed baseline.
 
 ---
 
-## 5. Evidence-led domain model to turn into schema
+## 5. Project Schema v0 — ACTIVE
+
+Canonical semantic schema:
+
+`docs/spec/02_project_schema.md`
+
+Machine-readable reference:
+
+`schemas/biomeche-cad-project-0.1.schema.json`
+
+Initial fixture:
+
+`fixtures/project/minimal-valid-project.json`
+
+### Core schema rules
 
 ```text
-Patient
-Case
-OrthosisProject
-DesignRevision
-
-IndicationProfile[]
-activeInterpretationProfile
-
-Acquisition
-ScanAcquisition
-PressureAcquisition
-Image2DAcquisition
-Registration
-
-Prescription
-ArchSupportPrescription
-HeelPrescription
-RearfootWedgePrescription
-ForefootWedgePrescription
-CorrectiveElement
-OffloadFeature
-SculptOperation
-ScanConformOperation
-
-MaterialDefinition
-MaterialLot
-MaterialRegion
-MaterialStack
-StructuralMaterialRegion
-MechanicalPropertyMeasurement
-DurabilityTest
-ServiceState
-
-OutcomeTarget
-OutcomeMeasurement
-OffloadAssessment
-MetricThreshold
-
-PROMInstrumentDefinition
-PROMMeasurement
-ComfortAssessment
-FitUsabilityAssessment
-SatisfactionAssessment
-AdherenceMeasurement
-PatientExperienceBundle
-InterpretationRule
-
-ManufacturingProfile
-ManufacturingRun
-ManufacturingArtifact
-PhysicalOrthosis
-PostProcessStep
-QCRequirement
-QCMeasurement
-ManufacturedGeometryMeasurement
-
-ExportArtifact
-ReportArtifact
-AuditEvent
+native semantic prescription/operations = authoritative
+committed DesignRevision = immutable
+edit = successor revision
+raw evidence/source asset = immutable
+reusable definitions = exact version + hash/snapshot
+physical manufactured copy = own identity
+nominal != measured != predicted != service-aged
+container/database/kernel = not selected by schema
 ```
 
-This model remains geometry-kernel independent.
+`DesignRevision` preserves exact:
+
+```text
+parent revision(s)
+side
+base template version
+source acquisitions
+registrations
+attached indication profiles
+operation stack
+material prescription
+algorithm versions
+derived-geometry references
+validation summary
+content hash
+provenance
+```
+
+### Root P0 domain graph
+
+```text
+PatientLink / Case / OrthosisProject
+Definitions
+Assets
+FrameDefinitions
+Acquisitions / Registration / Landmarks / ROI
+DesignRevisions
+OutcomeTargets / Measurements / Comparisons
+PROM / Comfort / Fit / Satisfaction / Adherence
+MaterialLots / Regions / Stacks / StructuralRegions
+MechanicalPropertyMeasurements / PostProcess states / Durability
+ManufacturingRuns / Artifacts / PhysicalOrthoses
+QCRequirements / QCMeasurements / ServiceStates
+ExportArtifacts / ReportArtifacts
+Provenance / Audit / Migration
+```
+
+### Version/integrity conventions
+
+```text
+internal new IDs: UUIDv7 preferred
+external/business identifiers: separate
+serialized event timestamps: RFC 3339
+asset digest baseline: SHA-256
+canonical JSON hash when needed: JCS / RFC 8785
+reference serialization: UTF-8 JSON + JSON Schema Draft 2020-12
+```
+
+### Provenance/interoperability
+
+The internal provenance contract is lightweight `Entity / Activity / Agent` compatible. W3C PROV is a conceptual/interoperability reference; RDF is not required.
+
+FHIR R5 `Observation`, `QuestionnaireResponse` and `Provenance` are optional P1 exchange mappings. They do not become the internal CAD schema and cannot erase revision/ROI/material/manufacturing semantics.
+
+### Schema acceptance family
+
+Defined:
+
+```text
+SCHEMA-001..SCHEMA-030
+```
+
+Key coverage:
+
+- semantic round-trip;
+- unique IDs;
+- no dangling mandatory refs;
+- immutable revisions;
+- revision DAG;
+- exact-definition resolution;
+- asset hash integrity;
+- timestamp/unit preservation;
+- side consistency;
+- source→target registration direction;
+- ROI version integrity;
+- measured/predicted separation;
+- outcome→revision/physical-part linkage;
+- profile/evidence provenance;
+- PROM reproducibility;
+- material property source typing;
+- manufacturing lineage;
+- physical-copy uniqueness;
+- blocking QC guard;
+- append-only service history;
+- migration trace;
+- privacy-minimum export;
+- profile confirmation state;
+- explicit root-domain completeness.
+
+### Packaging remains OPEN
+
+Possible future physical realizations can include directory, ZIP-like project file, local DB export package, object store or server graph.
+
+A future `.biomechecad` format is therefore a packaging decision, not a new domain model.
 
 ---
 
-## 6. Key adopted semantics
+## 6. Key adopted functional semantics
 
 - EasyCAD2 is behavioral evidence, not scientific truth.
 - Dose, placement, units and anatomical reference survive as structured prescription data.
@@ -217,15 +244,16 @@ This model remains geometry-kernel independent.
 - Pain, function, comfort, fit, satisfaction and adherence are separate constructs.
 - PROM version/language/scoring/licensing are first-class metadata.
 - Material nominal property, manufactured effective property and service-aged property are distinct.
-- `50 Shore` without scale/method is invalid.
 - Export success does not mean physical-part acceptance.
 - CAD nominal geometry and manufactured measured geometry remain distinct.
+- Definition/version meaning must survive future registry changes.
 
 ---
 
-## 7. Acceptance semantics already defined
+## 7. Acceptance semantics already available
 
 ```text
+SCHEMA-001..SCHEMA-030
 OFF-001..OFF-009
 CE-001..CE-010
 ARCH-001..ARCH-014
@@ -236,7 +264,7 @@ MAT-001..MAT-018
 MAN-001..MAN-018
 ```
 
-The future cross-domain suite must add project/revision, registration, mirror, pressure-comparability, history/replay, reporting and traceability invariants.
+The next document must unify these into a kernel-independent end-to-end suite and add EasyCAD parity / mirror / registration / replay / reporting scenarios.
 
 ---
 
@@ -255,45 +283,52 @@ Prefer one P0 SubD foundation. No major geometry dependency enters merely for th
 
 ## 9. Exact restart point
 
-### NEXT — `spec/02_project_schema.md` v0
+### NEXT — `validation/functional_acceptance_suite.md`
 
-Translate the consolidated functional/domain model into a versioned project schema.
+Create a **kernel-independent functional acceptance suite**.
 
-The schema must cover at minimum:
+It must map requirements to deterministic/business-semantic fixtures before any geometry-engine choice.
+
+Minimum blocks:
 
 ```text
-project identity + schema version
-patient/case external references
-left/right projects
-acquisitions + hashes + provenance
-registration references
-IndicationProfile attachment + active interpretation profile
-prescriptions / semantic operations
-ROI/masks/landmarks references
-material definitions/lots/regions/stacks
-DesignRevision graph/history
-OutcomeTarget / OutcomeMeasurement
-PROM / comfort / fit / satisfaction
-AdherenceMeasurement
-ManufacturingProfile / Run / Artifact
-PhysicalOrthosis
-QC requirements/measurements
-service state / durability links
-export/report artifacts + hashes
-algorithm versions
-migration metadata
+1. SCHEMA-001..030
+2. EasyCAD2 25-story behavioral parity map
+3. OFF-* target/safety-ring semantics
+4. CE-* anatomical element placement
+5. ARCH-* geometry/mechanics/context/outcome
+6. HEEL-* containment/relief/camber/mechanics
+7. PROF-* context/non-transfer guards
+8. PROM-* instrument/adherence/revision linkage
+9. MAT-* property-source/durability semantics
+10. MAN-* run/artifact/QC/physical-part lineage
+11. bilateral mirror semantics
+12. acquisition/registration directionality
+13. pressure before/after comparability
+14. deterministic revision replay
+15. migration / missing-definition failure cases
+16. privacy-minimum manufacturing handoff
+```
+
+Create/plan fixture set:
+
+```text
+fixtures/project/bilateral-project.json
+fixtures/project/pressure-design-outcome-loop.json
+fixtures/project/manufacturing-qc-lineage.json
+fixtures/project/migration-v0.1.json
+fixtures/acceptance/*
 ```
 
 ### THEN
 
 ```text
-2. kernel-independent functional acceptance suite
-3. freeze `spec/01_coordinate_registration.md`
-4. `spec/11_biomeche_integration.md`
-5. `spec/12_reporting_traceability.md`
-6. competitor functional-gap audit in parallel
-7. product-specific PROM/material/process qualification
-8. architecture shoot-out only after these freezes
+2. freeze `spec/01_coordinate_registration.md`
+3. `spec/11_biomeche_integration.md`
+4. `spec/12_reporting_traceability.md`
+5. competitor functional-gap audit in parallel
+6. product-specific PROM/material/process qualification
+7. architecture shoot-out only after these freezes
 ```
 
 ---
@@ -308,25 +343,28 @@ migration metadata
 - [x] Corrective-elements spec + `CE-*`.
 - [x] Arch Batch 04 + `ARCH-*`.
 - [x] Heel Batch 05 + `HEEL-*`.
-- [x] Use-case/population Batch 06 + `spec/13` + `PROF-*`.
+- [x] Use-case/population Batch 06 + `PROF-*`.
 - [x] Diabetic active-ulcer pathway guard.
-- [x] PROM/comfort/fit/adherence Batch 07 + `spec/14` + `PROM-*`.
-- [x] Material/manufacturing Batch 08.
-- [x] `spec/08_material_stiffness.md` v0.
-- [x] `spec/10_manufacturing.md` v0.
-- [x] `MAT-001..018` and `MAN-001..018`.
-- [x] Bibliography through `REF-CAD-106` plus `STD-*`.
-- [x] `D-CAD-020` material/process/artifact/service-state decision.
-- [x] **Functional specification v2 consolidated and made canonical.**
-- [x] Historical functional spec preserved for audit.
-- [x] P0/P1/P2 scope explicitly reconciled.
-- [x] `SPEC_INDEX.md` updated to v2.
+- [x] PROM/comfort/fit/adherence Batch 07 + `PROM-*`.
+- [x] Material/manufacturing Batch 08 + `MAT-*` / `MAN-*`.
+- [x] Functional specification v2 consolidated/canonical.
+- [x] Historical functional spec preserved.
+- [x] **`spec/02_project_schema.md` v0 created.**
+- [x] **Machine JSON Schema Draft 2020-12 reference created.**
+- [x] Initial `minimal-valid-project.json` fixture created.
+- [x] Root machine schema normalized for frame, patient experience, material, QC, export/report collections.
+- [x] Suggested-vs-confirmed profile state represented explicitly.
+- [x] `SCHEMA-001..SCHEMA-030` defined.
+- [x] Schema/provenance/interoperability standards added to canonical bibliography.
+- [x] `D-CAD-022` project-schema decision recorded.
+- [x] `SPEC_INDEX.md` updated through Project Schema v0.
 
 ## 11. TODO
 
-- [ ] `spec/02_project_schema.md` v0 — **NEXT**.
-- [ ] Kernel-independent cross-domain acceptance suite.
-- [ ] `spec/01_coordinate_registration.md` freeze before implementation.
+- [ ] `validation/functional_acceptance_suite.md` — **NEXT**.
+- [ ] Rich project fixtures: bilateral / pressure-loop / manufacturing-QC / migration.
+- [ ] Execute automated JSON-Schema fixture validation in the implementation/CI environment.
+- [ ] `spec/01_coordinate_registration.md` freeze before geometry implementation.
 - [ ] `spec/11_biomeche_integration.md`.
 - [ ] `spec/12_reporting_traceability.md`.
 - [ ] Expand shear/COP when target hardware is fixed.
