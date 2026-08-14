@@ -2,7 +2,7 @@
 
 **Repository:** `ww34ww34ww34/BiomechE-CAD`  
 **Canonical branch:** `main`  
-**Checkpoint:** 2026-08-14 — architecture selection is parked. Current work is functionality + EasyCAD2 parity + scientific/biomechanical evidence. Batches 02–06 and formal specs for corrective elements, analysis/QC and indication profiles are active. Canonical bibliography now extends through `REF-CAD-079`.
+**Checkpoint:** 2026-08-14 — architecture selection is parked. Current work is functionality + EasyCAD2 parity + scientific/biomechanical evidence. Batches 02–07 and formal specs for corrective elements, analysis/QC, indication profiles and PROM/comfort/adherence are active. Canonical bibliography now extends through `REF-CAD-093` plus COSMIN/FDA PROM guidance.
 
 ---
 
@@ -18,6 +18,7 @@ Acquisition
  -> design revision
  -> material/manufacturing profile
  -> production artifact
+ -> wear exposure
  -> outcome measurement
  -> comparison / iteration
 ```
@@ -56,8 +57,12 @@ Current bibliography includes:
 - EasyCAD2 manual/validation IDs;
 - IWGDF 2023 prevention + offloading guideline context;
 - Heel Pain/Plantar Fasciitis CPG 2023;
-- `REF-CAD-001..079` scientific sources;
+- COSMIN measurement-instrument selection guidance;
+- FDA 2022 PRO instrument guidance for medical-device evaluation;
+- `REF-CAD-001..093` scientific sources;
 - separate vendor and architecture namespaces.
+
+Questionnaire content/scoring assets require a rights/licensing check separate from scientific validation.
 
 ---
 
@@ -182,6 +187,72 @@ For a neuropathic plantar forefoot/midfoot diabetic ulcer, IWGDF 2023 recommends
 
 Adherence is first-class in the diabetic profile because RCT evidence shows real-world effectiveness depends materially on wear/adherence; future continuous-pressure/wearable integration remains P2.
 
+### PROM / comfort / fit / adherence — Batch 07 + `spec/14_prom_comfort_adherence.md`
+
+Core rule:
+
+```text
+pain
+function
+foot-specific health/QoL
+comfort
+fit/usability
+satisfaction
+adherence/wear exposure
+```
+
+are separate outcome constructs.
+
+No hidden universal `BiomechE Score` is allowed.
+
+`PROMInstrumentDefinition` preserves:
+
+```text
+instrument ID/name
+exact version
+language / cultural adaptation
+respondent / validation context
+domains + item count
+recall period
+response scale + score direction
+scoring algorithm version
+MID/MCID/MDC/SEM interpretation evidence
+license/redistribution status
+source references
+```
+
+Initial Italian candidate families identified, **not globally selected**:
+
+```text
+17-IFFI
+FAAM-I/ADL
+EFAS Score
+```
+
+PROM selection follows construct + measurement properties + feasibility/fit-for-purpose rather than popularity.
+
+Comfort is task/protocol specific and remains separate from pain/function. Validated running tools such as RUN-CAT are evidence that comfort can be multidimensional, not a generic orthosis scale.
+
+Adherence preserves method and denominator:
+
+```text
+SELF_REPORT
+TEMPERATURE_SENSOR
+ACTIVITY_MONITOR
+COMBINED_OBJECTIVE
+
+TIME_OUT_OF_BED
+WEIGHT_BEARING_TIME
+STEPS
+PRESCRIBED_SESSION
+```
+
+`hours/day`, `% weight-bearing time` and `% steps with device` are not interchangeable. Objective and subjective adherence remain distinct.
+
+Interpretation values such as MID/MCID/MDC are instrument/domain/population/context specific; old measurements remain reproducible with their historical scoring algorithm.
+
+`PROM-001..PROM-020` acceptance semantics are defined.
+
 ---
 
 ## 5. Current domain model emerging from evidence
@@ -207,10 +278,17 @@ OutcomeTarget
 ProfileTarget
 OutcomeMeasurement
 OffloadAssessment
-PROMMeasurement
-AdherenceMeasurement
-ClinicalEvent
 
+PROMInstrumentDefinition
+PROMMeasurement
+ComfortAssessment
+FitUsabilityAssessment
+SatisfactionAssessment
+AdherenceMeasurement
+PatientExperienceBundle
+InterpretationRule
+
+ClinicalEvent
 DesignRevision
 ManufacturingProfile
 ExportArtifact
@@ -240,50 +318,52 @@ Prefer one P0 SubD foundation. Do not add major geometry dependencies without a 
 
 ## 7. Exact restart point
 
-### NEXT — `PROM-001`
+### NEXT — `MAT-001 / MAN-001`
 
-Research and specify **PROM / comfort / fit / adherence** as cross-profile outcome objects.
+Research and specify **material durability + manufacturing evidence**.
 
-Must cover:
+Must cover at minimum:
 
 ```text
-1. PROM instrument identity/version/language
-2. pain vs function vs comfort vs fit vs satisfaction
-3. patient-specific meaningful change / interpretation limits where evidence allows
-4. wear time / percentage steps worn / indoor vs outdoor adherence
-5. timing relative to design/manufacturing revision
-6. generic outcome schema without inventing one BiomechE score
-7. profile relevance:
-   diabetes
-   metatarsalgia
-   flatfoot
-   heel pain
-   sport
-8. acceptance semantics
-9. bibliography IDs + locators
+1. material identity / lot / supplier / formulation provenance
+2. hardness scale and test method
+3. Young/effective modulus where meaningful
+4. density
+5. thickness × stiffness interaction
+6. viscoelasticity / hysteresis
+7. compression set
+8. creep
+9. fatigue / cyclic durability
+10. temperature/humidity effects where relevant
+11. aging / service-life state
+12. additive manufacturing orientation / infill / process parameters
+13. CNC material/process parameters where relevant
+14. dimensional tolerances
+15. post-processing
+16. material-region and multi-material realization
+17. QC coupons / verification data
+18. link actual manufactured properties to design revision
+19. acceptance semantics
+20. bibliography IDs + locators
 ```
 
 ### THEN
 
 ```text
-2. MATERIAL/MANUFACTURING evidence
-   hardness / modulus / density
-   fatigue / creep / compression set
-   durability
-   additive/CNC process effects
-   tolerances and material-property provenance
-
-3. Promote mature Batch 03–06 findings into
+2. Promote mature Batch 03–07 findings into
    BIOMECHE_CAD_FUNCTIONAL_SPEC.md
 
-4. Define Project Schema v0
-   including IndicationProfile / targets / PROM / adherence
+3. Define Project Schema v0
+   including IndicationProfile / targets / PROM / adherence / material provenance
 
-5. Derive kernel-independent functional acceptance suite
+4. Derive kernel-independent functional acceptance suite
 
-6. Refine shear/COP after target acquisition hardware is fixed
+5. Refine shear/COP after target acquisition hardware is fixed
 
-7. Competitor gap audit in parallel
+6. Competitor gap audit in parallel
+
+7. Select built-in PROM instruments only after
+   population fit + psychometric + licensing review
 
 8. Only later resume architecture shoot-out
 ```
@@ -308,18 +388,27 @@ Must cover:
 - [x] Diabetic active-ulcer pathway guard defined.
 - [x] Multi-profile provenance / threshold isolation defined.
 - [x] `PROF-001..PROF-012` acceptance semantics defined.
-- [x] Bibliography expanded through `REF-CAD-079`.
+- [x] PROM/comfort/fit/adherence Batch 07.
+- [x] `spec/14_prom_comfort_adherence.md` v0.
+- [x] PROM instrument/version/language/scoring provenance defined.
+- [x] Italian candidate PROM families identified without global selection.
+- [x] Comfort/fit/satisfaction/adherence separated.
+- [x] Objective vs subjective adherence and denominator semantics defined.
+- [x] Licensing/redistribution gate for questionnaire content defined.
+- [x] `PROM-001..PROM-020` acceptance semantics defined.
+- [x] Bibliography expanded through `REF-CAD-093` plus COSMIN/FDA guidance.
 - [x] `D-CAD-018` indication-profile baseline decision recorded.
-- [x] `SPEC_INDEX.md` updated through Batch 06.
+- [x] `D-CAD-019` patient-experience/PROM governance decision recorded.
+- [x] `SPEC_INDEX.md` updated through Batch 07.
 
 ## 9. TODO
 
-- [ ] `PROM-001` PROM/comfort/fit/adherence deep dive — **NEXT**.
-- [ ] Material durability/manufacturing evidence.
+- [ ] `MAT-001 / MAN-001` material durability/manufacturing evidence — **NEXT**.
 - [ ] Promote mature evidence into consolidated P0/P1 functional spec.
 - [ ] Project Schema v0.
 - [ ] Kernel-independent acceptance suite.
 - [ ] Expand shear/COP when target hardware is fixed.
 - [ ] Competitor feature-gap audit in parallel.
+- [ ] Select actual built-in PROMs after fit/psychometric/licensing review.
 - [ ] Progressively migrate older historical docs when edited.
 - [ ] Later: OpenSubdiv vs openNURBS/ON_SubD shoot-out.
