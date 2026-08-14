@@ -1,0 +1,1 @@
+Canonical fixture-CI trigger after adding protocol/cross-device, append-only reanalysis and report-reissue semantic checks.
