@@ -427,6 +427,30 @@ Rules:
 
 ---
 
+## D-CAD-026 — Pressure acquisition qualification is intended-use/profile specific; unknown limits remain OPEN
+
+**Status:** FROZEN  
+**Date:** 2026-08-15
+
+Canonical specification: `docs/spec/15_pressure_acquisition_qualification.md`.
+
+Rules:
+
+1. a pressure-acquisition qualification applies only to explicitly declared exam/outcome families; qualification for static load does not silently qualify dynamic peak pressure, stabilometry, COP or in-shoe use;
+2. qualification preserves exact device/model/hardware revision/unit identity where required, physical SensorGeometry, firmware/acquisition software, calibration identity and protocol version;
+3. vendor nominal specifications are input evidence but do not substitute for measured qualification performance;
+4. bench technical performance and human/protocol repeatability are separate evidence layers;
+5. qualification covers the relevant performance dimensions for its intended use, which may include zero/drift, scale/linearity/accuracy, repeatability, hysteresis/creep, saturation/dead cells, force closure, COP, timing and synchronization;
+6. minimum passes/contacts/steps/window and repeatability statistics are protocol/metric/profile-owned; literature values such as the 12-step result in `REF-CAD-108` do not become universal hidden defaults;
+7. cross-device equivalence is opt-in through explicit validated policy/harmonization; otherwise the default is non-comparability;
+8. runtime acquisition maps qualification/protocol failures to explicit `VALID`, `DEGRADED` or `UNAVAILABLE` semantics according to profile rules;
+9. recalibration and qualification-impacting hardware/software changes create new provenance and may trigger regression/partial/full requalification; they do not rewrite historical acquisitions;
+10. an `OPEN` numeric acceptance limit SHALL NOT be filled by an undocumented implementation/UI constant.
+
+This freezes the qualification **methodology**, not real Sensor Medica accuracy/tolerance numbers. The first actual product profile remains to be measured/qualified against a specific physical device/protocol.
+
+---
+
 ## OPEN DECISIONS
 
 Architecture / implementation decisions intentionally deferred:
@@ -448,12 +472,13 @@ Architecture / implementation decisions intentionally deferred:
 
 Functional/specification/qualification work still active:
 
-- executable `BINT-*` / `RPT-*` coverage expansion;
+- first real Sensor Medica pressure device/unit qualification profile and measured acceptance limits;
+- executable `BINT-*`, `RPT-*` and `PAQ-*` coverage expansion;
+- real product registration qualification and tolerances;
+- cross-device pressure harmonization qualification where needed;
 - deeper competitor functional-gap audit from manuals/trials where legally available;
 - workflow macro/preset orchestration semantics (`GAP-COMP-001`);
 - external clinical-media adapter semantics (`GAP-COMP-002`);
-- real product acquisition/registration qualification and tolerances;
-- cross-device pressure harmonization qualification where needed;
 - BiomechE `DYN-006+` dynamic pressure/force/integral/region bindings as upstream freezes;
 - final built-in PROM set after population fit + licensing review;
 - product-specific manufacturing qualification/tolerances and actual material/process library entries.
