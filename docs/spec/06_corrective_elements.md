@@ -3,7 +3,8 @@
 **Version:** v0 — functional/evidence-led  
 **Date:** 2026-08-14  
 **Status:** active functional baseline  
-**Architecture:** deliberately unspecified. No dependency on OpenSubdiv/openNURBS/OCCT/Manifold is implied.
+**Architecture:** deliberately unspecified. No dependency on OpenSubdiv/openNURBS/OCCT/Manifold is implied.  
+**Bibliography:** `docs/BIBLIOGRAPHY.md` is authoritative for all external references.
 
 ---
 
@@ -11,7 +12,7 @@
 
 Define clinically meaningful corrective/offloading elements as **prescription objects**, with explicit anatomical placement, geometric/mechanical dose, intended effect and outcome hooks.
 
-The product must avoid two common abstractions that lose clinical meaning:
+The product must avoid two abstractions that lose clinical meaning:
 
 ```text
 Generic3DObject
@@ -29,16 +30,7 @@ Instead, each element should remain identifiable as a named orthotic interventio
 
 # 1. EasyCAD2 baseline
 
-EasyCAD2 provides:
-
-- a corrective element library organized by rearfoot/midfoot/forefoot/proprio/custom categories;
-- element positioning;
-- rotation;
-- independent X/Y/Z scaling;
-- integration relative to upper/lower orthosis surfaces (`SOMMA` / `INTERSEZIONE` semantics in the manual);
-- direct element vertex editing;
-- save-as-CUSTOM element preset;
-- global/per-element hardness and regional rigidity concepts.
+EasyCAD2 provides a corrective-element library, element positioning/rotation/XYZ scaling, integration relative to upper/lower orthosis surfaces, direct element-vertex editing and CUSTOM presets [EC2-MANUAL-1.1, pp. 31–35]. The 1.4 validation baseline also covers element transform/customization and material/rigidity behavior [EC2-VAL-PLAN-1.4, US14–US16/US22].
 
 BiomechE-CAD should preserve this flexibility while adding anatomical coordinates, evidence context and measurable placement/outcome.
 
@@ -136,55 +128,31 @@ A custom element remains a `CorrectiveElement`; customization does not erase its
 
 ## 4.1 Why it is first-class
 
-Evidence supports metatarsal additions as a meaningful pressure-redistribution strategy, but response depends strongly on placement, geometry, population and other orthosis features.
+Evidence supports metatarsal additions as a meaningful pressure-redistribution strategy, but response depends strongly on placement, geometry, population and other orthosis features [REF-CAD-011; REF-CAD-012; REF-CAD-013; REF-CAD-041; REF-CAD-042; REF-CAD-043; REF-CAD-044].
 
-Key evidence:
+### Systematic review/meta-analysis — central metatarsals
 
-### Systematic review/meta-analysis — mechanical metatarsalgia
-
-**Ruiz-Ramos et al., 2024**  
-PMID: `39399760`  
-DOI: `10.1016/j.jor.2023.12.006`
-
-Five studies, 158 participants. Customized/bespoke orthotic treatment reduced pressure beneath central 2nd–4th metatarsal heads overall.
+Customized/bespoke orthotic treatment reduced pressure beneath central 2nd–4th metatarsal heads overall in the systematic review/meta-analysis by Ruiz-Ramos et al. [REF-CAD-011, pp. 111–118].
 
 ### Diabetic neuropathy — placement study
 
-**Hastings et al., 2007**  
-PMID: `17257544`  
-DOI: `10.3113/FAI.2007.0015`
-
-In the studied population, metatarsal-pad placement about 6.1–10.6 mm proximal to the metatarsal-head line produced consistent pressure reduction; too-distal placement could increase pressure.
-
-This is evidence for **placement sensitivity**, not a universal default.
+In the Hastings et al. cohort, metatarsal-pad placement about 6.1–10.6 mm proximal to the metatarsal-head line consistently reduced pressure, while placement too distal could increase it [REF-CAD-013, pp. 84–88]. This supports **placement sensitivity**, not a universal default.
 
 ### Older adults with forefoot pain
 
-**Effects of metatarsal domes on plantar pressures in older people**, 2020  
-PMID: `32375847`
-
-All tested dome conditions reduced forefoot pressure; a proximal position about 5 mm proximal to the metatarsal heads offered the best balance in that cohort without adversely increasing proximal pressure.
+Different dome materials and positions were tested; placement 5 mm proximal to the metatarsal heads gave the best balance in the studied older cohort [REF-CAD-041, Abstract—Methods/Results/Conclusions].
 
 ### Metatarsalgia placement study
 
-**Optimum position of metatarsal pad in metatarsalgia for pressure relief**  
-PMID: `15973088`
-
-Placement immediately proximal to the metatarsal-head pressure peak reduced pressure more effectively than a more proximal location in that small cohort.
+Placement immediately proximal to the metatarsal-head pressure peak reduced pressure more effectively than a more proximal pad location in the small metatarsalgia cohort [REF-CAD-042, pp. 514–520].
 
 ### Healthy forefoot comparison
 
-**Comparison of the Forefoot Pressure-Relieving Effects of Foot Orthoses**, 2022  
-PMID: `36031787`
-
-Compared soft cushioning with different metatarsal-pad concepts and confirms that pressure effect depends on design/placement rather than merely presence of a pad.
+Comparison of cushioning and pad concepts further supports that pressure effect depends on design/placement rather than simply the presence of a pad [REF-CAD-043].
 
 ### Rheumatoid arthritis
 
-**Orthotic management of plantar pressure and pain in rheumatoid arthritis**  
-PMID: `10521640`
-
-Custom orthoses with bar/dome configurations reduced metatarsal pressure; in that study the custom moulded orthosis with a metatarsal dome was most effective for subjective pain.
+Custom orthoses with bar/dome configurations reduced metatarsal pressure; in that study the custom moulded orthosis with a metatarsal dome was most effective for subjective pain [REF-CAD-044, pp. 567–575].
 
 ---
 
@@ -245,7 +213,7 @@ MetatarsalElement
     REDISTRIBUTE_FOREFOOT
 ```
 
-Both millimetres and normalized anatomical location should be reportable.
+Both millimetres and normalized anatomical location should be reportable because published studies use both landmark-relative millimetres and normalized foot-length placement [REF-CAD-013; REF-CAD-014; REF-CAD-041].
 
 ---
 
@@ -282,21 +250,13 @@ This is more clinically useful than `x=154.33, y=31.4` in an arbitrary model fra
 
 # 7. Placement evidence must never silently become a global preset
 
-Published values such as:
-
-```text
-6–11 mm proximal to MTH line
-5 mm proximal to MTH heads
-76% of foot length
-```
-
-come from different populations, protocols, pad shapes and outcome definitions.
+Published values such as approximately 6–11 mm proximal to the MTH line [REF-CAD-013], 5 mm proximal to the MTH heads [REF-CAD-041], or 76% of foot length [REF-CAD-014] come from different populations, protocols, pad shapes and outcome definitions.
 
 BiomechE-CAD may expose them as **evidence-linked optional presets**, for example:
 
 ```text
 Preset source:
-  Hastings 2007
+  REF-CAD-013 / Hastings 2007
 Population:
   diabetes + peripheral neuropathy + prior forefoot ulcer
 Target:
@@ -330,13 +290,13 @@ ElementOutcomeAssessment
   fitScore [optional]
 ```
 
-This is necessary because literature shows both successful pressure relief and cases of increased or redistributed pressure.
+This is necessary because literature shows both successful pressure relief and redistributed/increased loading elsewhere [REF-CAD-004; REF-CAD-020; REF-CAD-029].
 
 ---
 
 # 9. Pressure redistribution must be visible
 
-Several studies show that offloading at the forefoot or metatarsal heads can increase load in the midfoot or other regions.
+Offloading at the forefoot/metatarsal heads can transfer load to the midfoot or neighbouring regions [REF-CAD-004; REF-CAD-020; REF-CAD-029; REF-CAD-030].
 
 Therefore the analysis UI should support:
 
@@ -377,17 +337,13 @@ MechanicalDose
   density/lattice [future]
 ```
 
-must be independently versioned when possible.
-
-This follows from evidence that both shape and material/stiffness can alter pressure/comfort outcomes.
+must be independently versioned when possible. Human studies show that both configuration and stiffness/material can alter regional pressure and subjective response [REF-CAD-009; REF-CAD-010; REF-CAD-016; REF-CAD-017].
 
 ---
 
 # 11. Comfort and adherence are legitimate secondary outcomes
 
-Pressure optimization can conflict with comfort.
-
-Examples in the literature include configurations that improve pressure redistribution while reducing subjective convenience/comfort.
+Pressure optimization can conflict with comfort. In diabetic neuropathy, increasingly complex support configurations improved pressure in some regions while walking-convenience scores generally worsened [REF-CAD-016, pp. 81–87]. Broader reviews also support storing comfort/fit/adherence as outcomes rather than assuming wear [REF-CAD-024; REF-CAD-025].
 
 BiomechE-CAD should therefore allow outcome attachment for:
 
@@ -454,11 +410,11 @@ Moving a pad by a known delta produces the same numeric delta in the stored plac
 
 ## CE-005 — target + adjacent analysis
 
-When a pressure dataset is compared, both target and neighbouring regions are evaluated.
+When a pressure dataset is compared, both target and neighbouring regions are evaluated [REF-CAD-020; REF-CAD-029].
 
 ## CE-006 — no universal “optimal” preset
 
-Evidence-derived placement presets preserve population/protocol/source metadata.
+Evidence-derived placement presets preserve population/protocol/source metadata [REF-CAD-013; REF-CAD-014; REF-CAD-041; REF-CAD-042].
 
 ## CE-007 — custom preset provenance
 
@@ -489,21 +445,7 @@ outcome metrics when available
 
 ---
 
-# 14. Key sources
-
-- Ruiz-Ramos M et al. PMID `39399760`; DOI `10.1016/j.jor.2023.12.006`.
-- Hastings MK et al. PMID `17257544`; DOI `10.3113/FAI.2007.0015`.
-- Optimum position of metatarsal pad in metatarsalgia. PMID `15973088`.
-- Effects of metatarsal domes on plantar pressures in older people. PMID `32375847`.
-- Comparison of the Forefoot Pressure-Relieving Effects of Foot Orthoses. PMID `36031787`.
-- Orthotic management of plantar pressure and pain in rheumatoid arthritis. PMID `10521640`.
-- The effects of insole configurations on forefoot plantar pressure and walking convenience in diabetic neuropathy. PMID `17046124`; DOI `10.1016/j.clinbiomech.2006.08.004`.
-- Footwear and insole design features for offloading the diabetic at risk foot. PMID `33532602`.
-- Foot orthoses for forefoot pressure reduction — systematic review 2026. PMID `41931962`; DOI `10.1016/j.foot.2026.102251`.
-
----
-
-# 15. Product conclusion
+# 14. Product conclusion
 
 The metatarsal/corrective-element editor should behave less like an object-placement tool and more like a **measurable prescription editor**:
 
@@ -517,3 +459,28 @@ WHAT happened at target and surrounding regions?
 ```
 
 This requirement remains independent of the future geometry kernel.
+
+---
+
+## Bibliography links
+
+[EC2-MANUAL-1.1]: ../BIBLIOGRAPHY.md#ec2-manual-11
+[EC2-VAL-PLAN-1.4]: ../BIBLIOGRAPHY.md#ec2-val-plan-14
+[REF-CAD-004]: ../BIBLIOGRAPHY.md#ref-cad-004
+[REF-CAD-009]: ../BIBLIOGRAPHY.md#ref-cad-009
+[REF-CAD-010]: ../BIBLIOGRAPHY.md#ref-cad-010
+[REF-CAD-011]: ../BIBLIOGRAPHY.md#ref-cad-011
+[REF-CAD-012]: ../BIBLIOGRAPHY.md#ref-cad-012
+[REF-CAD-013]: ../BIBLIOGRAPHY.md#ref-cad-013
+[REF-CAD-014]: ../BIBLIOGRAPHY.md#ref-cad-014
+[REF-CAD-016]: ../BIBLIOGRAPHY.md#ref-cad-016
+[REF-CAD-017]: ../BIBLIOGRAPHY.md#ref-cad-017
+[REF-CAD-020]: ../BIBLIOGRAPHY.md#ref-cad-020
+[REF-CAD-024]: ../BIBLIOGRAPHY.md#ref-cad-024
+[REF-CAD-025]: ../BIBLIOGRAPHY.md#ref-cad-025
+[REF-CAD-029]: ../BIBLIOGRAPHY.md#ref-cad-029
+[REF-CAD-030]: ../BIBLIOGRAPHY.md#ref-cad-030
+[REF-CAD-041]: ../BIBLIOGRAPHY.md#ref-cad-041
+[REF-CAD-042]: ../BIBLIOGRAPHY.md#ref-cad-042
+[REF-CAD-043]: ../BIBLIOGRAPHY.md#ref-cad-043
+[REF-CAD-044]: ../BIBLIOGRAPHY.md#ref-cad-044
