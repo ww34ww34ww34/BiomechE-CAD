@@ -5,7 +5,7 @@
 **Repository:** `ww34ww34ww34/BiomechE-CAD`  
 **Canonical branch:** `main`  
 **Canonical documentation:** Markdown under `docs/`  
-**Current checkpoint:** 2026-08-14 — EasyCAD2 manual + 1.4 validation consolidation completed and audited against the previous EasyCAD2 research.
+**Current checkpoint:** 2026-08-14 — EasyCAD2 manual + 1.4 validation consolidation completed; previous EasyCAD2 research audited for loss; CAD-engine capability baseline (NURBS/B-Rep/mesh/SubD/operations/qualification suite) added.
 
 ---
 
@@ -53,21 +53,25 @@ Preserve:
 - EasyCAD/easyCAD lineage findings;
 - vendor/market sources;
 - peer-reviewed foot-orthosis literature;
+- geometry/kernel primary documentation used for capability taxonomy;
 - competitor research as it is added.
 
 Useful scientific baseline currently includes Telfer 2013, Farhan 2021, Muir 2022, Cherni 2022, Xu 2019, Ruiz-Ramos 2024 and Allan 2023. Exact bibliographic details are in the consolidated specification and `research/SOURCES.md`.
+
+Geometry capability references currently include official Open CASCADE documentation for B-Rep/NURBS/modeling algorithms, CGAL Polygon Mesh Processing for mesh boolean/repair/remeshing, McNeel openNURBS for NURBS/3DM interchange/evaluation, and Pixar OpenSubdiv for subdivision-surface evaluation/tessellation. These references inform the capability taxonomy only; they do **not** freeze the implementation stack.
 
 ### Level B — engineering decisions
 
 Use `DECISIONS.md`. Source evidence must not silently become an engineering rule.
 
-### Level C — current specification
+### Level C — current specifications
 
-The current canonical functional baseline is:
+Current canonical baselines:
 
-- `spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md`
+- `spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md` — product/clinical functionality;
+- `spec/CAD_ENGINE_CAPABILITY_SPEC.md` — geometry/CAD-engine capability contract and kernel qualification criteria.
 
-Future modular specifications should supersede or refine parts of it without deleting historical source evidence.
+Future modular specifications should supersede or refine parts of them without deleting historical source evidence.
 
 ---
 
@@ -81,6 +85,7 @@ SOURCE / EASYCAD2-VALIDATION
 SOURCE / EASYCAD-LEGACY
 SOURCE / LITERATURE
 SOURCE / MARKET
+SOURCE / GEOMETRY-DOC
 ENGINEERING DECISION
 OPEN QUESTION
 R&D CANDIDATE
@@ -204,6 +209,44 @@ A stiffness/density/material modifier is a first-class region, not merely an ext
 
 GCODE/CNC post-processing belongs outside the core geometric model.
 
+### 5.6 Hybrid CAD representation
+
+The current capability baseline requires a hybrid engine rather than a single-representation dogma:
+
+```text
+analytic + B-spline/NURBS geometry
+        +
+B-Rep topology
+        +
+polygon mesh for scan/sculpt/render/manufacturing
+        +
+optional SubD for selected freeform/render workflows
+```
+
+NURBS alone are insufficient because join/trim/topology/solid semantics and mesh/scan workflows are required. Mesh-only is insufficient because clinical parameters, exact curves/surfaces, offsets, thickness and robust feature history should not collapse immediately to irreversible triangles. SubD is useful but is not the source-of-truth of the first orthosis model.
+
+### 5.7 Kernel choice is capability-driven
+
+No geometry library is frozen yet. Candidate stacks must be scored against `CAD_ENGINE_CAPABILITY_SPEC.md` and its qualification suite, including:
+
+```text
+NURBS
+trimmed surfaces
+B-Rep
+join/sew
+boolean robustness
+offset/thicken
+loft/sweep/fill
+mesh repair/remesh
+scan fitting
+tessellation
+tolerance model
+threading
+license
+portability/WASM/server feasibility
+dependency weight
+```
+
 ---
 
 ## 6. Current baseline decisions
@@ -223,13 +266,15 @@ Core direction:
 9. Exports bind to immutable project revisions.
 10. Every P0 feature needs acceptance criteria/regression testing.
 
+**Not yet frozen:** OCCT, CGAL, openNURBS, OpenSubdiv or any other geometry stack. They are candidates/references, not decisions.
+
 ---
 
 ## 7. Audit status — previous EasyCAD2 research
 
 **AUDIT COMPLETE for the current consolidation.**
 
-The earlier EasyCAD2 feature inventory was checked against the new unified specification.
+The earlier EasyCAD2 feature inventory was checked against the unified specification.
 
 ### Preserved
 
@@ -288,7 +333,7 @@ The EasyCAD2 manual contains a copyright/reproduction restriction. Therefore:
 
 ---
 
-## 9. Current P0 functional envelope
+## 9. Current P0 functional + CAD envelope
 
 ### Workflow / persistence
 
@@ -309,14 +354,27 @@ The EasyCAD2 manual contains a copyright/reproduction restriction. Therefore:
 - heel/1st/5th landmarks;
 - source provenance.
 
-### DIMA
+### DIMA / curves
 
 - template library;
-- L/W;
-- outline edit;
+- closed editable outline;
+- line/arc/polyline/B-spline/NURBS curve support;
+- L/W constraints;
 - custom template.
 
-### Parametric modification
+### Exact/parametric geometry
+
+- B-spline/NURBS curves and surfaces;
+- trimmed surfaces;
+- B-Rep vertex/edge/wire/face/shell/solid;
+- loft/sweep/extrude/ruled/fill;
+- join/sew;
+- trim/split/intersection;
+- offset/thicken/variable thickness;
+- boolean union/difference/intersection;
+- closest point/projection/section.
+
+### Parametric orthosis modification
 
 - thickness/flatten;
 - heel/wrap/camber;
@@ -329,9 +387,20 @@ The EasyCAD2 manual contains a copyright/reproduction restriction. Therefore:
 ### Elements / sculpt
 
 - heel, arch, metatarsal and local offload/support elements;
+- primitive/feature integration;
 - local raise/lower;
 - ROI deform;
 - deform toward scan.
+
+### Mesh
+
+- repair;
+- remesh;
+- smooth;
+- normals/orientation;
+- manifold/self-intersection validation;
+- clipping/slicing;
+- controlled tessellation.
 
 ### QC
 
@@ -341,7 +410,8 @@ The EasyCAD2 manual contains a copyright/reproduction restriction. Therefore:
 - wedge angle;
 - thickness map;
 - minimum thickness;
-- manifold/self-intersection/degenerate checks.
+- manifold/self-intersection/degenerate checks;
+- watertight manufacturing output.
 
 ### Production
 
@@ -362,19 +432,21 @@ The EasyCAD2 manual contains a copyright/reproduction restriction. Therefore:
 6. Mathematical definition of medial/lateral arch operators.
 7. Mathematical definition of rearfoot/forefoot wedge and reference axis.
 8. Local ROI deformation/falloff model.
-9. Geometry kernel and mesh representation choice.
+9. Exact geometry representation strategy for the authoritative orthosis surface/body.
 10. Thickness/offset strategy and robustness.
 11. Boolean/element integration strategy.
 12. Manufacturing closure semantics.
 13. Material/stiffness physical property model.
 14. Exact regression/golden geometry strategy.
 15. API boundary between BiomechE and CAD.
+16. Candidate kernel qualification against `KQ-001` … `KQ-015` from the capability specification.
+17. Whether the final stack actually needs a full B-Rep kernel such as OCCT or can satisfy all P0 requirements with a lighter composition.
 
 ---
 
 ## 11. Exact restart point
 
-**Next specification work:**
+**Next specification work remains:**
 
 ```text
 1. docs/spec/01_coordinate_registration.md
@@ -385,10 +457,11 @@ The EasyCAD2 manual contains a copyright/reproduction restriction. Therefore:
    - medial arch
    - lateral arch
    - rearfoot/forefoot wedge
-5. geometry-kernel evaluation against those requirements
+5. instantiate CAD Kernel Qualification Suite fixtures
+6. score candidate geometry stacks against P0/P1/P2 capabilities
 ```
 
-Do not start implementation by choosing a mesh library in isolation. The operator semantics, units, coordinate frames, persistence requirements and regression invariants should constrain the kernel choice.
+Do not start implementation by choosing a mesh or CAD library in isolation. The capability baseline is now explicit; implementation candidates must satisfy it rather than redefine it.
 
 After the common geometry baseline, continue the market audit using the EasyCAD2-derived feature matrix as a fixed comparison frame, starting with **ParoContour / DIERS**, then FitFoot360, Rodin4D/Neo, Vorum/Canfit and other relevant systems.
 
@@ -404,8 +477,12 @@ After the common geometry baseline, continue the market audit using the EasyCAD2
 - [x] 25 validation user stories integrated.
 - [x] Previous EasyCAD2 research audited for loss/coverage.
 - [x] Unified functional specification created.
-- [x] Specification committed to `docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md`.
-- [x] Dynamic handover initialized.
+- [x] Functional specification committed to `docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md`.
+- [x] CAD engine capability specification created.
+- [x] NURBS/B-spline, B-Rep, primitives, join/sew, trim/split, booleans, offset/thicken, mesh, SubD and scan requirements classified P0/P1/P2.
+- [x] Hybrid exact/B-Rep/mesh/SubD role documented.
+- [x] CAD Kernel Qualification Suite KQ-001…KQ-015 outlined.
+- [x] Dynamic handover initialized and updated.
 - [x] BiomechE documentation method adopted as the project documentation model.
 
 ---
@@ -422,11 +499,15 @@ After the common geometry baseline, continue the market audit using the EasyCAD2
 - [ ] Create Project Schema v0.
 - [ ] Create geometry operation model.
 - [ ] Specify heel/arch/wedge mathematics.
-- [ ] Evaluate geometry kernels.
+- [ ] Define variable thickness semantics.
+- [ ] Create actual CAD Kernel Qualification fixtures/tests.
+- [ ] Score OCCT and lighter NURBS/mesh compositions against the capability matrix.
+- [ ] Decide whether B-Rep is P0 implementation or only an interface/capability requirement.
+- [ ] Evaluate web/WASM/server portability for finalists.
 - [ ] Define material/stiffness physical model.
 - [ ] Define manufacturing/DFM profiles.
 - [ ] Define validation/golden-mesh framework.
-- [ ] Complete scientific reference ledger.
+- [ ] Complete scientific/reference ledger.
 - [ ] Add regulatory/privacy analysis.
 - [ ] Re-audit this handover after every substantial new research batch.
 
