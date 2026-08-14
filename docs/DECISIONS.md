@@ -214,7 +214,7 @@ Guideline thresholds or research targets are stored with population/context, pro
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-BiomechE-CAD will use versioned `IndicationProfile` objects to determine which CAD features, metrics, targets and warnings are meaningful in a particular population/context.
+BiomechE-CAD uses versioned `IndicationProfile` objects to determine which CAD features, metrics, targets and warnings are meaningful in a particular population/context.
 
 Initial P0 profile set:
 
@@ -266,6 +266,52 @@ Canonical specification: `docs/spec/14_prom_comfort_adherence.md`.
 
 ---
 
+## D-CAD-020 — Material identity, manufacturing process, final-part properties and service state are separate provenance layers
+
+**Status:** BASELINE  
+**Date:** 2026-08-14
+
+BiomechE-CAD SHALL not treat a supplier material label or a nominal hardness as the complete physical specification of an orthosis.
+
+The canonical chain is:
+
+```text
+MaterialDefinition / feedstock
+        ↓
+MaterialRegion / MaterialStack / structural response
+        ↓
+ManufacturingProfile + process run + post-process
+        ↓
+Physical artifact
+        ↓
+Measured manufactured geometry/properties + QC
+        ↓
+Service-aged state
+```
+
+Rules:
+
+1. supplier/datasheet properties are labelled nominal and remain distinct from measured final-part properties;
+2. hardness values require scale and test method; no undocumented Shore-to-modulus conversion is allowed;
+3. density, thickness, stack order, interfaces and post-processing are explicit;
+4. base-material properties and effective lattice/infill properties are separate;
+5. heat/thermoforming/curing/lamination that can change properties is part of manufacturing provenance;
+6. feedstock/blank lot, machine/process profile and qualification-critical settings are versioned where available/required;
+7. CAD nominal geometry and manufactured measured geometry are separate data classes;
+8. export success does not imply manufactured-part acceptance;
+9. profile-defined blocking QC failures prevent validated-production status;
+10. initial and service-aged material states are separate; no universal lifetime/replacement rule is hardcoded without qualification evidence;
+11. physical copies made from the same CAD revision can remain distinct by run, lot and artifact identity.
+
+Canonical specifications:
+
+- `docs/spec/08_material_stiffness.md`
+- `docs/spec/10_manufacturing.md`
+
+Evidence batch: `docs/research/FUNCTIONAL_EVIDENCE_BATCH_08_MATERIAL_MANUFACTURING.md`.
+
+---
+
 ## OPEN DECISIONS
 
 Architecture / implementation decisions intentionally deferred:
@@ -282,12 +328,11 @@ Architecture / implementation decisions intentionally deferred:
 - whether Manifold or another solid/mesh library is needed;
 - whether STEP/.3dm interoperability becomes a product requirement.
 
-Functional/scientific work still active:
+Functional/specification work still active:
 
-- material durability/manufacturing evidence;
-- consolidated P0/P1 functional-spec promotion;
+- promote mature Batches 03–08 into consolidated P0/P1 functional spec;
 - Project Schema v0;
 - kernel-independent acceptance suite;
-- final profile subtyping/version policy where evidence warrants finer distinctions;
 - final built-in PROM set after population fit + licensing review;
-- shear/COP depth after target acquisition hardware is fixed.
+- shear/COP depth after target acquisition hardware is fixed;
+- product-specific manufacturing qualification/tolerances and actual material/process library entries.
