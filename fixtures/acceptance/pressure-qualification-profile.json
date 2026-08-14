@@ -1,0 +1,140 @@
+{
+  "schemaId": "biomeche-cad-project",
+  "schemaVersion": "0.1",
+  "projectId": "019c-a015-7200-8000-000000000001",
+  "projectCreatedAt": "2026-08-15T01:15:00+02:00",
+  "projectUpdatedAt": "2026-08-15T01:15:00+02:00",
+  "projectStatus": "ACTIVE",
+  "patientLink": {
+    "projectPatientId": "019c-a015-7200-8000-000000000002",
+    "externalIdentifiers": [],
+    "privacyClass": "PSEUDONYMIZED"
+  },
+  "case": {
+    "caseId": "019c-a015-7200-8000-000000000003",
+    "externalIdentifiers": [],
+    "openedAt": "2026-08-15T01:15:00+02:00",
+    "clinicianRefs": [],
+    "attachedProfiles": [],
+    "sourceAcquisitionIds": [],
+    "notes": []
+  },
+  "orthosisProjects": [],
+  "definitions": {
+    "baseTemplates": [],
+    "indicationProfiles": [],
+    "presetDefinitions": [],
+    "materialDefinitions": [],
+    "promInstrumentDefinitions": [],
+    "manufacturingProfiles": [],
+    "algorithmDefinitions": []
+  },
+  "assets": [],
+  "frameDefinitions": [],
+  "acquisitions": [],
+  "registrations": [],
+  "landmarkSets": [],
+  "roiDefinitions": [],
+  "designRevisions": [],
+  "outcomeTargets": [],
+  "outcomeMeasurements": [],
+  "outcomeComparisons": [],
+  "promMeasurements": [],
+  "comfortAssessments": [],
+  "fitUsabilityAssessments": [],
+  "satisfactionAssessments": [],
+  "adherenceMeasurements": [],
+  "patientExperienceBundles": [],
+  "materialLots": [],
+  "materialRegions": [],
+  "materialStacks": [],
+  "structuralMaterialRegions": [],
+  "mechanicalPropertyMeasurements": [],
+  "postProcessMaterialStates": [],
+  "durabilityTests": [],
+  "manufacturingRuns": [],
+  "manufacturingArtifacts": [],
+  "physicalOrthoses": [],
+  "qcRequirements": [],
+  "qcMeasurements": [],
+  "serviceStates": [],
+  "exportArtifacts": [],
+  "reportArtifacts": [],
+  "provenanceRecords": [],
+  "auditEvents": [],
+  "migrationHistory": [],
+  "packageValidation": {
+    "state": "VALID",
+    "validatedAt": "2026-08-15T01:15:00+02:00",
+    "validatorVersion": "fixture-authoring/0.3",
+    "errors": [],
+    "warnings": []
+  },
+  "extensions": {
+    "pressureAcquisitionQualificationProfiles": [
+      {
+        "profileId": "PAQ-FIXTURE-STATIC-PLATFORM-001",
+        "version": "1.0.0-fixture",
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "6d7117a4165188cfb47e829e4b7f1130b78f745508bfad015d9e27b832142a9c"
+        },
+        "status": "QUALIFIED_FIXTURE",
+        "intendedUse": "STATIC_LOAD",
+        "supportedExamTypes": ["STATIC_LOAD"],
+        "supportedOutcomeFamilies": ["MEAN_PRESSURE", "PEAK_PRESSURE", "TOTAL_FORCE"],
+        "deviceDefinition": {
+          "manufacturer": "Fixture Manufacturer",
+          "model": "Synthetic Platform A",
+          "hardwareRevision": "A1",
+          "unitId": "SYN-0001",
+          "sensorTechnology": "RESISTIVE_MATRIX"
+        },
+        "calibrationProtocol": {
+          "calibrationId": "CAL-SYN-0001-20260815",
+          "method": "REFERENCE_LOAD_SERIES",
+          "referenceInstrument": "SYNTHETIC_REFERENCE_LOAD",
+          "calibratedAt": "2026-08-15T01:00:00+02:00",
+          "state": "VALID"
+        },
+        "protocolQualification": {
+          "protocolId": "STATIC_LOAD_FIXTURE_V1",
+          "activity": "STATIC_LOAD",
+          "minimumAcceptedSteps": null,
+          "analysisWindowSeconds": 5.0,
+          "qualityPolicy": "STATIC_FIXTURE_POLICY_V1"
+        },
+        "crossDevicePolicy": {
+          "default": "NOT_COMPARABLE",
+          "validatedPairs": []
+        },
+        "acceptanceRules": [
+          {
+            "metric": "FORCE_SCALE_ERROR",
+            "limitState": "OPEN_FIXTURE",
+            "numericLimit": null,
+            "severity": "BLOCKING",
+            "rationale": "Fixture proves that OPEN is not silently converted to a number"
+          }
+        ],
+        "knownLimitations": ["SYNTHETIC_NONCLINICAL_FIXTURE"],
+        "evidenceRefs": ["REF-CAD-109", "REF-CAD-110", "REF-CAD-108", "REF-CAD-036"]
+      }
+    ],
+    "acceptance": {
+      "fixtureId": "pressure-qualification-profile",
+      "testIds": ["PAQ-001", "PAQ-002", "PAQ-003", "PAQ-005", "PAQ-010", "PAQ-011", "PAQ-016", "PAQ-020"],
+      "expected": {
+        "profileId": "PAQ-FIXTURE-STATIC-PLATFORM-001",
+        "profileVersion": "1.0.0-fixture",
+        "intendedUse": "STATIC_LOAD",
+        "unitId": "SYN-0001",
+        "calibrationId": "CAL-SYN-0001-20260815",
+        "protocolId": "STATIC_LOAD_FIXTURE_V1",
+        "minimumAcceptedSteps": null,
+        "crossDeviceDefault": "NOT_COMPARABLE",
+        "openLimitMustRemainNull": true
+      }
+    }
+  }
+}
