@@ -3,7 +3,8 @@
 **Status:** ACTIVE RESEARCH BASELINE — batch 1  
 **Date:** 2026-08-14  
 **Scope:** define *what BiomechE-CAD must do and why* before resuming geometry-kernel selection.  
-**Architecture status:** deliberately deferred. No row in this document requires OpenSubdiv, openNURBS, Manifold, OCCT or any other specific geometry library.
+**Architecture status:** deliberately deferred. No row in this document requires OpenSubdiv, openNURBS, Manifold, OCCT or any other specific geometry library.  
+**Bibliography:** `docs/BIBLIOGRAPHY.md` is the canonical authority for source metadata and locators.
 
 ---
 
@@ -15,7 +16,7 @@ BiomechE-CAD is being specified as a vertical CAD for custom foot orthoses in wh
 2. **Scientific / clinical / biomechanical literature** — establishes why a feature is useful, what quantities should remain explicit, what outcomes can be measured, and where evidence is uncertain.
 3. **BiomechE-CAD product decisions** — establish traceability, versioning, quantitative data handling and acceptance criteria beyond EasyCAD2.
 
-The work order is now:
+The work order is:
 
 ```text
 FUNCTIONALITY
@@ -34,6 +35,10 @@ ARCHITECTURE / LIBRARY SELECTION LATER
 The central rule is:
 
 > Do not promote a geometric implementation mechanism into a product requirement. Define the clinical/design operation, its parameters, inputs, outputs and measurable effects first.
+
+A second documentation rule is now mandatory:
+
+> Any externally-derived concept should cite a stable source ID from `docs/BIBLIOGRAPHY.md` plus the most precise truthful locator available.
 
 ---
 
@@ -63,27 +68,27 @@ This matrix does **not** treat all systematic reviews as automatically high cert
 
 # 2. Executive functional matrix
 
-| ID | Feature | EasyCAD2 evidence | Scientific purpose / evidence | Confidence | BiomechE-CAD requirement | Priority |
+| ID | Feature | EasyCAD2 evidence | Scientific evidence IDs | Confidence | BiomechE-CAD requirement | Priority |
 |---|---|---|---|---|---|---|
-| FSE-001 | Scan3D acquisition + provenance | US9: STL, heel/1st/5th landmarks, Align | 3D scanning is promising/faster but accuracy/reliability and protocols vary; weight-bearing condition can materially change resulting orthotic design | MODERATE for capture; protocol-sensitive | Store source, device, units, side, condition, landmarks, transforms and quality metadata | **P0** |
-| FSE-002 | Quantitative plantar-pressure layer | US8: `.bpe/.csv`, X/Y/rotation/scale | Pressure-informed design improves targeted offloading versus shape-only in defined diabetic-foot studies; pressure is also used in current guidelines to verify offloading | HIGH FOR DIABETIC OFFLOADING; broader use MODERATE | Pressure remains numerical data, registered to anatomy, queryable by ROI; never reduce authority to RGB | **P0** |
-| FSE-003 | Pressure-guided design / ROI target | Partial EC2 support via pressure acquisition and deformation workflow | Shape+pressure custom insoles achieved greater high-pressure-region relief than shape-only; systematic review supports pressure-informed design and iterative optimization | MODERATE-HIGH in diabetic/offloading context | `OutcomeTarget` / ROI / metric / baseline / target / protocol / evidence source | **P0 data model; P1 guided workflow** |
-| FSE-004 | Template / DIMA / patient-specific morphology | US7: template, shoe size, L/W; US9 scan | Custom shape is clinically relevant, but response is not automatically superior in every population; shape and capture condition must remain explicit | MODERATE / context-dependent | Editable patient-specific outline, dimensions and morphology; preserve source and design revision | **P0** |
-| FSE-005 | Medial/lateral arch support | US12: start/center/end, height/depth/curvature | Arch profiles can redistribute plantar load; reviews show heterogeneous effects depending on population and outcome | MODERATE for pressure redistribution; MIXED for universal clinical benefit | Arch is a named prescription with explicit geometry parameters and side/region, not baked anonymous geometry | **P0** |
-| FSE-006 | Rearfoot posting / wedge | US13: rearfoot wedge in degrees, full/partial | Controlled dose-response study found significant approximately linear changes in several rearfoot/knee biomechanical variables as rearfoot post angle varied | MODERATE for biomechanical dose response | Preserve signed angle in degrees, reference axis, medial/lateral sense, region, extent and algorithm version | **P0** |
-| FSE-007 | Forefoot posting / wedge | US13: forefoot wedge in degrees, full/partial | Orthotic modifications can alter plantar pressure/COP, but feature-specific evidence is less mature than rearfoot posting | EMERGING/MODERATE | Preserve angle, pivot/reference, side, full/partial extent and measured output angle | **P0 by EC2 parity; continue evidence audit** |
-| FSE-008 | Heel cup / heel wrap / camber | US11: heel/wrap/camber | Heel-cup/arch combinations redistribute heel pressure; softer heel plugs can reduce hindfoot pressure in plantar-fasciitis patients; design-combination modeling supports heel-cup height as a meaningful factor | MODERATE for pressure redistribution | Named heel containment/support operation with height/depth/shape/transition parameters; no universal therapeutic claim | **P0** |
-| FSE-009 | Metatarsal bar / dome / pad | US14 element library; metatarsal family documented | Meta-analysis supports reduction of central metatarsal pressure with customized orthotic treatment; 2026 review reports consistent forefoot-load reductions with metatarsal pads/soft contoured orthoses | MODERATE-HIGH for pressure redistribution | Named anatomical element, position relative to metatarsal region, dimensions, height, rotation, side, intended support/offload goal | **P0** |
-| FSE-010 | Local relief / aperture / offloading zone | EC2 elements + sculpt/ROI deformation | Offloading can reduce ROI pressure but may transfer load to surrounding regions; reviews support apertures/metatarsal modifications in defined diabetic-foot contexts | MODERATE | Relief is an anatomical ROI operation; software must inspect target **and surrounding regions** rather than optimize a single cell blindly | **P0** |
-| FSE-011 | Global material / stiffness | US22: overall/per-element hardness; US16 rigidity regions | Human studies show orthosis stiffness changes plantar pressure and some kinematics; effects vary by region and population | MODERATE | Keep material/mechanical properties separate from geometry; store actual or profile-derived physical properties where known | **P0 semantics; P1 calibration/export depth** |
-| FSE-012 | Regional stiffness / density / metamaterial | US16 closed modifier region; five-level hardness workflow | Pressure-derived personalized metamaterials, graded stiffness and 2026 gradient/porous/lattice studies show strong technical promise but limited clinical maturity | EMERGING | First-class `MaterialRegion` / `StiffnessRegion`; do not force property into geometric height alone | **P0 data capability; P1/P2 manufacturing realization** |
-| FSE-013 | Custom element editor + sculpt/local deformation | US15 custom vertex element; US17 sculpt | Independent therapeutic evidence applies to the resulting clinical feature, not to “sculpt” as a CAD command | DOMAIN-ONLY | Provide precise, undoable local editing; every edit should retain ROI, magnitude and provenance when practical | **P0** |
-| FSE-014 | Scan-conform / global deformation | US18: conform mesh to scan | Scan literature supports patient-specific morphology but also shows protocol variability; no evidence supports blind conformance as universally optimal treatment | MIXED / DOMAIN-ONLY | Conform is a controlled design operation with strength/ROI/source scan and residual/deviation QC, not an automatic truth operation | **P0** |
-| FSE-015 | Geometric QC: section, height, thickness, angle | US19/20/24 | Required to verify that a numerical prescription (e.g. wedge angle) and manufacturing constraints are actually present in the produced design | DOMAIN + manufacturing safety | Sections, angle verification, height, thickness map, minimum-thickness diagnostics, before/after metrics | **P0** |
-| FSE-016 | Production artifact + manufacturing profile | US21 STL/GCODE; printer/CNC profiles | 3D-printed orthoses show promising clinical/comfort results, but manufacturing methods/materials and evaluation remain heterogeneous | MODERATE for feasibility; heterogeneous | Export must bind geometry revision + material/manufacturing profile + validation state + hash | **P0 STL/project; P1 3MF/advanced manufacturing** |
-| FSE-017 | Post-production pressure verification / iterative optimization | Not explicit as a closed loop in EasyCAD2 validation | Repeated in-shoe pressure measurement and modification can materially improve and preserve offloading; IWGDF provides explicit pressure-relief criteria for high-risk diabetes use cases | HIGH FOR SPECIFIC DIABETIC-FOOT USE CASE | Native loop: baseline → design → manufacture → measure → compare → revise. Population/protocol-specific targets, never universal hardcoded thresholds | **P1 workflow; P0 schema hooks strongly recommended** |
-| FSE-018 | Patient-reported outcome, comfort, fit, adherence | EC2 PDF report but not full PROM workflow | Orthotic effectiveness depends on actual wear; comfort/fit are frequent adherence barriers; modern 3D-printed orthosis reviews include comfort, fit and satisfaction among meaningful outcomes | MODERATE | Link PROM/comfort/fit/adherence to exact CAD/manufacturing revision | **P1; schema should allow from P0** |
-| FSE-019 | Traceable prescription → design → outcome | EC2 history/undo/report partially supports lineage | Literature repeatedly shows heterogeneous/inter-individual responses; quantitative iteration requires knowing what design generated what outcome | PRODUCT-CRITICAL | Preserve prescription parameters, source evidence, operations, manufacturing revision and outcome datasets | **P0** |
+| FSE-001 | Scan3D acquisition + provenance | [EC2-VAL-PLAN-1.4, US9]; [EC2-MANUAL-1.1, pp. 21–23] | [REF-CAD-002; REF-CAD-003] | MODERATE for capture; protocol-sensitive | Store source, device, units, side, condition, landmarks, transforms and quality metadata | **P0** |
+| FSE-002 | Quantitative plantar-pressure layer | [EC2-VAL-PLAN-1.4, US8]; [EC2-MANUAL-1.1, pp. 19–20] | [REF-CAD-004; REF-CAD-005; REF-CAD-007; GUIDE-IWGDF-2023] | HIGH FOR DIABETIC OFFLOADING; broader use MODERATE | Pressure remains numerical data, registered to anatomy, queryable by ROI; never reduce authority to RGB | **P0** |
+| FSE-003 | Pressure-guided design / ROI target | EC2 provides pressure acquisition/registration but not a complete closed loop | [REF-CAD-004; REF-CAD-005; REF-CAD-007; GUIDE-IWGDF-2023] | MODERATE-HIGH in diabetic/offloading context | `OutcomeTarget` / ROI / metric / baseline / target / protocol / evidence source | **P0 data model; P1 guided workflow** |
+| FSE-004 | Template / DIMA / patient-specific morphology | [EC2-VAL-PLAN-1.4, US7/US9]; [EC2-MANUAL-1.1, pp. 15–18, 21–23] | [REF-CAD-002; REF-CAD-003] | MODERATE / context-dependent | Editable patient-specific outline, dimensions and morphology; preserve source and design revision | **P0** |
+| FSE-005 | Medial/lateral arch support | [EC2-VAL-PLAN-1.4, US12]; [EC2-MANUAL-1.1, pp. 24–30] | [REF-CAD-007; REF-CAD-027; REF-CAD-028] | MODERATE for pressure redistribution; MIXED for universal clinical benefit | Arch is a named prescription with explicit geometry parameters and side/region, not baked anonymous geometry | **P0** |
+| FSE-006 | Rearfoot posting / wedge | [EC2-VAL-PLAN-1.4, US13] | [REF-CAD-001] | MODERATE for biomechanical dose response | Preserve signed angle in degrees, reference axis, medial/lateral sense, region, extent and algorithm version | **P0** |
+| FSE-007 | Forefoot posting / wedge | [EC2-VAL-PLAN-1.4, US13] | [REF-CAD-015; REF-CAD-016] | EMERGING/MODERATE | Preserve angle, pivot/reference, side, full/partial extent and measured output angle | **P0 by EC2 parity; continue evidence audit** |
+| FSE-008 | Heel cup / heel wrap / camber | [EC2-VAL-PLAN-1.4, US11]; [EC2-MANUAL-1.1, pp. 24–30] | [REF-CAD-018; REF-CAD-019] | MODERATE for pressure redistribution | Named heel containment/support operation with height/depth/shape/transition parameters; no universal therapeutic claim | **P0** |
+| FSE-009 | Metatarsal bar / dome / pad | [EC2-MANUAL-1.1, pp. 31–35] | [REF-CAD-011; REF-CAD-012; REF-CAD-013; REF-CAD-014; REF-CAD-041; REF-CAD-042; REF-CAD-043; REF-CAD-044] | MODERATE-HIGH for pressure redistribution | Named anatomical element, landmark-relative placement, dimensions, height, rotation, side and intended support/offload goal | **P0** |
+| FSE-010 | Local relief / aperture / offloading zone | EC2 elements + sculpt/ROI deformation [EC2-MANUAL-1.1, pp. 31–40] | [REF-CAD-007; REF-CAD-020; REF-CAD-029; REF-CAD-030; REF-CAD-031; REF-CAD-032] | MODERATE | Relief is an anatomical ROI operation; inspect target **and surrounding regions** | **P0** |
+| FSE-011 | Global material / stiffness | [EC2-VAL-PLAN-1.4, US16/US22] | [REF-CAD-009; REF-CAD-010; REF-CAD-016; REF-CAD-017] | MODERATE | Keep material/mechanical properties separate from geometry; store actual or profile-derived properties where known | **P0 semantics; P1 calibration/export depth** |
+| FSE-012 | Regional stiffness / density / metamaterial | [EC2-VAL-PLAN-1.4, US16] | [REF-CAD-008; REF-CAD-021; REF-CAD-022; REF-CAD-023] | EMERGING | First-class `MaterialRegion` / `StiffnessRegion`; do not force property into geometric height alone | **P0 data capability; P1/P2 manufacturing realization** |
+| FSE-013 | Custom element editor + sculpt/local deformation | [EC2-VAL-PLAN-1.4, US15/US17]; [EC2-MANUAL-1.1, pp. 31–40] | DOMAIN-ONLY | DOMAIN-ONLY | Precise, undoable local editing; retain ROI, magnitude and provenance where practical | **P0** |
+| FSE-014 | Scan-conform / global deformation | [EC2-VAL-PLAN-1.4, US18]; [EC2-MANUAL-1.1, pp. 36–40] | [REF-CAD-002; REF-CAD-003] | MIXED / DOMAIN-ONLY | Conform is a controlled operation with strength/ROI/source scan and residual/deviation QC, not an automatic truth operation | **P0** |
+| FSE-015 | Geometric QC: section, height, thickness, angle | [EC2-VAL-PLAN-1.4, US19/US20/US24]; [EC2-MANUAL-1.1, pp. 42–44, 52–53] | DOMAIN + manufacturing safety | DOMAIN | Sections, angle verification, height, thickness map, minimum-thickness diagnostics, before/after metrics | **P0** |
+| FSE-016 | Production artifact + manufacturing profile | [EC2-VAL-PLAN-1.4, US5/US21]; [EC2-MANUAL-1.1, pp. 44–50] | [REF-CAD-024] | MODERATE for feasibility; heterogeneous | Export binds geometry revision + material/manufacturing profile + validation state + hash | **P0 STL/project; P1 3MF/advanced manufacturing** |
+| FSE-017 | Post-production pressure verification / iterative optimization | Not explicit as a closed loop in EasyCAD2 validation | [REF-CAD-004; REF-CAD-005; REF-CAD-037; REF-CAD-038; GUIDE-IWGDF-2023] | HIGH FOR SPECIFIC DIABETIC-FOOT USE CASE | Native loop: baseline → design → manufacture → measure → compare → revise; context-specific targets only | **P1 workflow; P0 schema hooks strongly recommended** |
+| FSE-018 | Patient-reported outcome, comfort, fit, adherence | EC2 PDF report but not full PROM workflow | [REF-CAD-016; REF-CAD-024; REF-CAD-025; REF-CAD-026] | MODERATE | Link PROM/comfort/fit/adherence to exact CAD/manufacturing revision | **P1; schema should allow from P0** |
+| FSE-019 | Traceable prescription → design → outcome | EC2 history/undo/report partially supports lineage | [REF-CAD-004; REF-CAD-005; REF-CAD-020; REF-CAD-024] | PRODUCT-CRITICAL | Preserve prescription parameters, source evidence, operations, manufacturing revision and outcome datasets | **P0** |
 
 ---
 
@@ -93,27 +98,11 @@ This matrix does **not** treat all systematic reviews as automatically high cert
 
 ### EasyCAD2 baseline
 
-EasyCAD2 validation includes STL scan loading, heel/1st/5th landmarks and alignment.
+EasyCAD2 validation includes STL scan loading, heel/1st/5th landmarks and alignment [EC2-VAL-PLAN-1.4, US9; EC2-MANUAL-1.1, pp. 21–23].
 
 ### Literature
 
-**Farhan et al., 2021 — systematic review**  
-PMID `33413570`; DOI `10.1186/s13047-020-00442-8`.
-
-- Six comparative studies.
-- 3D scanning appeared faster than traditional casting, but reliability and accuracy were variable.
-- Evidence quality was low to moderate.
-
-**Allan et al., 2023 — scoping review**  
-PMID `37106385`; DOI `10.1186/s13047-023-00617-z`.
-
-- 78 studies showed large variation in scanner specification, markers, weight-bearing, number of scans, measurements and analysis.
-- The paper proposed a 16-item reporting checklist.
-
-**Does Scanner Choice Matter for the Design of Foot Orthosis?, 2025**  
-PMID `39943509`.
-
-- Scanner-output quality varied, but weight-bearing condition was more influential on medial arch height and heel width of resulting designs than scanner choice in the tested workflow.
+A systematic review found 3D scanning promising and often faster than traditional casting, while reliability/accuracy varied and evidence quality was low to moderate [REF-CAD-002]. A later scoping review documented wide variation in scanner specifications, markers, weight-bearing conditions, number of scans, measurements and analysis and proposed a reporting checklist [REF-CAD-003].
 
 ### Functional consequence
 
@@ -135,7 +124,7 @@ ScanAcquisition
   qualityFlags
 ```
 
-**No automatic assumption:** a higher-resolution scan is not automatically a clinically better prescription source.
+**No automatic assumption:** a higher-resolution scan is automatically a clinically better prescription source.
 
 ---
 
@@ -143,29 +132,13 @@ ScanAcquisition
 
 ### EasyCAD2 baseline
 
-Pressure `.bpe/.csv` can be loaded and registered with translation/rotation/scale.
+Pressure `.bpe/.csv` can be loaded and registered with translation/rotation/scale [EC2-MANUAL-1.1, pp. 19–20; EC2-VAL-PLAN-1.4, US8].
 
 ### Strong external evidence for targeted offloading contexts
 
-**Owings et al., 2008 — shape + pressure vs shape-only custom insoles**  
-PMID `18252899`; DOI `10.2337/dc07-2288`.
+In the Owings et al. study, pressure-informed custom insoles provided better offloading in 64/70 elevated-pressure metatarsal regions; mean peak pressure and FTI were reduced relative to shape-only comparators, with additional load transfer to midfoot [REF-CAD-004, pp. 839–844; Abstract—Results].
 
-In 20 participants with diabetes and 70 elevated-pressure metatarsal regions, pressure-informed insoles provided better offloading in 64/70 regions. Mean peak pressure was lower by 32% and 21% relative to the two shape-only insole conditions; force-time integral reductions were also greater.
-
-**Bus et al., 2011 — in-shoe pressure-guided optimization**  
-PMID `21610125`; DOI `10.2337/dc10-2206`.
-
-Repeated pressure measurement and modification of customized footwear reduced mean peak pressure in selected high-pressure ROIs from 303 to 208 kPa after an average 1.6 modification rounds.
-
-**Footwear and insole design features for offloading the diabetic at-risk foot — systematic review/meta-analyses, 2021**  
-PMID `33532602`.
-
-The review found significant pressure reductions for arch profiles, metatarsal additions and pressure-informed design and specifically recommended pressure analysis to improve footwear/insole design.
-
-**IWGDF prevention guideline 2023 update**  
-DOI `10.1002/dmrr.3651`.
-
-For the narrow context of therapeutic footwear in persons with diabetes at risk of recurrent ulceration, demonstrated pressure relief is defined using an in-shoe pressure criterion such as ≥30% reduction at high-pressure locations versus current therapeutic footwear or peak pressure <200 kPa when measured with a validated/calibrated system under the specified measurement conditions.
+Repeated in-shoe pressure measurement and modification also improved selected high-pressure ROIs in therapeutic footwear [REF-CAD-005]. A systematic review/meta-analysis supports pressure-informed design among useful offloading features in diabetic at-risk feet [REF-CAD-007]. IWGDF guidance demonstrates that quantitative pressure-relief criteria can be meaningful in a defined diabetic-foot context, but must remain context/protocol specific [GUIDE-IWGDF-2023; REF-CAD-006].
 
 ### Functional consequence
 
@@ -195,7 +168,7 @@ OutcomeTarget
   evidenceReference
 ```
 
-**Important:** `30%` and `200 kPa` must **not** become universal BiomechE-CAD thresholds. They belong to a specific clinical guideline/use case.
+**Important:** threshold values from diabetic-foot guidance must **not** become universal BiomechE-CAD thresholds [REF-CAD-037; REF-CAD-038; GUIDE-IWGDF-2023].
 
 ---
 
@@ -203,24 +176,11 @@ OutcomeTarget
 
 ### EasyCAD2 baseline
 
-Medial/lateral arch parameters include start, center, end, height, depth, curvature/roundness-related controls.
+Medial/lateral arch parameters include start, center, end, height, depth and curvature/roundness-related controls [EC2-VAL-PLAN-1.4, US12; EC2-MANUAL-1.1, pp. 24–30].
 
 ### Literature
 
-**Footwear and insole design features for diabetic at-risk foot — systematic review/meta-analysis**  
-PMID `33532602`.
-
-Arch-profile designs were associated with significant plantar-pressure reduction in the included offloading literature.
-
-**Evidence for foot orthoses for adults with flatfoot — systematic review, 2021**  
-PMID `34844639`.
-
-The authors judged the overall adult-flatfoot evidence weak/inconsistent, highlighting limited methodological quality.
-
-**Foot orthoses for flexible flatfeet — systematic review/meta-analysis of patient-reported outcomes, 2023**  
-PMID `36611153`; DOI `10.1186/s12891-022-06044-8`.
-
-Substantial heterogeneity prevented a broad conclusion; pain in adults may improve, but evidence does not support a universal claim.
+Arch-profile designs are associated with plantar-pressure reduction in parts of the diabetic offloading literature [REF-CAD-007]. However, adult/flexible-flatfoot systematic reviews emphasize weak, heterogeneous or population-dependent evidence and do not justify a universal therapeutic rule [REF-CAD-027; REF-CAD-028].
 
 ### Functional consequence
 
@@ -247,18 +207,15 @@ reference frame
 
 ### EasyCAD2 baseline
 
-Rearfoot wedge is expressed in degrees and can be full or partial.
+Rearfoot wedge is expressed in degrees and can be full or partial [EC2-VAL-PLAN-1.4, US13].
 
 ### Literature
 
-**Telfer et al., 2013 — controlled dose-response study**  
-PMID `23631857`; DOI `10.1016/j.jbiomech.2013.03.036`.
-
-Nine custom orthoses per participant varied only rearfoot posting in 2° increments from 6° lateral to 10° medial. Significant linear effects were reported for several rearfoot/ankle/knee kinematic and kinetic variables.
+Telfer et al. varied only rearfoot posting in 2° increments from 6° lateral to 10° medial and reported significant approximately linear effects for several rearfoot/ankle/knee kinematic and kinetic variables [REF-CAD-001, pp. 1489–1495; Abstract—Methods/Results].
 
 ### Functional consequence
 
-Wedge must remain a prescription object:
+Wedge remains a prescription object:
 
 ```text
 angle_deg
@@ -270,23 +227,13 @@ application extent
 transition profile
 ```
 
-The manufactured result must support a measurement fixture that verifies the requested angle within a declared tolerance.
+The manufactured result should support a measurement fixture that verifies the requested angle within a declared tolerance.
 
 ---
 
 ## FSE-008 — Heel cup / heel support
 
-### Evidence
-
-**Prefabricated orthotic design crossover, 2024**  
-PMID `39140763`; DOI `10.1097/PXR.0000000000000292`.
-
-Heel-cup + arch-support designs increased contact area and reduced heel-region peak pressure/pressure-time integral in the tested healthy population.
-
-**Balsdon & Dombroski, 2026 — custom orthoses with/without heel plug**  
-PMID `40366378`; DOI `10.1097/PXR.0000000000000450`.
-
-In 21 participants with plantar fasciitis, the softer heel-plug condition reduced hindfoot average pressure, peak pressure and contact-area measurements relative to the otherwise matched custom orthosis; both orthosis conditions improved FFI versus baseline.
+Heel-cup/arch combinations can change heel pressure/contact area in the tested population [REF-CAD-019]. A custom-orthosis study with and without a softer heel plug supports separating cushioning/material from containment geometry [REF-CAD-018].
 
 ### Functional consequence
 
@@ -305,21 +252,11 @@ because geometry and cushioning are distinct design variables.
 
 ## FSE-009 — Metatarsal bar / dome / pad
 
-### Evidence
-
-**Ruiz-Ramos et al., 2024/2025 — systematic review/meta-analysis**  
-PMID `39399760`; DOI `10.1016/j.jor.2023.12.006`.
-
-Five studies / 158 participants supported reduction of plantar pressure under central 2nd–4th metatarsal heads with bespoke/customized orthotic treatment versus no treatment; superiority over some standardized orthoses/footwear or isolated metatarsal domes was not demonstrated.
-
-**Thiaspras et al., 2026 — systematic review**  
-PMID `41931962`; DOI `10.1016/j.foot.2026.102251`.
-
-Across 12 studies / 456 participants, all included studies reported reductions in peak plantar pressure and/or PTI; metatarsal pads and soft contoured orthoses were among the more consistent forefoot-load-reducing approaches.
+A systematic review/meta-analysis supports central metatarsal pressure reduction with bespoke/custom orthotic treatment [REF-CAD-011, pp. 111–118]. A 2026 systematic review also reports forefoot peak-pressure/PTI reductions across included orthotic studies, including metatarsal pads/soft contoured designs [REF-CAD-012]. Placement studies show that position relative to metatarsal landmarks/pressure peaks materially changes response [REF-CAD-013; REF-CAD-014; REF-CAD-041; REF-CAD-042].
 
 ### Functional consequence
 
-Metatarsal features need anatomical semantics and position reporting, not only arbitrary mesh IDs:
+Metatarsal features need anatomical semantics and position reporting, not arbitrary mesh IDs:
 
 ```text
 MetatarsalBar
@@ -335,21 +272,13 @@ falloff
 support vs offload intent
 ```
 
+See `docs/spec/06_corrective_elements.md` for the formal parameter model.
+
 ---
 
 ## FSE-010 — Local offloading and load transfer
 
-### Evidence
-
-**Custom-made diabetic insoles, 2004**  
-PMID `15234488`.
-
-Response varied materially between feet: successful offloading in one-third, moderate in one-third and unsuccessful in one-third in the reported first-metatarsal-head risk analysis; load was redistributed toward the medial midfoot.
-
-**Calcaneus/metatarsal offloading pilot, 2024**  
-PMID `38758937`.
-
-Offloading reduced target-ROI peak pressure/PTI but transferred loading to surrounding areas and showed inter-individual variability.
+Custom-made diabetic insoles show material inter-individual response and load transfer to medial midfoot [REF-CAD-020]. A 2024 offloading pilot similarly reduced target-ROI peak pressure/PTI while transferring loading to surrounding areas [REF-CAD-029, Abstract—Results/Conclusion; Fig. 6]. Other studies demonstrate total-contact redistribution [REF-CAD-030] and secondary-site effects of rigid relief [REF-CAD-031]. Pad shape can also worsen peak pressure in a tested context [REF-CAD-032].
 
 ### Functional consequence
 
@@ -363,43 +292,15 @@ BEFORE / AFTER METRICS
 
 A design optimizer must not minimize only the target cell while creating a harmful neighboring concentration.
 
+See `FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md`.
+
 ---
 
 ## FSE-011 / FSE-012 — Stiffness, material and regional mechanical properties
 
-### Human evidence
+Human studies show that stiffness, posting and orthotic configuration can change plantar pressure and biomechanics, with region-specific effects and possible comfort trade-offs [REF-CAD-009; REF-CAD-010; REF-CAD-016; REF-CAD-017].
 
-**Desmyttere et al., 2020**  
-PMID `32818861`; DOI `10.1016/j.gaitpost.2020.07.146`.
-
-Changing stiffness and rearfoot posting changed kinematics and plantar pressures; higher stiffness produced region-specific pressure changes including increases up to 31.7% in the tested healthy cohort.
-
-**Cherni et al., 2022**  
-PMID `34973589`; DOI `10.1016/j.clinbiomech.2021.105553`.
-
-In 19 individuals with flexible flatfeet, stiffness mainly altered midfoot pressure while posting mainly affected rearfoot pressure.
-
-### Personalized / regional material evidence
-
-**Muir et al., 2022**  
-PMID `35987171`; DOI `10.1016/j.clinbiomech.2022.105739`.
-
-Pressure-informed 3D-printed personalized metamaterial insoles reduced peak pressure and PTI in defined offloading regions in a feasibility study.
-
-**Graded stiffness heel offloading, 2023**  
-PMID `36706604`.
-
-Graded-stiffness configurations redistributed heel pressure more effectively than simple offloading configurations in an in-vivo pilot, emphasizing that local relief can create perimeter loading.
-
-**Gradient lattice pressure→rod-diameter mapping, 2026**  
-PMID `42049041`; DOI `10.1088/1873-4030/ae6593`.
-
-Computational/mechanical work proposed regional modulus customization from plantar-pressure mapping and reported substantial simulated peak-pressure reduction.
-
-**Partition TPMS / region-specific lattice, 2026**  
-PMID `42147489`.
-
-Recent work assigned different lattice structures to plantar regions based on pressure distribution and demonstrated region-dependent tradeoffs between cushioning and structural stability.
+Pressure-informed and graded/regional mechanical-property approaches are technically promising but clinically less mature [REF-CAD-008; REF-CAD-021; REF-CAD-022; REF-CAD-023].
 
 ### Functional consequence
 
@@ -419,10 +320,7 @@ but current evidence does **not** justify an automatic universal pressure→stif
 
 ## FSE-016 — 3D printing / manufacturing outcome
 
-**Atallah et al., 2025 — systematic review**  
-PMID `40890671`; DOI `10.1186/s12891-025-09070-4`.
-
-Across 62 included clinical orthosis studies of several orthosis categories, 3D-printed insoles showed pressure-redistribution and comfort benefits in the included literature, while the review emphasized small samples, non-standardized assessments, material selection and durability limitations.
+A 2025 systematic review reports promising clinical/comfort outcomes across 3D-printed orthosis literature while emphasizing heterogeneity, small samples, non-standardized assessment, material selection and durability limitations [REF-CAD-024].
 
 ### Functional consequence
 
@@ -458,11 +356,9 @@ comparison
 revision
 ```
 
-For diabetic offloading, both controlled studies and IWGDF guidance support pressure measurement as a way to verify and optimize therapeutic footwear. This does not imply identical targets for sport, flatfoot, plantar fasciitis or other indications.
+Pressure-informed design and iterative in-shoe optimization have direct human evidence in diabetic-foot contexts [REF-CAD-004; REF-CAD-005]. IWGDF and pressure-threshold reviews further demonstrate why target definitions must carry clinical context and protocol rather than become global constants [GUIDE-IWGDF-2023; REF-CAD-037; REF-CAD-038].
 
-The data model therefore needs generic metrics rather than a single hardcoded definition of success.
-
-Possible metrics:
+Possible metrics include:
 
 ```text
 PeakPressure
@@ -475,24 +371,13 @@ section/profile metrics
 pain/comfort/function PROMs
 ```
 
+Metric policy is formalized in `docs/spec/09_analysis_qc_dfm.md` [REF-CAD-033; REF-CAD-034; REF-CAD-035; REF-CAD-036; REF-CAD-039; REF-CAD-040].
+
 ---
 
 ## FSE-018 — Comfort, fit, adherence and PROMs
 
-**Lower-limb assistive-device adherence scoping review, 2022**  
-PMID `35753880`; DOI `10.1016/j.jmpt.2022.04.003`.
-
-Reported non-use ranged widely; barriers included device properties and poor fit, while comfort, education and individualized adjustment were recurring factors.
-
-**3D-printed orthoses clinical outcomes systematic review, 2025**  
-PMID `40890671`.
-
-Comfort, fit, function and satisfaction are meaningful reported outcomes alongside biomechanics.
-
-**Foot/ankle PROM systematic review, 2025**  
-PMID `41033023`; DOI `10.1016/j.foot.2025.102209`.
-
-The literature uses a large number of PROMs, including VAS pain, FAOS, FAAM and others; therefore BiomechE-CAD should not invent a proprietary single outcome score.
+Assistive-device adherence literature identifies fit/comfort/device properties as relevant to actual use [REF-CAD-025]. The 3D-printed orthosis outcome review includes comfort/fit/function/satisfaction among meaningful outcomes [REF-CAD-024]. A foot/ankle PROM systematic review demonstrates the breadth of instruments used and argues against inventing one proprietary universal score [REF-CAD-026]. Pressure optimization itself may also conflict with convenience/comfort in some configurations [REF-CAD-016].
 
 ### Functional consequence
 
@@ -504,15 +389,15 @@ Store PROM instruments and scores with instrument/version metadata and timestamp
 
 ## RULE-FSE-001 — Preserve the prescribed dose
 
-When literature or clinical practice uses a numerical dose (e.g. posting angle), preserve that dose as structured data rather than only resulting geometry.
+When literature or clinical practice uses a numerical dose, preserve that dose as structured data rather than only resulting geometry [REF-CAD-001; REF-CAD-013; REF-CAD-015].
 
 ## RULE-FSE-002 — Preserve the measured response
 
-Biomechanical outcome data must remain linked to the exact design/manufacturing revision that produced it.
+Biomechanical outcome data must remain linked to the exact design/manufacturing revision that produced it [REF-CAD-004; REF-CAD-005; REF-CAD-020].
 
 ## RULE-FSE-003 — No universal therapeutic truth table
 
-Evidence is often population-specific and heterogeneous. BiomechE-CAD must not encode rules such as:
+Evidence is often population-specific and heterogeneous [REF-CAD-007; REF-CAD-024; REF-CAD-027; REF-CAD-028]. BiomechE-CAD must not encode rules such as:
 
 ```text
 more arch = better
@@ -523,19 +408,19 @@ custom always > prefabricated
 
 ## RULE-FSE-004 — Pressure optimization is regional redistribution
 
-A local pressure decrease is insufficient if surrounding regions become overloaded. Target + neighbor metrics should be first-class.
+A local pressure decrease is insufficient if surrounding regions become overloaded [REF-CAD-004; REF-CAD-020; REF-CAD-029; REF-CAD-030]. Target + neighbor metrics should be first-class.
 
 ## RULE-FSE-005 — Geometry and mechanics are separate prescription dimensions
 
-Heel shape, arch geometry, wedge angle and metatarsal geometry must be distinguishable from material hardness, stiffness, density or lattice properties.
+Heel shape, arch geometry, wedge angle and metatarsal geometry must be distinguishable from material hardness, stiffness, density or lattice properties [REF-CAD-009; REF-CAD-010; REF-CAD-018; REF-CAD-021].
 
 ## RULE-FSE-006 — Acquisition conditions belong to the evidence chain
 
-Weight-bearing, scanner/protocol and registration conditions can alter morphology and derived design. Preserve them.
+Scanner/protocol, weight-bearing and registration conditions belong to the acquisition provenance [REF-CAD-002; REF-CAD-003].
 
 ## RULE-FSE-007 — Outcome targets are context/protocol specific
 
-Guideline thresholds such as IWGDF diabetic-foot offloading criteria belong to an explicit clinical profile, not global application constants.
+Guideline/threshold values belong to explicit clinical profiles, not global application constants [GUIDE-IWGDF-2023; REF-CAD-037; REF-CAD-038].
 
 ---
 
@@ -656,47 +541,31 @@ multi-objective optimization across pressure / comfort / material / weight
 
 The matrix is intentionally incomplete. Next batches should focus on:
 
-1. **Forefoot wedge/posting** — isolate dose/placement evidence distinct from rearfoot posting.
+1. **Arch parameter dose** — height/length/position-specific response rather than generic arch-support comparisons.
 2. **Heel cup/wrap/camber** — distinguish geometry effects from cushioning/material effects.
-3. **Arch parameter dose** — height/length/position-specific response rather than generic arch-support comparisons.
-4. **Metatarsal element placement** — distance proximal/distal to MTH and dose/height evidence.
-5. **Relief/aperture geometry** — size, depth, transition and neighboring-pressure effects.
-6. **Pressure metrics** — peak pressure vs PTI/FTI vs contact area vs shear; define which are valid by use case.
-7. **Comfort/fit/adherence** — orthosis-specific PROM and measurement choices.
-8. **Manufacturing tolerances and durability** — material/process-specific evidence.
-9. **Population profiles** — diabetes/offloading, flexible flatfoot, plantar heel pain, metatarsalgia, sport/performance must remain separate.
-10. **Competitor mapping** — audit competitor features against this matrix without using competitors as scientific evidence.
+3. **Population profiles** — diabetes/offloading, flexible flatfoot, plantar heel pain, metatarsalgia, sport/performance remain separate.
+4. **Comfort/fit/adherence** — orthosis-specific PROM and measurement choices.
+5. **Manufacturing tolerances and durability** — material/process-specific evidence.
+6. **Competitor mapping** — audit competitor features against this matrix without using competitors as scientific evidence.
+
+Completed/partially completed research that now has dedicated documents:
+
+- forefoot wedge / metatarsal placement / arch-hardness / heel dose: `FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md`;
+- relief/aperture and neighbour load transfer: `FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md`;
+- corrective-element formal model: `docs/spec/06_corrective_elements.md`;
+- pressure/PTI/contact-area/shear/protocol metric policy: `docs/spec/09_analysis_qc_dfm.md`.
 
 ---
 
-# 8. Source ledger — batch 1
+# 8. Bibliography governance
 
-| Ref | Citation | Role |
-|---|---|---|
-| SCI-001 | Telfer S et al. J Biomech. 2013. PMID 23631857. DOI 10.1016/j.jbiomech.2013.03.036 | rearfoot-posting dose response |
-| SCI-002 | Farhan M et al. J Foot Ankle Res. 2021. PMID 33413570. DOI 10.1186/s13047-020-00442-8 | 3D scanning review |
-| SCI-003 | Allan JJ et al. J Foot Ankle Res. 2023. PMID 37106385. DOI 10.1186/s13047-023-00617-z | scan methodology/provenance |
-| SCI-004 | Owings TM et al. Diabetes Care. 2008. PMID 18252899. DOI 10.2337/dc07-2288 | shape+pressure custom design |
-| SCI-005 | Bus SA et al. Diabetes Care. 2011. PMID 21610125. DOI 10.2337/dc10-2206 | pressure-guided footwear optimization |
-| SCI-006 | IWGDF Prevention Guideline 2023 update. DOI 10.1002/dmrr.3651 | population-specific offloading target guidance |
-| SCI-007 | Paton et al./review indexed PMID 33532602 | footwear/insole offloading features systematic review/meta-analysis |
-| SCI-008 | Ruiz-Ramos M et al. J Orthop. PMID 39399760. DOI 10.1016/j.jor.2023.12.006 | central metatarsal pressure meta-analysis |
-| SCI-009 | Thiaspras L et al. Foot. 2026. PMID 41931962. DOI 10.1016/j.foot.2026.102251 | forefoot-load systematic review |
-| SCI-010 | Desmyttere G et al. Gait Posture. 2020. PMID 32818861. DOI 10.1016/j.gaitpost.2020.07.146 | stiffness/posting biomechanical effects |
-| SCI-011 | Cherni Y et al. Clin Biomech. 2022. PMID 34973589. DOI 10.1016/j.clinbiomech.2021.105553 | stiffness/posting in flexible flatfeet |
-| SCI-012 | Muir BC et al. Clin Biomech. 2022. PMID 35987171. DOI 10.1016/j.clinbiomech.2022.105739 | pressure-based personalized metamaterial insole |
-| SCI-013 | Graded stiffness heel offloading. PMID 36706604 | graded-stiffness regional offloading |
-| SCI-014 | Wang Lihong et al. Med Eng Phys. 2026. PMID 42049041. DOI 10.1088/1873-4030/ae6593 | pressure-to-lattice mechanical mapping |
-| SCI-015 | Partition TPMS insole. 2026. PMID 42147489 | region-specific lattice structures |
-| SCI-016 | Atallah H et al. BMC Musculoskelet Disord. 2025. PMID 40890671. DOI 10.1186/s12891-025-09070-4 | 3D-printed orthoses clinical systematic review |
-| SCI-017 | Patient compliance with lower-limb assistive devices. 2022. PMID 35753880. DOI 10.1016/j.jmpt.2022.04.003 | adherence/fit/comfort |
-| SCI-018 | PROMs in foot/ankle literature. 2025. PMID 41033023. DOI 10.1016/j.foot.2025.102209 | outcome-instrument landscape |
-| SCI-019 | Heel plug custom FO study. 2026. PMID 40366378. DOI 10.1097/PXR.0000000000000450 | heel pressure/cushioning |
-| SCI-020 | Prefabricated orthotic design crossover. PMID 39140763. DOI 10.1097/PXR.0000000000000292 | heel cup/arch pressure redistribution |
-| SCI-021 | Custom-made diabetic insole load redistribution. PMID 15234488 | inter-individual offloading response |
-| SCI-022 | Calcaneus/metatarsal offloading pilot. PMID 38758937 | target vs neighboring load transfer |
-| SCI-023 | Evidence for adult flatfoot orthoses systematic review. PMID 34844639 | uncertainty / mixed evidence |
-| SCI-024 | Flexible-flatfoot PROM systematic review/meta-analysis. PMID 36611153. DOI 10.1186/s12891-022-06044-8 | population-specific outcomes |
+The old local `SCI-001...SCI-024` table has been removed because it duplicated metadata.
+
+Canonical source IDs are maintained only in:
+
+`docs/BIBLIOGRAPHY.md`
+
+This document cites those stable IDs inline. When a full text is later acquired and an exact page/table/figure locator becomes available, update the bibliography entry without changing the source ID.
 
 ---
 
@@ -723,3 +592,55 @@ COMPARISON / ITERATION
 ```
 
 That functional contract should be stabilized before the project resumes the OpenSubdiv vs openNURBS or broader geometry-stack decision.
+
+---
+
+## Bibliography links
+
+[EC2-MANUAL-1.1]: ../BIBLIOGRAPHY.md#ec2-manual-11
+[EC2-VAL-PLAN-1.4]: ../BIBLIOGRAPHY.md#ec2-val-plan-14
+[GUIDE-IWGDF-2023]: ../BIBLIOGRAPHY.md#guide-iwgdf-2023
+[REF-CAD-001]: ../BIBLIOGRAPHY.md#ref-cad-001
+[REF-CAD-002]: ../BIBLIOGRAPHY.md#ref-cad-002
+[REF-CAD-003]: ../BIBLIOGRAPHY.md#ref-cad-003
+[REF-CAD-004]: ../BIBLIOGRAPHY.md#ref-cad-004
+[REF-CAD-005]: ../BIBLIOGRAPHY.md#ref-cad-005
+[REF-CAD-006]: ../BIBLIOGRAPHY.md#ref-cad-006
+[REF-CAD-007]: ../BIBLIOGRAPHY.md#ref-cad-007
+[REF-CAD-008]: ../BIBLIOGRAPHY.md#ref-cad-008
+[REF-CAD-009]: ../BIBLIOGRAPHY.md#ref-cad-009
+[REF-CAD-010]: ../BIBLIOGRAPHY.md#ref-cad-010
+[REF-CAD-011]: ../BIBLIOGRAPHY.md#ref-cad-011
+[REF-CAD-012]: ../BIBLIOGRAPHY.md#ref-cad-012
+[REF-CAD-013]: ../BIBLIOGRAPHY.md#ref-cad-013
+[REF-CAD-014]: ../BIBLIOGRAPHY.md#ref-cad-014
+[REF-CAD-015]: ../BIBLIOGRAPHY.md#ref-cad-015
+[REF-CAD-016]: ../BIBLIOGRAPHY.md#ref-cad-016
+[REF-CAD-017]: ../BIBLIOGRAPHY.md#ref-cad-017
+[REF-CAD-018]: ../BIBLIOGRAPHY.md#ref-cad-018
+[REF-CAD-019]: ../BIBLIOGRAPHY.md#ref-cad-019
+[REF-CAD-020]: ../BIBLIOGRAPHY.md#ref-cad-020
+[REF-CAD-021]: ../BIBLIOGRAPHY.md#ref-cad-021
+[REF-CAD-022]: ../BIBLIOGRAPHY.md#ref-cad-022
+[REF-CAD-023]: ../BIBLIOGRAPHY.md#ref-cad-023
+[REF-CAD-024]: ../BIBLIOGRAPHY.md#ref-cad-024
+[REF-CAD-025]: ../BIBLIOGRAPHY.md#ref-cad-025
+[REF-CAD-026]: ../BIBLIOGRAPHY.md#ref-cad-026
+[REF-CAD-027]: ../BIBLIOGRAPHY.md#ref-cad-027
+[REF-CAD-028]: ../BIBLIOGRAPHY.md#ref-cad-028
+[REF-CAD-029]: ../BIBLIOGRAPHY.md#ref-cad-029
+[REF-CAD-030]: ../BIBLIOGRAPHY.md#ref-cad-030
+[REF-CAD-031]: ../BIBLIOGRAPHY.md#ref-cad-031
+[REF-CAD-032]: ../BIBLIOGRAPHY.md#ref-cad-032
+[REF-CAD-033]: ../BIBLIOGRAPHY.md#ref-cad-033
+[REF-CAD-034]: ../BIBLIOGRAPHY.md#ref-cad-034
+[REF-CAD-035]: ../BIBLIOGRAPHY.md#ref-cad-035
+[REF-CAD-036]: ../BIBLIOGRAPHY.md#ref-cad-036
+[REF-CAD-037]: ../BIBLIOGRAPHY.md#ref-cad-037
+[REF-CAD-038]: ../BIBLIOGRAPHY.md#ref-cad-038
+[REF-CAD-039]: ../BIBLIOGRAPHY.md#ref-cad-039
+[REF-CAD-040]: ../BIBLIOGRAPHY.md#ref-cad-040
+[REF-CAD-041]: ../BIBLIOGRAPHY.md#ref-cad-041
+[REF-CAD-042]: ../BIBLIOGRAPHY.md#ref-cad-042
+[REF-CAD-043]: ../BIBLIOGRAPHY.md#ref-cad-043
+[REF-CAD-044]: ../BIBLIOGRAPHY.md#ref-cad-044
