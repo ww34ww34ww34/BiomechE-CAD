@@ -11,6 +11,7 @@ Markdown in this repository is the canonical specification source.
 - [Functional + Scientific Evidence Matrix](research/FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md) — **current active research baseline**: feature → EasyCAD2 evidence → literature → parameters → outcomes → priority.
 - [Parameter / dose evidence batch](research/FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md) — forefoot wedge, metatarsal placement, arch geometry/hardness and heel containment/cushioning evidence.
 - [Relief / offloading evidence batch](research/FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md) — relief/aperture semantics, target ROI + surrounding safety region, load redistribution and offloading acceptance rules.
+- [Arch support deep dive](research/FUNCTIONAL_EVIDENCE_BATCH_04_ARCH.md) — **ARCH-001 complete**: arch geometry dose, hardness/stiffness, redistribution, population/task context, evidence gaps and `ARCH-001..014` acceptance semantics.
 - [EasyCAD2 primary reference pack](references/easycad2/README.md) — manual, validation plan/report, versions, source links and page map.
 
 ## Current work priority
@@ -50,8 +51,9 @@ The OpenSubdiv vs openNURBS/ON_SubD decision is intentionally parked.
 | File | Status | Purpose |
 |---|---|---|
 | [FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md](research/FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md) | **ACTIVE / batch 1** | Main feature/evidence matrix; separates EC2 evidence, literature confidence, product requirement and P0/P1/P2 |
-| [FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md](research/FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md) | **ACTIVE / batch 2** | Dose/placement detail for forefoot wedge, metatarsal pad, arch and heel features |
+| [FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md](research/FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md) | **ACTIVE / batch 2 / bibliography-migrated** | Dose/placement detail for forefoot wedge, metatarsal pad, arch and heel features |
 | [FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md](research/FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md) | **ACTIVE / batch 3 / bibliography-migrated** | Relief/aperture evidence, redistribution risks, target+safety-ring outcome model and OFF-001..009 acceptance semantics |
+| [FUNCTIONAL_EVIDENCE_BATCH_04_ARCH.md](research/FUNCTIONAL_EVIDENCE_BATCH_04_ARCH.md) | **ACTIVE / batch 4 / ARCH-001 COMPLETE** | Height, longitudinal placement, shape, stiffness/hardness, redistribution, context profiles, structural outcomes, evidence gaps and ARCH-001..014 |
 | [GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md](research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md) | **ARCHIVED / valid background** | Validated library/portability research; preserved but not current work priority |
 
 ---
@@ -78,10 +80,10 @@ These should now be driven from the functional/evidence matrix rather than from 
 | `spec/02_project_schema.md` | Planned | Versioned project schema, acquisitions, prescriptions, outcomes, revisions and hashes |
 | [06_corrective_elements.md](spec/06_corrective_elements.md) | **v0 ACTIVE / bibliography-migrated** | Clinically named element library, anatomical placement, dimensions/dose, metatarsal family, neighboring-load analysis and acceptance metrics |
 | `spec/07_sculpt_and_roi_deformation.md` | Planned | Local authoring semantics and ROI provenance |
-| `spec/08_material_stiffness.md` | **Research-driven next** | Material/stiffness properties, regional maps and evidence boundaries |
+| `spec/08_material_stiffness.md` | **Research-driven after heel/use-case pass** | Material/stiffness properties, regional maps and evidence boundaries |
 | [09_analysis_qc_dfm.md](spec/09_analysis_qc_dfm.md) | **v0 ACTIVE / bibliography-migrated** | Pressure/outcome metrics, protocol provenance, compatibility, contextual thresholds, target/neighbor safety, geometry QC and DFM |
 | `spec/10_manufacturing.md` | Planned | Manufacturing profiles and export semantics |
-| `spec/11_biomeche_integration.md` | **Research-driven next** | Quantitative pressure bridge, ROI, pre/post outcome loop and provenance |
+| `spec/11_biomeche_integration.md` | **Research-driven next phase** | Quantitative pressure bridge, ROI, pre/post outcome loop and provenance |
 | `spec/12_reporting_traceability.md` | Planned | Prescription/design/manufacturing/outcome traceability and reports |
 
 ---
@@ -102,6 +104,8 @@ These should now be driven from the functional/evidence matrix rather than from 
 12. Measured and predicted biomechanical outcomes must remain separate data classes.
 13. Any concept derived from an external source should cite a stable ID from `BIBLIOGRAPHY.md`, with the most precise truthful locator available.
 14. Exact page numbers are required for manual/PDF evidence when available; for web/abstract-only evidence cite the section (`Abstract—Results`, `Fig. 6`, etc.) rather than inventing a page.
+15. Model-based evidence may justify keeping a design parameter explicit, but cannot silently become a clinical preset.
+16. Arch geometry dose and arch mechanical dose remain independently inspectable/versioned.
 
 ---
 
@@ -109,14 +113,22 @@ These should now be driven from the functional/evidence matrix rather than from 
 
 ### Functional/scientific
 
-1. arch height/length/position dose + hardness interaction;
-2. heel cup/wrap/camber geometry vs cushioning/material;
-3. use-case/population profiles: diabetic offloading, metatarsalgia, flatfoot, plantar heel pain, sport;
-4. comfort/fit/adherence and PROM selection;
-5. material durability/manufacturing evidence;
+1. **heel cup/wrap/camber geometry vs cushioning/material — NEXT**;
+2. use-case/population profiles: diabetic offloading, metatarsalgia, flatfoot, plantar heel pain, sport;
+3. comfort/fit/adherence and PROM selection;
+4. material durability/manufacturing evidence;
+5. promote mature arch/offloading/corrective-element findings into the consolidated functional specification;
 6. refine corrective-element presets only where evidence and population context justify them;
 7. refine shear/COP policy as compatible acquisition hardware is defined;
 8. continue migrating older research/spec documents to canonical bibliography IDs.
+
+### Arch-specific open evidence gaps
+
+- longitudinal arch-support extent dose;
+- peak longitudinal location dose;
+- curvature/roundness isolated effects;
+- long-term tolerance thresholds for elevated medial-midfoot loading;
+- interaction with footwear volume/fit and long-term material creep.
 
 ### Competitors
 
