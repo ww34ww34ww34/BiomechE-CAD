@@ -3,7 +3,7 @@
 
 Runs JSON Schema Draft 2020-12 first, then semantic checks that can be
 executed before a geometry kernel exists. The harness intentionally does not
-claim coverage of geometry-dependent SCHEMA/XACC/BINT/RPT cases.
+claim coverage of geometry-dependent SCHEMA/XACC/BINT/RPT/PAQ cases.
 """
 from __future__ import annotations
 
@@ -317,6 +317,22 @@ def acceptance(p: dict) -> list[str]:
         need(report_measurements and report_measurements[0]["metric"].startswith("BIOMECHE:"), "RPT-006", "canonical metric source missing")
         need(report_measurements[0]["value"] == e["reportedFullPrecisionValue"], "RPT-017", "fixture lost authoritative precision before display")
         out = ["RPT-001", "RPT-002", "RPT-003", "RPT-004", "RPT-006", "RPT-013", "RPT-017", "XACC-044", "XACC-049"]
+    elif fid == "pressure-qualification-profile":
+        e = a["expected"]
+        profiles = p.get("extensions", {}).get("pressureAcquisitionQualificationProfiles", [])
+        need(len(profiles) == 1, "PAQ-001", "fixture must contain exactly one qualification profile")
+        q = profiles[0]
+        need(q["profileId"] == e["profileId"] and q["version"] == e["profileVersion"] and q.get("contentHash"), "PAQ-001", "qualification profile identity/version/hash incomplete")
+        need(q["intendedUse"] == e["intendedUse"] and e["intendedUse"] in q["supportedExamTypes"], "PAQ-002", "intended-use boundary mismatch")
+        need(q["deviceDefinition"].get("unitId") == e["unitId"], "PAQ-003", "exact device/unit identity missing")
+        need(q["calibrationProtocol"].get("calibrationId") == e["calibrationId"] and q["calibrationProtocol"].get("state") == "VALID", "PAQ-005", "calibration provenance/state mismatch")
+        protocol = q["protocolQualification"]
+        need(protocol.get("protocolId") == e["protocolId"] and protocol.get("activity") == e["intendedUse"], "PAQ-010", "qualified protocol identity/activity mismatch")
+        need(protocol.get("minimumAcceptedSteps") is e["minimumAcceptedSteps"], "PAQ-011", "fixture introduced a hidden universal step count")
+        need(q["crossDevicePolicy"].get("default") == e["crossDeviceDefault"], "PAQ-016", "cross-device default guard missing")
+        open_rules = [r for r in q["acceptanceRules"] if r.get("limitState") == "OPEN_FIXTURE"]
+        need(open_rules and all(r.get("numericLimit") is None for r in open_rules), "PAQ-020", "OPEN qualification limit was silently assigned a number")
+        out = ["PAQ-001", "PAQ-002", "PAQ-003", "PAQ-005", "PAQ-010", "PAQ-011", "PAQ-016", "PAQ-020"]
     else:
         raise Failure(f"HARNESS: unknown fixture {fid}")
     missing = set(a.get("testIds", [])) - set(out)
