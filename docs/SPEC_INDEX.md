@@ -16,11 +16,11 @@ FUNCTIONALITY + EASYCAD2 PARITY + EVIDENCE
         ↓
 FUNCTIONAL SPEC v2 — CONSOLIDATED
         ↓
-PROJECT SCHEMA v0 — ACTIVE / DONE BASELINE
+PROJECT SCHEMA v0 — ACTIVE
         ↓
-KERNEL-INDEPENDENT ACCEPTANCE SUITE — NEXT
+KERNEL-INDEPENDENT ACCEPTANCE SUITE — ACTIVE
         ↓
-COORDINATE / REGISTRATION FREEZE
+RICH FIXTURES + COORDINATE / REGISTRATION FREEZE — NEXT
         ↓
 BIOMECHE INTEGRATION + REPORTING
         ↓
@@ -59,6 +59,19 @@ OpenSubdiv vs openNURBS/ON_SubD remains intentionally parked.
 
 ---
 
+# Validation specifications
+
+| File | Status | Purpose |
+|---|---|---|
+| [validation/functional_acceptance_suite.md](validation/functional_acceptance_suite.md) | **ACTIVE v0** | Kernel-independent release contract joining `SCHEMA/OFF/CE/ARCH/HEEL/PROF/PROM/MAT/MAN`, EasyCAD parity and cross-domain `XACC-001..045` |
+| [validation/easycad2_geometry_parity.md](validation/easycad2_geometry_parity.md) | Historical architecture-coverage record | 25 EasyCAD user stories; useful behavioral inventory but no longer an engine-selection baseline |
+| `validation_strategy.md` | Planned | Validation hierarchy |
+| `geometry_invariants.md` | Planned | Numerical invariants after coordinate/tolerance freeze |
+| `golden_geometry.md` | Planned | Golden fixtures / regression |
+| `manufacturing_validation.md` | Planned; driven by spec 08/10 | Thickness, geometry trueness, materials/process/QC and production validation |
+
+---
+
 # Active functional/scientific research
 
 | File | Status | Purpose |
@@ -75,7 +88,7 @@ OpenSubdiv vs openNURBS/ON_SubD remains intentionally parked.
 
 ---
 
-# Functional/schema conclusions currently adopted
+# Core conclusions currently adopted
 
 1. EasyCAD2 is behavioral evidence, not scientific truth.
 2. External-source claims cite stable IDs from `BIBLIOGRAPHY.md` with truthful locators.
@@ -95,38 +108,16 @@ OpenSubdiv vs openNURBS/ON_SubD remains intentionally parked.
 16. MID/MCID/MDC/SEM values are instrument/domain/population/context specific rather than universal constants.
 17. Adherence preserves method and denominator; hours worn, weight-bearing exposure and percentage of steps are not interchangeable.
 18. No hidden universal `BiomechE Score` is allowed without an independently validated, transparent profile-specific definition.
-19. Questionnaire text/translations/scoring assets require explicit licensing/redistribution review before bundling.
-20. Material name / supplier datasheet property is not the same as manufactured final-part property.
-21. Hardness requires scale + method; Shore hardness is not a silent proxy for Young/effective modulus.
-22. Thickness, material-stack order, interfaces and property-changing post-processing are first-class material/manufacturing data.
-23. Base polymer and effective lattice/infill stiffness are separate properties.
-24. Initial and service-aged material states remain distinct; visual compression alone is not a universal replacement rule.
-25. AM/CNC manufacturing is a versioned process; export success does not imply part acceptance.
-26. CAD nominal geometry and manufactured measured geometry remain distinct.
-27. Qualified profile-defined blocking QC failures prevent validated-production status.
-28. Standards provide test/qualification semantics; they do not silently become universal clinical acceptance thresholds.
-29. Committed `DesignRevision` state is immutable; changes create successor revisions.
-30. Definition references used by committed revisions resolve exact version + hash/snapshot, never `latest` implicitly.
-31. Native semantic prescription/operations are authoritative; derived meshes are caches/artifacts, with explicit legacy-geometry mode when necessary.
-32. Raw acquisitions/assets are immutable and hash-addressable; derived transformations are separate provenance entities.
-33. A manufactured physical copy has identity separate from design revision and manufacturing artifact.
-34. Project schema is storage/container independent; JSON + JSON Schema 2020-12 is the portable reference serialization, not a database decision.
-35. Provenance is Entity/Activity/Agent-compatible; optional FHIR mappings do not replace the internal CAD domain model.
-
----
-
-# Initial P0 indication profiles
-
-```text
-DIABETIC_REULCERATION_PREVENTION
-MECHANICAL_METATARSALGIA
-FLEXIBLE_FLATFOOT
-PLANTAR_HEEL_PAIN
-SPORT_PERFORMANCE
-GENERIC_CUSTOM_ORTHOSIS
-```
-
-See `spec/13_use_case_profiles.md` and research Batch 06.
+19. Material nominal, manufactured/effective and service-aged states are distinct.
+20. AM/CNC manufacturing is a versioned process; export success does not imply part acceptance.
+21. Committed `DesignRevision` state is immutable; changes create successor revisions.
+22. Definition references resolve exact version + hash/snapshot, never `latest` implicitly.
+23. Native semantic prescription/operations are authoritative; derived meshes are caches/artifacts, with explicit legacy-geometry mode when necessary.
+24. Raw acquisitions/assets are immutable and hash-addressable; derived transformations are separate provenance entities.
+25. A manufactured physical copy has identity separate from design revision and manufacturing artifact.
+26. Project schema is storage/container independent; JSON + JSON Schema 2020-12 is the portable reference serialization, not a database decision.
+27. Provenance is Entity/Activity/Agent-compatible; optional FHIR mappings do not replace the internal CAD domain model.
+28. Acceptance criteria are kernel-independent and exist before architecture selection.
 
 ---
 
@@ -134,37 +125,22 @@ See `spec/13_use_case_profiles.md` and research Batch 06.
 
 | File | Status | Purpose |
 |---|---|---|
-| `validation/functional_acceptance_suite.md` | **NEXT** | Cross-domain kernel-independent acceptance suite for schema + functional semantics |
-| `spec/01_coordinate_registration.md` | Freeze after acceptance draft | Coordinate spaces, units, acquisitions and registration invariants |
+| `spec/01_coordinate_registration.md` | **NEXT freeze target** | Coordinate spaces, units, acquisitions and registration invariants/tolerances |
 | `spec/07_sculpt_and_roi_deformation.md` | Planned | Local authoring semantics and ROI provenance |
 | `spec/11_biomeche_integration.md` | Planned | Quantitative pressure bridge and pre/post outcome loop |
 | `spec/12_reporting_traceability.md` | Planned | Prescription/design/manufacturing/outcome reports |
 
 ---
 
-# Research / specification queue — NEXT
+# Work queue — NEXT
 
-1. **Create kernel-independent functional acceptance suite** joining `SCHEMA / OFF / CE / ARCH / HEEL / PROF / PROM / MAT / MAN` plus EasyCAD parity invariants.
-2. Add richer Project Schema fixtures: bilateral; pressure→design→outcome; manufacturing→QC lineage.
-3. Freeze `spec/01_coordinate_registration.md` before geometry implementation.
-4. Define `spec/11_biomeche_integration.md` and `spec/12_reporting_traceability.md`.
-5. Competitor functional gap audit can proceed in parallel.
-6. Select actual built-in PROMs only after profile fit, psychometric and licensing review.
-7. Qualify real product material/process profiles and acceptance limits separately from generic literature/test standards.
-8. Only later resume OpenSubdiv vs openNURBS/ON_SubD.
-
----
-
-# Validation specs / queue
-
-| File | Status | Purpose |
-|---|---|---|
-| [validation/easycad2_geometry_parity.md](validation/easycad2_geometry_parity.md) | Existing behavioral coverage record | 25 EasyCAD user stories; not a frozen engine choice |
-| `validation/functional_acceptance_suite.md` | **NEXT** | Normative cross-domain functional/schema acceptance map |
-| `validation_strategy.md` | Planned | Validation hierarchy |
-| `geometry_invariants.md` | Planned | Numerical invariants |
-| `golden_geometry.md` | Planned | Golden fixtures / regression |
-| `manufacturing_validation.md` | Planned; driven by spec 08/10 | Thickness, geometry trueness, materials/process/QC and production validation |
+1. **Create richer Project Schema / acceptance fixtures** (`bilateral`, `pressure-design-outcome-loop`, `manufacturing-qc-lineage`, `migration`) and start executable `SCHEMA-* / XACC-*` validation.
+2. **Freeze `spec/01_coordinate_registration.md`** before geometry implementation; define frame directions, handedness, units, L/R semantics, matrix conventions, transform composition and numerical tolerances.
+3. Define `spec/11_biomeche_integration.md` and `spec/12_reporting_traceability.md`.
+4. Competitor functional gap audit can proceed in parallel.
+5. Select actual built-in PROMs only after profile fit, psychometric and licensing review.
+6. Qualify real product material/process profiles and acceptance limits separately from generic literature/test standards.
+7. Only later resume OpenSubdiv vs openNURBS/ON_SubD.
 
 ---
 
@@ -176,11 +152,10 @@ See `spec/13_use_case_profiles.md` and research Batch 06.
 4. Exact page/figure/section locators are used where actually verified; never invent pages.
 5. Vendor material is market evidence, not clinical efficacy evidence.
 6. Model/FE evidence remains explicitly model-based.
-7. Every P0 feature/profile eventually needs an acceptance criterion.
+7. Every P0 feature/profile needs an acceptance criterion.
 8. PROM/instrument definitions preserve exact version/language and licensing status.
-9. Standards abstracts/scopes support high-level semantics; claiming full standard compliance requires controlled access and applicability review.
-10. A test standard does not by itself define a universal product acceptance limit.
-11. Project Schema standards constrain representation/provenance; they do not redefine clinical requirements.
-12. Update `RESUME_HERE.md` after substantial work.
-13. Preserve superseded architecture/history in Git.
-14. Do not redistribute third-party EasyCAD PDFs/screenshots or questionnaire content publicly without rights clearance.
+9. Standards constrain terminology/test/interoperability semantics only within their reviewed scope.
+10. Project Schema standards constrain representation/provenance; they do not redefine clinical requirements.
+11. Update `RESUME_HERE.md` after substantial work.
+12. Preserve superseded architecture/history in Git.
+13. Do not redistribute third-party EasyCAD PDFs/screenshots or questionnaire content publicly without rights clearance.
