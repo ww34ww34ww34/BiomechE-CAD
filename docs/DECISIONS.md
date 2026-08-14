@@ -110,21 +110,81 @@ Each P0 requirement requires acceptance criteria and, where applicable, determin
 
 ---
 
+## D-CAD-011 — OpenSubdiv-first canonical control-cage architecture
+
+**Status:** BASELINE  
+**Date:** 2026-08-14
+
+BiomechE-CAD will use a **canonical orthosis control cage + versioned operation stack** as the leading P0 geometry architecture, with OpenSubdiv as the expected smooth limit-surface evaluator.
+
+Rationale:
+
+- EasyCAD2 primary documentation validates direct mesh/vertex editing, parametric heel/arch/wedge changes, element positioning, sculpt and scan-conforming deformation;
+- the project owner states that EasyCAD2 uses OpenSubdiv;
+- official OpenSubdiv documentation is specifically optimized for deforming subdivision surfaces with static topology at interactive frame rates.
+
+This does **not** imply that BiomechE-CAD will clone EasyCAD2 internals or formulas.
+
+---
+
+## D-CAD-012 — General-purpose NURBS/B-Rep is not a P0 prerequisite
+
+**Status:** BASELINE  
+**Date:** 2026-08-14
+
+The validated EasyCAD2 product behavior does not require BiomechE-CAD to make NURBS surface authoring, trimmed B-Rep, STEP/IGES, general loft/sweep/revolve, arbitrary shell/offset, fillet/chamfer or a full solid-boolean kernel prerequisites for the MVP.
+
+Utility B-spline curves remain allowed where useful. Exact CAD/NURBS/B-Rep may later enter through adapters for explicit interoperability/manufacturing use cases.
+
+---
+
+## D-CAD-013 — Additional geometry libraries must earn entry through a failing fixture
+
+**Status:** BASELINE  
+**Date:** 2026-08-14
+
+Do not add OCCT, CGAL, Manifold, openNURBS or another major geometry dependency merely for theoretical capability coverage.
+
+A dependency is justified only when:
+
+1. a named P0/P1 acceptance fixture cannot be implemented robustly with the current cage/OpenSubdiv/focused-algorithm stack;
+2. the failure is reproducible;
+3. the candidate library materially improves robustness or interoperability;
+4. license, portability, WASM/server feasibility and conversion cost are documented.
+
+---
+
+## D-CAD-014 — Clinical upper surface and manufacturing body are separated
+
+**Status:** BASELINE  
+**Date:** 2026-08-14
+
+The canonical cage primarily authors the clinical upper/contact surface. Lower surface, sidewalls, thickness and Bridge/Straight/Oblique/Hybrid closure are derived manufacturing geometry.
+
+This allows clinical prescription to remain stable while production profiles change.
+
+This is a BiomechE-CAD design choice, not a claim about EasyCAD2 internals.
+
+---
+
 ## OPEN DECISIONS
 
-The following decisions must be resolved before implementation is allowed to constrain the architecture prematurely:
+The following decisions remain open or require qualification before freezing:
 
-- geometry kernel / mesh representation;
 - exact project storage/container format;
-- operation dependency/evaluation model;
-- coordinate and registration contract;
-- heel/camber mathematical operator;
-- medial/lateral arch mathematical operators;
-- wedge reference axes and geometric construction;
-- offset/thickness strategy;
-- element integration/boolean strategy;
+- exact coordinate and registration contract;
+- concrete canonical cage topology/resolution and topology-family count;
+- OpenSubdiv boundary/crease rules;
+- operation dependency/evaluation details beyond the current staged baseline;
+- exact heel/camber mathematical operator;
+- exact medial/lateral arch operator calibration;
+- wedge reference axes and measurement fixture;
+- corrective-element field/cage representation and `PLACE_FROM_BASE` semantics;
+- scan-conform projection semantics;
+- production lower-surface/closure algorithms;
 - physical stiffness/material model;
 - initial manufacturing target priority: additive, CNC or equal priority;
-- public API/ABI boundary for CAD engine integration.
+- public API/ABI boundary for CAD engine integration;
+- whether a second geometry library is eventually needed after the cage qualification suite.
 
 A library choice must follow these requirements, not define them retroactively.
