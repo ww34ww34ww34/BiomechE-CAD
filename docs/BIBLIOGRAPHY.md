@@ -133,7 +133,7 @@ Muir BC et al. *Evaluation of novel plantar pressure-based 3-dimensional printed
 
 <a id="ref-cad-009"></a>
 ## REF-CAD-009 — Orthosis stiffness in flexible flatfoot
-Cherni Y et al. *Effect of 3D printed foot orthoses stiffness on muscle activity and plantar pressures in individuals with flexible flatfeet.* Clin Biomech. 2022;92:105553. PMID `34973589`. Role: stiffness as independent dose.
+Cherni Y et al. *Effect of 3D printed foot orthoses stiffness on muscle activity and plantar pressures in individuals with flexible flatfeet: A statistical non-parametric mapping study.* Clin Biomech. 2022;92:105553. PMID `34973589`; DOI `10.1016/j.clinbiomech.2021.105553`. Locator: Abstract—Methods/Findings/Interpretation. Role: stiffness as independent dose.
 
 <a id="ref-cad-010"></a>
 ## REF-CAD-010 — Stiffness/design/posting effects
@@ -241,7 +241,7 @@ Kernozek TW et al. *Reliability of an in-shoe pressure measurement system during
 
 <a id="ref-cad-036"></a>
 ## REF-CAD-036 — Cross-system pressure comparability
-Chockalingam N et al. *Discrepancies between plantar pressure devices: Evaluating cross-system reliability in a diabetic population.* Foot. 2025;64:102190. PMID `40743570`; DOI `10.1016/j.foot.2025.102190`. Locator: Abstract—Methods/Results/Conclusions. Role: cross-device warning; several pressure/force/time metrics are not automatically interchangeable between systems.
+Chockalingam N, Giacomozzi C, Healy A, Sacco ICNS. *Discrepancies between plantar pressure devices: Evaluating cross-system reliability for biomechanics, clinical use and predictive modelling.* Foot (Edinb). 2025;64:102190. PMID `40743570`; DOI `10.1016/j.foot.2025.102190`. Locator: Abstract—Methods/Results/Conclusions. Role: cross-device warning; several pressure/force/time metrics are not automatically interchangeable between systems.
 
 <a id="ref-cad-037"></a>
 ## REF-CAD-037 — In-shoe pressure thresholds review
