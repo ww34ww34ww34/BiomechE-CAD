@@ -2,40 +2,20 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schemas.biomeche.invalid/cad/biomeche-cad-project-0.1.schema.json",
   "title": "BiomechE-CAD Project Manifest 0.1",
-  "description": "Reference serialization envelope for the BiomechE-CAD evidence-led project schema. Markdown semantic authority: docs/spec/02_project_schema.md.",
+  "description": "Reference serialization envelope for the evidence-led BiomechE-CAD project schema. Semantic authority: docs/spec/02_project_schema.md.",
   "type": "object",
   "required": [
-    "schemaId",
-    "schemaVersion",
-    "projectId",
-    "projectCreatedAt",
-    "projectUpdatedAt",
-    "projectStatus",
-    "patientLink",
-    "case",
-    "orthosisProjects",
-    "definitions",
-    "assets",
-    "acquisitions",
-    "registrations",
-    "landmarkSets",
-    "roiDefinitions",
-    "designRevisions",
-    "outcomeTargets",
-    "outcomeMeasurements",
-    "outcomeComparisons",
-    "materialLots",
-    "mechanicalPropertyMeasurements",
-    "durabilityTests",
-    "manufacturingRuns",
-    "manufacturingArtifacts",
-    "physicalOrthoses",
-    "qcMeasurements",
-    "serviceStates",
-    "provenanceRecords",
-    "auditEvents",
-    "migrationHistory",
-    "packageValidation"
+    "schemaId", "schemaVersion", "projectId", "projectCreatedAt", "projectUpdatedAt", "projectStatus",
+    "patientLink", "case", "orthosisProjects", "definitions", "assets",
+    "frameDefinitions", "acquisitions", "registrations", "landmarkSets", "roiDefinitions",
+    "designRevisions", "outcomeTargets", "outcomeMeasurements", "outcomeComparisons",
+    "promMeasurements", "comfortAssessments", "fitUsabilityAssessments", "satisfactionAssessments",
+    "adherenceMeasurements", "patientExperienceBundles",
+    "materialLots", "materialRegions", "materialStacks", "structuralMaterialRegions",
+    "mechanicalPropertyMeasurements", "postProcessMaterialStates", "durabilityTests",
+    "manufacturingRuns", "manufacturingArtifacts", "physicalOrthoses", "qcRequirements", "qcMeasurements",
+    "serviceStates", "exportArtifacts", "reportArtifacts",
+    "provenanceRecords", "auditEvents", "migrationHistory", "packageValidation"
   ],
   "properties": {
     "schemaId": { "const": "biomeche-cad-project" },
@@ -43,19 +23,13 @@
     "projectId": { "$ref": "#/$defs/id" },
     "projectCreatedAt": { "$ref": "#/$defs/timestamp" },
     "projectUpdatedAt": { "$ref": "#/$defs/timestamp" },
-    "projectStatus": {
-      "type": "string",
-      "enum": ["ACTIVE", "ARCHIVED", "CLOSED", "IMPORTED", "UNKNOWN"]
-    },
+    "projectStatus": { "type": "string", "enum": ["ACTIVE", "ARCHIVED", "CLOSED", "IMPORTED", "UNKNOWN"] },
     "patientLink": { "$ref": "#/$defs/patientLink" },
     "case": { "$ref": "#/$defs/case" },
-    "orthosisProjects": {
-      "type": "array",
-      "items": { "$ref": "#/$defs/orthosisProject" },
-      "maxItems": 2
-    },
+    "orthosisProjects": { "type": "array", "maxItems": 2, "items": { "$ref": "#/$defs/orthosisProject" } },
     "definitions": { "$ref": "#/$defs/projectDefinitions" },
     "assets": { "type": "array", "items": { "$ref": "#/$defs/assetDescriptor" } },
+    "frameDefinitions": { "type": "array", "items": { "$ref": "#/$defs/frameDefinition" } },
     "acquisitions": { "type": "array", "items": { "$ref": "#/$defs/acquisition" } },
     "registrations": { "type": "array", "items": { "$ref": "#/$defs/registration" } },
     "landmarkSets": { "type": "array", "items": { "$ref": "#/$defs/landmarkSet" } },
@@ -64,14 +38,27 @@
     "outcomeTargets": { "type": "array", "items": { "$ref": "#/$defs/outcomeTarget" } },
     "outcomeMeasurements": { "type": "array", "items": { "$ref": "#/$defs/outcomeMeasurement" } },
     "outcomeComparisons": { "type": "array", "items": { "$ref": "#/$defs/outcomeComparison" } },
+    "promMeasurements": { "type": "array", "items": { "$ref": "#/$defs/promMeasurement" } },
+    "comfortAssessments": { "type": "array", "items": { "$ref": "#/$defs/comfortAssessment" } },
+    "fitUsabilityAssessments": { "type": "array", "items": { "$ref": "#/$defs/fitUsabilityAssessment" } },
+    "satisfactionAssessments": { "type": "array", "items": { "$ref": "#/$defs/satisfactionAssessment" } },
+    "adherenceMeasurements": { "type": "array", "items": { "$ref": "#/$defs/adherenceMeasurement" } },
+    "patientExperienceBundles": { "type": "array", "items": { "$ref": "#/$defs/patientExperienceBundle" } },
     "materialLots": { "type": "array", "items": { "$ref": "#/$defs/materialLot" } },
+    "materialRegions": { "type": "array", "items": { "$ref": "#/$defs/materialRegion" } },
+    "materialStacks": { "type": "array", "items": { "$ref": "#/$defs/materialStack" } },
+    "structuralMaterialRegions": { "type": "array", "items": { "$ref": "#/$defs/structuralMaterialRegion" } },
     "mechanicalPropertyMeasurements": { "type": "array", "items": { "$ref": "#/$defs/mechanicalPropertyMeasurement" } },
+    "postProcessMaterialStates": { "type": "array", "items": { "$ref": "#/$defs/postProcessMaterialState" } },
     "durabilityTests": { "type": "array", "items": { "$ref": "#/$defs/durabilityTest" } },
     "manufacturingRuns": { "type": "array", "items": { "$ref": "#/$defs/manufacturingRun" } },
     "manufacturingArtifacts": { "type": "array", "items": { "$ref": "#/$defs/manufacturingArtifact" } },
     "physicalOrthoses": { "type": "array", "items": { "$ref": "#/$defs/physicalOrthosis" } },
+    "qcRequirements": { "type": "array", "items": { "$ref": "#/$defs/qcRequirement" } },
     "qcMeasurements": { "type": "array", "items": { "$ref": "#/$defs/qcMeasurement" } },
     "serviceStates": { "type": "array", "items": { "$ref": "#/$defs/serviceState" } },
+    "exportArtifacts": { "type": "array", "items": { "$ref": "#/$defs/exportArtifact" } },
+    "reportArtifacts": { "type": "array", "items": { "$ref": "#/$defs/reportArtifact" } },
     "provenanceRecords": { "type": "array", "items": { "$ref": "#/$defs/provenanceRecord" } },
     "auditEvents": { "type": "array", "items": { "$ref": "#/$defs/auditEvent" } },
     "migrationHistory": { "type": "array", "items": { "$ref": "#/$defs/migrationRecord" } },
@@ -83,16 +70,10 @@
     "id": {
       "type": "string",
       "minLength": 1,
-      "description": "Opaque persistent internal ID. UUIDv7 is preferred for newly generated IDs, but imported IDs may be retained where explicitly supported."
+      "description": "Opaque persistent internal ID; UUIDv7 is preferred for new IDs."
     },
-    "timestamp": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "side": {
-      "type": "string",
-      "enum": ["LEFT", "RIGHT"]
-    },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "side": { "type": "string", "enum": ["LEFT", "RIGHT"] },
     "hashValue": {
       "type": "object",
       "required": ["algorithm", "value"],
@@ -117,16 +98,10 @@
       "type": "object",
       "required": ["agentType", "id"],
       "properties": {
-        "agentType": {
-          "type": "string",
-          "enum": ["PERSON", "ORGANIZATION", "DEVICE", "SOFTWARE", "SYSTEM"]
-        },
+        "agentType": { "type": "string", "enum": ["PERSON", "ORGANIZATION", "DEVICE", "SOFTWARE", "SYSTEM"] },
         "id": { "$ref": "#/$defs/id" },
         "displayName": { "type": "string" },
-        "externalIdentifiers": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/externalIdentifier" }
-        }
+        "externalIdentifiers": { "type": "array", "items": { "$ref": "#/$defs/externalIdentifier" } }
       },
       "additionalProperties": false
     },
@@ -188,25 +163,14 @@
       },
       "additionalProperties": false
     },
-    "assetDescriptor": {
+    "attachedProfile": {
       "type": "object",
-      "required": ["assetId", "role", "mediaType", "byteLength", "hash", "storageRef", "createdAt", "availability"],
+      "required": ["profileRef", "attachedAt", "attachedBy", "confirmationState"],
       "properties": {
-        "assetId": { "$ref": "#/$defs/id" },
-        "role": { "type": "string", "minLength": 1 },
-        "mediaType": { "type": "string", "minLength": 1 },
-        "byteLength": { "type": "integer", "minimum": 0 },
-        "hash": { "$ref": "#/$defs/hashValue" },
-        "originalFileName": { "type": "string" },
-        "originalSourceUri": { "type": "string" },
-        "storageRef": { "type": "string", "minLength": 1 },
-        "createdAt": { "$ref": "#/$defs/timestamp" },
-        "sourceAssetIds": { "type": "array", "items": { "$ref": "#/$defs/id" } },
-        "provenanceRecordId": { "$ref": "#/$defs/id" },
-        "availability": {
-          "type": "string",
-          "enum": ["EMBEDDED", "LOCAL_EXTERNAL", "REMOTE_EXTERNAL", "MISSING"]
-        }
+        "profileRef": { "$ref": "#/$defs/versionedRef" },
+        "attachedAt": { "$ref": "#/$defs/timestamp" },
+        "attachedBy": { "$ref": "#/$defs/agentRef" },
+        "confirmationState": { "type": "string", "enum": ["USER_CONFIRMED", "IMPORTED", "SUGGESTED_NOT_CONFIRMED"] }
       },
       "additionalProperties": false
     },
@@ -215,21 +179,15 @@
       "required": ["projectPatientId", "externalIdentifiers", "privacyClass"],
       "properties": {
         "projectPatientId": { "$ref": "#/$defs/id" },
-        "externalIdentifiers": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/externalIdentifier" }
-        },
+        "externalIdentifiers": { "type": "array", "items": { "$ref": "#/$defs/externalIdentifier" } },
         "demographicsSnapshot": { "type": "object", "additionalProperties": true },
-        "privacyClass": {
-          "type": "string",
-          "enum": ["FULL_CLINICAL", "PSEUDONYMIZED", "MANUFACTURING_MINIMUM"]
-        }
+        "privacyClass": { "type": "string", "enum": ["FULL_CLINICAL", "PSEUDONYMIZED", "MANUFACTURING_MINIMUM"] }
       },
       "additionalProperties": false
     },
     "case": {
       "type": "object",
-      "required": ["caseId", "externalIdentifiers", "openedAt", "clinicianRefs", "attachedProfileRefs", "sourceAcquisitionIds", "notes"],
+      "required": ["caseId", "externalIdentifiers", "openedAt", "clinicianRefs", "attachedProfiles", "sourceAcquisitionIds", "notes"],
       "properties": {
         "caseId": { "$ref": "#/$defs/id" },
         "externalIdentifiers": { "type": "array", "items": { "$ref": "#/$defs/externalIdentifier" } },
@@ -238,7 +196,7 @@
         "clinicianRefs": { "type": "array", "items": { "$ref": "#/$defs/agentRef" } },
         "clinicalIntentText": { "type": "string" },
         "clinicalContextRefs": { "type": "array", "items": { "type": "string" } },
-        "attachedProfileRefs": { "type": "array", "items": { "$ref": "#/$defs/versionedRef" } },
+        "attachedProfiles": { "type": "array", "items": { "$ref": "#/$defs/attachedProfile" } },
         "activeInterpretationProfileRef": { "$ref": "#/$defs/versionedRef" },
         "sourceAcquisitionIds": { "type": "array", "items": { "$ref": "#/$defs/id" } },
         "notes": { "type": "array", "items": { "type": "string" } }
@@ -288,6 +246,25 @@
       },
       "additionalProperties": false
     },
+    "assetDescriptor": {
+      "type": "object",
+      "required": ["assetId", "role", "mediaType", "byteLength", "hash", "storageRef", "createdAt", "availability"],
+      "properties": {
+        "assetId": { "$ref": "#/$defs/id" },
+        "role": { "type": "string" },
+        "mediaType": { "type": "string" },
+        "byteLength": { "type": "integer", "minimum": 0 },
+        "hash": { "$ref": "#/$defs/hashValue" },
+        "originalFileName": { "type": "string" },
+        "originalSourceUri": { "type": "string" },
+        "storageRef": { "type": "string" },
+        "createdAt": { "$ref": "#/$defs/timestamp" },
+        "sourceAssetIds": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "provenanceRecordId": { "$ref": "#/$defs/id" },
+        "availability": { "type": "string", "enum": ["EMBEDDED", "LOCAL_EXTERNAL", "REMOTE_EXTERNAL", "MISSING"] }
+      },
+      "additionalProperties": false
+    },
     "frameDefinition": {
       "type": "object",
       "required": ["frameId", "frameType", "units", "conventionVersion"],
@@ -301,16 +278,25 @@
       },
       "additionalProperties": false
     },
-    "landmarkSet": {
+    "acquisition": {
       "type": "object",
-      "required": ["landmarkSetId", "version", "frameId", "side", "landmarks"],
+      "required": ["acquisitionId", "acquisitionType", "caseRef", "side", "capturedAt", "importedAt", "rawAssetRefs", "units", "sourceFrameRef", "protocol", "qualityFlags", "provenanceRecordId"],
       "properties": {
-        "landmarkSetId": { "$ref": "#/$defs/id" },
-        "version": { "type": "string" },
-        "frameId": { "$ref": "#/$defs/id" },
+        "acquisitionId": { "$ref": "#/$defs/id" },
+        "acquisitionType": { "type": "string", "enum": ["PRESSURE", "SCAN_3D", "SCAN_2D", "IMAGE_2D", "REFERENCE_MESH", "BIOMECHE_RESULT"] },
+        "caseRef": { "$ref": "#/$defs/id" },
         "side": { "$ref": "#/$defs/side" },
-        "sourceAcquisitionId": { "$ref": "#/$defs/id" },
-        "landmarks": { "type": "array", "items": { "type": "object", "additionalProperties": true } }
+        "capturedAt": { "$ref": "#/$defs/timestamp" },
+        "importedAt": { "$ref": "#/$defs/timestamp" },
+        "operatorRef": { "$ref": "#/$defs/agentRef" },
+        "deviceRef": { "$ref": "#/$defs/agentRef" },
+        "rawAssetRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "units": { "type": "string" },
+        "sourceFrameRef": { "$ref": "#/$defs/id" },
+        "protocol": { "type": "object", "additionalProperties": true },
+        "qualityFlags": { "type": "array", "items": { "type": "string" } },
+        "provenanceRecordId": { "$ref": "#/$defs/id" },
+        "payload": { "type": "object", "additionalProperties": true }
       },
       "additionalProperties": false
     },
@@ -334,6 +320,19 @@
       },
       "additionalProperties": false
     },
+    "landmarkSet": {
+      "type": "object",
+      "required": ["landmarkSetId", "version", "frameId", "side", "landmarks"],
+      "properties": {
+        "landmarkSetId": { "$ref": "#/$defs/id" },
+        "version": { "type": "string" },
+        "frameId": { "$ref": "#/$defs/id" },
+        "side": { "$ref": "#/$defs/side" },
+        "sourceAcquisitionId": { "$ref": "#/$defs/id" },
+        "landmarks": { "type": "array", "items": { "type": "object", "additionalProperties": true } }
+      },
+      "additionalProperties": false
+    },
     "roiDefinition": {
       "type": "object",
       "required": ["roiId", "version", "displayName", "side", "roiType", "frameId"],
@@ -350,28 +349,6 @@
         "sourceRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
         "algorithmRef": { "$ref": "#/$defs/algorithmRef" },
         "evidenceRefs": { "type": "array", "items": { "$ref": "#/$defs/evidenceRef" } }
-      },
-      "additionalProperties": false
-    },
-    "acquisition": {
-      "type": "object",
-      "required": ["acquisitionId", "acquisitionType", "caseRef", "side", "capturedAt", "importedAt", "rawAssetRefs", "units", "sourceFrameRef", "protocol", "qualityFlags", "provenanceRecordId"],
-      "properties": {
-        "acquisitionId": { "$ref": "#/$defs/id" },
-        "acquisitionType": { "type": "string", "enum": ["PRESSURE", "SCAN_3D", "SCAN_2D", "IMAGE_2D", "REFERENCE_MESH", "BIOMECHE_RESULT"] },
-        "caseRef": { "$ref": "#/$defs/id" },
-        "side": { "$ref": "#/$defs/side" },
-        "capturedAt": { "$ref": "#/$defs/timestamp" },
-        "importedAt": { "$ref": "#/$defs/timestamp" },
-        "operatorRef": { "$ref": "#/$defs/agentRef" },
-        "deviceRef": { "$ref": "#/$defs/agentRef" },
-        "rawAssetRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
-        "units": { "type": "string" },
-        "sourceFrameRef": { "$ref": "#/$defs/id" },
-        "protocol": { "type": "object", "additionalProperties": true },
-        "qualityFlags": { "type": "array", "items": { "type": "string" } },
-        "provenanceRecordId": { "$ref": "#/$defs/id" },
-        "payload": { "type": "object", "additionalProperties": true }
       },
       "additionalProperties": false
     },
@@ -494,6 +471,114 @@
       },
       "additionalProperties": false
     },
+    "promMeasurement": {
+      "type": "object",
+      "required": ["measurementId", "instrumentRef", "language", "scoringAlgorithmVersion", "timestamp", "designRevisionId", "side", "domainScores", "scoringWarnings"],
+      "properties": {
+        "measurementId": { "$ref": "#/$defs/id" },
+        "instrumentRef": { "$ref": "#/$defs/versionedRef" },
+        "language": { "type": "string" },
+        "culturalAdaptationId": { "type": "string" },
+        "scoringAlgorithmVersion": { "type": "string" },
+        "timestamp": { "$ref": "#/$defs/timestamp" },
+        "recallWindow": { "type": "string" },
+        "administrationMode": { "type": "string" },
+        "rawResponsesRef": { "$ref": "#/$defs/id" },
+        "domainScores": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "totalScore": { "type": "number" },
+        "scoringWarnings": { "type": "array", "items": { "type": "string" } },
+        "indicationProfileRef": { "$ref": "#/$defs/versionedRef" },
+        "designRevisionId": { "$ref": "#/$defs/id" },
+        "physicalOrthosisId": { "$ref": "#/$defs/id" },
+        "side": { "$ref": "#/$defs/side" }
+      },
+      "additionalProperties": false
+    },
+    "comfortAssessment": {
+      "type": "object",
+      "required": ["assessmentId", "timestamp", "scaleType", "scaleMin", "scaleMax", "scoreDirection", "designRevisionId"],
+      "properties": {
+        "assessmentId": { "$ref": "#/$defs/id" },
+        "timestamp": { "$ref": "#/$defs/timestamp" },
+        "scaleType": { "type": "string" },
+        "scaleMin": { "type": "number" },
+        "scaleMax": { "type": "number" },
+        "scoreDirection": { "type": "string" },
+        "overallComfort": { "type": "number" },
+        "dimensions": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "activityContext": { "type": "object", "additionalProperties": true },
+        "designRevisionId": { "$ref": "#/$defs/id" },
+        "physicalOrthosisId": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": false
+    },
+    "fitUsabilityAssessment": {
+      "type": "object",
+      "required": ["assessmentId", "timestamp", "designRevisionId"],
+      "properties": {
+        "assessmentId": { "$ref": "#/$defs/id" },
+        "timestamp": { "$ref": "#/$defs/timestamp" },
+        "footwearContext": { "type": "object", "additionalProperties": true },
+        "ratings": { "type": "object", "additionalProperties": true },
+        "notes": { "type": "string" },
+        "designRevisionId": { "$ref": "#/$defs/id" },
+        "physicalOrthosisId": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": false
+    },
+    "satisfactionAssessment": {
+      "type": "object",
+      "required": ["assessmentId", "timestamp", "overallSatisfaction", "designRevisionId"],
+      "properties": {
+        "assessmentId": { "$ref": "#/$defs/id" },
+        "timestamp": { "$ref": "#/$defs/timestamp" },
+        "overallSatisfaction": { "type": "number" },
+        "perceivedBenefit": { "type": "number" },
+        "willingnessToContinue": { "type": "string" },
+        "expectationMatch": { "type": "number" },
+        "notes": { "type": "string" },
+        "designRevisionId": { "$ref": "#/$defs/id" },
+        "physicalOrthosisId": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": false
+    },
+    "adherenceMeasurement": {
+      "type": "object",
+      "required": ["measurementId", "method", "observationStart", "observationEnd", "denominator", "designRevisionId", "qualityFlags"],
+      "properties": {
+        "measurementId": { "$ref": "#/$defs/id" },
+        "method": { "type": "string", "enum": ["SELF_REPORT", "TEMPERATURE_SENSOR", "ACTIVITY_MONITOR", "COMBINED_OBJECTIVE", "OTHER"] },
+        "observationStart": { "$ref": "#/$defs/timestamp" },
+        "observationEnd": { "$ref": "#/$defs/timestamp" },
+        "wearTimeMinutes": { "type": "number", "minimum": 0 },
+        "weightBearingTimeMinutes": { "type": "number", "minimum": 0 },
+        "stepsTotal": { "type": "integer", "minimum": 0 },
+        "stepsWithDevice": { "type": "integer", "minimum": 0 },
+        "adherenceRatio": { "type": "number", "minimum": 0, "maximum": 1 },
+        "denominator": { "type": "string", "enum": ["TIME_OUT_OF_BED", "WEIGHT_BEARING_TIME", "STEPS", "PRESCRIBED_SESSION", "OTHER"] },
+        "sensorIds": { "type": "array", "items": { "type": "string" } },
+        "sourceFiles": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "qualityFlags": { "type": "array", "items": { "type": "string" } },
+        "designRevisionId": { "$ref": "#/$defs/id" },
+        "physicalOrthosisId": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": false
+    },
+    "patientExperienceBundle": {
+      "type": "object",
+      "required": ["bundleId", "designRevisionId", "promMeasurementRefs", "comfortAssessmentRefs", "fitUsabilityAssessmentRefs", "satisfactionAssessmentRefs", "adherenceMeasurementRefs"],
+      "properties": {
+        "bundleId": { "$ref": "#/$defs/id" },
+        "designRevisionId": { "$ref": "#/$defs/id" },
+        "physicalOrthosisId": { "$ref": "#/$defs/id" },
+        "promMeasurementRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "comfortAssessmentRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "fitUsabilityAssessmentRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "satisfactionAssessmentRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "adherenceMeasurementRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } }
+      },
+      "additionalProperties": false
+    },
     "materialLot": {
       "type": "object",
       "required": ["lotId", "materialRef"],
@@ -507,6 +592,51 @@
         "storageConditions": { "type": "string" },
         "certificateRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
         "incomingMeasurements": { "type": "array", "items": { "$ref": "#/$defs/id" } }
+      },
+      "additionalProperties": false
+    },
+    "materialRegion": {
+      "type": "object",
+      "required": ["regionId", "side", "referenceFrame", "roiRef", "materialDefinitionRef", "nominalThickness", "intendedRole"],
+      "properties": {
+        "regionId": { "$ref": "#/$defs/id" },
+        "side": { "$ref": "#/$defs/side" },
+        "referenceFrame": { "$ref": "#/$defs/id" },
+        "roiRef": { "$ref": "#/$defs/id" },
+        "materialDefinitionRef": { "$ref": "#/$defs/versionedRef" },
+        "materialLotId": { "$ref": "#/$defs/id" },
+        "nominalThickness": { "$ref": "#/$defs/quantity" },
+        "intendedRole": { "type": "string" },
+        "targetPropertyProfile": { "type": "object", "additionalProperties": true },
+        "transitionProfile": { "type": "object", "additionalProperties": true },
+        "evidenceRefs": { "type": "array", "items": { "$ref": "#/$defs/evidenceRef" } }
+      },
+      "additionalProperties": false
+    },
+    "materialStack": {
+      "type": "object",
+      "required": ["stackId", "side", "layers", "interfaces"],
+      "properties": {
+        "stackId": { "$ref": "#/$defs/id" },
+        "side": { "$ref": "#/$defs/side" },
+        "layers": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "interfaces": { "type": "array", "items": { "type": "object", "additionalProperties": true } }
+      },
+      "additionalProperties": false
+    },
+    "structuralMaterialRegion": {
+      "type": "object",
+      "required": ["structuralRegionId", "side", "roiRef", "baseMaterialRef", "structuralFamily", "structuralParameters"],
+      "properties": {
+        "structuralRegionId": { "$ref": "#/$defs/id" },
+        "side": { "$ref": "#/$defs/side" },
+        "roiRef": { "$ref": "#/$defs/id" },
+        "baseMaterialRef": { "$ref": "#/$defs/versionedRef" },
+        "structuralFamily": { "type": "string", "enum": ["SOLID", "INFILL", "LATTICE", "TPMS", "CUSTOM"] },
+        "structuralParameters": { "type": "object", "additionalProperties": true },
+        "nominalEffectiveProperties": { "type": "object", "additionalProperties": true },
+        "calibratedEffectiveProperties": { "type": "object", "additionalProperties": true },
+        "calibrationRef": { "$ref": "#/$defs/id" }
       },
       "additionalProperties": false
     },
@@ -533,6 +663,19 @@
         "operatorRef": { "$ref": "#/$defs/agentRef" },
         "dataQuality": { "type": "string" },
         "sourceRefs": { "type": "array", "items": { "$ref": "#/$defs/evidenceRef" } }
+      },
+      "additionalProperties": false
+    },
+    "postProcessMaterialState": {
+      "type": "object",
+      "required": ["stepId", "processType", "processProfileRef", "timestamp", "resultingMeasurements"],
+      "properties": {
+        "stepId": { "$ref": "#/$defs/id" },
+        "processType": { "type": "string" },
+        "processProfileRef": { "$ref": "#/$defs/versionedRef" },
+        "timestamp": { "$ref": "#/$defs/timestamp" },
+        "operatorRef": { "$ref": "#/$defs/agentRef" },
+        "resultingMeasurements": { "type": "array", "items": { "$ref": "#/$defs/id" } }
       },
       "additionalProperties": false
     },
@@ -616,6 +759,25 @@
       },
       "additionalProperties": false
     },
+    "qcRequirement": {
+      "type": "object",
+      "required": ["requirementId", "manufacturingProfileRef", "metric", "method", "units", "severity"],
+      "properties": {
+        "requirementId": { "type": "string" },
+        "manufacturingProfileRef": { "$ref": "#/$defs/versionedRef" },
+        "metric": { "type": "string" },
+        "locationRoiRef": { "$ref": "#/$defs/id" },
+        "method": { "type": "string" },
+        "instrumentClass": { "type": "string" },
+        "units": { "type": "string" },
+        "lowerLimit": { "type": "number" },
+        "upperLimit": { "type": "number" },
+        "target": { "type": "number" },
+        "requiredEvidenceRef": { "$ref": "#/$defs/evidenceRef" },
+        "severity": { "type": "string", "enum": ["INFO", "WARNING", "BLOCKING"] }
+      },
+      "additionalProperties": false
+    },
     "qcMeasurement": {
       "type": "object",
       "required": ["measurementId", "artifactId", "requirementId", "units", "method", "timestamp", "result"],
@@ -654,6 +816,34 @@
         "pressureVerificationRef": { "$ref": "#/$defs/id" },
         "patientExperienceBundleRef": { "$ref": "#/$defs/id" },
         "disposition": { "type": "string", "enum": ["CONTINUE", "RECHECK", "REPLACE", "UNKNOWN"] }
+      },
+      "additionalProperties": false
+    },
+    "exportArtifact": {
+      "type": "object",
+      "required": ["exportArtifactId", "artifactType", "assetRef", "sourceDesignRevisionId", "generatedAt", "generatorVersion", "validationState"],
+      "properties": {
+        "exportArtifactId": { "$ref": "#/$defs/id" },
+        "artifactType": { "type": "string" },
+        "assetRef": { "$ref": "#/$defs/id" },
+        "sourceDesignRevisionId": { "$ref": "#/$defs/id" },
+        "manufacturingProfileRef": { "$ref": "#/$defs/versionedRef" },
+        "generatedAt": { "$ref": "#/$defs/timestamp" },
+        "generatorVersion": { "type": "string" },
+        "validationState": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "reportArtifact": {
+      "type": "object",
+      "required": ["reportArtifactId", "reportType", "assetRef", "generatedAt", "generatorVersion", "sourceRefs"],
+      "properties": {
+        "reportArtifactId": { "$ref": "#/$defs/id" },
+        "reportType": { "type": "string", "enum": ["DESIGN", "MANUFACTURING_QC", "OUTCOME", "TRACEABILITY", "OTHER"] },
+        "assetRef": { "$ref": "#/$defs/id" },
+        "generatedAt": { "$ref": "#/$defs/timestamp" },
+        "generatorVersion": { "type": "string" },
+        "sourceRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } }
       },
       "additionalProperties": false
     },
