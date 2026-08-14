@@ -535,9 +535,9 @@ Ho M et al. *Immediate comfort perception of 3D-printed foot orthoses in individ
 
 ---
 
-# D. Standards / test-method references
+# D. Standards / test-method / interoperability references
 
-**Scope note:** a standards entry documents terminology/test/qualification semantics available from the official ISO page. It does not mean BiomechE-CAD automatically claims conformance to the complete paid standard. Full conformance decisions require controlled access to the licensed standard and a formal applicability review.
+**Scope note:** a standards entry documents terminology/test/interoperability/qualification semantics available from the official source. It does not mean BiomechE-CAD automatically claims conformance to the complete standard. Full conformance decisions require applicability review and, for paid standards, controlled access to the licensed text.
 
 <a id="std-iso-868-2003"></a>
 ## STD-ISO-868-2003 — Shore durometer hardness
@@ -617,6 +617,69 @@ Ho M et al. *Immediate comfort perception of 3D-printed foot orthoses in individ
 - **Locator:** official Abstract/Scope.
 - **Role:** explicit build positioning/orientation/coordinate vocabulary for manufacturing provenance.
 
+<a id="std-json-schema-2020-12"></a>
+## STD-JSON-SCHEMA-2020-12 — JSON Schema Draft 2020-12
+- **Specification:** JSON Schema Draft 2020-12, Core and Validation vocabularies.
+- **Official URL:** https://json-schema.org/draft/2020-12
+- **Locator:** official specification details; Core/Validation documents.
+- **Role:** machine-readable reference validation for the portable BiomechE-CAD project manifest; does not select a database/storage engine.
+
+<a id="std-w3c-prov-o-2013"></a>
+## STD-W3C-PROV-O-2013 — W3C PROV-O
+- **Specification:** *PROV-O: The PROV Ontology.* W3C Recommendation, 30 April 2013.
+- **Official URL:** https://www.w3.org/TR/prov-o/
+- **Locator:** §2 `PROV-O at a glance`; §3.1 `Starting Point Terms` (`Entity`, `Activity`, `Agent`).
+- **Role:** conceptual/interoperability provenance model for input/output entities, generating activities and responsible agents; RDF storage is not required internally.
+
+<a id="std-rfc-9562"></a>
+## STD-RFC-9562 — UUIDs
+- **Specification:** RFC 9562, *Universally Unique IDentifiers (UUIDs).* RFC Editor, 2024.
+- **Official URL:** https://www.rfc-editor.org/info/rfc9562/
+- **Locator:** §5.7 UUID Version 7; §6 generation/best-practice considerations.
+- **Role:** persistent internal identifier semantics; UUIDv7 is the preferred new-ID form in Project Schema v0, while IDs remain opaque to business logic.
+
+<a id="std-rfc-3339"></a>
+## STD-RFC-3339 — Internet timestamps
+- **Specification:** RFC 3339, *Date and Time on the Internet: Timestamps.* Proposed Standard, July 2002; updated by RFC 9557.
+- **Official URL:** https://www.rfc-editor.org/info/rfc3339/
+- **Locator:** §5.6 Internet Date/Time Format and local-offset semantics.
+- **Role:** offset-aware serialized timestamp format for project/revision/provenance events.
+
+<a id="std-rfc-8785"></a>
+## STD-RFC-8785 — JSON Canonicalization Scheme (JCS)
+- **Specification:** RFC 8785, *JSON Canonicalization Scheme (JCS).* Informational, June 2020.
+- **Official URL:** https://www.rfc-editor.org/rfc/rfc8785.html
+- **Locator:** §3 Detailed Operation, especially deterministic primitive serialization/property sorting; verified errata apply.
+- **Role:** recommended canonical representation when hashing/signing selected JSON metadata; raw binary assets are hashed as raw bytes.
+
+<a id="std-nist-fips-180-4"></a>
+## STD-NIST-FIPS-180-4 — Secure Hash Standard
+- **Standard:** NIST FIPS 180-4, *Secure Hash Standard (SHS).* Final update August 2015; NIST has announced a future revision.
+- **Official URL:** https://csrc.nist.gov/pubs/fips/180-4/upd1/final
+- **Locator:** official Abstract/standard; SHA family definitions.
+- **Role:** SHA-256 baseline digest for Project Schema asset/content integrity. The algorithm name is persisted to permit future evolution.
+
+<a id="std-hl7-fhir-r5-provenance"></a>
+## STD-HL7-FHIR-R5-PROVENANCE — FHIR R5 Provenance
+- **Specification:** HL7 FHIR R5 `Provenance` resource.
+- **Official URL:** https://hl7.org/fhir/R5/provenance.html
+- **Locator:** resource scope/boundaries and target/agent/entity provenance semantics.
+- **Role:** optional healthcare-interoperability mapping target for version-specific provenance; not the internal CAD authoring schema.
+
+<a id="std-hl7-fhir-r5-observation"></a>
+## STD-HL7-FHIR-R5-OBSERVATION — FHIR R5 Observation
+- **Specification:** HL7 FHIR R5 `Observation` resource.
+- **Official URL:** https://hl7.org/fhir/R5/observation.html
+- **Locator:** scope/boundaries for measurements and simple assertions.
+- **Role:** optional mapping target for quantitative BiomechE-CAD outcomes; does not replace trial/ROI/revision semantics internally.
+
+<a id="std-hl7-fhir-r5-questionnaire"></a>
+## STD-HL7-FHIR-R5-QUESTIONNAIRE — FHIR R5 Questionnaire / QuestionnaireResponse
+- **Specification:** HL7 FHIR R5 `QuestionnaireResponse` resource and linked `Questionnaire` definition.
+- **Official URL:** https://hl7.org/fhir/R5/questionnaireresponse.html
+- **Locator:** §2.6 resource scope and §2.6.2 boundaries/relationships; `QuestionnaireResponse.questionnaire` linkage.
+- **Role:** optional mapping path for PROM/questionnaire responses while preserving exact instrument/version/licensing semantics in the BiomechE-CAD model.
+
 ---
 
 # E. Vendor / market sources
@@ -674,7 +737,8 @@ Open CASCADE Technology. https://dev.opencascade.org/ ; https://github.com/Open-
 11. Population/indication profiles must state non-transfer rules when evidence/guidelines define different pathways.
 12. PROM/instrument metadata must include the exact version/language and must not assume translations or modified forms have identical measurement properties.
 13. Before bundling questionnaire item text or scoring code, verify current copyright/licensing/redistribution terms for that exact instrument/version.
-14. A standards abstract/scope supports terminology and high-level test/qualification semantics only; claiming full standard conformance requires a controlled copy and applicability assessment.
+14. A standards abstract/scope supports terminology and high-level test/qualification/interoperability semantics only; claiming full standard conformance requires an applicability assessment and, where applicable, a controlled copy.
 15. Test standards never automatically define a universal clinical/material acceptance threshold; limits belong to a qualified product/manufacturing profile.
 16. Superseded/withdrawn standard editions should not be used when a current replacement is known unless historical traceability specifically requires them.
-17. `docs/research/SOURCES.md` tracks source intake/open verification; this file owns canonical metadata.
+17. Schema/interoperability standards can constrain representation/provenance without redefining clinical requirements.
+18. `docs/research/SOURCES.md` tracks source intake/open verification; this file owns canonical metadata.
