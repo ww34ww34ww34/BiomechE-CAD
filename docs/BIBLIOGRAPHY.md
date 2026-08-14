@@ -2,7 +2,7 @@
 
 **Status:** CANONICAL  
 **Date initialized:** 2026-08-14  
-**Last normalized:** 2026-08-14  
+**Last normalized:** 2026-08-15  
 **Purpose:** single authoritative bibliography for EasyCAD2 evidence, scientific literature, guidelines, standards, vendor sources and architecture references used by BiomechE-CAD.
 
 > Other project documents cite the stable source IDs defined here instead of duplicating bibliographic metadata. `docs/research/SOURCES.md` is an intake/research ledger; this file is the canonical bibliographic authority.
@@ -117,7 +117,7 @@ Owings TM et al. *Custom therapeutic insoles based on both foot shape and planta
 
 <a id="ref-cad-005"></a>
 ## REF-CAD-005 — Pressure-guided iterative optimization
-Bus SA et al. *Evaluation and optimization of therapeutic footwear for neuropathic diabetic foot patients using in-shoe plantar pressure analysis.* Diabetes Care. 2011. PMID `21610125`; DOI `10.2337/dc10-2206`. Locator: Abstract—Results. Role: measure → modify → remeasure.
+Bus SA, Haspels R, Busch-Westbroek TE. *Evaluation and optimization of therapeutic footwear for neuropathic diabetic foot patients using in-shoe plantar pressure analysis.* Diabetes Care. 2011;34(7):1595–1600. PMID `21610125`; PMCID `PMC3120171`; DOI `10.2337/dc10-2206`. Locator: pp.1595–1600; Abstract—Methods/Results/Conclusions. Role: explicit measure → modify → remeasure pressure-guided optimization workflow in neuropathic diabetic footwear; study thresholds remain context-specific.
 
 <a id="ref-cad-006"></a>
 ## REF-CAD-006 — IWGDF prevention publication
@@ -133,7 +133,7 @@ Muir BC et al. *Evaluation of novel plantar pressure-based 3-dimensional printed
 
 <a id="ref-cad-009"></a>
 ## REF-CAD-009 — Orthosis stiffness in flexible flatfoot
-Cherni Y et al. *Effect of 3D printed foot orthoses stiffness on muscle activity and plantar pressures in individuals with flexible flatfeet.* Clin Biomech. 2022;92:105553. PMID `34973589`; DOI `10.1016/j.clinbiomech.2021.105553`. Role: stiffness as independent dose.
+Cherni Y et al. *Effect of 3D printed foot orthoses stiffness on muscle activity and plantar pressures in individuals with flexible flatfeet.* Clin Biomech. 2022;92:105553. PMID `34973589`. Role: stiffness as independent dose.
 
 <a id="ref-cad-010"></a>
 ## REF-CAD-010 — Stiffness/design/posting effects
@@ -237,11 +237,11 @@ Castro-Martins P et al. *In-shoe plantar pressure measurement technologies for t
 
 <a id="ref-cad-035"></a>
 ## REF-CAD-035 — In-shoe measurement reliability, steps and speed
-Kernozek TW et al. *Reliability of an in-shoe pressure measurement system during treadmill walking.* Foot Ankle Int. 1996;17(4):204–209. PMID `8696496`; DOI `10.1177/107110079601700404`. Role: speed and step-count awareness.
+Kernozek TW et al. *Reliability of an in-shoe pressure measurement system during treadmill walking.* Foot Ankle Int. 1996;17(4):204–209. PMID `8696496`; DOI `10.1177/107110079601700404`. Locator: pp.204–209; Abstract. Role: speed and step-count awareness.
 
 <a id="ref-cad-036"></a>
 ## REF-CAD-036 — Cross-system pressure comparability
-Chockalingam N et al. *Discrepancies between plantar pressure devices...* Foot. 2025;64:102190. PMID `40743570`; DOI `10.1016/j.foot.2025.102190`. Role: cross-device warnings.
+Chockalingam N et al. *Discrepancies between plantar pressure devices: Evaluating cross-system reliability in a diabetic population.* Foot. 2025;64:102190. PMID `40743570`; DOI `10.1016/j.foot.2025.102190`. Locator: Abstract—Methods/Results/Conclusions. Role: cross-device warning; several pressure/force/time metrics are not automatically interchangeable between systems.
 
 <a id="ref-cad-037"></a>
 ## REF-CAD-037 — In-shoe pressure thresholds review
@@ -537,6 +537,32 @@ Ho M et al. *Immediate comfort perception of 3D-printed foot orthoses in individ
 ## REF-CAD-107 — H/M1/M5 anatomical registration for COP
 Wevers OT, Hearn TC, Hunter GA, Ala-Korpi T. *Method for relating the centre of pressure locus during dynamic stance to the anatomical structure of the foot.* Clin Biomech (Bristol). 1989;4(2):111–114. PMID `23916003`; DOI `10.1016/0268-0033(89)90048-X`. Locator: pp.111–114; Abstract. Role: historical method relating COP to anatomical references using the posterior calcaneus and first/fifth metatarsal heads; supports landmark semantics, not a universal modern registration tolerance.
 
+## Integration / measurement provenance additions
+
+<a id="ref-cad-108"></a>
+## REF-CAD-108 — Step count and protocol validity for in-shoe pressure
+Arts MLJ, Bus SA. *Twelve steps per foot are recommended for valid and reliable in-shoe plantar pressure data in neuropathic diabetic patients wearing custom made footwear.* Clin Biomech (Bristol, Avon). 2011;26(8):880–884. PMID `21641098`; DOI `10.1016/j.clinbiomech.2011.05.001`. Locator: pp.880–884; Abstract—Background/Methods/Findings/Interpretation. Role: demonstrates that included step count affects validity/reliability for regional pressure metrics in this specific neuropathic-diabetic/custom-footwear protocol. The 12-step result is **not** a universal BiomechE-CAD constant.
+
+<a id="ref-cad-109"></a>
+## REF-CAD-109 — Comparative technical assessment of plantar-pressure devices
+Giacomozzi C. *Appropriateness of plantar pressure measurement devices: a comparative technical assessment.* Gait Posture. 2010;32(1):141–144. PMID `20399101`; DOI `10.1016/j.gaitpost.2010.03.014`. Locator: pp.141–144; Abstract. Role: device technology, calibration, accuracy, hysteresis, creep and COP performance affect measurement qualification; supports explicit device/calibration provenance rather than assumed equivalence.
+
+<a id="ref-cad-110"></a>
+## REF-CAD-110 — Hardware qualification of baropodometric sensor systems
+Giacomozzi C. *Hardware performance assessment recommendations and tools for baropodometric sensor systems.* Ann Ist Super Sanita. 2010;46(2):158–167. PMID `20567067`; DOI `10.4415/ANN_10_02_09`. Locator: pp.158–167; Abstract. Role: methods/recommendations for technical performance assessment of plantar-pressure hardware; supports product/device qualification but does not provide a universal orthosis acceptance tolerance.
+
+<a id="ref-cad-111"></a>
+## REF-CAD-111 — Biomedical/translational provenance framework
+Sahoo SS, Nguyen V, Bodenreider O, Parikh P, Minning T, Sheth AP. *A unified framework for managing provenance information in translational research.* BMC Bioinformatics. 2011;12:461. PMID `22126369`; PMCID `PMC3298549`; DOI `10.1186/1471-2105-12-461`. Locator: Abstract—Background/Results/Conclusions; full article. Role: provenance records origin/history and processing so researchers can verify data quality, reproduce results and validate scientific processes; supports structured domain-aware provenance.
+
+<a id="ref-cad-112"></a>
+## REF-CAD-112 — Biomedical data-provenance scoping review
+Johns M, Meurers T, Wirth FN, Haber AC, Müller A, Halilovic M, Balzer F, Prasser F. *Data Provenance in Biomedical Research: Scoping Review.* J Med Internet Res. 2023;25:e42289. PMID `36972116`; PMCID `PMC10132013`; DOI `10.2196/42289`. Locator: Abstract—Results/Conclusions. Role: documents heterogeneous provenance approaches and limited uptake of established standards such as PROV; supports a consistent internal provenance contract and benchmarking/validation.
+
+<a id="ref-cad-113"></a>
+## REF-CAD-113 — FAIR data principles and detailed provenance
+Wilkinson MD et al. *The FAIR Guiding Principles for scientific data management and stewardship.* Sci Data. 2016;3:160018. DOI `10.1038/sdata.2016.18`. Locator: Box 2, especially `I3` qualified references and `R1.2` detailed provenance; `The Principles precede implementation`. Role: supports qualified links between data/metadata and detailed provenance while remaining implementation-neutral; FAIR is guidance, not a specific storage technology.
+
 ---
 
 # D. Standards / test-method / interoperability references
@@ -633,7 +659,7 @@ Wevers OT, Hearn TC, Hunter GA, Ala-Korpi T. *Method for relating the centre of 
 - **Citation:** Leardini A, Stebbins J, Hillstrom H, Caravaggi P, Deschamps K, Arndt A. *ISB recommendations for skin-marker-based multi-segment foot kinematics.* J Biomech. 2021;125:110581. PMID `34217032`; DOI `10.1016/j.jbiomech.2021.110581`.
 - **Official context:** International Society of Biomechanics, `Standards` → `Foot kinematics`.
 - **Locator:** PubMed Abstract; ISB Standards—Foot kinematics.
-- **Role:** anatomy/model/landmark/reporting standardization context; the publication explicitly frames the recommendations as standards for collection/calculation/reporting rather than one mandatory model for every application.
+- **Role:** anatomy/model/landmark/reporting standardization context; recommendations standardize collection/calculation/reporting but do not mandate one model for every application.
 
 <a id="std-json-schema-2020-12"></a>
 ## STD-JSON-SCHEMA-2020-12 — JSON Schema Draft 2020-12
@@ -714,15 +740,57 @@ Sensor Medica — easyCAD Insole. https://www.sensormedica.com/en/easycad-insole
 ## VENDOR-SENSORMEDICA-VULCAN
 Sensor Medica — Vulcan CNC. https://www.sensormedica.com/it/vulcan-cnc/ . Use: manufacturing/CNC market reference.
 
+<a id="vendor-vertex-orthocad"></a>
+## VENDOR-VERTEX-ORTHOCAD — Vertex Orthopedic OrthoCAD
+- **Vendor page:** https://vertexorthopedic.com/solutions/software ; additional current product page: https://vertexorthopedic.com/solutions/orthocad .
+- **Locator:** `OrthoCAD: Advanced Orthopedic Design Software`; `Key Features`; `How OrthoCAD Works`; on the dedicated page, `Key capabilities`, `Deterministic macro engine`, `Parametric dependency recalculation`.
+- **Recorded market capabilities:** 2D/3D scan workflow; prescription/template-based orthotic CAD; medial/lateral posting and arch adjustments; patient/design history; CNC/3D-print export; current dedicated page also documents reusable custom macros and dependency recalculation.
+- **Role:** competitor/market functionality only. Vendor performance, clinical-validation, speed and comparative-superiority claims are not treated as independent scientific evidence.
+
+<a id="vendor-insolution-software"></a>
+## VENDOR-INSOLUTION-SOFTWARE — Insolution Manager / CAD
+- **Vendor page:** https://www.insolution.nl/en/our-total-solution/software/
+- **Locator:** `Insolution Manager`; `Insolution CAD`; `Clear 3D view`.
+- **Recorded market capabilities:** controls 2D/3D scanners and pressure plate; patient record/history/gait-video/findings/follow-up/report/treatment plan; insole plan including material, thickness and Shore value; CAD from 2D, 3D or pressure-measurement input and reusable libraries.
+- **Role:** competitor/market functionality only, not clinical-efficacy evidence.
+
+<a id="vendor-insolution-pressure"></a>
+## VENDOR-INSOLUTION-PRESSURE — Insolution pressure plate
+- **Vendor page:** https://www.insolution.nl/en/our-total-solution/hardware/pressure-measuring-plate/
+- **Locator:** `Pressure plate`.
+- **Recorded market capabilities:** static/dynamic pressure profiles; pressure, contact time and impulse; pressure measurements stored in patient archive; pressure images transferable to orthotic CAD as background with 2D/3D scan.
+- **Role:** competitor/market functionality only. Vendor sensor counts/performance statements are not scientific qualification of BiomechE-CAD hardware.
+
+<a id="vendor-voxelcare"></a>
+## VENDOR-VOXELCARE — Voxelcare ecosystem
+- **Vendor page:** https://www.voxelcare.com/
+- **Locator:** `Produce`; `Online Platform`; `Cloud Voxelcare CAD`; `Adapted to every business size`.
+- **Recorded market capabilities:** cloud-based custom-foot-orthotic design/production ecosystem; CNC milling and 3D printing; scanner/design/production workflow. Other reviewed Voxelcare public pages describe 2D/3D/plantar-pressure acquisition as supported inputs.
+- **Role:** competitor/market functionality only, not clinical-efficacy evidence.
+
+<a id="vendor-sharpshape-aoms"></a>
+## VENDOR-SHARPSHAPE-AOMS — Sharp Shape AOMS
+- **Vendor pages:** https://www.sharpshape.com/products.html ; https://sharpshape.com/ .
+- **Locator:** `CAD (Computer Aided Design) Program in AOMS`; `CAM (Computer Aided Manufacturing) Program in AOMS`; `AOMS 3DPRN app (New 2024)`; `AOMS TOT CNC (New 2025)`.
+- **Recorded market capabilities:** integrated 3D scanners + orthotic CAD/CAM; prescription-driven biomechanical cast corrections; positive-mold/orthotic-shell/footbed workflows; CNC toolpath integration; current mobile/3D-print workflows.
+- **Role:** competitor/market functionality only. Market-share, popularity and superiority claims are not used as scientific evidence.
+
 ---
 
-# F. Architecture references — currently parked
+# F. Architecture / integration references — architecture selection still parked
 
 <a id="arch-biomeche-coord-2026-08-14"></a>
 ## ARCH-BIOMECHE-COORD-2026-08-14 — BiomechE coordinate/acquisition contract snapshot
 - **Repository/revision:** `ww34ww34ww34/BiomechE`, commit `b38ee9e6b10bf4abe8073f4608edcf867eb2e328`, consulted 2026-08-14.
 - **Locators:** `docs/spec/01_coordinate_systems.md`; `docs/spec/02_input_data_model.md`; `docs/spec/algorithms/foot_axis.md`; `src/core/posturography/sensor_geometry.hpp`.
-- **Role:** integration-side contract for matrix topology vs physical sensor geometry, `ExamFrame2D`, side-aware foot-axis semantics and sensor-centre/represented-area data. This is an architecture/integration reference, not clinical efficacy evidence.
+- **Role:** historical integration-side snapshot for matrix topology vs physical sensor geometry, `ExamFrame2D`, side-aware foot-axis semantics and sensor-centre/represented-area data. Not clinical efficacy evidence.
+
+<a id="arch-biomeche-integration-2026-08-15"></a>
+## ARCH-BIOMECHE-INTEGRATION-2026-08-15 — Current BiomechE quantitative integration snapshot
+- **Repository/revision:** `ww34ww34ww34/BiomechE`, commit `d5e467a1a5551f4280cfef5b483da1999f1566e0`, consulted 2026-08-15.
+- **Locators:** `docs/spec/01_coordinate_systems.md`; `docs/spec/02_input_data_model.md`; `docs/spec/04_pressure_physics.md`; `docs/spec/06_kpi_catalog.md`; `docs/spec/algorithms/foot_axis.md`; `docs/RESUME_HERE_DYNAMIC_GAIT_2026-08-15_DYN005.md`.
+- **Recorded contract points:** matrix topology is distinct from physical `SensorGeometry`; pressure/force/COP use explicit metric geometry/units; KPI registry includes identifier, formula/definition, inputs, units, frame, analysis domain, quality and algorithm/profile provenance; result availability distinguishes `VALID/DEGRADED/UNAVAILABLE`; dynamic gait is frozen through `DYN-005` at this snapshot and `DYN-006` pressure/force/integral/region work remains upstream NEXT.
+- **Role:** pinned implementation/specification reference for BiomechE↔BiomechE-CAD integration. Not clinical efficacy evidence and not a geometry-kernel selection.
 
 <a id="arch-opensubdiv"></a>
 ## ARCH-OPENSUBDIV
@@ -766,3 +834,5 @@ Open CASCADE Technology. https://dev.opencascade.org/ ; https://github.com/Open-
 16. Superseded/withdrawn standard editions should not be used when a current replacement is known unless historical traceability specifically requires them.
 17. Schema/interoperability standards can constrain representation/provenance without redefining clinical requirements.
 18. `docs/research/SOURCES.md` tracks source intake/open verification; this file owns canonical metadata.
+19. Competitor/vendor pages may support a statement that a feature is publicly advertised/documented; they do not prove clinical efficacy, internal implementation semantics or absence of unmentioned capabilities.
+20. A pinned BiomechE repository snapshot may define integration semantics for that revision; later upstream changes require a new/updated integration pin rather than silently reinterpreting historical results.

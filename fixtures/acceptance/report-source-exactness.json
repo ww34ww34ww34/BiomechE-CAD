@@ -1,0 +1,283 @@
+{
+  "schemaId": "biomeche-cad-project",
+  "schemaVersion": "0.1",
+  "projectId": "019c-a015-7100-8000-000000000001",
+  "projectCreatedAt": "2026-08-15T01:00:00+02:00",
+  "projectUpdatedAt": "2026-08-15T01:10:00+02:00",
+  "projectStatus": "ACTIVE",
+  "patientLink": {
+    "projectPatientId": "019c-a015-7100-8000-000000000002",
+    "externalIdentifiers": [],
+    "privacyClass": "PSEUDONYMIZED"
+  },
+  "case": {
+    "caseId": "019c-a015-7100-8000-000000000003",
+    "externalIdentifiers": [],
+    "openedAt": "2026-08-15T01:00:00+02:00",
+    "clinicianRefs": [],
+    "attachedProfiles": [],
+    "sourceAcquisitionIds": [],
+    "notes": []
+  },
+  "orthosisProjects": [
+    {
+      "orthosisProjectId": "019c-a015-7100-8000-000000000004",
+      "caseId": "019c-a015-7100-8000-000000000003",
+      "side": "LEFT",
+      "currentDesignRevisionId": "019c-a015-7100-8000-000000000008",
+      "status": "ACTIVE"
+    }
+  ],
+  "definitions": {
+    "baseTemplates": [
+      {
+        "id": "019c-a015-7100-8000-000000000005",
+        "version": "1.0.0",
+        "displayName": "Reporting fixture template",
+        "status": "FROZEN",
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "f39cdaed830065ab032d16dc90eb75c43707b24ffac4b9f4dc34ecb9c9e6fec4"
+        },
+        "evidenceRefs": [],
+        "payload": {}
+      }
+    ],
+    "indicationProfiles": [],
+    "presetDefinitions": [],
+    "materialDefinitions": [],
+    "promInstrumentDefinitions": [],
+    "manufacturingProfiles": [],
+    "algorithmDefinitions": []
+  },
+  "assets": [
+    {
+      "assetId": "019c-a015-7100-8000-000000000011",
+      "role": "REPORT_PDF",
+      "mediaType": "application/pdf",
+      "byteLength": 4096,
+      "hash": {
+        "algorithm": "sha256",
+        "value": "8aad9f09c096b6b2033f72d984799973d607392eceb6b5380e764c30749ef651"
+      },
+      "originalFileName": "design-outcome-report-r1.pdf",
+      "storageRef": "fixtures://design-outcome-report-r1.pdf",
+      "createdAt": "2026-08-15T01:05:00+02:00",
+      "availability": "EMBEDDED",
+      "provenanceRecordId": "019c-a015-7100-8000-000000000014"
+    },
+    {
+      "assetId": "019c-a015-7100-8000-000000000012",
+      "role": "REPORT_SOURCE_MANIFEST",
+      "mediaType": "application/json",
+      "byteLength": 1024,
+      "hash": {
+        "algorithm": "sha256",
+        "value": "62c0b413d993ab124ee52138bc2f46b65815d9236fdcfc49e9b036264089539f"
+      },
+      "originalFileName": "design-outcome-report-r1.manifest.json",
+      "storageRef": "fixtures://design-outcome-report-r1.manifest.json",
+      "createdAt": "2026-08-15T01:05:00+02:00",
+      "availability": "EMBEDDED",
+      "provenanceRecordId": "019c-a015-7100-8000-000000000014"
+    }
+  ],
+  "frameDefinitions": [],
+  "acquisitions": [],
+  "registrations": [],
+  "landmarkSets": [],
+  "roiDefinitions": [],
+  "designRevisions": [
+    {
+      "revisionId": "019c-a015-7100-8000-000000000007",
+      "orthosisProjectId": "019c-a015-7100-8000-000000000004",
+      "side": "LEFT",
+      "parentRevisionIds": [],
+      "createdAt": "2026-08-15T01:01:00+02:00",
+      "authorRef": {"agentType": "PERSON", "id": "019c-a015-7100-8000-000000000006", "displayName": "Fixture Clinician"},
+      "revisionLabel": "R1 reported revision",
+      "authorityMode": "SEMANTIC_PARAMETRIC",
+      "baseTemplateRef": {
+        "entityType": "BaseTemplate",
+        "id": "019c-a015-7100-8000-000000000005",
+        "version": "1.0.0",
+        "contentHash": {"algorithm": "sha256", "value": "f39cdaed830065ab032d16dc90eb75c43707b24ffac4b9f4dc34ecb9c9e6fec4"}
+      },
+      "sourceAcquisitionRefs": [],
+      "registrationRefs": [],
+      "attachedProfileRefs": [],
+      "operationStack": [],
+      "materialPrescription": {},
+      "derivedGeometryRefs": [],
+      "designMetrics": [],
+      "validationSummary": {"state": "VALID", "fixture": true},
+      "algorithmBundleRefs": [],
+      "contentHash": {"algorithm": "sha256", "value": "8c50685962cfad56dd80523700d71b37df3c28bc87cc487318bc5db2d84c3071"},
+      "provenanceRecordId": "019c-a015-7100-8000-000000000013"
+    },
+    {
+      "revisionId": "019c-a015-7100-8000-000000000008",
+      "orthosisProjectId": "019c-a015-7100-8000-000000000004",
+      "side": "LEFT",
+      "parentRevisionIds": ["019c-a015-7100-8000-000000000007"],
+      "createdAt": "2026-08-15T01:10:00+02:00",
+      "authorRef": {"agentType": "PERSON", "id": "019c-a015-7100-8000-000000000006", "displayName": "Fixture Clinician"},
+      "revisionLabel": "R2 later current revision",
+      "authorityMode": "SEMANTIC_PARAMETRIC",
+      "baseTemplateRef": {
+        "entityType": "BaseTemplate",
+        "id": "019c-a015-7100-8000-000000000005",
+        "version": "1.0.0",
+        "contentHash": {"algorithm": "sha256", "value": "f39cdaed830065ab032d16dc90eb75c43707b24ffac4b9f4dc34ecb9c9e6fec4"}
+      },
+      "sourceAcquisitionRefs": [],
+      "registrationRefs": [],
+      "attachedProfileRefs": [],
+      "operationStack": [],
+      "materialPrescription": {},
+      "derivedGeometryRefs": [],
+      "designMetrics": [],
+      "validationSummary": {"state": "VALID", "fixture": true},
+      "algorithmBundleRefs": [],
+      "contentHash": {"algorithm": "sha256", "value": "0d14313e44c005a5ed7f4fa5fed553894457eefdc61f9e8d9134cbb33da174f9"},
+      "provenanceRecordId": "019c-a015-7100-8000-000000000015"
+    }
+  ],
+  "outcomeTargets": [],
+  "outcomeMeasurements": [
+    {
+      "measurementId": "019c-a015-7100-8000-000000000009",
+      "measurementKind": "MEASURED",
+      "caseId": "019c-a015-7100-8000-000000000003",
+      "orthosisProjectId": "019c-a015-7100-8000-000000000004",
+      "side": "LEFT",
+      "designRevisionId": "019c-a015-7100-8000-000000000007",
+      "metric": "BIOMECHE:STATIC_PRESSURE_PEAK_MEAN_MAP_TOTAL",
+      "value": 221.234567,
+      "units": "kPa",
+      "computationDefinition": "STATIC_PRESSURE_PEAK_MEAN_MAP_TOTAL@1.0.0",
+      "timestamp": "2026-08-15T01:02:00+02:00",
+      "protocolRef": "STATIC_LOAD_EXPLICIT_WINDOW_V1",
+      "qualityState": "VALID",
+      "algorithmRef": {"algorithmId": "STATIC_PRESSURE_PEAK_MEAN_MAP_TOTAL", "semanticVersion": "1.0.0"},
+      "provenanceRecordId": "019c-a015-7100-8000-000000000016"
+    }
+  ],
+  "outcomeComparisons": [],
+  "promMeasurements": [],
+  "comfortAssessments": [],
+  "fitUsabilityAssessments": [],
+  "satisfactionAssessments": [],
+  "adherenceMeasurements": [],
+  "patientExperienceBundles": [],
+  "materialLots": [],
+  "materialRegions": [],
+  "materialStacks": [],
+  "structuralMaterialRegions": [],
+  "mechanicalPropertyMeasurements": [],
+  "postProcessMaterialStates": [],
+  "durabilityTests": [],
+  "manufacturingRuns": [],
+  "manufacturingArtifacts": [],
+  "physicalOrthoses": [],
+  "qcRequirements": [],
+  "qcMeasurements": [],
+  "serviceStates": [],
+  "exportArtifacts": [],
+  "reportArtifacts": [
+    {
+      "reportArtifactId": "019c-a015-7100-8000-000000000010",
+      "reportType": "OUTCOME",
+      "assetRef": "019c-a015-7100-8000-000000000011",
+      "generatedAt": "2026-08-15T01:05:00+02:00",
+      "generatorVersion": "BiomechE-CAD-report/1.0.0-fixture",
+      "sourceRefs": [
+        "019c-a015-7100-8000-000000000007",
+        "019c-a015-7100-8000-000000000009",
+        "019c-a015-7100-8000-000000000012"
+      ]
+    }
+  ],
+  "provenanceRecords": [
+    {
+      "provenanceId": "019c-a015-7100-8000-000000000013",
+      "activityType": "DESIGN_REVISION_COMMIT",
+      "inputEntityRefs": [],
+      "outputEntityRefs": ["019c-a015-7100-8000-000000000007"],
+      "recordedAt": "2026-08-15T01:01:00+02:00",
+      "agentRefs": [],
+      "softwareBuildRefs": [{"product": "BiomechE-CAD", "version": "fixture"}]
+    },
+    {
+      "provenanceId": "019c-a015-7100-8000-000000000014",
+      "activityType": "REPORT_GENERATION",
+      "inputEntityRefs": [
+        "019c-a015-7100-8000-000000000007",
+        "019c-a015-7100-8000-000000000009"
+      ],
+      "outputEntityRefs": [
+        "019c-a015-7100-8000-000000000010",
+        "019c-a015-7100-8000-000000000011",
+        "019c-a015-7100-8000-000000000012"
+      ],
+      "recordedAt": "2026-08-15T01:05:00+02:00",
+      "agentRefs": [],
+      "softwareBuildRefs": [
+        {"product": "BiomechE-CAD report generator", "version": "1.0.0-fixture", "commitHash": "fixture-report-build-a"}
+      ],
+      "rationale": "Generate immutable outcome report from R1 exact source set"
+    },
+    {
+      "provenanceId": "019c-a015-7100-8000-000000000015",
+      "activityType": "DESIGN_REVISION_COMMIT",
+      "inputEntityRefs": ["019c-a015-7100-8000-000000000007"],
+      "outputEntityRefs": ["019c-a015-7100-8000-000000000008"],
+      "recordedAt": "2026-08-15T01:10:00+02:00",
+      "agentRefs": [],
+      "softwareBuildRefs": [{"product": "BiomechE-CAD", "version": "fixture"}]
+    },
+    {
+      "provenanceId": "019c-a015-7100-8000-000000000016",
+      "activityType": "OUTCOME_MEASUREMENT_IMPORT",
+      "inputEntityRefs": [],
+      "outputEntityRefs": ["019c-a015-7100-8000-000000000009"],
+      "recordedAt": "2026-08-15T01:02:00+02:00",
+      "agentRefs": [],
+      "softwareBuildRefs": [{"product": "BiomechE-CAD", "version": "fixture"}]
+    }
+  ],
+  "auditEvents": [],
+  "migrationHistory": [],
+  "packageValidation": {
+    "state": "VALID",
+    "validatedAt": "2026-08-15T01:10:00+02:00",
+    "validatorVersion": "fixture-authoring/0.2",
+    "errors": [],
+    "warnings": []
+  },
+  "extensions": {
+    "fixture": {"purpose": "Historical report source exactness", "dataClass": "synthetic-nonclinical"},
+    "reportSourceManifests": [
+      {
+        "assetId": "019c-a015-7100-8000-000000000012",
+        "reportArtifactId": "019c-a015-7100-8000-000000000010",
+        "designRevisionId": "019c-a015-7100-8000-000000000007",
+        "designRevisionContentHash": "8c50685962cfad56dd80523700d71b37df3c28bc87cc487318bc5db2d84c3071",
+        "measurementRefs": ["019c-a015-7100-8000-000000000009"],
+        "roundingPolicy": "DISPLAY_1_DECIMAL_COMPUTE_FULL_PRECISION_V1"
+      }
+    ],
+    "acceptance": {
+      "fixtureId": "report-source-exactness",
+      "testIds": ["RPT-001", "RPT-002", "RPT-003", "RPT-004", "RPT-006", "RPT-013", "RPT-017", "XACC-044", "XACC-049"],
+      "expected": {
+        "reportArtifactId": "019c-a015-7100-8000-000000000010",
+        "reportedRevisionId": "019c-a015-7100-8000-000000000007",
+        "currentRevisionId": "019c-a015-7100-8000-000000000008",
+        "reportMustNotFloatToCurrentRevision": true,
+        "sourceManifestAssetId": "019c-a015-7100-8000-000000000012",
+        "reportedFullPrecisionValue": 221.234567
+      }
+    }
+  }
+}

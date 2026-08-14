@@ -44,10 +44,11 @@ Where technically reasonable, heel, arch, wedge, corrective element, ROI deforma
 
 ```text
 distance = mm
+time = s
 angle = deg
 pressure = kPa
 force = N
-area = mm2
+area = mm²
 ```
 
 Conversions are explicit and must not silently alter prescription semantics.
@@ -380,6 +381,52 @@ This decision freezes semantics only and does not reopen the geometry-kernel sho
 
 ---
 
+## D-CAD-024 — BiomechE is the quantitative-analysis authority; CAD consumes pinned, provenance-bearing results
+
+**Status:** FROZEN  
+**Date:** 2026-08-15
+
+Canonical specification: `docs/spec/11_biomeche_integration.md`.
+
+Rules:
+
+1. BiomechE owns the semantics of its named biomechanical KPI/result definitions; BiomechE-CAD SHALL not maintain a hidden second formula under the same metric identity;
+2. imported result bundles preserve producer product/version/build/commit, result-contract version, algorithm/profile/RegionModel versions and source acquisition/hash identity required to reconstruct historical meaning;
+3. the complete result bundle remains an immutable/hash-addressed evidence asset while CAD-normalized results use `OutcomeMeasurement`;
+4. `VALID`, `DEGRADED` and `UNAVAILABLE` meaning propagates into CAD; unavailable is never numeric zero;
+5. device/calibration/protocol/step/window/ROI/region metadata required by a metric survive import and participate in comparison compatibility;
+6. cross-device equivalence is not assumed; validated harmonization/policy is explicit;
+7. reanalysis of an old acquisition under a new BiomechE build/algorithm creates new result/measurement identities instead of overwriting history;
+8. measured and predicted results remain separate;
+9. current dynamic bindings are limited to semantics frozen upstream in BiomechE; `DYN-006+` pressure/force/integral/region formulas are not guessed in CAD while upstream remains open;
+10. the integration contract is independent of the future CAD geometry foundation.
+
+Current upstream integration pin: `ww34ww34ww34/BiomechE@d5e467a1a5551f4280cfef5b483da1999f1566e0` [ARCH-BIOMECHE-INTEGRATION-2026-08-15].
+
+---
+
+## D-CAD-025 — Reports are immutable derived artifacts over exact source entities
+
+**Status:** FROZEN  
+**Date:** 2026-08-15
+
+Canonical specification: `docs/spec/12_reporting_traceability.md`.
+
+Rules:
+
+1. authoritative project entities/measurements remain the source of truth; report PDF/HTML/charts are derived presentation artifacts;
+2. an issued report retains immutable bytes/hash and exact historical `sourceRefs`; creating a later design revision cannot make the old report float to current state;
+3. regeneration/reissue creates a new `ReportArtifact` identity/provenance while preserving the historical report;
+4. clinically/manufacturing significant reports SHOULD retain a machine-readable semantic source manifest with exact revisions, acquisitions, ROI/profile/evidence, material/manufacturing/QC and outcome refs;
+5. semantic reproducibility is distinct from byte-identical rendering; PDF bytes may differ unless a deterministic rendering profile explicitly claims bitwise reproducibility;
+6. calculations use authoritative full-precision values; display rounding is a final named presentation policy;
+7. quality/comparability warnings, `MEASURED/PREDICTED`, and blocking QC states may not be hidden by presentation;
+8. privacy filtering is performed from structured source data under `FULL_CLINICAL`, `PSEUDONYMIZED` or `MANUFACTURING_MINIMUM` policy;
+9. report generation is a provenance activity; report, export, provenance and audit-event entities remain distinct;
+10. signatures/attestation/archival legal profiles remain separate OPEN qualification decisions.
+
+---
+
 ## OPEN DECISIONS
 
 Architecture / implementation decisions intentionally deferred:
@@ -395,14 +442,18 @@ Architecture / implementation decisions intentionally deferred:
 - whether Manifold or another solid/mesh library is needed;
 - whether STEP/.3dm interoperability becomes a product requirement;
 - encryption-at-rest and digital-signature/attestation profile;
-- final FHIR implementation-guide/profile mappings.
+- final FHIR implementation-guide/profile mappings;
+- final report renderer/PDF archival/signature profile;
+- final cloud/offline synchronization/runtime architecture.
 
-Functional/specification work still active:
+Functional/specification/qualification work still active:
 
-- BiomechE integration spec;
-- reporting/traceability spec;
-- richer kernel-independent fixtures for remaining geometry-independent SCHEMA/XACC cases;
+- executable `BINT-*` / `RPT-*` coverage expansion;
+- deeper competitor functional-gap audit from manuals/trials where legally available;
+- workflow macro/preset orchestration semantics (`GAP-COMP-001`);
+- external clinical-media adapter semantics (`GAP-COMP-002`);
+- real product acquisition/registration qualification and tolerances;
+- cross-device pressure harmonization qualification where needed;
+- BiomechE `DYN-006+` dynamic pressure/force/integral/region bindings as upstream freezes;
 - final built-in PROM set after population fit + licensing review;
-- shear/COP depth after target acquisition hardware is fixed;
-- product-specific acquisition, registration and manufacturing qualification/tolerances;
-- actual material/process library entries.
+- product-specific manufacturing qualification/tolerances and actual material/process library entries.
