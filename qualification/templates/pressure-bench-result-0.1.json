@@ -1,0 +1,65 @@
+{
+  "templateType": "PressureBenchQualificationResult",
+  "templateVersion": "0.1",
+  "status": "EMPTY_EXECUTION_TEMPLATE",
+  "qualificationProfileId": null,
+  "unit": {
+    "manufacturer": "Sensor Medica",
+    "commercialModel": "PFM2120",
+    "productionCode": "FM12050",
+    "serial": null,
+    "hardwareRevision": null,
+    "controllers": [],
+    "firmwareVersion": null,
+    "acquisitionSoftware": null,
+    "adapterBuild": null
+  },
+  "configuration": {
+    "mode": null,
+    "calibrationRef": null,
+    "threshold": null,
+    "vCalibration": null,
+    "calibrationParameter": null,
+    "sensorGeometryRef": null
+  },
+  "referenceEquipment": [],
+  "environment": {
+    "temperatureC": null,
+    "relativeHumidityPercent": null,
+    "notes": null
+  },
+  "tests": {
+    "BQ-00": {"state":"NOT_RUN","configurationSnapshot":null,"evidenceRefs":[]},
+    "BQ-01": {"state":"NOT_RUN","zeroOffset":null,"zeroDrift":null,"noise":null,"acceptanceRuleRef":null,"evidenceRefs":[]},
+    "BQ-02": {"state":"NOT_RUN","mappingChecks":[],"acceptanceRuleRef":null,"evidenceRefs":[]},
+    "BQ-03": {"state":"NOT_RUN","loadSeries":[],"fit":null,"acceptanceRuleRef":null,"evidenceRefs":[]},
+    "BQ-04": {"state":"NOT_RUN","repeatabilitySeries":[],"statistics":null,"acceptanceRuleRef":null,"evidenceRefs":[]},
+    "BQ-05": {"state":"NOT_RUN","ascendingDescendingPairs":[],"hysteresisMetric":null,"acceptanceRuleRef":null,"evidenceRefs":[]},
+    "BQ-06": {"state":"NOT_RUN","sustainedLoadSeries":[],"creepMetric":null,"acceptanceRuleRef":null,"evidenceRefs":[]},
+    "BQ-07": {"state":"NOT_RUN","upperRangeSeries":[],"saturatedCellCount":null,"acceptanceRuleRef":null,"evidenceRefs":[]},
+    "BQ-08": {"state":"NOT_RUN","deadCellRefs":[],"unstableCellRefs":[],"acceptanceRuleRef":null,"evidenceRefs":[]},
+    "BQ-09": {"state":"NOT_RUN","forceClosureSeries":[],"acceptanceRuleRef":null,"evidenceRefs":[]},
+    "BQ-10": {"state":"NOT_RUN","copReferencePoints":[],"acceptanceRuleRef":null,"evidenceRefs":[]},
+    "BQ-11": {"state":"NOT_RUN","timingSeriesRef":null,"timingStatistics":null,"acceptanceRuleRef":null,"evidenceRefs":[]},
+    "BQ-12": {"state":"NOT_RUN","modeConfigurations":[],"acceptanceRuleRef":null,"evidenceRefs":[]},
+    "BQ-13": {"state":"NOT_RUN","calibrationHistoryRefs":[],"acceptanceRuleRef":null,"evidenceRefs":[]}
+  },
+  "overallDisposition": "NOT_EVALUATED",
+  "limitations": [],
+  "review": {
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "approvalState": "NOT_REVIEWED"
+  },
+  "integrity": {
+    "rawEvidenceHashManifestRef": null,
+    "analysisBuildRef": null,
+    "resultHash": null
+  },
+  "rules": {
+    "nullNumericAcceptanceLimitMeansOpen": true,
+    "nominalVendorSpecificationIsNotAchievedResult": true,
+    "factoryFunctionalTestIsNotMetrologicalQualification": true,
+    "historicalCalibrationMustNotBeOverwritten": true
+  }
+}
