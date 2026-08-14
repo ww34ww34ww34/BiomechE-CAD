@@ -12,15 +12,15 @@ Markdown under `docs/` is the canonical specification source.
 ## Current work order
 
 ```text
-FUNCTIONALITY
-+ EASYCAD2 PARITY
-+ SCIENTIFIC / BIOMECHANICAL EVIDENCE
-+ DOSE / PLACEMENT / OUTCOME / CONTEXT
-+ MATERIAL / PROCESS / MANUFACTURED STATE
+FUNCTIONALITY + EASYCAD2 PARITY + EVIDENCE
         ↓
-CONSOLIDATED PRODUCT REQUIREMENTS
+FUNCTIONAL SPEC v2 — CONSOLIDATED
         ↓
-PROJECT SCHEMA + ACCEPTANCE TESTS
+PROJECT SCHEMA v0 — NEXT
+        ↓
+KERNEL-INDEPENDENT ACCEPTANCE SUITE
+        ↓
+COORDINATE / REGISTRATION FREEZE
         ↓
 ARCHITECTURE LATER
 ```
@@ -33,7 +33,8 @@ OpenSubdiv vs openNURBS/ON_SubD remains intentionally parked.
 
 | File | Status | Purpose |
 |---|---|---|
-| [spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md](spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md) | Baseline / **next consolidation target** | Unified EasyCAD2-inspired functional baseline; needs promotion of mature Batch 03–08 results |
+| [spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md](spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md) | **CANONICAL v2** | Consolidated evidence-led product scope, P0/P1/P2 priorities and cross-domain requirements after Batches 03–08 |
+| [spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md](spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md) | Historical baseline preserved | Original detailed EasyCAD2-inspired functional baseline; retained for audit/history |
 | [spec/CAD_ENGINE_CAPABILITY_SPEC.md](spec/CAD_ENGINE_CAPABILITY_SPEC.md) | Capability baseline; architecture parked | Geometry capabilities independent from current research priority |
 | [spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md](spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md) | Current architecture-selection status | Records parked OpenSubdiv vs ON_SubD decision |
 | [spec/03_geometry_operation_model.md](spec/03_geometry_operation_model.md) | Hypothesis / not frozen | Earlier control-cage/operation-stack hypothesis |
@@ -59,7 +60,7 @@ OpenSubdiv vs openNURBS/ON_SubD remains intentionally parked.
 | [research/FUNCTIONAL_EVIDENCE_BATCH_05_HEEL.md](research/FUNCTIONAL_EVIDENCE_BATCH_05_HEEL.md) | Batch 05 complete | `HEEL-001`; containment/relief/camber/material; `HEEL-001..015` |
 | [research/FUNCTIONAL_EVIDENCE_BATCH_06_USE_CASE_PROFILES.md](research/FUNCTIONAL_EVIDENCE_BATCH_06_USE_CASE_PROFILES.md) | Batch 06 complete | Diabetes, metatarsalgia, flatfoot, heel pain, sport and neutral generic profiles |
 | [research/FUNCTIONAL_EVIDENCE_BATCH_07_PROM_COMFORT_ADHERENCE.md](research/FUNCTIONAL_EVIDENCE_BATCH_07_PROM_COMFORT_ADHERENCE.md) | Batch 07 complete | `PROM-001`: instrument/version/language, multidimensional patient experience and objective/subjective adherence semantics |
-| [research/FUNCTIONAL_EVIDENCE_BATCH_08_MATERIAL_MANUFACTURING.md](research/FUNCTIONAL_EVIDENCE_BATCH_08_MATERIAL_MANUFACTURING.md) | **Batch 08 complete** | `MAT-001 / MAN-001`: nominal material vs effective/manufactured/service state, cyclic durability, AM/CNC process provenance and acceptance semantics |
+| [research/FUNCTIONAL_EVIDENCE_BATCH_08_MATERIAL_MANUFACTURING.md](research/FUNCTIONAL_EVIDENCE_BATCH_08_MATERIAL_MANUFACTURING.md) | Batch 08 complete | `MAT-001 / MAN-001`: nominal material vs effective/manufactured/service state, cyclic durability, AM/CNC process provenance and acceptance semantics |
 | [research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md](research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md) | ARCHIVED / valid background | Library/portability research; not current work priority |
 
 ---
@@ -116,8 +117,8 @@ See `spec/13_use_case_profiles.md` and research Batch 06.
 
 | File | Status | Purpose |
 |---|---|---|
-| `spec/01_coordinate_registration.md` | Planned | Coordinate spaces, units, acquisitions and registration |
-| `spec/02_project_schema.md` | Planned after evidence promotion | Versioned project schema including profiles, targets, PROM/adherence, materials, manufacturing, outcomes, physical artifacts, revisions and hashes |
+| `spec/02_project_schema.md` | **NEXT** | Versioned schema including profiles, targets, PROM/adherence, materials, manufacturing, outcomes, physical artifacts, revisions and hashes |
+| `spec/01_coordinate_registration.md` | Freeze after schema/acceptance draft | Coordinate spaces, units, acquisitions and registration invariants |
 | `spec/07_sculpt_and_roi_deformation.md` | Planned | Local authoring semantics and ROI provenance |
 | `spec/11_biomeche_integration.md` | Planned | Quantitative pressure bridge and pre/post outcome loop |
 | `spec/12_reporting_traceability.md` | Planned | Prescription/design/manufacturing/outcome reports |
@@ -126,10 +127,10 @@ See `spec/13_use_case_profiles.md` and research Batch 06.
 
 # Research / specification queue — NEXT
 
-1. **Promote mature Batch 03–08 findings into `BIOMECHE_CAD_FUNCTIONAL_SPEC.md`** and reconcile P0/P1/P2 priorities without losing provenance.
-2. Derive `Project Schema v0` from the evidence-led domain model.
-3. Derive a kernel-independent functional acceptance suite from `OFF / CE / ARCH / HEEL / PROF / PROM / MAT / MAN` semantics.
-4. Refine shear/COP policy after target acquisition hardware is fixed.
+1. **Create `spec/02_project_schema.md` v0** from the consolidated v2 domain model.
+2. Derive a kernel-independent functional acceptance suite from `OFF / CE / ARCH / HEEL / PROF / PROM / MAT / MAN` plus project/registration/history invariants.
+3. Freeze `spec/01_coordinate_registration.md` before geometry implementation.
+4. Define `spec/11_biomeche_integration.md` and `spec/12_reporting_traceability.md`.
 5. Competitor functional gap audit can proceed in parallel.
 6. Select actual built-in PROMs only after profile fit, psychometric and licensing review.
 7. Qualify real product material/process profiles and acceptance limits separately from generic literature/test standards.
@@ -145,7 +146,7 @@ See `spec/13_use_case_profiles.md` and research Batch 06.
 | `validation_strategy.md` | Planned | Validation hierarchy |
 | `geometry_invariants.md` | Planned | Numerical invariants |
 | `golden_geometry.md` | Planned | Golden fixtures / regression |
-| `manufacturing_validation.md` | Planned; now driven by spec 08/10 | Thickness, geometry trueness, materials/process/QC and production validation |
+| `manufacturing_validation.md` | Planned; driven by spec 08/10 | Thickness, geometry trueness, materials/process/QC and production validation |
 
 ---
 
