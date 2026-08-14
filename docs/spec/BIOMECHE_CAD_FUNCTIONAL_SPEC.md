@@ -2086,6 +2086,35 @@ Nessun requisito P0 precedente è stato eliminato.
 
 ---
 
+## 31.6 Audit meccanico delle voci con corrispondenza lessicale debole
+
+Un secondo controllo meccanico del documento precedente (`EC2-*` + `LIN-*`) ha evidenziato alcune voci che nella nuova specifica erano presenti semanticamente ma non sempre con la stessa terminologia. Per evitare perdite future vengono rese esplicite qui:
+
+- **EC2-014 — winding/avvolgimento:** preservato come `heel/wrap` / `Altezza avvolgenza` / `Curvatura avvolgenza`; la semantica geometrica esatta resta da formalizzare.
+- **EC2-015 — bowl/cup:** preservato come `heel cup / conca tallone` e nella libreria elementi.
+- **EC2-022 — mappa 3D colorata delle altezze:** preservata come `Height map / colore per quota`.
+- **EC2-029 — import legacy ADM:** non è requisito MVP, ma va mantenuto nel backlog di interoperabilità legacy come possibile adapter/migratore qualora BiomechE-CAD debba importare progetti EasyCAD storici.
+- **LIN-014 — fillings/stability/heel adjustment:** il concetto generale è coperto dagli elementi, heel adjustment e deformazioni locali; eventuali specifici “fill/stability” del legacy EasyCAD devono essere verificati nella futura compatibility matrix e non sono considerati già equivalenti.
+- **LIN-017 — selezioni anatomiche predefinite:** preservate come requisito P1 di `semantic/anatomical ROI masks`, da collegare ai modelli regionali BiomechE senza assumere una segmentazione commerciale universale.
+- **LIN-018 — salvataggio selezioni custom:** il documento già prevede ROI freehand/circle e modifier regions; viene mantenuto esplicitamente il requisito P1 di salvare una ROI/mask custom come preset riusabile.
+- **LIN-020 — edge height/shape:** preservato come requisito di boundary/sidewall editing e controllo bordo; dovrà essere formalizzato nella specifica geometrica.
+- **LIN-029 — generatore di modelli/preset riutilizzabili:** preservato come `clinical protocol / prescription preset library`, separato dai soli template geometrici.
+- **LIN-034 — trasmissione dati tra centri produttivi:** preservata come P2 `production handoff/collaboration package`; il package progetto deve poter essere trasferibile senza rendere obbligatorio un cloud proprietario.
+- **LIN-035 — hardware di terze parti:** resta un obiettivo strategico tramite adapter/plugin; non è attribuito come capacità EasyCAD2 1.4 senza nuova evidenza primaria.
+
+### Requisiti espliciti aggiunti dall'audit
+
+- `CAD-ROI-001` — anatomical semantic masks / region presets — **P1**.
+- `CAD-ROI-002` — save/load reusable custom ROI masks — **P1**.
+- `CAD-PRESET-001` — reusable clinical/prescription protocol presets — **P1**.
+- `CAD-COLLAB-001` — portable production-handoff package independent from mandatory cloud — **P2**.
+- `CAD-LEGACY-001` — optional EasyCAD/ADM legacy import adapter if business requirements demand migration — **P2/compatibility**.
+- `CAD-ADAPTER-001` — third-party acquisition/manufacturing integrations behind explicit adapters — **P0 architectural / implementation as needed**.
+
+**Audit conclusion:** after this explicit preservation pass, no feature from the previous 65-row `EC2-*`/`LIN-*` inventory is intentionally dropped. Items not promoted to product requirements remain traceable as lineage, compatibility or open research rather than disappearing.
+
+---
+
 # 32. Gap attuali dopo il consolidamento
 
 ## EasyCAD2 — ancora da verificare
