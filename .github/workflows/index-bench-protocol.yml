@@ -1,0 +1,53 @@
+name: Index FM12050 bench qualification protocol
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/index-bench-protocol.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  validate-index-and-self-remove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - run: python -m pip install -r requirements-dev.txt
+      - name: Preserve current semantic validation gate
+        run: |
+          python tools/validate_fixtures.py | tee bench-index-validation.log
+          grep -q 'Validated fixtures: 19; failures: 0' bench-index-validation.log
+      - name: Update canonical resume/index
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          resume = Path('docs/RESUME_HERE.md')
+          s = resume.read_text(encoding='utf-8')
+          note = '''\n\n### Bench execution package ready\n\nThe first FM12050/PFM2120 bench protocol and empty result template are now prepared:\n\n```text\ndocs/validation/FM12050_PFM2120_BENCH_QUALIFICATION_PROTOCOL_DRAFT.md\nqualification/templates/pressure-bench-result-0.1.json\n```\n\nThe protocol defines `BQ-00..BQ-13` for configuration snapshot, zero/drift, physical mapping, force/pressure scale, repeatability, hysteresis, creep, saturation, dead/unstable cells, force closure, COP, timing, mode-specific calibration and calibration-lifecycle regression. Numeric PASS limits remain `OPEN` until the actual unit, reference equipment, intended use and measurement evidence are fixed.\n'''
+          if '### Bench execution package ready' not in s:
+              s += note
+          resume.write_text(s, encoding='utf-8')
+
+          index = Path('docs/SPEC_INDEX.md')
+          s = index.read_text(encoding='utf-8')
+          add = '''\n\n## Pressure qualification execution package\n\n| File | Status | Purpose |\n|---|---|---|\n| [validation/FM12050_PFM2120_BENCH_QUALIFICATION_PROTOCOL_DRAFT.md](validation/FM12050_PFM2120_BENCH_QUALIFICATION_PROTOCOL_DRAFT.md) | **DRAFT / READY FOR LAB INPUTS** | `BQ-00..BQ-13` bench plan; no invented numeric PASS limits |\n| [`qualification/templates/pressure-bench-result-0.1.json`](../qualification/templates/pressure-bench-result-0.1.json) | **EMPTY EXECUTION TEMPLATE** | machine-readable capture of unit/config/reference/test evidence and disposition |\n\nThese files operationalize `spec/15_pressure_acquisition_qualification.md`; they do not claim that a real PFM2120/FM12050 unit has passed qualification.\n'''
+          if '## Pressure qualification execution package' not in s:
+              s += add
+          index.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit and self-remove
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/index-bench-protocol.yml
+          git add docs/RESUME_HERE.md docs/SPEC_INDEX.md
+          git commit -m "docs: index FM12050 bench qualification package"
+          git push origin HEAD:main
