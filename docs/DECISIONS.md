@@ -68,7 +68,7 @@ Pressure, Scan3D, Scan2D/Image2D and BiomechE-derived inputs preserve source ide
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-Pressure may be rendered as a color overlay, but its authoritative representation remains numeric and metric. ROI statistics and design/outcome comparisons must refer to quantitative values and source provenance rather than an RGB texture.
+Pressure may be rendered as a color overlay, but its authoritative representation remains numeric and metric. ROI statistics and design/outcome comparisons refer to quantitative values and provenance rather than an RGB texture.
 
 ---
 
@@ -77,7 +77,7 @@ Pressure may be rendered as a color overlay, but its authoritative representatio
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-The data model must represent differentiated material, density or stiffness regions without requiring those properties to be encoded only as geometry.
+The data model represents differentiated material, density or stiffness regions without requiring those properties to be encoded only as geometry.
 
 ---
 
@@ -95,7 +95,7 @@ CNC/toolpath/GCODE generation belongs to a separate manufacturing/post-processin
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-STL/3MF/GCODE/project package/report artifacts must identify the exact design revision and manufacturing profile from which they were generated. Hashes and validation state should be retained where practical.
+STL/3MF/GCODE/project package/report artifacts identify the exact design revision and manufacturing profile from which they were generated. Hashes and validation state should be retained where practical.
 
 ---
 
@@ -104,7 +104,7 @@ STL/3MF/GCODE/project package/report artifacts must identify the exact design re
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-Each P0 requirement requires acceptance criteria and, where applicable, deterministic geometric or data invariants. UI-level validation alone is insufficient.
+Each P0 requirement requires acceptance criteria and, where applicable, deterministic geometric or data invariants. UI-only validation is insufficient.
 
 ---
 
@@ -115,18 +115,16 @@ Each P0 requirement requires acceptance criteria and, where applicable, determin
 
 The EasyCAD2 audit plus the project-owner fact that EasyCAD2 uses OpenSubdiv support a stable/mostly-stable control-cage + smooth-surface architecture as a strong hypothesis.
 
-However, **OpenSubdiv is no longer considered a frozen or presumptive P0 dependency**.
+However, **OpenSubdiv is not a frozen or presumptive P0 dependency**.
 
-When architecture work resumes, the principal SubD foundation candidates are:
+When architecture work resumes, principal candidates are:
 
 ```text
 A) product-owned clinical layer + OpenSubdiv
 B) product-owned clinical layer + openNURBS / ON_SubD
 ```
 
-The project should prefer **one** authoritative P0 SubD foundation rather than maintaining OpenSubdiv and ON_SubD representations in parallel without a concrete need.
-
-The comparison must use public/stable APIs only and the same orthosis fixtures.
+Prefer one authoritative P0 SubD foundation rather than maintaining two synchronized SubD representations without a concrete need. Compare public/stable APIs on the same fixtures.
 
 ---
 
@@ -135,9 +133,9 @@ The comparison must use public/stable APIs only and the same orthosis fixtures.
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-The validated EasyCAD2 workflow does not require NURBS surface authoring, trimmed B-Rep, STEP/IGES, general loft/sweep/revolve, arbitrary shell/offset, fillet/chamfer or a full solid-boolean kernel as MVP product requirements.
+The validated EasyCAD2 workflow does not require NURBS authoring, trimmed B-Rep, STEP/IGES, generic loft/sweep/revolve, shell/offset, fillet/chamfer or a general solid-boolean kernel as MVP product requirements.
 
-This does not prevent a future foundation such as openNURBS from providing additional capabilities incidentally; extra capabilities must not redefine the product specification.
+Extra capabilities supplied by a future foundation must not redefine the product specification.
 
 ---
 
@@ -146,14 +144,7 @@ This does not prevent a future foundation such as openNURBS from providing addit
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-Do not add OCCT, Manifold, CGAL, openNURBS, OpenSubdiv or another major geometry dependency merely for theoretical capability coverage.
-
-A dependency is justified only when:
-
-1. a named product requirement/acceptance fixture needs it;
-2. the need/failure is reproducible;
-3. the candidate materially improves robustness, portability, performance or interoperability;
-4. license, target-platform feasibility and conversion/synchronization cost are documented.
+Do not add major geometry dependencies merely for theoretical capability coverage. A dependency is justified only when a named requirement/fixture needs it, the need is reproducible, the candidate materially improves the result and license/platform/conversion costs are documented.
 
 ---
 
@@ -162,18 +153,14 @@ A dependency is justified only when:
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-The clinical/design prescription must remain stable and traceable independently from the exact lower-surface, sidewall, closure, material and manufacturing realization.
-
-A change in manufacturing profile must not silently change the semantic prescription.
+The clinical/design prescription remains stable and traceable independently from lower-surface, sidewall, closure, material and manufacturing realization. A manufacturing-profile change must not silently alter prescription semantics.
 
 ---
 
-## D-CAD-015 — Architecture selection is temporarily parked; functionality and scientific evidence lead current work
+## D-CAD-015 — Architecture selection is parked; functionality and scientific evidence lead current work
 
 **Status:** BASELINE  
 **Date:** 2026-08-14
-
-Current project priority is:
 
 ```text
 EasyCAD2 behavior
@@ -186,11 +173,7 @@ functional product specification
 architecture/library selection later
 ```
 
-The active canonical research document is:
-
-`docs/research/FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md`
-
-Architecture research is preserved, not discarded. The OpenSubdiv vs openNURBS/ON_SubD shoot-out resumes only after the functional/evidence matrix is sufficiently mature to define the required tests.
+Architecture research is preserved, not discarded. Resume the OpenSubdiv vs openNURBS/ON_SubD shoot-out only when requirements and acceptance tests are mature enough.
 
 ---
 
@@ -199,7 +182,7 @@ Architecture research is preserved, not discarded. The OpenSubdiv vs openNURBS/O
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-A named feature such as `RearfootWedge`, `ForefootWedge`, `MedialArch` or `MetatarsalPad` must not survive only as anonymous final geometry.
+A named feature such as `RearfootWedge`, `MedialArch`, `HeelCup` or `MetatarsalPad` must not survive only as anonymous final geometry.
 
 Where applicable preserve:
 
@@ -215,8 +198,6 @@ intent
 algorithm/version
 ```
 
-This is supported by literature showing dose- and placement-dependent biomechanical effects and is independent of eventual CAD implementation.
-
 ---
 
 ## D-CAD-017 — Outcome thresholds are context/protocol specific, not universal constants
@@ -224,9 +205,40 @@ This is supported by literature showing dose- and placement-dependent biomechani
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-Guideline thresholds or research targets must be stored with population/context, protocol, ROI, metric and evidence source.
+Guideline thresholds or research targets are stored with population/context, protocol, ROI, metric and evidence source. Diabetic-foot pressure criteria must not leak into metatarsalgia, flatfoot, heel pain or sport by default.
 
-Example: diabetic-foot pressure-offloading criteria must not be silently reused as universal thresholds for flatfoot, plantar fasciitis, sport or other indications.
+---
+
+## D-CAD-018 — Indication/use-case profiles are a versioned evidence-context layer
+
+**Status:** BASELINE  
+**Date:** 2026-08-14
+
+BiomechE-CAD will use versioned `IndicationProfile` objects to determine which CAD features, metrics, targets and warnings are meaningful in a particular population/context.
+
+Initial P0 profile set:
+
+```text
+DIABETIC_REULCERATION_PREVENTION
+MECHANICAL_METATARSALGIA
+FLEXIBLE_FLATFOOT
+PLANTAR_HEEL_PAIN
+SPORT_PERFORMANCE
+GENERIC_CUSTOM_ORTHOSIS
+```
+
+Rules:
+
+1. a profile does not diagnose and does not automatically prescribe geometry;
+2. every profile-derived target/warning retains profile + evidence provenance;
+3. multiple profiles may coexist, but targets never merge anonymously;
+4. pediatric/adult, symptomatic/asymptomatic and walking/running evidence do not transfer silently;
+5. `GENERIC_CUSTOM_ORTHOSIS` applies no disease-specific hidden threshold;
+6. active pathology can trigger a different clinical pathway rather than merely another CAD preset.
+
+Specific safety boundary: an active neuropathic plantar forefoot/midfoot diabetic ulcer must not be presented as equivalent to a recurrence-prevention insole workflow; the IWGDF active-ulcer offloading pathway is surfaced explicitly.
+
+Canonical specification: `docs/spec/13_use_case_profiles.md`.
 
 ---
 
@@ -246,14 +258,12 @@ Architecture / implementation decisions intentionally deferred:
 - whether Manifold or another solid/mesh library is needed;
 - whether STEP/.3dm interoperability becomes a product requirement.
 
-Functional/scientific questions currently active:
+Functional/scientific work still active:
 
-- population-specific indication profiles;
-- arch dose and placement evidence;
-- heel containment vs cushioning evidence;
-- metatarsal element dose/placement;
-- offloading ROI + neighboring-region safety metrics;
-- pressure metric selection (peak/PTI/FTI/contact area/COP/shear when available);
-- material/stiffness prescription semantics;
-- post-production outcome verification;
-- PROM/comfort/fit/adherence model.
+- PROM/comfort/fit/adherence model;
+- material durability/manufacturing evidence;
+- consolidated P0/P1 functional-spec promotion;
+- Project Schema v0;
+- kernel-independent acceptance suite;
+- final profile subtyping/version policy where evidence warrants finer distinctions;
+- shear/COP depth after target acquisition hardware is fixed.
