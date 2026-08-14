@@ -30,11 +30,11 @@ EasyCAD2 remains the behavioral benchmark, not scientific truth or the architect
 ## 2. Canonical documents
 
 ```text
-docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md  -> product scope / P0-P1-P2
-docs/spec/02_project_schema.md                -> persisted semantic contract
+docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md   -> product scope / P0-P1-P2
+docs/spec/02_project_schema.md                 -> persisted semantic contract
 docs/validation/functional_acceptance_suite.md -> kernel-independent acceptance contract
-docs/BIBLIOGRAPHY.md                          -> single bibliographic authority
-docs/DECISIONS.md                             -> cross-cutting decisions
+docs/BIBLIOGRAPHY.md                           -> single bibliographic authority
+docs/DECISIONS.md                              -> cross-cutting decisions
 ```
 
 Reference machine schema / current fixture:
@@ -177,10 +177,10 @@ L4 manufacturing/physical-part semantics
 L5 evidence/reporting/portability
 ```
 
-It maps the 25 EasyCAD2 validation behavior groups to BiomechE-CAD acceptance paths and defines cross-domain:
+It maps the 25 EasyCAD2 validation behavior groups to BiomechE-CAD acceptance paths and defines:
 
 ```text
-XACC-001..XACC-045
+XACC-001..XACC-050
 ```
 
 Coverage includes:
@@ -205,7 +205,12 @@ Coverage includes:
 - deterministic revision replay;
 - missing-definition/migration failure gates;
 - manufacturing-minimum/privacy exports;
-- report/evidence revision exactness.
+- report/evidence revision exactness;
+- arbitrary section + fixed-height semantics (`XACC-046`);
+- two-point ruler accuracy/view-independence (`XACC-047`);
+- production closure + export lineage (`XACC-048`);
+- report source exactness (`XACC-049`);
+- profile-scoped minimum-thickness DFM detect/correction provenance (`XACC-050`).
 
 The suite explicitly distinguishes:
 
@@ -253,6 +258,9 @@ fixtures/acceptance/prom-versioning.json
 fixtures/acceptance/offload-safety-ring.json
 fixtures/acceptance/material-property-provenance.json
 fixtures/acceptance/blocking-qc.json
+fixtures/acceptance/section-height.json
+fixtures/acceptance/ruler-known-distance.json
+fixtures/acceptance/min-thickness-dfm.json
 ```
 
 Start executable validation for `SCHEMA-*` / `XACC-*` in the implementation/CI environment.
@@ -308,7 +316,8 @@ no silent orientation inference
 - [x] `D-CAD-022` project schema decision.
 - [x] Kernel-independent Functional Acceptance Suite v0.
 - [x] EasyCAD2 25 stories remapped into acceptance paths.
-- [x] `XACC-001..045` cross-domain acceptance scenarios.
+- [x] `XACC-001..050` cross-domain acceptance scenarios.
+- [x] Dedicated EasyCAD completion cases for US19/20/21/23/24.
 - [x] `SPEC_INDEX.md` updated through acceptance suite.
 
 ## 10. TODO
