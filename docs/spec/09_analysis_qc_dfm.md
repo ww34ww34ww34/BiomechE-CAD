@@ -3,7 +3,8 @@
 **Version:** v0 — evidence-led metric policy  
 **Date:** 2026-08-14  
 **Status:** active functional baseline  
-**Architecture:** out of scope / parked.
+**Architecture:** out of scope / parked.  
+**Bibliography:** `docs/BIBLIOGRAPHY.md` is authoritative for all external references.
 
 ---
 
@@ -20,13 +21,13 @@ ACQUISITION QUALITY
 MANUFACTURING / DFM QC
 ```
 
-A design can be geometrically valid and still fail its intended pressure outcome. Conversely, an apparent pressure improvement can be unreliable if acquisition/calibration/protocol changed.
+A design can be geometrically valid and still fail its intended pressure outcome. Conversely, an apparent pressure improvement can be unreliable if acquisition/calibration/protocol changed [REF-CAD-034; REF-CAD-036].
 
 ---
 
 # 1. Core rule: metrics are always protocol-bound
 
-No pressure number is meaningful without its acquisition context.
+No pressure number is meaningful without its acquisition context. Reliability and cross-system literature supports preserving device, calibration, walking speed, step count and protocol metadata [REF-CAD-034; REF-CAD-035; REF-CAD-036].
 
 Every outcome dataset must preserve at least:
 
@@ -56,8 +57,6 @@ PressureAcquisition
   qualityFlags
 ```
 
-Rationale: published reliability studies show that walking speed, number of steps and calibration affect plantar-pressure measurements; cross-system studies also show that values from different devices are not automatically interchangeable.
-
 ---
 
 # 2. P0 plantar-loading metrics
@@ -70,18 +69,9 @@ units: kPa
 scope: sensor / ROI / foot
 ```
 
-Peak plantar pressure is widely used and is the principal quantitative metric in diabetic-foot offloading literature/guidelines.
+Peak plantar pressure is widely used in diabetic-foot offloading literature and guideline contexts [REF-CAD-004; REF-CAD-005; REF-CAD-037; GUIDE-IWGDF-2023].
 
-Store:
-
-```text
-per-step values
-aggregate
-aggregation method
-ROI definition
-```
-
-Do not store only a rendered maximum color.
+Store per-step values, aggregate method and ROI definition. Do not store only a rendered maximum color.
 
 ---
 
@@ -92,9 +82,7 @@ PTI = integral pressure(t) dt
 units: kPa*s
 ```
 
-PTI captures temporal exposure that peak pressure alone cannot represent.
-
-A systematic review found that PTI and peak-pressure conclusions differ clearly in a meaningful subset of diabetic-foot studies; PTI should therefore be available rather than discarded.
+PTI captures temporal exposure that peak pressure alone cannot represent. A systematic review found clear differences between PTI and peak-pressure results in 15 of 35 eligible diabetic-foot papers [REF-CAD-033, Abstract—Findings].
 
 **Product rule:** do not claim PTI is universally superior to peak pressure. Report both where the acquisition supports them.
 
@@ -107,17 +95,7 @@ ContactArea
 units: mm2 or cm2 with canonical conversion
 ```
 
-Contact area is important for understanding redistribution/total-contact mechanisms.
-
-It should be available:
-
-```text
-whole foot
-anatomical ROI
-before/after
-```
-
-when the pressure system can calculate it reliably.
+Contact area is important for understanding redistribution/total-contact mechanisms [REF-CAD-030, pp. 115–118]. It should be available whole-foot, by anatomical ROI and before/after where the system can calculate it reliably.
 
 ---
 
@@ -134,17 +112,7 @@ Useful for contextualizing PTI and loading duration.
 
 ## 2.5 Mean / average pressure — P0 when well-defined
 
-The exact definition must be stored because systems differ.
-
-Examples:
-
-```text
-mean across active sensors at instant
-mean peak pressure across steps
-regional average pressure over stance
-```
-
-Never use the label `mean pressure` without the computation definition.
+The exact definition must be stored because systems differ [REF-CAD-036]. Examples include mean across active sensors at an instant, mean peak across steps or regional average over stance. Never use the label `mean pressure` without the computation definition.
 
 ---
 
@@ -153,14 +121,12 @@ Never use the label `mean pressure` without the computation definition.
 If the device provides calibrated force or force can be validly derived from pressure × sensor area:
 
 ```text
-PeakForce        N
+PeakForce         N
 ForceTimeIntegral N*s
 RegionalLoadFraction %
 ```
 
-Store derivation metadata.
-
-Do not fabricate force from a pressure image lacking calibrated sensor area/geometry.
+Store derivation metadata. Do not fabricate force from a pressure image lacking calibrated sensor area/geometry.
 
 ---
 
@@ -176,23 +142,13 @@ COP anteroposterior progression
 phase-specific COP metrics
 ```
 
-Forefoot/rearfoot wedge literature shows that orthotic dose can alter COP trajectory, making COP relevant to prescription analysis.
-
-The original time-series trajectory should remain available; derived scalar metrics are secondary.
+Forefoot/rearfoot wedge literature shows that orthotic dose can alter COP trajectory [REF-CAD-015], making COP relevant to prescription analysis. The original time-series trajectory should remain available; derived scalar metrics are secondary.
 
 ---
 
 # 5. Shear stress — P1/P2, never inferred silently
 
-Mechanical plantar loading includes:
-
-```text
-normal pressure
-+
-tangential shear stress
-```
-
-Reviews identify shear as potentially important to diabetic foot tissue injury, but shear measurement technology is less common and less standardized than normal plantar pressure.
+Mechanical plantar loading includes normal pressure plus tangential shear stress. Reviews support treating shear as a distinct quantity and document separate measurement technology and diabetic-foot relevance [REF-CAD-039; REF-CAD-040].
 
 Therefore:
 
@@ -207,8 +163,6 @@ Therefore:
 
 Do not reduce a walking trial immediately to one scalar.
 
-Minimum conceptual model:
-
 ```text
 Trial
   Step[]
@@ -217,18 +171,7 @@ Trial
   variability
 ```
 
-Store or derive:
-
-```text
-step count
-mean
-median [recommended]
-standard deviation / dispersion
-min/max when useful
-excluded steps + reason
-```
-
-Reliability literature indicates that multiple steps are required for stable estimates and that required step count varies by metric/region.
+Store/derive step count, aggregate method, dispersion and excluded steps. In one Pedar treadmill reliability study, speed affected regional loading and up to eight steps were needed to obtain >0.90 reliability across selected pressure/force variables and regions under that protocol [REF-CAD-035, pp. 204–209].
 
 No universal fixed number of steps is hardcoded as clinically sufficient; protocol profiles define it.
 
@@ -236,18 +179,9 @@ No universal fixed number of steps is hardcoded as clinically sufficient; protoc
 
 # 7. Speed and activity are part of the result
 
-Published reliability work shows plantar loading changes with gait speed.
+Walking speed changes regional loading [REF-CAD-035]. Therefore a comparison engine must check activity, speed protocol, footwear and measurement-system compatibility.
 
-Therefore a comparison engine must check:
-
-```text
-activity same?
-walking/running speed protocol comparable?
-footwear comparable?
-measurement system comparable?
-```
-
-If not, the UI should flag:
+If they differ, the UI should flag:
 
 ```text
 COMPARISON HAS PROTOCOL DIFFERENCES
@@ -259,7 +193,7 @@ rather than silently computing a clinical delta.
 
 # 8. Device comparability and calibration
 
-Recent cross-system research reports discrepancies between plantar-pressure systems for parameters including pressure, force, PTI, FTI, contact area and contact time.
+Cross-system research reports discrepancies among plantar-pressure devices for contact area, force, FTI, peak pressure, PTI, mean pressure and contact time, with limited cross-system comparability [REF-CAD-036, Abstract—Results/Conclusions]. A 2024 technology review likewise emphasizes device heterogeneity and the value of consistent measurement systems [REF-CAD-034].
 
 Therefore:
 
@@ -267,11 +201,7 @@ Therefore:
 same device + same calibration + same protocol
 ```
 
-is the preferred longitudinal comparison.
-
-Cross-device comparisons are allowed only with explicit provenance/warning and, if available, a validated harmonization/calibration process.
-
-Threshold-based decisions require stronger acquisition-quality checks than simple relative ranking.
+is the preferred longitudinal comparison. Cross-device comparisons require explicit provenance/warning and, if available, validated harmonization.
 
 ---
 
@@ -299,15 +229,7 @@ lesser toes
 custom polygon/semantic ROI
 ```
 
-For offloading features add:
-
-```text
-targetROI
-safetyRingROI
-comparisonROI[]
-```
-
-ROI versions/landmarks are part of provenance.
+For offloading features add target ROI, safety-ring ROI and comparison regions because local pressure reduction can redistribute load nearby or remotely [REF-CAD-004; REF-CAD-020; REF-CAD-029]. ROI versions/landmarks are part of provenance.
 
 ---
 
@@ -321,16 +243,7 @@ BASELINE DATASET
 OUTCOME DATASET
 ```
 
-For each compatible metric/ROI report:
-
-```text
-absolute baseline
-absolute outcome
-absolute delta
-relative delta %
-measurement protocol compatibility
-quality state
-```
+For each compatible metric/ROI report absolute baseline, absolute outcome, absolute delta, relative delta, protocol compatibility and quality state.
 
 Example:
 
@@ -349,7 +262,7 @@ The example is illustrative and not a clinical threshold.
 
 # 11. Threshold policy
 
-Thresholds are **context objects**, not global constants.
+Thresholds are **context objects**, not global constants:
 
 ```text
 MetricThreshold
@@ -366,9 +279,7 @@ MetricThreshold
   evidenceVersion/date
 ```
 
-This is required because systematic reviews of diabetic in-shoe pressure thresholds report heterogeneous proposed cutoffs and limited evidence for several threshold schemes.
-
-The IWGDF diabetic-foot context may define pressure-relief targets, but those targets must not apply automatically to metatarsalgia, flatfoot, sport or asymptomatic populations.
+Systematic reviews identify multiple threshold schemes and substantial heterogeneity/limited evidence [REF-CAD-037; REF-CAD-038]. IWGDF diabetic-foot targets are therefore attached to their specific guideline context rather than applied automatically to metatarsalgia, flatfoot, sport or asymptomatic populations [GUIDE-IWGDF-2023].
 
 ---
 
@@ -383,15 +294,7 @@ PredictedOutcome
 
 A future ML/FE/surrogate model may predict pressure/shear, but a predicted value must never overwrite a measured dataset.
 
-Prediction should include:
-
-```text
-modelId
-modelVersion
-training/validation provenance
-uncertainty
-applicability domain
-```
+Prediction should include model ID/version, training/validation provenance, uncertainty and applicability domain.
 
 ---
 
@@ -413,7 +316,7 @@ local thickness
 minimum thickness
 ```
 
-Prescription geometry should be verified against what is actually present in the final design/manufacturing artifact.
+EasyCAD2 itself validates sections/measurements and minimum-thickness handling [EC2-MANUAL-1.1, pp. 42–44 and 52–53; EC2-VAL-PLAN-1.4, US19–US20/US24]. Prescription geometry should be verified against what is actually present in the final design/manufacturing artifact.
 
 ---
 
@@ -445,77 +348,19 @@ NOT_COMPARABLE
 INSUFFICIENT_DATA
 ```
 
-Warnings may include:
-
-```text
-different pressure system
-different calibration
-insufficient steps
-different walking speed
-different footwear
-changed ROI/masking version
-missing units
-missing side
-sensor saturation/dropout
-```
+Warnings may include different pressure system/calibration, insufficient steps, different walking speed/footwear, changed ROI masking, missing units/side or sensor saturation/dropout [REF-CAD-034; REF-CAD-035; REF-CAD-036].
 
 ---
 
-# 16. Evidence basis
+# 16. Evidence basis summary
 
-## Pressure + PTI
-
-**The value of reporting pressure-time integral data in addition to peak pressure data in studies on the diabetic foot: a systematic review**  
-PMID `23273847`  
-DOI `10.1016/j.clinbiomech.2012.12.002`
-
-Supports retaining PTI in addition to peak pressure; differences between the two measures were present in a meaningful subset of studies.
-
-## Pressure measurement technology
-
-**In-shoe plantar pressure measurement technologies for the diabetic foot: a systematic review**, 2024  
-PMID `38699042`  
-DOI `10.1016/j.heliyon.2024.e29672`
-
-Supports device/protocol/calibration provenance and recognizes instrumented insoles as the prevailing in-shoe approach.
-
-## Reliability / step count / speed
-
-**Reliability of an in-shoe pressure measurement system during treadmill walking**  
-PMID `8696496`  
-DOI `10.1177/107110079601700404`
-
-Shows loading metrics vary with speed and multiple steps may be needed for high reliability.
-
-## Cross-system comparability
-
-**Discrepancies between plantar pressure devices: Evaluating cross-system reliability for biomechanics, clinical use and predictive modelling**  
-PMID `40743570`  
-DOI `10.1016/j.foot.2025.102190`
-
-Supports warnings against treating values from different measurement systems as directly interchangeable.
-
-## Threshold uncertainty
-
-**In-shoe pressure thresholds for people with diabetes and neuropathy at risk of ulceration: A systematic review**  
-PMID `33280984`.
-
-**Plantar pressure thresholds as a strategy to prevent diabetic foot ulcers: A systematic review**  
-PMID `38390156`.
-
-Both report heterogeneous thresholds/protocols and limited evidence for several proposed thresholds.
-
-## Shear
-
-**Plantar shear stress measurements — A review**  
-PMID `24820135`  
-DOI `10.1016/j.clinbiomech.2014.04.009`
-
-**Plantar shear stress in the diabetic foot: A systematic review and meta-analysis**  
-PMID `34324731`  
-DOI `10.1111/dme.14661`
-
-Support treating shear as a distinct mechanical quantity, not as a synonym for pressure.
+- Peak pressure + PTI: [REF-CAD-033].
+- In-shoe measurement technology/provenance: [REF-CAD-034].
+- Reliability / step count / speed: [REF-CAD-035].
+- Cross-system comparability: [REF-CAD-036].
+- Threshold uncertainty: [REF-CAD-037; REF-CAD-038].
+- Shear: [REF-CAD-039; REF-CAD-040].
+- Load transfer / safety ring: [REF-CAD-004; REF-CAD-020; REF-CAD-029; REF-CAD-030].
 
 ---
 
@@ -570,31 +415,31 @@ Pressure data remain numeric and metric; color maps are derived views.
 
 ## AQ-002 — protocol provenance
 
-A pressure trial cannot be marked fully valid without units, side, device/source and acquisition protocol metadata required by its profile.
+A pressure trial cannot be marked fully valid without units, side, device/source and acquisition protocol metadata required by its profile [REF-CAD-034; REF-CAD-036].
 
 ## AQ-003 — step-aware aggregation
 
-The UI can show the number of included steps and the aggregate method.
+The UI can show the number of included steps and the aggregate method [REF-CAD-035].
 
 ## AQ-004 — peak + PTI
 
-When time-series pressure is available, both peak pressure and PTI can be computed by ROI.
+When time-series pressure is available, both peak pressure and PTI can be computed by ROI [REF-CAD-033].
 
 ## AQ-005 — contact area
 
-Contact area can be compared by compatible ROI where supported.
+Contact area can be compared by compatible ROI where supported [REF-CAD-030].
 
 ## AQ-006 — compatibility warning
 
-Changing device, calibration, speed/activity or masking rules produces an explicit comparison warning.
+Changing device, calibration, speed/activity or masking rules produces an explicit comparison warning [REF-CAD-034; REF-CAD-035; REF-CAD-036].
 
 ## AQ-007 — target + safety ring
 
-Offloading assessment displays target and surrounding-region deltas.
+Offloading assessment displays target and surrounding-region deltas [REF-CAD-029].
 
 ## AQ-008 — contextual threshold
 
-A threshold cannot exist without context/provenance fields.
+A threshold cannot exist without context/provenance fields [REF-CAD-037; REF-CAD-038; GUIDE-IWGDF-2023].
 
 ## AQ-009 — measured/predicted separation
 
@@ -630,3 +475,25 @@ Was the produced artifact the revision actually tested?
 ```
 
 That evidence model is independent of the geometry engine and is therefore appropriate to freeze before architecture selection.
+
+---
+
+## Bibliography links
+
+[EC2-MANUAL-1.1]: ../BIBLIOGRAPHY.md#ec2-manual-11
+[EC2-VAL-PLAN-1.4]: ../BIBLIOGRAPHY.md#ec2-val-plan-14
+[GUIDE-IWGDF-2023]: ../BIBLIOGRAPHY.md#guide-iwgdf-2023
+[REF-CAD-004]: ../BIBLIOGRAPHY.md#ref-cad-004
+[REF-CAD-005]: ../BIBLIOGRAPHY.md#ref-cad-005
+[REF-CAD-015]: ../BIBLIOGRAPHY.md#ref-cad-015
+[REF-CAD-020]: ../BIBLIOGRAPHY.md#ref-cad-020
+[REF-CAD-029]: ../BIBLIOGRAPHY.md#ref-cad-029
+[REF-CAD-030]: ../BIBLIOGRAPHY.md#ref-cad-030
+[REF-CAD-033]: ../BIBLIOGRAPHY.md#ref-cad-033
+[REF-CAD-034]: ../BIBLIOGRAPHY.md#ref-cad-034
+[REF-CAD-035]: ../BIBLIOGRAPHY.md#ref-cad-035
+[REF-CAD-036]: ../BIBLIOGRAPHY.md#ref-cad-036
+[REF-CAD-037]: ../BIBLIOGRAPHY.md#ref-cad-037
+[REF-CAD-038]: ../BIBLIOGRAPHY.md#ref-cad-038
+[REF-CAD-039]: ../BIBLIOGRAPHY.md#ref-cad-039
+[REF-CAD-040]: ../BIBLIOGRAPHY.md#ref-cad-040
