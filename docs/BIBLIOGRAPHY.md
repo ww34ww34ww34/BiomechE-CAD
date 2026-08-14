@@ -3,7 +3,7 @@
 **Status:** CANONICAL  
 **Date initialized:** 2026-08-14  
 **Last normalized:** 2026-08-14  
-**Purpose:** single authoritative bibliography for EasyCAD2 evidence, scientific literature, guidelines, vendor sources and architecture references used by BiomechE-CAD.
+**Purpose:** single authoritative bibliography for EasyCAD2 evidence, scientific literature, guidelines, standards, vendor sources and architecture references used by BiomechE-CAD.
 
 > Other project documents cite the stable source IDs defined here instead of duplicating bibliographic metadata. `docs/research/SOURCES.md` is an intake/research ledger; this file is the canonical bibliographic authority.
 
@@ -18,16 +18,19 @@ Use stable IDs plus the most precise truthful locator available:
 [REF-CAD-013, pp. 84–88]
 [REF-CAD-046, Table 2; Results; Discussion]
 [GUIDE-IWGDF-2023, Prevention guideline]
+[STD-ISO-868-2003, Abstract]
 ```
 
 Locator priority:
+
 1. exact PDF/manual/article page;
 2. article table, figure or numbered section;
 3. HTML section heading;
 4. PubMed/PMC abstract subsection;
-5. whole source only when no finer locator has been captured.
+5. standards abstract/scope when the full standard has not been licensed/read;
+6. whole source only when no finer locator has been captured.
 
-**Never invent a page number.** Population-specific, protocol-specific, model-based and vendor claims remain labelled as such.
+**Never invent a page number.** Population-specific, protocol-specific, model-based, standards-derived and vendor claims remain labelled as such.
 
 ---
 
@@ -372,113 +375,251 @@ Riel H et al. *Does a corticosteroid injection plus exercise or exercise alone a
 
 <a id="ref-cad-068"></a>
 ## REF-CAD-068 — Diabetic footwear offloading × adherence RCT
-Bus SA et al. *Effect of custom-made footwear on foot ulcer recurrence in diabetes: a multicenter randomized controlled trial.* Diabetes Care. 2013;36(12):4109–4116. PMID `24130357`; PMCID `PMC3836114`; DOI `10.2337/dc13-0996`. Locator: pp.4109–4116; Abstract—Results/Conclusions. Role: improved offloading did not significantly reduce recurrence in intention-to-treat, but did in the objectively high-adherence subgroup; adherence is outcome-critical.
+Bus SA et al. *Effect of custom-made footwear on foot ulcer recurrence in diabetes: a multicenter randomized controlled trial.* Diabetes Care. 2013;36(12):4109–4116. PMID `24130357`; PMCID `PMC3836114`; DOI `10.2337/dc13-0996`. Locator: pp.4109–4116; Abstract—Results/Conclusions. Role: adherence is outcome-critical.
 
 <a id="ref-cad-069"></a>
 ## REF-CAD-069 — CareFUL pressure-based orthoses RCT
-Ulbrecht JS, Hurley T, Mauger DT, Cavanagh PR. *Prevention of recurrent foot ulcers with plantar pressure-based in-shoe orthoses: the CareFUL prevention multicenter randomized controlled trial.* Diabetes Care. 2014;37(7):1982–1989. PMID `24760263`; PMCID `PMC4067390`; DOI `10.2337/dc13-2956`. Locator: pp.1982–1989; Abstract/Results. Role: shape + barefoot-pressure-based orthoses reduced submetatarsal ulcer recurrence versus standard-of-care orthoses in the studied high-risk population.
+Ulbrecht JS et al. *Prevention of recurrent foot ulcers with plantar pressure-based in-shoe orthoses: the CareFUL prevention multicenter randomized controlled trial.* Diabetes Care. 2014;37(7):1982–1989. PMID `24760263`; PMCID `PMC4067390`; DOI `10.2337/dc13-2956`. Role: shape + pressure-based orthoses in high-risk population.
 
 <a id="ref-cad-070"></a>
 ## REF-CAD-070 — Continuous pressure feedback and diabetic re-ulceration
-Abbott CA et al. *Innovative intelligent insole system reduces diabetic foot ulcer recurrence at plantar sites: a prospective, randomised, proof-of-concept study.* Lancet Digit Health. 2019;1(6):e308–e318. PMID `33323253`; DOI `10.1016/S2589-7500(19)30128-1`. Locator: pp.e308–e318; Abstract—Findings. Role: continuous pressure monitoring + feedback/offloading guidance; future P2 integration direction.
+Abbott CA et al. *Innovative intelligent insole system reduces diabetic foot ulcer recurrence at plantar sites: a prospective, randomised, proof-of-concept study.* Lancet Digit Health. 2019;1(6):e308–e318. PMID `33323253`; DOI `10.1016/S2589-7500(19)30128-1`. Role: P2 continuous pressure monitoring/feedback direction.
 
 <a id="ref-cad-071"></a>
 ## REF-CAD-071 — DIASSIST adherence RCT 2026
-Vossen LE et al. *An Integrated Personalized Multimodal Intervention Improves Adherence to Wearing Custom-Made Footwear in People With Diabetes at High Foot Ulcer Risk: A Multicenter Randomized Controlled Trial (DIASSIST).* Diabetes Care. 2026;49(8):1384–1394. PMID `42247281`; DOI `10.2337/dc25-3113`. Locator: pp.1384–1394; Abstract—Results. Role: adherence can be materially improved with personalized multimodal support.
+Vossen LE et al. *An Integrated Personalized Multimodal Intervention Improves Adherence to Wearing Custom-Made Footwear in People With Diabetes at High Foot Ulcer Risk: A Multicenter Randomized Controlled Trial (DIASSIST).* Diabetes Care. 2026;49(8):1384–1394. PMID `42247281`; DOI `10.2337/dc25-3113`. Role: adherence intervention.
 
 <a id="ref-cad-072"></a>
 ## REF-CAD-072 — Custom orthoses for forefoot pain review
-Arias-Martín I, Reina-Bueno M, Munuera-Martínez PV. *Effectiveness of custom-made foot orthoses for treating forefoot pain: a systematic review.* Int Orthop. 2018;42(8):1865–1875. PMID `29423640`; DOI `10.1007/s00264-018-3817-y`. Locator: pp.1865–1875; Abstract—Results/Conclusions. Role: pain outcomes across heterogeneous forefoot conditions; do not merge diagnoses silently.
+Arias-Martín I et al. *Effectiveness of custom-made foot orthoses for treating forefoot pain: a systematic review.* Int Orthop. 2018;42(8):1865–1875. PMID `29423640`; DOI `10.1007/s00264-018-3817-y`. Role: heterogeneous forefoot conditions.
 
 <a id="ref-cad-073"></a>
 ## REF-CAD-073 — Flatfoot network meta-analysis
-Shim SR et al. *Optimizing Flatfoot Management With Foot Orthoses: A Systemic Review and Meta-analysis.* Am J Phys Med Rehabil. 2026;105(3):230–237. PMID `41065643`; DOI `10.1097/PHM.0000000000002833`. Locator: pp.230–237; Abstract—Results. Role: RCT synthesis for pain, navicular drop, calcaneal pitch and COP; included ages span children/young adults, so population boundaries remain essential.
+Shim SR et al. *Optimizing Flatfoot Management With Foot Orthoses: A Systemic Review and Meta-analysis.* Am J Phys Med Rehabil. 2026;105(3):230–237. PMID `41065643`; DOI `10.1097/PHM.0000000000002833`. Role: RCT synthesis; age/population boundaries remain essential.
 
 <a id="ref-cad-074"></a>
 ## REF-CAD-074 — Plantar fasciitis orthoses RCT meta-analysis 2026
-Wang D, Lin Z, Tan G, Han X, Huang Y. *Efficacy and safety of foot orthoses for improving pain and function in patients with plantar fasciitis: a systematic review and meta-analysis of randomized controlled trials.* Disabil Rehabil. 2026;48(5):1231–1245. PMID `40999841`; DOI `10.1080/09638288.2025.2563763`. Locator: pp.1231–1245; Abstract—Results/Conclusion. Role: pain benefit without clear function/walking-ability superiority; supports separate outcome classes.
+Wang D et al. *Efficacy and safety of foot orthoses for improving pain and function in patients with plantar fasciitis: a systematic review and meta-analysis of randomized controlled trials.* Disabil Rehabil. 2026;48(5):1231–1245. PMID `40999841`; DOI `10.1080/09638288.2025.2563763`. Role: separate pain/function outcomes.
 
 <a id="ref-cad-075"></a>
 ## REF-CAD-075 — Running biomechanics orthoses meta-analysis 2024
-Jor A et al. *Effects of foot orthoses on running kinetics and kinematics: A systematic review and meta-analysis.* Gait Posture. 2024;109:240–258. PMID `38367456`; DOI `10.1016/j.gaitpost.2024.02.003`. Locator: pp.240–258; Abstract—Results. Role: healthy-runner task-specific pressure, comfort, kinematic and running-economy trade-offs.
+Jor A et al. *Effects of foot orthoses on running kinetics and kinematics: A systematic review and meta-analysis.* Gait Posture. 2024;109:240–258. PMID `38367456`; DOI `10.1016/j.gaitpost.2024.02.003`. Role: running pressure/comfort/kinematic/economy trade-offs.
 
 <a id="ref-cad-076"></a>
 ## REF-CAD-076 — Orthoses and injury prevention meta-analysis
-Bonanno DR, Landorf KB, Munteanu SE, Murley GS, Menz HB. *Effectiveness of foot orthoses and shock-absorbing insoles for the prevention of injury: a systematic review and meta-analysis.* Br J Sports Med. 2017;51(2):86–96. PMID `27919918`; DOI `10.1136/bjsports-2016-096671`. Locator: pp.86–96; Abstract—Results. Role: overall/stress-fracture prevention signal with heterogeneous trial quality; not a universal injury-prevention claim.
+Bonanno DR et al. *Effectiveness of foot orthoses and shock-absorbing insoles for the prevention of injury: a systematic review and meta-analysis.* Br J Sports Med. 2017;51(2):86–96. PMID `27919918`; DOI `10.1136/bjsports-2016-096671`. Role: injury-prevention signal with heterogeneous trial quality.
 
 <a id="ref-cad-077"></a>
 ## REF-CAD-077 — Footwear comfort and running economy
-Van Alsenoy K, van der Linden ML, Girard O, Santos D. *Increased footwear comfort is associated with improved running economy - a systematic review and meta-analysis.* Eur J Sport Sci. 2023;23(1):121–133. PMID `34726119`; DOI `10.1080/17461391.2021.1998642`. Locator: pp.121–133; Abstract. Role: comfort is a meaningful sport outcome and may relate to economy, but does not prove custom-orthosis performance superiority.
+Van Alsenoy K et al. *Increased footwear comfort is associated with improved running economy - a systematic review and meta-analysis.* Eur J Sport Sci. 2023;23(1):121–133. PMID `34726119`; DOI `10.1080/17461391.2021.1998642`. Role: comfort is a meaningful sport outcome.
 
 <a id="ref-cad-078"></a>
 ## REF-CAD-078 — Running with asymptomatic flatfoot meta-analysis
-Jor A et al. *Effects of foot orthoses on lower extremity joint kinematics and kinetics in runners with asymptomatic flatfeet: A systematic review and meta-analysis.* Gait Posture. 2025;121:281–294. PMID `40516166`; DOI `10.1016/j.gaitpost.2025.06.003`. Locator: pp.281–294; Abstract—Results. Role: arch-support-only and arch+medial-post configurations behave differently in a running flatfoot subtype.
+Jor A et al. *Effects of foot orthoses on lower extremity joint kinematics and kinetics in runners with asymptomatic flatfeet: A systematic review and meta-analysis.* Gait Posture. 2025;121:281–294. PMID `40516166`; DOI `10.1016/j.gaitpost.2025.06.003`. Role: running-flatfoot subtype and design interaction.
 
 <a id="ref-cad-079"></a>
 ## REF-CAD-079 — Bone-stress injury prevention review
-Lavigne A et al. *The Role of Footwear, Foot Orthosis, and Training-Related Strategies in the Prevention of Bone Stress Injuries: A Systematic Review and Meta-Analysis.* Int J Exerc Sci. 2023;16(3):721–743. PMID `37649463`; PMCID `PMC10464778`; DOI `10.70252/ZNRS2138`. Locator: pp.721–743; Abstract—Results/Conclusion. Role: possible BSI prevention effect with low-quality/military-heavy evidence; do not generalize to athletes universally.
+Lavigne A et al. *The Role of Footwear, Foot Orthosis, and Training-Related Strategies in the Prevention of Bone Stress Injuries: A Systematic Review and Meta-Analysis.* Int J Exerc Sci. 2023;16(3):721–743. PMID `37649463`; PMCID `PMC10464778`; DOI `10.70252/ZNRS2138`. Role: low-quality/military-heavy BSI evidence.
 
 ## PROM / comfort / fit / adherence additions
 
 <a id="ref-cad-080"></a>
 ## REF-CAD-080 — Foot Health Status Questionnaire development
-Bennett PJ, Patterson C, Wearing S, Baglioni T. *Development and validation of a questionnaire designed to measure foot-health status.* J Am Podiatr Med Assoc. 1998;88(9):419–428. PMID `9770933`; DOI `10.7547/87507315-88-9-419`. Locator: pp.419–428; Abstract. Role: 13-item foot-health PROM covering pain, function, footwear and general foot health.
+Bennett PJ et al. *Development and validation of a questionnaire designed to measure foot-health status.* J Am Podiatr Med Assoc. 1998;88(9):419–428. PMID `9770933`; DOI `10.7547/87507315-88-9-419`. Role: FHSQ foot-health PROM.
 
 <a id="ref-cad-081"></a>
 ## REF-CAD-081 — Foot Function Index development
-Budiman-Mak E, Conrad KJ, Roach KE. *The Foot Function Index: a measure of foot pain and disability.* J Clin Epidemiol. 1991;44(6):561–570. PMID `2037861`; DOI `10.1016/0895-4356(91)90220-4`. Locator: pp.561–570; Abstract. Role: foot pain/disability/activity-restriction PROM baseline.
+Budiman-Mak E et al. *The Foot Function Index: a measure of foot pain and disability.* J Clin Epidemiol. 1991;44(6):561–570. PMID `2037861`; DOI `10.1016/0895-4356(91)90220-4`. Role: pain/disability/activity-restriction PROM.
 
 <a id="ref-cad-082"></a>
-## REF-CAD-082 — FFI measurement-properties systematic review
-*Measurement properties of the Foot Function Index (FFI) questionnaire: A systematic review.* PMID `38856157`. Locator: Abstract—Results/Conclusion. Role: recent COSMIN-oriented review; supports version/language-specific instrument governance rather than assuming all adaptations are equivalent.
+## REF-CAD-082 — FFI measurement-properties review
+*Measurement properties of the Foot Function Index (FFI) questionnaire: A systematic review.* PMID `38856157`. Role: version/adaptation-specific measurement governance.
 
 <a id="ref-cad-083"></a>
-## REF-CAD-083 — Foot and Ankle Ability Measure development
-Martin RL, Irrgang JJ, Burdett RG, Conti SF, Van Swearingen JM. *Evidence of validity for the Foot and Ankle Ability Measure (FAAM).* Foot Ankle Int. 2005;26(11):968–983. PMID `16309613`; DOI `10.1177/107110070502601113`. Locator: pp.968–983; Abstract—Methods/Results. Role: ADL and Sport function domains, responsiveness and context-specific MDC/MCID evidence.
+## REF-CAD-083 — FAAM development
+Martin RL et al. *Evidence of validity for the Foot and Ankle Ability Measure (FAAM).* Foot Ankle Int. 2005;26(11):968–983. PMID `16309613`; DOI `10.1177/107110070502601113`. Role: ADL/Sport function domains.
 
 <a id="ref-cad-084"></a>
-## REF-CAD-084 — Italian 17-item Foot Function Index
-Venditto T et al. *17-Italian Foot Function Index with numerical rating scale: development, reliability, and validity of a modified version of the original Foot Function Index.* Foot. 2015;25(1):12–18. PMID `25641642`; DOI `10.1016/j.foot.2014.09.004`. Locator: Abstract—Methods/Results/Conclusions. Role: validated Italian-language candidate for musculoskeletal foot/ankle outcome tracking.
+## REF-CAD-084 — Italian 17-item FFI
+Venditto T et al. *17-Italian Foot Function Index with numerical rating scale...* Foot. 2015;25(1):12–18. PMID `25641642`; DOI `10.1016/j.foot.2014.09.004`. Role: Italian validated FFI candidate.
 
 <a id="ref-cad-085"></a>
 ## REF-CAD-085 — Italian FAAM ADL validation
-*Foot and ankle ability measure: cross-cultural translation and validation of the Italian version of the ADL module (FAAM-I/ADL).* PMID `25134631`. Locator: Abstract—Methods/Results/Conclusions. Role: Italian-language FAAM ADL candidate; scoring/translation version must be explicit.
+*Foot and ankle ability measure: cross-cultural translation and validation of the Italian version of the ADL module (FAAM-I/ADL).* PMID `25134631`. Role: Italian FAAM ADL candidate.
 
 <a id="ref-cad-086"></a>
 ## REF-CAD-086 — EFAS Score multilingual PROM
-Richter M et al. *EFAS Score - Multilingual development and validation of a patient-reported outcome measure (PROM) by the score committee of the European Foot and Ankle Society (EFAS).* Foot Ankle Surg. 2018. PMID `29933960`; DOI `10.1016/j.fas.2018.05.004`. Locator: Abstract—Methods/Results/Conclusions. Role: short multilingual foot/ankle PROM validated including Italian; article reports score versions freely available via EFAS, but current redistribution terms must still be checked before bundling item text.
+Richter M et al. *EFAS Score - Multilingual development and validation of a patient-reported outcome measure (PROM)...* Foot Ankle Surg. 2018. PMID `29933960`; DOI `10.1016/j.fas.2018.05.004`. Role: short multilingual candidate incl. Italian; current redistribution terms still require review.
 
 <a id="ref-cad-087"></a>
-## REF-CAD-087 — Reliable footwear comfort assessment during running
-Mündermann A, Nigg BM, Stefanyshyn DJ, Humble RN. *Development of a reliable method to assess footwear comfort during running.* Gait Posture. 2002;16(1):38–45. PMID `12127185`; DOI `10.1016/S0966-6362(01)00197-7`. Locator: pp.38–45; Abstract. Role: comfort is task/protocol dependent; VAS can be reliable under a controlled repeated-measure protocol.
+## REF-CAD-087 — Reliable footwear comfort during running
+Mündermann A et al. *Development of a reliable method to assess footwear comfort during running.* Gait Posture. 2002;16(1):38–45. PMID `12127185`; DOI `10.1016/S0966-6362(01)00197-7`. Role: protocol-dependent comfort measurement.
 
 <a id="ref-cad-088"></a>
-## REF-CAD-088 — Clinically meaningful footwear comfort scales
-Mills K et al. *Identifying clinically meaningful tools for measuring comfort perception of footwear.* PMID `20216463`. Locator: Abstract—Methods/Results. Role: VAS, Likert and ranking scales differ in reliability; approximately 10 mm change on a 100-mm VAS was meaningful in this specific study/protocol, not a universal project threshold.
+## REF-CAD-088 — Meaningful footwear comfort scales
+Mills K et al. *Identifying clinically meaningful tools for measuring comfort perception of footwear.* PMID `20216463`. Role: scale reliability and context-specific change interpretation.
 
 <a id="ref-cad-089"></a>
-## REF-CAD-089 — Footwear comfort narrative synthesis
-*Footwear comfort: a systematic search and narrative synthesis of the literature.* PMID `34876192`. Locator: Abstract—Results/Conclusion. Role: comfort is multifactorial and population/task dependent; simple VAS can capture overall comfort but design-factor evidence is fragmented.
+## REF-CAD-089 — Footwear comfort synthesis
+*Footwear comfort: a systematic search and narrative synthesis of the literature.* PMID `34876192`. Role: multifactorial task/population-dependent comfort.
 
 <a id="ref-cad-090"></a>
 ## REF-CAD-090 — RUN-CAT comfort instrument
-*The running shoe comfort assessment tool (RUN-CAT): Development and evaluation of a new multi-item assessment tool for evaluating the comfort of running footwear.* PMID `32508250`; DOI `10.1080/02640414.2020.1773613`. Locator: Abstract—Methods/Results. Role: example of a validated task-specific multidimensional comfort instrument (heel cushioning, stability, forefoot cushioning, forefoot flexibility); not a generic orthosis PROM.
+*The running shoe comfort assessment tool (RUN-CAT)...* PMID `32508250`; DOI `10.1080/02640414.2020.1773613`. Role: task-specific multidimensional running-footwear comfort instrument.
 
 <a id="ref-cad-091"></a>
-## REF-CAD-091 — Therapeutic-footwear adherence measurement systematic review
-*Usability of Different Methods to Assess and Improve Adherence to Therapeutic Footwear in Persons with the Diabetic Foot in Remission. A Systematic Review.* PMID `37545201`. Locator: Abstract—Results/Conclusion. Role: objective adherence methods (temperature sensor/activity monitor) reduce limitations of subjective self-report.
+## REF-CAD-091 — Therapeutic-footwear adherence measurement review
+*Usability of Different Methods to Assess and Improve Adherence to Therapeutic Footwear in Persons with the Diabetic Foot in Remission. A Systematic Review.* PMID `37545201`. Role: objective vs subjective adherence.
 
 <a id="ref-cad-092"></a>
 ## REF-CAD-092 — Footwear adherence metric validation
-*Adherence and Wearing Time of Prescribed Footwear among People at Risk of Diabetes-Related Foot Ulcers: Which Measure to Use?* Sensors. 2023. PMID `36772691`; PMCID `PMC9919850`; DOI `10.3390/s23031648`. Locator: Abstract—Methods/Results/Conclusions. Role: proportion of weight-bearing time/steps with prescribed footwear is more valid than subjective wearing-time recall; adherence denominator matters.
+*Adherence and Wearing Time of Prescribed Footwear among People at Risk of Diabetes-Related Foot Ulcers: Which Measure to Use?* Sensors. 2023. PMID `36772691`; PMCID `PMC9919850`; DOI `10.3390/s23031648`. Role: weight-bearing/step denominator validity.
 
 <a id="ref-cad-093"></a>
 ## REF-CAD-093 — Plantar-heel-pain MID for VAS/FHSQ
-*Revised minimal important difference values for the visual analogue scale and Foot Health Status Questionnaire when used for plantar heel pain.* PMID `39682003`; PMCID `PMC11649508`; DOI `10.1002/jfa2.70021`. Locator: Abstract—Methods/Results. Role: MID is instrument-, construct- and population/context-specific and should be stored with evidence provenance.
+*Revised minimal important difference values for the visual analogue scale and Foot Health Status Questionnaire when used for plantar heel pain.* PMID `39682003`; PMCID `PMC11649508`; DOI `10.1002/jfa2.70021`. Role: MID is instrument/domain/population/context-specific.
+
+## Material durability / manufacturing additions
+
+<a id="ref-cad-094"></a>
+## REF-CAD-094 — Orthotic materials and plantar pressure systematic review
+Gerrard JM, Bonanno DR, Whittaker GA, Landorf KB. *Effect of different orthotic materials on plantar pressures: a systematic review.* J Foot Ankle Res. 2020;13(1):35. PMID `32527296`; PMCID `PMC7291735`; DOI `10.1186/s13047-020-00401-3`. Locator: Abstract—Methods/Results/Conclusion; full article. Role: limited heterogeneous evidence for PU/PORON, PE/Plastazote and EVA pressure effects; motivates explicit material density/hardness/thickness provenance rather than a universal material ranking.
+
+<a id="ref-cad-095"></a>
+## REF-CAD-095 — Dual-density orthotic material cyclic durability
+Brodsky JW, Pollo FE, Cheleuitte D, Baum BS. *Physical properties, durability, and energy-dissipation function of dual-density orthotic materials used in insoles for diabetic patients.* Foot Ankle Int. 2007;28(8):880–889. PMID `17697652`; DOI `10.3113/FAI.2007.0880`. Locator: pp.880–889; Abstract—Methods/Results. Role: five multilayer combinations tested over 100,000 cycles; pressure/elastic-deformation response changed differently by combination.
+
+<a id="ref-cad-096"></a>
+## REF-CAD-096 — Heating changes insole material mechanical properties
+Brodsky JW, Brajtbord J, Coleman SC, Raut S, Polo FE. *Effect of heating on the mechanical properties of insole materials.* Foot Ankle Int. 2012;33(9):772–778. PMID `22995267`; DOI `10.3113/FAI.2012.0772`. Locator: pp.772–778; Abstract—Methods/Results/Conclusion. Role: tested heated combinations became stiffer and changed stress-strain/force-transmission behavior; post-processing must be traceable.
+
+<a id="ref-cad-097"></a>
+## REF-CAD-097 — Physical properties of diabetic orthotic materials
+Paton J, Jones RB, Stenhouse E, Bruce G. *The physical characteristics of materials used in the manufacture of orthoses for patients with diabetes.* Foot Ankle Int. 2007;28(10):1057–1063. PMID `17923055`; DOI `10.3113/FAI.2007.1057`. Locator: pp.1057–1063; Abstract—Methods/Results. Role: density, resilience, stiffness, friction, durability and compression-set testing across common materials; no single property is sufficient for suitability.
+
+<a id="ref-cad-098"></a>
+## REF-CAD-098 — Personalized lattice orthosis workflow and material testing
+Hudak G et al. *A novel workflow to fabricate a patient-specific 3D printed accommodative foot orthosis with personalized latticed metamaterial.* Med Eng Phys. 2022. PMID `35641072`; DOI `10.1016/j.medengphy.2022.103802`. Locator: Abstract; full-text material/durability methods when consulted. Role: regionally varied lattice stiffness plus durability, shear-stiffness and compressive-stiffness testing; base resin and effective structure must be distinct.
+
+<a id="ref-cad-099"></a>
+## REF-CAD-099 — Subject-specific cushioning stiffness optimization
+Chatzistergos PE, Naemi R, Healy A, Gerth P, Chockalingam N. *Subject Specific Optimisation of the Stiffness of Footwear Material for Maximum Plantar Pressure Reduction.* Ann Biomed Eng. 2017;45(8):1929–1940. PMID `28484892`; PMCID `PMC5527058`; DOI `10.1007/s10439-017-1826-4`. Locator: pp.1929–1940; Abstract—Results. Role: optimal tested cushioning stiffness depended on compressive load/body mass in the studied setting; supports load-dependent stiffness metadata, not a universal rule.
+
+<a id="ref-cad-100"></a>
+## REF-CAD-100 — Polyethylene foam load-bearing and incomplete recovery
+Kuncir EJ, Wirta RW, Golbranson FL. *Load-bearing characteristics of polyethylene foam: an examination of structural and compression properties.* J Rehabil Res Dev. 1990;27(3):229–238. PMID `2401954`; DOI `10.1682/jrrd.1990.07.0229`. Locator: pp.229–238; Abstract. Role: time/cyclic behavior, thickness and foam structure affect pressure response; sustained loading can damage cellular integrity and prevent full thickness recovery.
+
+<a id="ref-cad-101"></a>
+## REF-CAD-101 — Multidensity orthotic materials over 100,000 cycles
+Foto JG, Birke JA. *Evaluation of multidensity orthotic materials used in footwear for patients with diabetes.* Foot Ankle Int. 1998;19(12):836–841. PMID `9872471`; DOI `10.1177/107110079801901208`. Locator: pp.836–841; Abstract. Role: all tested multidensity combinations lost performance over 100,000 cycles, with greatest losses during the first 10,000 cycles in this test.
+
+<a id="ref-cad-102"></a>
+## REF-CAD-102 — Objective foot-orthosis stiffness/compression-set/shape measurement
+Cuppens K et al. *Using a texture analyser to objectively quantify foot orthoses.* Annu Int Conf IEEE Eng Med Biol Soc. 2019:5348–5351. PMID `31947064`; DOI `10.1109/EMBC.2019.8857318`. Locator: pp.5348–5351; Abstract—Technique/Discussion. Role: stiffness, compression set and shape can be measured at anatomical landmark locations; orthosis behavior is not determined by material alone.
+
+<a id="ref-cad-103"></a>
+## REF-CAD-103 — 12-month functional/physical insole durability
+Paton JS, Stenhouse E, Bruce G, Jones R. *A longitudinal investigation into the functional and physical durability of insoles used for the preventive management of neuropathic diabetic feet.* J Am Podiatr Med Assoc. 2014;104(1):50–57. PMID `24504577`; DOI `10.7547/0003-0538-104.1.50`. Locator: pp.50–57; Abstract—Results/Conclusions. Role: material depth changed over time while functional pressure reduction did not map trivially to visual compression; replacement should not rely on appearance alone.
+
+<a id="ref-cad-104"></a>
+## REF-CAD-104 — Physical, shear/friction and thermal comfort material testing
+Lo WT, Yick KL, Ng SP, Yip J. *New methods for evaluating physical and thermal comfort properties of orthotic materials used in insoles for patients with diabetes.* J Rehabil Res Dev. 2014;51(2):311–324. PMID `24933729`; DOI `10.1682/JRRD.2013.01.0012`. Locator: pp.311–324; Abstract. Role: force/compression, friction, shear and thermal/moisture properties are distinct material-performance dimensions.
+
+<a id="ref-cad-105"></a>
+## REF-CAD-105 — Daily-use aging, pressure, shear and material stiffness
+Lavery LA et al. *Wear and biomechanical characteristics of a novel shear-reducing insole with implications for high-risk persons with diabetes.* Diabetes Technol Ther. 2005;7(4):638–646. PMID `16120040`; DOI `10.1089/dia.2005.7.638`. Locator: pp.638–646; Abstract—Methods/Results. Role: pressure, shear and material stiffness were measured prospectively during use; multilayer interface design can change shear independently of peak pressure.
+
+<a id="ref-cad-106"></a>
+## REF-CAD-106 — 3D-printed vs traditional FO dimensional realization
+Ho M et al. *Immediate comfort perception of 3D-printed foot orthoses in individuals with unilateral heel pain.* Prosthet Orthot Int. 2022;46(1):31–36. PMID `35179521`; PMCID `PMC8865620`; DOI `10.1097/PXR.0000000000000068`. Locator: pp.31–36; Table 1 / Figs.1–2. Role: 3D-printed and traditionally fabricated orthoses from the studied workflow differed in width, arch dimensions and heel-cup height; actual manufactured geometry should be measured rather than assumed identical to design intent.
 
 ---
 
-# D. Vendor / market sources
+# D. Standards / test-method references
+
+**Scope note:** a standards entry documents terminology/test/qualification semantics available from the official ISO page. It does not mean BiomechE-CAD automatically claims conformance to the complete paid standard. Full conformance decisions require controlled access to the licensed standard and a formal applicability review.
+
+<a id="std-iso-868-2003"></a>
+## STD-ISO-868-2003 — Shore durometer hardness
+- **Standard:** ISO 868:2003, *Plastics and ebonite — Determination of indentation hardness by means of a durometer (Shore hardness).* Edition 3.
+- **Official URL:** https://www.iso.org/standard/34804.html
+- **Locator:** official Abstract/Scope.
+- **Recorded scope point:** type A for softer and type D for harder materials; empirical control method; no simple relationship to a fundamental property.
+- **Role:** hardness values require scale/method and must not be silently converted to modulus.
+
+<a id="std-iso-1856-2018"></a>
+## STD-ISO-1856-2018 — Flexible cellular material compression set
+- **Standard:** ISO 1856:2018, *Flexible cellular polymeric materials — Determination of compression set.* Edition 4; confirmed current in 2024.
+- **Official URL:** https://www.iso.org/standard/70213.html
+- **Locator:** official Abstract/Scope.
+- **Role:** compression-set test semantics for flexible cellular materials; not an automatic medical acceptance threshold.
+
+<a id="std-iso-3385-2014"></a>
+## STD-ISO-3385-2014 — Constant-load fatigue of flexible cellular materials
+- **Standard:** ISO 3385:2014, *Flexible cellular polymeric materials — Determination of fatigue by constant-load pounding.* Edition 4; confirmed current in 2025.
+- **Official URL:** https://www.iso.org/standard/55743.html
+- **Locator:** official Abstract/Scope.
+- **Role:** loss-in-thickness/hardness fatigue semantics under constant-load pounding; test results are related to but not necessarily identical to field-service loss.
+
+<a id="std-iso-24999-2008"></a>
+## STD-ISO-24999-2008 — Constant-strain fatigue of flexible cellular materials
+- **Standard:** ISO 24999:2008, *Flexible cellular polymeric materials — Determination of fatigue by a constant-strain procedure.* Edition 1; reviewed/confirmed 2026.
+- **Official URL:** https://www.iso.org/standard/42737.html
+- **Locator:** official Abstract/Scope.
+- **Role:** complementary constant-strain fatigue semantics and manufacturing QC.
+
+<a id="std-iso-3386-1-2025"></a>
+## STD-ISO-3386-1-2025 — Flexible cellular compression stress-strain
+- **Standard:** ISO 3386-1:2025, *Polymeric materials, cellular flexible — Determination of stress-strain characteristics in compression — Part 1: Low-density materials.* Edition 3.
+- **Official URL:** https://www.iso.org/standard/89164.html
+- **Locator:** official Abstract/Scope.
+- **Role:** compression stress-strain and compression-stress-value measurement for low-density flexible cellular materials.
+
+<a id="std-isoastm-52901-2017"></a>
+## STD-ISOASTM-52901-2017 — Purchased AM part requirements
+- **Standard:** ISO/ASTM 52901:2017, *Additive manufacturing — General principles — Requirements for purchased AM parts.* Edition 1; confirmed current in 2023.
+- **Official URL:** https://www.iso.org/standard/67288.html
+- **Locator:** official Abstract/Scope.
+- **Role:** traceable exchange of part definition, feedstock, final characteristics/properties, inspection and acceptance methods.
+
+<a id="std-isoastm-52902-2023"></a>
+## STD-ISOASTM-52902-2023 — AM geometric capability test artefacts
+- **Standard:** ISO/ASTM 52902:2023, *Additive manufacturing — Test artefacts — Geometric capability assessment of additive manufacturing systems.* Edition 2; supersedes withdrawn 2019 edition.
+- **Official URL:** https://www.iso.org/standard/79683.html
+- **Locator:** official Abstract/Scope.
+- **Role:** system geometric capability/calibration test-artifact semantics; does not define a universal orthosis tolerance.
+
+<a id="std-isoastm-52903-1-2020"></a>
+## STD-ISOASTM-52903-1-2020 — Polymer MEX feedstock requirements
+- **Standard:** ISO/ASTM 52903-1:2020, *Additive manufacturing — Material extrusion-based additive manufacturing of plastic materials — Part 1: Feedstock materials.* Edition 1.
+- **Official URL:** https://www.iso.org/standard/67290.html
+- **Locator:** official Abstract/Scope.
+- **Role:** feedstock/material requirement semantics for plastic material-extrusion AM.
+
+<a id="std-isoastm-52920-2023"></a>
+## STD-ISOASTM-52920-2023 — AM process/production-site qualification
+- **Standard:** ISO/ASTM 52920:2023, *Additive manufacturing — Qualification principles — Requirements for industrial additive manufacturing processes and production sites.* Edition 1.
+- **Official URL:** https://www.iso.org/standard/76911.html
+- **Locator:** official Abstract/Scope.
+- **Role:** quality-relevant process/site qualification principles independent of AM material/method.
+
+<a id="std-isoastm-52924-2023"></a>
+## STD-ISOASTM-52924-2023 — Polymer AM part-property classification
+- **Standard:** ISO/ASTM 52924:2023, *Additive manufacturing of polymers — Qualification principles — Classification of part properties.* Edition 1.
+- **Official URL:** https://www.iso.org/standard/76909.html
+- **Locator:** official Abstract/Scope.
+- **Role:** mechanical, physical and geometrical part-property classification for thermoplastic polymer PBF/MEX processes.
+
+<a id="std-iso-17295-2023"></a>
+## STD-ISO-17295-2023 — AM positioning, coordinates and orientation
+- **Standard:** ISO 17295:2023, *Additive manufacturing — General principles — Part positioning, coordinates and orientation.* Edition 1; supersedes withdrawn ISO/ASTM 52921:2013.
+- **Official URL:** https://www.iso.org/standard/76471.html
+- **Locator:** official Abstract/Scope.
+- **Role:** explicit build positioning/orientation/coordinate vocabulary for manufacturing provenance.
+
+---
+
+# E. Vendor / market sources
 
 <a id="vendor-sensormedica-easycad2"></a>
 ## VENDOR-SENSORMEDICA-EASYCAD2
@@ -494,7 +635,7 @@ Sensor Medica — Vulcan CNC. https://www.sensormedica.com/it/vulcan-cnc/ . Use:
 
 ---
 
-# E. Architecture references — currently parked
+# F. Architecture references — currently parked
 
 <a id="arch-opensubdiv"></a>
 ## ARCH-OPENSUBDIV
@@ -518,7 +659,7 @@ Open CASCADE Technology. https://dev.opencascade.org/ ; https://github.com/Open-
 
 ---
 
-# F. Bibliography maintenance rules
+# G. Bibliography maintenance rules
 
 1. Add a source here before relying on it in a canonical specification.
 2. Never reuse an ID for a different source.
@@ -531,6 +672,9 @@ Open CASCADE Technology. https://dev.opencascade.org/ ; https://github.com/Open-
 9. Architecture documentation is evidence of technical capability, not clinical rationale.
 10. Model-based evidence must remain explicitly labelled and cannot silently become a clinical rule.
 11. Population/indication profiles must state non-transfer rules when evidence/guidelines define different pathways.
-12. PROM/instrument metadata must include the exact version/language and must not assume that translations or modified forms have identical measurement properties.
+12. PROM/instrument metadata must include the exact version/language and must not assume translations or modified forms have identical measurement properties.
 13. Before bundling questionnaire item text or scoring code, verify current copyright/licensing/redistribution terms for that exact instrument/version.
-14. `docs/research/SOURCES.md` tracks source intake/open verification; this file owns canonical metadata.
+14. A standards abstract/scope supports terminology and high-level test/qualification semantics only; claiming full standard conformance requires a controlled copy and applicability assessment.
+15. Test standards never automatically define a universal clinical/material acceptance threshold; limits belong to a qualified product/manufacturing profile.
+16. Superseded/withdrawn standard editions should not be used when a current replacement is known unless historical traceability specifically requires them.
+17. `docs/research/SOURCES.md` tracks source intake/open verification; this file owns canonical metadata.
