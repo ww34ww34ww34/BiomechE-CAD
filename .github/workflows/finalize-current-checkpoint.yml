@@ -1,0 +1,98 @@
+name: Finalize current BiomechE-CAD checkpoint
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/finalize-current-checkpoint.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  validate-update-and-self-remove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install validator dependencies
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Gate checkpoint on expanded semantic PASS
+        run: |
+          python tools/validate_fixtures.py | tee checkpoint-validation.log
+          grep -q 'Validated fixtures: 19; failures: 0' checkpoint-validation.log
+          for id in BINT-011 BINT-012 BINT-015 RPT-014 RPT-015 PAQ-020; do
+            grep -q "$id" checkpoint-validation.log
+          done
+
+      - name: Update canonical checkpoint/index/acceptance catalog
+        env:
+          VALIDATED_SHA: ${{ github.sha }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_NUMBER: ${{ github.run_number }}
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+
+          sha = os.environ['VALIDATED_SHA']
+          run_id = os.environ['RUN_ID']
+          run_number = os.environ['RUN_NUMBER']
+
+          # RESUME_HERE
+          p = Path('docs/RESUME_HERE.md')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('currently passes 16/16 fixtures', 'currently passes 19/19 fixtures')
+          s = s.replace('CI PRE-KERNEL VALIDATION                       PASS — 16 fixtures / 0 failures', 'CI PRE-KERNEL VALIDATION                       PASS — 19 fixtures / 0 failures')
+          s = s.replace('fixtures:  16\nfailures:  0', 'fixtures:  19\nfailures:  0')
+          s = s.replace('- [x] CI-qualified expanded run: **16 fixtures / 0 failures**.', '- [x] CI-qualified expanded run: **19 fixtures / 0 failures**.')
+          s = s.replace('Identify the exact first physical platform/device to qualify. Capture:', 'The first candidate family is now identified from controlled Sensor Medica technical records as **FREEMED DYNAMIC 120x50 / PFM2120 / production code FM12050**. Do not yet call the family metrologically qualified. Select the exact current BiomechE physical unit and capture:')
+          s = s.replace('manufacturer/product/model\nhardware revision\nserial/unit identity', 'manufacturer/product/model — candidate family already PFM2120/FM12050\nhardware revision\n**current serial/unit identity**')
+          extra = f'''\n\n### Latest expanded semantic CI\n\n```text\nvalidated commit: {sha}\nworkflow run:     {run_id} / run {run_number}\nfixtures:         19\nfailures:         0\nnew executable:   BINT-011, BINT-012, BINT-015, RPT-014, RPT-015\n```\n\nSensor Medica source intake now exists at:\n\n```text\ndocs/research/SENSORMEDICA_FM12050_QUALIFICATION_INTAKE_2026-08-15.md\nqualification/intake/fm12050-pfm2120-source-profile-2026-08-15.json\n```\n\nThe controlled-source intake establishes the candidate family/topology and existing unit/mode-specific factory calibration provenance, but leaves current-unit identity, exact metric SensorGeometry and raw→pressure adapter semantics OPEN.\n'''
+          marker = '\n### Latest expanded semantic CI\n'
+          if marker not in s:
+              s += extra
+          p.write_text(s, encoding='utf-8')
+
+          # SPEC_INDEX
+          p = Path('docs/SPEC_INDEX.md')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('CI-QUALIFIED PRE-KERNEL FIXTURES                   PASS — 16 / 0 failures', 'CI-QUALIFIED PRE-KERNEL FIXTURES                   PASS — 19 / 0 failures')
+          s = s.replace('fixtures:  16\nfailures:  0', 'fixtures:  19\nfailures:  0')
+          intake_rows = '''\n| [research/SENSORMEDICA_FM12050_QUALIFICATION_INTAKE_2026-08-15.md](research/SENSORMEDICA_FM12050_QUALIFICATION_INTAKE_2026-08-15.md) | **SOURCE INTAKE / NOT QUALIFIED** | Controlled-document intake for PFM2120/FM12050, factory calibration provenance and exact remaining metrological gaps |\n| [`qualification/intake/fm12050-pfm2120-source-profile-2026-08-15.json`](../qualification/intake/fm12050-pfm2120-source-profile-2026-08-15.json) | **machine-readable source intake** | Nominal/source facts explicitly separated from achieved qualification |\n'''
+          anchor = '| [research/COMPETITOR_FUNCTIONAL_GAP_AUDIT_2026-08-15.md](research/COMPETITOR_FUNCTIONAL_GAP_AUDIT_2026-08-15.md) | first public-source baseline | current orthotic CAD/CAM functional-gap audit |\n'
+          if 'SENSORMEDICA_FM12050_QUALIFICATION_INTAKE_2026-08-15.md' not in s and anchor in s:
+              s = s.replace(anchor, anchor + intake_rows)
+          current = f'''\n\n## Latest executable expansion — 2026-08-15\n\n```text\nvalidated commit: {sha}\nworkflow run:     {run_id} / run {run_number}\nfixtures:         19\nfailures:         0\n```
+\nNew executable contract IDs: `BINT-011`, `BINT-012`, `BINT-015`, `RPT-014`, `RPT-015`.\n\nThe first concrete pressure-hardware candidate family is now `PFM2120 / FM12050`; source intake is complete enough to select the family, but the actual current unit serial, exact metric sensor mapping and raw→pressure adapter remain qualification inputs, not inferred facts.\n'''
+          if '## Latest executable expansion — 2026-08-15' not in s:
+              s += current
+          p.write_text(s, encoding='utf-8')
+
+          # Functional Acceptance Suite catalog addendum.
+          p = Path('docs/validation/functional_acceptance_suite.md')
+          s = p.read_text(encoding='utf-8')
+          add = '''\n\n---\n\n# Domain-contract acceptance extensions frozen after suite v0\n\nThe following namespaces were frozen after the original `XACC-001..050` baseline. Their semantic authority remains in the owning domain specifications; this section makes them discoverable from the canonical acceptance suite without duplicating every test definition.\n\n```text\nBINT-001..018  -> docs/spec/11_biomeche_integration.md\nRPT-001..018   -> docs/spec/12_reporting_traceability.md\nPAQ-001..020   -> docs/spec/15_pressure_acquisition_qualification.md\n```\n\nCurrent executable rich-fixture coverage includes, among others:\n\n```text\nBINT-001/002/005/006/007/008\nBINT-011/012/015\nRPT-001/002/003/004/006/013/014/015/017\nPAQ-001/002/003/005/010/011/016/020\n```\n\nThe exact executed set and CI run are recorded in `docs/validation/fixture_validation_report_2026-08-15.md`. Unlisted IDs remain specification-level acceptance requirements until a corresponding executable fixture/harness path exists.\n\nThese namespaces remain kernel-independent and do not reopen the geometry-architecture decision.\n'''
+          if '# Domain-contract acceptance extensions frozen after suite v0' not in s:
+              s += add
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit checkpoint and remove one-shot workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/finalize-current-checkpoint.yml
+          git add docs/RESUME_HERE.md docs/SPEC_INDEX.md docs/validation/functional_acceptance_suite.md
+          git commit -m "docs: advance checkpoint through FM12050 intake and 19-fixture CI"
+          git push origin HEAD:main
