@@ -1,0 +1,72 @@
+name: Record current phase commit lineage
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/record-phase-worklog.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  validate-record-and-self-remove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install validator dependencies
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Revalidate semantic checkpoint
+        run: |
+          python tools/validate_fixtures.py | tee worklog-validation.log
+          grep -q 'Validated fixtures: 19; failures: 0' worklog-validation.log
+
+      - name: Generate phase worklog
+        shell: bash
+        run: |
+          {
+            echo '# BiomechE-CAD — Phase Worklog — 2026-08-15'
+            echo
+            echo '**Scope:** work performed after the coordinate/registration checkpoint `8388e94247f59dcdc68d4032ba463a85e01e1c0f`.'
+            echo
+            echo '**Generation rule:** generated from repository Git history after re-running the kernel-independent fixture validator and requiring `19 fixtures / 0 failures`.'
+            echo
+            echo '---'
+            echo
+            echo '## Commit lineage'
+            echo
+            git log --reverse --format='- `%H` — %s' 8388e94247f59dcdc68d4032ba463a85e01e1c0f..HEAD
+            echo
+            echo '---'
+            echo
+            echo '## Current validation gate'
+            echo
+            echo '```text'
+            grep 'Validated fixtures:' worklog-validation.log
+            grep 'Executed IDs:' worklog-validation.log
+            echo '```'
+            echo
+            echo 'This log records implementation/documentation history only. Scientific evidence remains authoritative through `docs/BIBLIOGRAPHY.md`; exact validation details remain in `docs/validation/fixture_validation_report_2026-08-15.md`.'
+          } > docs/PHASE_WORKLOG_2026-08-15.md
+
+      - name: Commit worklog and remove one-shot workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/record-phase-worklog.yml
+          git add docs/PHASE_WORKLOG_2026-08-15.md
+          git commit -m "docs: record 2026-08-15 phase worklog"
+          git push origin HEAD:main
