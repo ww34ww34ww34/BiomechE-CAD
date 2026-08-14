@@ -16,6 +16,7 @@ Markdown in this repository is the canonical specification source.
 | [BIOMECHE_CAD_FUNCTIONAL_SPEC.md](spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md) | **Baseline / consolidated 2026-08-14** | Unified EasyCAD2-inspired product/clinical functional specification |
 | [CAD_ENGINE_CAPABILITY_SPEC.md](spec/CAD_ENGINE_CAPABILITY_SPEC.md) | **v2 / current baseline** | OpenSubdiv-first orthosis CAD capability contract; general NURBS/B-Rep removed from P0 |
 | [03_geometry_operation_model.md](spec/03_geometry_operation_model.md) | **Design baseline** | Canonical quad-dominant orthosis cage, stable IDs, intrinsic anatomical coordinates, mask/field engine, operation stack, OpenSubdiv adapter and production handoff |
+| [04_base_template.md](spec/04_base_template.md) | **Concrete topology candidate** | `ORTHO_CAGE_41x17_V0`: 697 control vertices / 640 quads, boundary semantics, mirror mapping, template morphing and BT-001..BT-013 qualification gates |
 | [05_parametric_orthosis_geometry.md](spec/05_parametric_orthosis_geometry.md) | **Math v0 / provisional** | Reference formulas and invariants for arch, wedge, heel/wrap/camber, elements, sculpt, scan conform, thickness and DFM fix |
 
 ## Common specifications still to freeze
@@ -23,8 +24,7 @@ Markdown in this repository is the canonical specification source.
 | File | Status | Purpose |
 |---|---|---|
 | `spec/01_coordinate_registration.md` | **NEXT** | Coordinate spaces, units, LEFT/RIGHT semantics, pressure/scan/image/template registration and transforms |
-| `spec/02_project_schema.md` | Planned | Versioned project schema, IDs, assets, operation history, migrations, hashes and persistence |
-| `spec/04_base_template.md` | **NEXT after 01/02** | Concrete canonical cage topology, DIMA outline, L/W, template families, morphing and custom presets |
+| `spec/02_project_schema.md` | **NEXT** | Versioned project schema, IDs, assets, operation history, migrations, hashes and persistence |
 | `spec/06_corrective_elements.md` | Planned | Element library, placement, transforms, field/cage integration, custom elements and clinical semantics |
 | `spec/07_sculpt_and_roi_deformation.md` | Planned | Sculpt, smoothing, ROI, falloff and deformation toward acquisition data |
 | `spec/08_material_stiffness.md` | Planned | MaterialModifier, stiffness/density maps, transitions, physical properties and multi-material direction |
@@ -55,6 +55,16 @@ Canonical Orthosis Cage
 + mask/field composition
 + scan/query layer
 + orthosis-specific production-body generator
+```
+
+Current concrete cage candidate:
+
+```text
+ORTHO_CAGE_41x17_V0
+41 longitudinal stations
+17 transverse stations
+697 vertices
+640 quads
 ```
 
 General-purpose NURBS/B-Rep, STEP/IGES, loft/sweep, arbitrary shell/offset and solid booleans are **not P0**. They remain adapter/future capabilities and must be justified by a concrete failing acceptance fixture.
