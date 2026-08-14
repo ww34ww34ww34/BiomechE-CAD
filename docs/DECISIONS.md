@@ -356,6 +356,30 @@ Machine-readable reference schema: `schemas/biomeche-cad-project-0.1.schema.json
 
 ---
 
+## D-CAD-023 — Coordinate/registration semantics are frozen before geometry implementation
+
+**Status:** FROZEN  
+**Date:** 2026-08-14
+
+`docs/spec/01_coordinate_registration.md` is the kernel-independent semantic authority for orientation, side ownership, anatomical axes, pressure mapping and transform algebra.
+
+Rules:
+
+1. `CAD-ANAT-1` is right-handed and subject-centric: `+X` heel/posterior→distal/anterior, `+Y` subject RIGHT→subject LEFT, `+Z` plantar→dorsal;
+2. LEFT/RIGHT is patient anatomical ownership and is never inferred from UI, storage order or an arbitrary coordinate sign;
+3. medial/lateral Cartesian direction is side-dependent, while intrinsic `s/q` is side-normalized: `s` heel→distal and `q` lateral→medial on both feet;
+4. semantic bilateral mirror creates a new target-side revision, reflects canonical `Y`, preserves intrinsic `s/q` anatomical meaning and is not a rigid registration;
+5. pressure matrix `(row,column)` is storage topology only; physical sensor geometry and device/exam axes are explicit before CAD registration;
+6. persisted transform algebra uses column vectors and `T_target_from_source`; composition is `T_C_from_A = T_C_from_B * T_B_from_A`; serialized arrays are row-major textual arrays, not an in-memory layout promise;
+7. the initial Scan3D anatomical frame uses heel + first/fifth metatarsal-head landmarks with an independent dorsal-orientation witness; a dorsal sign is never guessed from three coplanar landmarks alone;
+8. Image2D becomes metric only through explicit calibration; no silent mm-per-pixel assumption;
+9. unknown orientation/side/calibration remains explicitly unresolved rather than inferred from visual appearance;
+10. real scanner/platform/landmark/image/manufacturing tolerances remain `OPEN` until tied to a qualified acquisition/process system. Synthetic computational tolerances are not device-accuracy claims.
+
+This decision freezes semantics only and does not reopen the geometry-kernel shoot-out.
+
+---
+
 ## OPEN DECISIONS
 
 Architecture / implementation decisions intentionally deferred:
@@ -364,7 +388,6 @@ Architecture / implementation decisions intentionally deferred:
 - exact canonical cage topology/resolution and topology-family count;
 - C++20 / C ABI / WASM deployment details;
 - exact project package/container format and storage engine;
-- exact coordinate/registration contract;
 - exact mathematical realization of heel/arch/wedge operations;
 - corrective-element internal representation;
 - scan-conform implementation;
@@ -376,10 +399,10 @@ Architecture / implementation decisions intentionally deferred:
 
 Functional/specification work still active:
 
-- kernel-independent cross-domain acceptance suite;
-- coordinate/registration contract freeze;
 - BiomechE integration spec;
 - reporting/traceability spec;
+- richer kernel-independent fixtures for remaining geometry-independent SCHEMA/XACC cases;
 - final built-in PROM set after population fit + licensing review;
 - shear/COP depth after target acquisition hardware is fixed;
-- product-specific manufacturing qualification/tolerances and actual material/process library entries.
+- product-specific acquisition, registration and manufacturing qualification/tolerances;
+- actual material/process library entries.

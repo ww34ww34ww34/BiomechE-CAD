@@ -533,6 +533,10 @@ Lavery LA et al. *Wear and biomechanical characteristics of a novel shear-reduci
 ## REF-CAD-106 — 3D-printed vs traditional FO dimensional realization
 Ho M et al. *Immediate comfort perception of 3D-printed foot orthoses in individuals with unilateral heel pain.* Prosthet Orthot Int. 2022;46(1):31–36. PMID `35179521`; PMCID `PMC8865620`; DOI `10.1097/PXR.0000000000000068`. Locator: pp.31–36; Table 1 / Figs.1–2. Role: 3D-printed and traditionally fabricated orthoses from the studied workflow differed in width, arch dimensions and heel-cup height; actual manufactured geometry should be measured rather than assumed identical to design intent.
 
+<a id="ref-cad-107"></a>
+## REF-CAD-107 — H/M1/M5 anatomical registration for COP
+Wevers OT, Hearn TC, Hunter GA, Ala-Korpi T. *Method for relating the centre of pressure locus during dynamic stance to the anatomical structure of the foot.* Clin Biomech (Bristol). 1989;4(2):111–114. PMID `23916003`; DOI `10.1016/0268-0033(89)90048-X`. Locator: pp.111–114; Abstract. Role: historical method relating COP to anatomical references using the posterior calcaneus and first/fifth metatarsal heads; supports landmark semantics, not a universal modern registration tolerance.
+
 ---
 
 # D. Standards / test-method / interoperability references
@@ -617,6 +621,20 @@ Ho M et al. *Immediate comfort perception of 3D-printed foot orthoses in individ
 - **Locator:** official Abstract/Scope.
 - **Role:** explicit build positioning/orientation/coordinate vocabulary for manufacturing provenance.
 
+<a id="std-isb-global-cs-1995"></a>
+## STD-ISB-GLOBAL-CS-1995 — ISB global coordinate-system reporting proposal
+- **Citation:** Wu G, Cavanagh PR. *ISB recommendations for standardization in the reporting of kinematic data.* J Biomech. 1995;28(10):1257–1261. PMID `8550644`; DOI `10.1016/0021-9290(95)00017-C`.
+- **Official context:** International Society of Biomechanics, `Standards` → `Global coordinate systems`.
+- **Locator:** pp.1257–1261; ISB Standards—Global coordinate systems. PubMed records no abstract.
+- **Role:** coordinate-system/reporting standardization context. BiomechE-CAD's exact axis convention remains a documented product convention rather than an assertion that ISB prescribes these exact CAD axes.
+
+<a id="std-isb-foot-kinematics-2021"></a>
+## STD-ISB-FOOT-KINEMATICS-2021 — ISB multi-segment foot kinematics recommendations
+- **Citation:** Leardini A, Stebbins J, Hillstrom H, Caravaggi P, Deschamps K, Arndt A. *ISB recommendations for skin-marker-based multi-segment foot kinematics.* J Biomech. 2021;125:110581. PMID `34217032`; DOI `10.1016/j.jbiomech.2021.110581`.
+- **Official context:** International Society of Biomechanics, `Standards` → `Foot kinematics`.
+- **Locator:** PubMed Abstract; ISB Standards—Foot kinematics.
+- **Role:** anatomy/model/landmark/reporting standardization context; the publication explicitly frames the recommendations as standards for collection/calculation/reporting rather than one mandatory model for every application.
+
 <a id="std-json-schema-2020-12"></a>
 ## STD-JSON-SCHEMA-2020-12 — JSON Schema Draft 2020-12
 - **Specification:** JSON Schema Draft 2020-12, Core and Validation vocabularies.
@@ -699,6 +717,12 @@ Sensor Medica — Vulcan CNC. https://www.sensormedica.com/it/vulcan-cnc/ . Use:
 ---
 
 # F. Architecture references — currently parked
+
+<a id="arch-biomeche-coord-2026-08-14"></a>
+## ARCH-BIOMECHE-COORD-2026-08-14 — BiomechE coordinate/acquisition contract snapshot
+- **Repository/revision:** `ww34ww34ww34/BiomechE`, commit `b38ee9e6b10bf4abe8073f4608edcf867eb2e328`, consulted 2026-08-14.
+- **Locators:** `docs/spec/01_coordinate_systems.md`; `docs/spec/02_input_data_model.md`; `docs/spec/algorithms/foot_axis.md`; `src/core/posturography/sensor_geometry.hpp`.
+- **Role:** integration-side contract for matrix topology vs physical sensor geometry, `ExamFrame2D`, side-aware foot-axis semantics and sensor-centre/represented-area data. This is an architecture/integration reference, not clinical efficacy evidence.
 
 <a id="arch-opensubdiv"></a>
 ## ARCH-OPENSUBDIV
