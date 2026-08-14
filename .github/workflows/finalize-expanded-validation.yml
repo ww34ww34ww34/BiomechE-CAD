@@ -1,0 +1,93 @@
+name: Finalize expanded semantic validation evidence
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/finalize-expanded-validation.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  validate-record-and-self-remove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Verify validator expansion is present
+        run: |
+          grep -q 'biomeche-protocol-cross-device-non-comparable' tools/validate_fixtures.py
+          grep -q 'biomeche-reanalysis-append-only' tools/validate_fixtures.py
+          grep -q 'report-reissue-semantic-reproducibility' tools/validate_fixtures.py
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install validator dependencies
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Run and assert expanded semantic validation
+        run: |
+          python tools/validate_fixtures.py | tee expanded-validation.log
+          grep -q 'Validated fixtures: 19; failures: 0' expanded-validation.log
+          grep -q 'BINT-011' expanded-validation.log
+          grep -q 'BINT-012' expanded-validation.log
+          grep -q 'BINT-015' expanded-validation.log
+          grep -q 'RPT-014' expanded-validation.log
+          grep -q 'RPT-015' expanded-validation.log
+
+      - name: Record qualified run in canonical report
+        env:
+          VALIDATED_SHA: ${{ github.sha }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_NUMBER: ${{ github.run_number }}
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          p = Path('docs/validation/fixture_validation_report_2026-08-15.md')
+          text = p.read_text(encoding='utf-8')
+          marker = '\n## 8. Expanded history/comparability validation\n'
+          if marker not in text:
+              text += f'''{marker}
+
+A later kernel-independent expansion was validated from commit:
+
+```text
+commit:    {os.environ['VALIDATED_SHA']}
+workflow:  Finalize expanded semantic validation evidence
+run:       {os.environ['RUN_ID']} / run {os.environ['RUN_NUMBER']}
+fixtures:  19
+failures:  0
+```
+
+New executable semantic IDs in this expansion:
+
+```text
+BINT-011   protocol compatibility gate
+BINT-012   cross-device compatibility gate
+BINT-015   append-only BiomechE reanalysis
+RPT-014    report reissue creates a new artifact
+RPT-015    semantic report reproducibility across reissue
+```
+
+The workflow asserted the exact `19 / 0` validator summary and the presence of all five IDs before recording this section.
+'''
+              p.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit evidence and remove one-shot workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/finalize-expanded-validation.yml
+          git add docs/validation/fixture_validation_report_2026-08-15.md
+          git commit -m "validation: record 19-fixture semantic expansion PASS"
+          git push origin HEAD:main
