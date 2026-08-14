@@ -1,171 +1,145 @@
 # BiomechE-CAD Specification Index
 
-Markdown in this repository is the canonical specification source.
+Markdown under `docs/` is the canonical specification source.
 
 ## Start / resume here
 
-- [RESUME_HERE.md](RESUME_HERE.md) — current state, source hierarchy, DONE/TODO and exact restart point.
-- [Canonical bibliography](BIBLIOGRAPHY.md) — **authoritative source IDs, full titles/citations, DOI/PMID/URLs and page/section locators used by all other documents.**
-- [Architectural and product decisions](DECISIONS.md) — current decisions and open questions.
-- [Research sources](research/SOURCES.md) — source intake, research queue and verification notes; bibliographic metadata must ultimately resolve to `BIBLIOGRAPHY.md`.
-- [Functional + Scientific Evidence Matrix](research/FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md) — current active feature/evidence baseline.
-- [Parameter / dose evidence batch](research/FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md) — forefoot wedge, metatarsal placement, arch geometry/hardness and heel containment/cushioning evidence.
-- [Relief / offloading evidence batch](research/FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md) — relief/aperture semantics, target ROI + surrounding safety region and load redistribution.
-- [Arch support deep dive](research/FUNCTIONAL_EVIDENCE_BATCH_04_ARCH.md) — `ARCH-001`: geometry dose, mechanical dose, context, redistribution and acceptance semantics.
-- [Heel / rearfoot deep dive](research/FUNCTIONAL_EVIDENCE_BATCH_05_HEEL.md) — `HEEL-001`: containment, wrap/camber, local relief, cushioning/material, outcome and acceptance semantics.
-- [EasyCAD2 primary reference pack](references/easycad2/README.md) — manual, validation plan/report, versions, source links and page map.
+- [RESUME_HERE.md](RESUME_HERE.md) — current state, DONE/TODO and exact restart point.
+- [BIBLIOGRAPHY.md](BIBLIOGRAPHY.md) — **single authoritative bibliography**: stable IDs, title/citation, DOI/PMID/URL and page/section locators.
+- [DECISIONS.md](DECISIONS.md) — cross-cutting product/architecture decisions.
+- [research/SOURCES.md](research/SOURCES.md) — intake/research queue; not a competing bibliography.
 
-## Current work priority
+## Current work order
 
 ```text
 FUNCTIONALITY
 + EASYCAD2 PARITY
 + SCIENTIFIC / BIOMECHANICAL EVIDENCE
-+ MEASURABLE DOSE / PLACEMENT / OUTCOME
++ DOSE / PLACEMENT / OUTCOME / CONTEXT
         ↓
 PRODUCT REQUIREMENTS
+        ↓
+PROJECT SCHEMA + ACCEPTANCE TESTS
         ↓
 ARCHITECTURE LATER
 ```
 
-The OpenSubdiv vs openNURBS/ON_SubD decision is intentionally parked.
+OpenSubdiv vs openNURBS/ON_SubD remains intentionally parked.
 
 ---
 
-## Current canonical product specifications
+# Canonical product specifications
 
 | File | Status | Purpose |
 |---|---|---|
-| [BIOMECHE_CAD_FUNCTIONAL_SPEC.md](spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md) | **Baseline / consolidated** | Unified EasyCAD2-inspired product/clinical functional specification |
-| [CAD_ENGINE_CAPABILITY_SPEC.md](spec/CAD_ENGINE_CAPABILITY_SPEC.md) | **Capability baseline; architecture portion under addendum** | Geometry capability analysis developed during the previous architecture phase |
-| [CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md](spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md) | **CURRENT architecture-selection status** | Parks kernel selection and records future OpenSubdiv vs openNURBS/ON_SubD shoot-out |
-| [03_geometry_operation_model.md](spec/03_geometry_operation_model.md) | **Hypothesis / not frozen** | Earlier control-cage/operation-stack model retained for later qualification |
-| [04_base_template.md](spec/04_base_template.md) | **Fixture candidate / not frozen** | `ORTHO_CAGE_41x17_V0` candidate and BT qualification gates |
-| [05_parametric_orthosis_geometry.md](spec/05_parametric_orthosis_geometry.md) | **Provisional math / not clinical evidence** | Reference formulas created for implementation experiments; not claimed EasyCAD2 or literature formulas |
-| [06_corrective_elements.md](spec/06_corrective_elements.md) | **ACTIVE functional baseline v0** | Corrective-element taxonomy, anatomical placement, metatarsal pad/bar/dome/relief semantics and acceptance tests |
-| [09_analysis_qc_dfm.md](spec/09_analysis_qc_dfm.md) | **ACTIVE functional baseline v0** | Peak pressure/PTI/contact-area/force/COP/shear policy, provenance, comparability, contextual thresholds, geometric QC and DFM |
+| [spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md](spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md) | Baseline / consolidation pending latest evidence promotion | Unified EasyCAD2-inspired functional baseline |
+| [spec/CAD_ENGINE_CAPABILITY_SPEC.md](spec/CAD_ENGINE_CAPABILITY_SPEC.md) | Capability baseline; architecture parked | Geometry capabilities independent from current research priority |
+| [spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md](spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md) | Current architecture-selection status | Records parked OpenSubdiv vs ON_SubD decision |
+| [spec/03_geometry_operation_model.md](spec/03_geometry_operation_model.md) | Hypothesis / not frozen | Earlier control-cage/operation-stack hypothesis |
+| [spec/04_base_template.md](spec/04_base_template.md) | Fixture candidate / not frozen | `ORTHO_CAGE_41x17_V0` candidate |
+| [spec/05_parametric_orthosis_geometry.md](spec/05_parametric_orthosis_geometry.md) | Provisional math | Experimental operator formulas; not claimed as clinical evidence |
+| [spec/06_corrective_elements.md](spec/06_corrective_elements.md) | **ACTIVE v0** | Corrective-element taxonomy, metatarsal/offload semantics and acceptance tests |
+| [spec/09_analysis_qc_dfm.md](spec/09_analysis_qc_dfm.md) | **ACTIVE v0** | Pressure/PTI/contact area/force/COP/shear, protocol provenance, QC/DFM |
+| [spec/13_use_case_profiles.md](spec/13_use_case_profiles.md) | **ACTIVE v0** | Evidence-context profiles, target provenance and non-transfer guards |
 
 ---
 
-## Active research specifications
+# Active functional/scientific research
 
 | File | Status | Purpose |
 |---|---|---|
-| [FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md](research/FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md) | **ACTIVE / master matrix** | Main feature/evidence matrix; separates EC2 behavior, literature confidence, product requirement and P0/P1/P2 |
-| [FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md](research/FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md) | **ACTIVE / batch 2** | Dose/placement detail for forefoot wedge, metatarsal pad, arch and heel features |
-| [FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md](research/FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md) | **ACTIVE / batch 3** | Relief/aperture evidence, redistribution risks, target+safety-ring outcome model and `OFF-001..009` |
-| [FUNCTIONAL_EVIDENCE_BATCH_04_ARCH.md](research/FUNCTIONAL_EVIDENCE_BATCH_04_ARCH.md) | **ACTIVE / batch 4** | `ARCH-001` deep dive; arch geometry/mechanics/context/outcome model and `ARCH-001..014` acceptance semantics |
-| [FUNCTIONAL_EVIDENCE_BATCH_05_HEEL.md](research/FUNCTIONAL_EVIDENCE_BATCH_05_HEEL.md) | **ACTIVE / batch 5** | `HEEL-001` deep dive; heel containment/relief/cushioning/camber semantics and `HEEL-001..015` acceptance semantics |
-| [GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md](research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md) | **ARCHIVED / valid background** | Validated library/portability research; preserved but not current work priority |
+| [research/FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md](research/FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md) | ACTIVE master matrix | `FSE-001..019` feature → evidence → requirement baseline |
+| [research/FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md](research/FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md) | Batch 02 complete | Forefoot wedge, metatarsal placement, arch/heel dose |
+| [research/FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md](research/FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md) | Batch 03 complete | Relief/aperture, redistribution, target+safety-ring semantics |
+| [research/FUNCTIONAL_EVIDENCE_BATCH_04_ARCH.md](research/FUNCTIONAL_EVIDENCE_BATCH_04_ARCH.md) | Batch 04 complete | `ARCH-001`; geometry/mechanics/context/outcomes; `ARCH-001..014` |
+| [research/FUNCTIONAL_EVIDENCE_BATCH_05_HEEL.md](research/FUNCTIONAL_EVIDENCE_BATCH_05_HEEL.md) | Batch 05 complete | `HEEL-001`; containment/relief/camber/material; `HEEL-001..015` |
+| [research/FUNCTIONAL_EVIDENCE_BATCH_06_USE_CASE_PROFILES.md](research/FUNCTIONAL_EVIDENCE_BATCH_06_USE_CASE_PROFILES.md) | **Batch 06 complete** | Diabetes, metatarsalgia, flatfoot, heel pain, sport and neutral generic profiles |
+| [research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md](research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md) | ARCHIVED / valid background | Library/portability research; not current work priority |
 
 ---
 
-## Validation specifications
+# Functional conclusions currently adopted
 
-| File | Status | Purpose |
-|---|---|---|
-| [easycad2_geometry_parity.md](validation/easycad2_geometry_parity.md) | **Behavioral architecture-coverage record** | Maps all 25 EasyCAD2 1.4 validation stories to the previous control-cage hypothesis; useful as feature inventory, not a frozen engine choice |
-| `validation_strategy.md` | Planned | Overall validation hierarchy |
-| `geometry_invariants.md` | Planned | Numerical invariants once product requirements are frozen |
-| `golden_geometry.md` | Planned | Golden fixture format and regression policy |
-| `manufacturing_validation.md` | Planned | Watertightness, thickness, orientation and production validation |
-
----
-
-## Common specifications still to freeze
-
-These should now be driven from the functional/evidence matrix rather than from a library API:
-
-| File | Status | Purpose |
-|---|---|---|
-| `spec/01_coordinate_registration.md` | Planned | Coordinate spaces, units and acquisition registration |
-| `spec/02_project_schema.md` | Planned | Versioned project schema, acquisitions, prescriptions, outcomes, revisions and hashes |
-| [06_corrective_elements.md](spec/06_corrective_elements.md) | **v0 ACTIVE** | Clinically named element library, anatomical placement, dimensions/dose, metatarsal family and neighboring-load analysis |
-| `spec/07_sculpt_and_roi_deformation.md` | Planned | Local authoring semantics and ROI provenance |
-| `spec/08_material_stiffness.md` | **Research-driven next after use-case profiles** | Material/stiffness properties, regional maps and evidence boundaries |
-| [09_analysis_qc_dfm.md](spec/09_analysis_qc_dfm.md) | **v0 ACTIVE** | Pressure/outcome metrics, protocol provenance, compatibility, thresholds, target/neighbor safety, geometry QC and DFM |
-| `spec/10_manufacturing.md` | Planned | Manufacturing profiles and export semantics |
-| `spec/11_biomeche_integration.md` | **Research-driven** | Quantitative pressure bridge, ROI, pre/post outcome loop and provenance |
-| `spec/12_reporting_traceability.md` | Planned | Prescription/design/manufacturing/outcome traceability and reports |
+1. EasyCAD2 is behavioral evidence, not scientific truth.
+2. External-source claims cite stable IDs from `BIBLIOGRAPHY.md` with truthful locators.
+3. Pressure remains quantitative numeric data; rendered heatmaps are derived views.
+4. Dose/placement/reference frame survive as structured prescription data.
+5. Offloading = redistribution: target + adjacent/remote regions are evaluated.
+6. Geometry and mechanical/material dose are independent.
+7. Arch support is not one scalar.
+8. Heel is not one scalar: containment, relief, camber and cushioning/material are separate.
+9. Outcome comparisons are protocol-bound and measured/predicted values remain distinct.
+10. Thresholds are population/context/protocol specific.
+11. `IndicationProfile` is a versioned evidence-context layer, not a diagnostic engine.
+12. Pediatric/adult, symptomatic/asymptomatic and walking/running evidence do not transfer silently.
+13. An active diabetic plantar ulcer can trigger a different guideline pathway rather than merely another CAD preset.
+14. Pressure, PROM, adherence and clinical-event outcomes remain separate observations.
 
 ---
 
-## Functional research rules
-
-1. EasyCAD2 establishes a behavioral reference, not scientific truth.
-2. Literature supports or limits the *purpose and measurable semantics* of a feature; it does not dictate the geometry kernel.
-3. Population-specific evidence must remain population-specific.
-4. A dose or placement shown to matter must be preserved as structured data with units/reference frame.
-5. Pressure is quantitative data; target ROI and neighboring load-transfer effects should both be measurable.
-6. Geometry and material/mechanical properties are separate prescription dimensions.
-7. PROM/comfort/fit/adherence should link to the exact design/manufacturing revision.
-8. No architecture library should be selected simply because it contains more features.
-9. Offloading is treated as redistribution: local benefit must be checked against adjacent and remote loading.
-10. Literature-derived placement/dose values may become evidence-linked presets, never universal hidden defaults.
-11. Pressure/outcome comparisons are protocol-bound; device/calibration/speed/steps/ROI-version provenance is part of the result.
-12. Measured and predicted biomechanical outcomes must remain separate data classes.
-13. Any concept derived from an external source should cite a stable ID from `BIBLIOGRAPHY.md`, with the most precise truthful locator available.
-14. Exact page numbers are required for manual/PDF evidence when available; for web/abstract-only evidence cite the truthful section rather than inventing a page.
-15. `ArchSupport` is not one scalar: geometry dose and mechanical dose are independent.
-16. `Heel` is not one scalar: containment geometry, local relief, camber and cushioning/material are independent concepts.
-17. Human, guideline, model and vendor evidence must not be silently mixed.
-
----
-
-## Research queue
-
-### Functional/scientific — NEXT
-
-1. **Use-case / population evidence profiles**:
-   - diabetic offloading;
-   - mechanical metatarsalgia;
-   - flexible flatfoot;
-   - plantar heel pain;
-   - sport / performance;
-   - generic custom orthosis.
-2. PROM / comfort / fit / adherence specification.
-3. Material durability / manufacturing evidence.
-4. Promote mature Arch / Heel / Offload / Corrective Element findings into the consolidated functional specification.
-5. Derive Project Schema v0 from evidence-led domain entities.
-6. Derive the kernel-independent functional acceptance suite.
-7. Refine shear/COP policy when target acquisition hardware is fixed.
-8. Continue migrating older historical docs to canonical bibliography IDs when edited.
-
-### Competitors — parallel
-
-- ParoContour / DIERS;
-- FitFoot360;
-- Rodin4D / Neo;
-- Vorum / Canfit;
-- other orthotic CAD/CAM products discovered during research.
-
-Competitors are feature evidence, not scientific efficacy evidence.
-
----
-
-## Architecture queue — PARKED
-
-When functional requirements are mature enough, resume:
+# Initial P0 indication profiles
 
 ```text
-OpenSubdiv 3.7
-    vs
-openNURBS / ON_SubD 8.x
+DIABETIC_REULCERATION_PREVENTION
+MECHANICAL_METATARSALGIA
+FLEXIBLE_FLATFOOT
+PLANTAR_HEEL_PAIN
+SPORT_PERFORMANCE
+GENERIC_CUSTOM_ORTHOSIS
 ```
 
-with one foundation selected for P0 if possible. See `CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md`.
+See `spec/13_use_case_profiles.md` and research Batch 06.
 
 ---
 
-## Documentation rules
+# Specifications still to create/freeze
+
+| File | Status | Purpose |
+|---|---|---|
+| `spec/01_coordinate_registration.md` | Planned | Coordinate spaces, units, acquisitions and registration |
+| `spec/02_project_schema.md` | Planned after current evidence promotion | Versioned project schema including profiles, targets, outcomes, revisions and hashes |
+| `spec/07_sculpt_and_roi_deformation.md` | Planned | Local authoring semantics and ROI provenance |
+| `spec/08_material_stiffness.md` | **Research-driven next after PROM** | Material/stiffness properties, regional maps and evidence boundaries |
+| `spec/10_manufacturing.md` | Planned | Manufacturing profiles / tolerances / export semantics |
+| `spec/11_biomeche_integration.md` | Planned | Quantitative pressure bridge and pre/post outcome loop |
+| `spec/12_reporting_traceability.md` | Planned | Prescription/design/manufacturing/outcome reports |
+
+---
+
+# Research queue — NEXT
+
+1. **PROM / comfort / fit / adherence** — cross-profile outcome specification.
+2. **Material durability / manufacturing evidence** — hardness/modulus/durability/process/tolerance.
+3. Promote mature Batch 03–06 findings into the consolidated P0/P1 functional specification.
+4. Derive Project Schema v0 from the evidence-led domain model.
+5. Derive a kernel-independent acceptance suite.
+6. Refine shear/COP policy after target acquisition hardware is fixed.
+7. Competitor functional gap audit can proceed in parallel.
+8. Only later resume OpenSubdiv vs openNURBS/ON_SubD.
+
+---
+
+# Validation specs / queue
+
+| File | Status | Purpose |
+|---|---|---|
+| [validation/easycad2_geometry_parity.md](validation/easycad2_geometry_parity.md) | Existing behavioral coverage record | 25 EasyCAD user stories; not a frozen engine choice |
+| `validation_strategy.md` | Planned | Validation hierarchy |
+| `geometry_invariants.md` | Planned | Numerical invariants |
+| `golden_geometry.md` | Planned | Golden fixtures / regression |
+| `manufacturing_validation.md` | Planned | Thickness, watertightness, tolerances, production QC |
+
+---
+
+# Documentation rules
 
 1. `docs/BIBLIOGRAPHY.md` is the single authoritative bibliography.
-2. Source evidence remains separate from engineering decisions.
-3. New scientific/vendor sources are verified and assigned a stable bibliography ID before canonical specs rely on them.
-4. `docs/research/SOURCES.md` is an intake/research queue, not a competing bibliography.
-5. User-provided implementation facts are labeled separately when not independently documented.
-6. Every P0 feature eventually needs acceptance criteria.
-7. Preserve superseded architecture in Git history/research notes.
+2. Source evidence remains separate from product decisions.
+3. New sources receive stable bibliography IDs before canonical specs rely on them.
+4. Exact page/figure/section locators are used where actually verified; never invent pages.
+5. Vendor material is market evidence, not clinical efficacy evidence.
+6. Model/FE evidence remains explicitly model-based.
+7. Every P0 feature/profile eventually needs an acceptance criterion.
 8. Update `RESUME_HERE.md` after substantial work.
-9. Do not redistribute third-party EasyCAD2 PDFs/screenshots in the public repository without explicit rights clearance.
-10. Never invent a page/section locator; use the most precise source location actually verified.
+9. Preserve superseded architecture/history in Git.
+10. Do not redistribute third-party EasyCAD PDFs/screenshots publicly without rights clearance.
