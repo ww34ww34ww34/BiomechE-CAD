@@ -76,6 +76,15 @@ Documents may link source IDs to this file:
 - **Locator:** named guideline/recommendation/section.
 - **Role:** quantitative targets may exist for specific diabetic-foot contexts; not universal CAD defaults.
 
+<a id="guide-heel-pain-2023"></a>
+## GUIDE-HEEL-PAIN-2023 — Heel Pain / Plantar Fasciitis Clinical Practice Guideline 2023
+- **Citation:** Koc TA Jr, Bise CG, Neville C, Carreira D, Martin RL, McDonough CM. *Heel Pain – Plantar Fasciitis: Revision 2023.* J Orthop Sports Phys Ther. 2023;53(12):CPG1–CPG39.
+- **PMID:** `38037331`
+- **DOI:** `10.2519/jospt.2023.0303`
+- **Official page:** https://www.orthopt.org/content/s/heel-pain-plantar-fasciitis-revision-2023
+- **Locator:** `FOOT ORTHOSES` recommendation/evidence synthesis; pp. CPG1–CPG39.
+- **Role:** plantar-heel-pain context; orthoses should not be treated as an isolated short-term intervention, and evidence for specific orthosis types/materials/designs remains limited.
+
 ---
 
 # C. Scientific literature
@@ -150,7 +159,7 @@ Chen H et al. *Biomechanical effects of varying arch support hardness in foot or
 
 <a id="ref-cad-018"></a>
 ## REF-CAD-018 — Heel plug custom foot orthosis
-Balsdon ME, Dombroski CE. *Custom-made foot orthoses with and without heel plugs and their effect on treatment outcomes and plantar pressures in patients with plantar fasciitis.* PMID `40366378`; DOI `10.1097/PXR.0000000000000450`. Locator: Abstract—Results. URL: https://pubmed.ncbi.nlm.nih.gov/40366378/ . Role: containment geometry vs cushioning/material relief.
+Balsdon ME, Dombroski CE. *Custom-made foot orthoses with and without heel plugs and their effect on treatment outcomes and plantar pressures in patients with plantar fasciitis: A crossover study.* Prosthet Orthot Int. 2026;50(2):198–204. PMID `40366378`; DOI `10.1097/PXR.0000000000000450`. Locator: pp.198–204; Abstract—Methods/Results: matched custom orthoses, one with a softer PORON heel plug; hindfoot average/peak pressure and pressure contact area were lower with the plug; FFI/comfort did not differ between orthosis conditions. URL: https://pubmed.ncbi.nlm.nih.gov/40366378/ . Role: containment geometry vs cushioning/material relief.
 
 <a id="ref-cad-019"></a>
 ## REF-CAD-019 — Heel cup/arch pressure redistribution
@@ -260,55 +269,97 @@ Hodge MC, Bach TM, Carter GM. *Orthotic management of plantar pressure and pain 
 
 <a id="ref-cad-045"></a>
 ## REF-CAD-045 — Arch support height dose: finite-element analysis
-Peng Y et al. *Influence of arch support heights on the internal foot mechanics of flatfoot during walking: A muscle-driven finite element analysis.* Comput Biol Med. 2021;132:104355. PMID `33812264`; DOI `10.1016/j.compbiomed.2021.104355`. Locator: Abstract—Methods/Results/Conclusion; publisher Highlights. URL: https://pubmed.ncbi.nlm.nih.gov/33812264/ . Role: height is a biomechanical dose; higher support can reduce some pressures/plantar-fascia strains while increasing midfoot pressure and central fascia loading. **Model-based evidence.**
+Peng Y et al. *Influence of arch support heights on the internal foot mechanics of flatfoot during walking: A muscle-driven finite element analysis.* Comput Biol Med. 2021;132:104355. PMID `33812264`; DOI `10.1016/j.compbiomed.2021.104355`. Locator: Abstract—Methods/Results/Conclusion. URL: https://pubmed.ncbi.nlm.nih.gov/33812264/ . Role: height is a biomechanical dose; higher support can reduce some pressures/plantar-fascia strains while increasing midfoot pressure and central fascia loading. **Model-based evidence.**
 
 <a id="ref-cad-046"></a>
 ## REF-CAD-046 — Arch height × posting × heel cup × material interaction
-Peng Y et al. *Different Design Feature Combinations of Flatfoot Orthosis on Plantar Fascia Strain and Plantar Pressure: A Muscle-Driven Finite Element Analysis With Taguchi Method.* Front Bioeng Biotechnol. 2022;10:853085. PMID `35360398`; PMCID `PMC8960448`; DOI `10.3389/fbioe.2022.853085`. Locator: Table 2 (arch 42/45/48 mm; posting 0/2/4°; heel cup 14/16/18 mm; material 3/5/7 MPa), Results/Table 4, Discussion. URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC8960448/ . Role: arch geometry cannot be interpreted independently from posting, heel cup and stiffness; higher support also raises medial-midfoot load. **Model-based evidence.**
+Peng Y et al. *Different Design Feature Combinations of Flatfoot Orthosis on Plantar Fascia Strain and Plantar Pressure: A Muscle-Driven Finite Element Analysis With Taguchi Method.* Front Bioeng Biotechnol. 2022;10:853085. PMID `35360398`; PMCID `PMC8960448`; DOI `10.3389/fbioe.2022.853085`. Locator: Table 2 (arch 42/45/48 mm; posting 0/2/4°; heel cup 14/16/18 mm; material 3/5/7 MPa), Results/Table 4, Discussion. URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC8960448/ . Role: arch geometry cannot be interpreted independently from posting, heel cup and stiffness; heel-cup height is also an explicit modeled design factor. **Model-based evidence.**
 
 <a id="ref-cad-047"></a>
 ## REF-CAD-047 — 3D-printed arch-support hardness and comfort
-Channasanon S et al. *3D-printed medial arch supports of varying hardness versus a prefabricated arch support on plantar pressure: A 1-month randomized crossover study in healthy volunteers.* Prosthet Orthot Int. 2023;47(2):210–217. PMID `36037286`; DOI `10.1097/PXR.0000000000000178`. Locator: pp.210–217 / Abstract—Methods/Results/Conclusions. URL: https://pubmed.ncbi.nlm.nih.gov/36037286/ . Role: hardness/comfort relationship; in this small healthy cohort hardness did not clearly separate pressure distribution, while comfort differed.
+Channasanon S et al. *3D-printed medial arch supports of varying hardness versus a prefabricated arch support on plantar pressure: A 1-month randomized crossover study in healthy volunteers.* Prosthet Orthot Int. 2023;47(2):210–217. PMID `36037286`; DOI `10.1097/PXR.0000000000000178`. Locator: pp.210–217 / Abstract. URL: https://pubmed.ncbi.nlm.nih.gov/36037286/ . Role: hardness/comfort relationship.
 
 <a id="ref-cad-048"></a>
 ## REF-CAD-048 — Flatfoot plantar-pressure interventions systematic review 2026
-Mahmoudiyan V et al. *Effects of conservative interventions on plantar pressure in individuals with flat foot: a systematic review and meta-analysis.* Sci Rep. 2026;16:9867. PMID `41714420`; PMCID `PMC13018568`; DOI `10.1038/s41598-026-40771-5`. Locator: Abstract—Results/Conclusion and full article meta-analysis sections. URL: https://www.nature.com/articles/s41598-026-40771-5 . Role: insoles redistribute rather than simply lower pressure; pooled data showed marked medial-midfoot pressure increase, with long-term evidence still limited.
+Mahmoudiyan V et al. *Effects of conservative interventions on plantar pressure in individuals with flat foot: a systematic review and meta-analysis.* Sci Rep. 2026;16:9867. PMID `41714420`; PMCID `PMC13018568`; DOI `10.1038/s41598-026-40771-5`. Locator: Abstract/full meta-analysis. URL: https://www.nature.com/articles/s41598-026-40771-5 . Role: redistribution and medial-midfoot load.
 
 <a id="ref-cad-049"></a>
 ## REF-CAD-049 — Medial arch support in hallux valgus
-Farzadi M et al. *Effect of medial arch support foot orthosis on plantar pressure distribution in females with mild-to-moderate hallux valgus after one month of follow-up.* Prosthet Orthot Int. 2015;39(2):134–139. PMID `24515981`; DOI `10.1177/0309364613518229`. Locator: pp.134–139 / Abstract—Results. URL: https://pubmed.ncbi.nlm.nih.gov/24515981/ . Role: arch support can unload forefoot/hallux while increasing medial-midfoot pressure/contact area; population-specific redistribution evidence.
+Farzadi M et al. *Effect of medial arch support foot orthosis on plantar pressure distribution in females with mild-to-moderate hallux valgus after one month of follow-up.* Prosthet Orthot Int. 2015;39(2):134–139. PMID `24515981`; DOI `10.1177/0309364613518229`. Locator: pp.134–139 / Abstract. URL: https://pubmed.ncbi.nlm.nih.gov/24515981/ . Role: population-specific redistribution.
 
 <a id="ref-cad-050"></a>
 ## REF-CAD-050 — Arch-support height dose during cutting
-Toyooka S et al. *Association of medial arch support of foot orthoses with knee valgus angle at initial contact during cutting maneuvers in female athletes: a controlled laboratory study.* BMC Sports Sci Med Rehabil. 2022. PMID `36536460`; PMCID `PMC9762016`; DOI `10.1186/s13102-022-00608-w`. Locator: Abstract—Methods/Results: low/no support, mid/commercial support, high/double-height support. URL: https://pubmed.ncbi.nlm.nih.gov/36536460/ . Role: human height-dose evidence exists for a specific sport maneuver, but does not define a universal therapeutic height.
+Toyooka S et al. *Association of medial arch support of foot orthoses with knee valgus angle at initial contact during cutting maneuvers in female athletes: a controlled laboratory study.* BMC Sports Sci Med Rehabil. 2022. PMID `36536460`; PMCID `PMC9762016`; DOI `10.1186/s13102-022-00608-w`. Locator: Abstract—Methods/Results. URL: https://pubmed.ncbi.nlm.nih.gov/36536460/ . Role: human height-dose evidence for a specific sport task.
 
 <a id="ref-cad-051"></a>
 ## REF-CAD-051 — Arch support and lateral-column load in sport
-Yu B et al. *Effects of wearing foot orthosis with medial arch support on the fifth metatarsal loading and ankle inversion angle in selected basketball tasks.* J Orthop Sports Phys Ther. 2007. PMID `17469671`; DOI `10.2519/jospt.2007.2327`. Locator: Abstract—Results/Conclusion. URL: https://pubmed.ncbi.nlm.nih.gov/17469671/ . Role: medial arch support can increase fifth-metatarsal loading/inversion in specific dynamic tasks; remote/safety-region monitoring matters.
+Yu B et al. *Effects of wearing foot orthosis with medial arch support on the fifth metatarsal loading and ankle inversion angle in selected basketball tasks.* J Orthop Sports Phys Ther. 2007. PMID `17469671`; DOI `10.2519/jospt.2007.2327`. Locator: Abstract. URL: https://pubmed.ncbi.nlm.nih.gov/17469671/ . Role: remote/safety-region monitoring.
 
 <a id="ref-cad-052"></a>
 ## REF-CAD-052 — Soft vs hard 3D-printed medial arch support RCT
-Paecharoen S et al. *Effectiveness of a 3D-printed silicone medial arch support on foot pain in individuals with pes planus: A randomized controlled trial.* Ann Phys Rehabil Med. 2025;68(7):102007. PMID `40819420`; DOI `10.1016/j.rehab.2025.102007`. Locator: Abstract—Methods/Results/Conclusion. URL: https://pubmed.ncbi.nlm.nih.gov/40819420/ . Role: 78-participant RCT; soft/hard printed supports and TCI all improved pain/function without clear pressure superiority among types.
+Paecharoen S et al. *Effectiveness of a 3D-printed silicone medial arch support on foot pain in individuals with pes planus: A randomized controlled trial.* Ann Phys Rehabil Med. 2025;68(7):102007. PMID `40819420`; DOI `10.1016/j.rehab.2025.102007`. Locator: Abstract. URL: https://pubmed.ncbi.nlm.nih.gov/40819420/ . Role: pain/function vs pressure effects in pes planus.
 
 <a id="ref-cad-053"></a>
 ## REF-CAD-053 — Arch reinforcement and undercut
-Cheng KW et al. *A Three-Dimensional Printed Foot Orthosis for Flexible Flatfoot: An Exploratory Biomechanical Study on Arch Support Reinforcement and Undercut.* Materials. 2021;14(18):5297. PMID `34576526`; PMCID `PMC8469370`; DOI `10.3390/ma14185297`. Locator: Abstract and full article design-method/results sections. URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC8469370/ . Role: geometry/height and stiffness reinforcement are separable design variables; stronger combined support was not automatically more favorable.
+Cheng KW et al. *A Three-Dimensional Printed Foot Orthosis for Flexible Flatfoot: An Exploratory Biomechanical Study on Arch Support Reinforcement and Undercut.* Materials. 2021;14(18):5297. PMID `34576526`; PMCID `PMC8469370`; DOI `10.3390/ma14185297`. Locator: Abstract/full article design-method/results. URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC8469370/ . Role: geometry and stiffness reinforcement are separable.
 
 <a id="ref-cad-054"></a>
 ## REF-CAD-054 — Arch support and plantar fasciitis 2026
-Taseh A et al. *Arch-supports and plantar fasciitis: A prospective study incorporating patient-reported outcomes and finite element analysis.* J Exp Orthop. 2026;13:e70732. PMID `42130670`; DOI `10.1002/jeo2.70732`. Locator: Abstract—Methods/Results/Conclusion. URL: https://pubmed.ncbi.nlm.nih.gov/42130670/ . Role: short-term clinical/structural/pressure evidence in plantar fasciitis; uncontrolled prospective design, not universal prescription evidence.
+Taseh A et al. *Arch-supports and plantar fasciitis: A prospective study incorporating patient-reported outcomes and finite element analysis.* J Exp Orthop. 2026;13:e70732. PMID `42130670`; DOI `10.1002/jeo2.70732`. Locator: Abstract. URL: https://pubmed.ncbi.nlm.nih.gov/42130670/ . Role: short-term clinical/structural/pressure evidence; uncontrolled prospective design.
 
 <a id="ref-cad-055"></a>
 ## REF-CAD-055 — Arch-support insole plantar pressure/contact area in flatfoot
-Huang YP et al. *The arch support insoles show benefits to people with flatfoot on stance time, cadence, plantar pressure and contact area.* PLoS One. 2020;15(8):e0237382. PMID `32817709`; PMCID `PMC7446821`; DOI `10.1371/journal.pone.0237382`. Locator: Abstract—Results/Conclusions; full article tables. URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC7446821/ . Role: arch support changes regional pressure/contact area and gait timing; not simply global pressure reduction.
+Huang YP et al. *The arch support insoles show benefits to people with flatfoot on stance time, cadence, plantar pressure and contact area.* PLoS One. 2020;15(8):e0237382. PMID `32817709`; PMCID `PMC7446821`; DOI `10.1371/journal.pone.0237382`. Locator: Abstract/full article tables. URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC7446821/ . Role: regional pressure/contact-area changes.
 
 <a id="ref-cad-056"></a>
 ## REF-CAD-056 — Arch correction under different body-weight loads
-Lavoie-Turcotte T et al. *Flatfoot arch correction with generic 3D-printed orthoses at different body weight percentages.* Foot (Edinb). 2024;59:102093. PMID `38520781`; DOI `10.1016/j.foot.2024.102093`. Locator: article 102093 / Abstract—Methods/Results/Conclusions. URL: https://pubmed.ncbi.nlm.nih.gov/38520781/ . Role: arch-height correction depends on loading condition; measurement/acceptance should state weight-bearing protocol.
+Lavoie-Turcotte T et al. *Flatfoot arch correction with generic 3D-printed orthoses at different body weight percentages.* Foot (Edinb). 2024;59:102093. PMID `38520781`; DOI `10.1016/j.foot.2024.102093`. Locator: article 102093 / Abstract. URL: https://pubmed.ncbi.nlm.nih.gov/38520781/ . Role: structural outcome depends on loading condition.
 
 <a id="ref-cad-057"></a>
 ## REF-CAD-057 — Radiographic/anthropometric medial arch support
-Escalona-Marfil C et al. *A radiographic and anthropometric study of the effect of a contoured sandal and foot orthosis on supporting the medial longitudinal arch.* J Foot Ankle Res. 2014;7:38. PMID `25317208`; PMCID `PMC4196133`; DOI `10.1186/s13047-014-0038-5`. Locator: article 38 / Abstract—Results/Conclusions. URL: https://pubmed.ncbi.nlm.nih.gov/25317208/ . Role: arch-height outcome can be measured structurally; device contour elevates the medial longitudinal arch.
+Escalona-Marfil C et al. *A radiographic and anthropometric study of the effect of a contoured sandal and foot orthosis on supporting the medial longitudinal arch.* J Foot Ankle Res. 2014;7:38. PMID `25317208`; PMCID `PMC4196133`; DOI `10.1186/s13047-014-0038-5`. Locator: article 38 / Abstract. URL: https://pubmed.ncbi.nlm.nih.gov/25317208/ . Role: structural arch-height outcome.
+
+## Heel / rearfoot deep-dive additions
+
+<a id="ref-cad-058"></a>
+## REF-CAD-058 — Individualized 3D-printed heel cup
+Li L et al. *3D printing individualized heel cup for improving the self-reported pain of plantar fasciitis.* J Transl Med. 2018;16:167. DOI `10.1186/s12967-018-1547-y`. Locator: Methods—Heel cup design and fabrication; Abstract—Results/Conclusion. URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC6007068/ . Role: scan-derived patient-specific heel-cup geometry; study device was 5 mm thick and wrapped the plantar heel from the upper calcaneal margin toward the arch. **Do not generalize 5 mm as an optimum.**
+
+<a id="ref-cad-059"></a>
+## REF-CAD-059 — Plastic heel cup confinement mechanism
+Lin CY et al. *Biomechanical Effects of Plastic Heel Cup on Plantar Fasciitis Patients Evaluated by Ultrasound Shear Wave Elastography.* J Clin Med. 2022;11(8):2150. PMID `35456242`; PMCID `PMC9028113`; DOI `10.3390/jcm11082150`. Locator: Abstract—Methods/Results/Conclusion; full article figures on heel-pad confinement. URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC9028113/ . Role: heel cup can alter heel-pad thickness and measured stiffness through confinement; geometry is mechanistically distinct from soft cushioning.
+
+<a id="ref-cad-060"></a>
+## REF-CAD-060 — Heel cup, heel-pad thickness, pressure and pain in Sever's disease
+Perhamre S, Lundin F, Klässbo M, Norlin R. *A heel cup improves the function of the heel pad in Sever's injury: effects on heel pad thickness, peak pressure and pain.* Scand J Med Sci Sports. 2012;22(4):516–522. PMID `21410537`; DOI `10.1111/j.1600-0838.2010.01266.x`. Locator: pp.516–522; Abstract—Results. URL: https://pubmed.ncbi.nlm.nih.gov/21410537/ . Role: pediatric evidence that heel containment can increase heel-pad thickness and reduce peak pressure/pain. **Population-specific; not an adult default.**
+
+<a id="ref-cad-061"></a>
+## REF-CAD-061 — Heel cup versus heel wedge in Sever's disease
+Perhamre S, Lundin F, Norlin R, Klässbo M. *Sever's injury; treat it with a heel cup: a randomized, crossover study with two insole alternatives.* Scand J Med Sci Sports. 2011;21(6):e42–e47. PMID `20673253`; DOI `10.1111/j.1600-0838.2010.01140.x`. Locator: pp.e42–e47; Abstract—Results. URL: https://pubmed.ncbi.nlm.nih.gov/20673253/ . Role: cup and wedge are not interchangeable intervention classes; pediatric diagnosis-specific evidence.
+
+<a id="ref-cad-062"></a>
+## REF-CAD-062 — Prefabricated inserts versus custom orthosis in plantar fasciitis
+Pfeffer G et al. *Comparison of custom and prefabricated orthoses in the initial treatment of proximal plantar fasciitis.* Foot Ankle Int. 1999;20(4):214–221. PMID `10229276`; DOI `10.1177/107110079902000402`. Locator: pp.214–221; Abstract—Methods/Results. URL: https://pubmed.ncbi.nlm.nih.gov/10229276/ . Role: custom geometry is not automatically superior to simpler heel/insole devices in a specific short-term multimodal treatment context.
+
+<a id="ref-cad-063"></a>
+## REF-CAD-063 — Heel insole conformity, thickness and material FE study
+Goske S, Erdemir A, Petre M, Budhabhatti S, Cavanagh PR. *Reduction of plantar heel pressures: Insole design using finite element analysis.* J Biomech. 2006;39(13):2363–2370. PMID `16197952`; DOI `10.1016/j.jbiomech.2005.08.006`. Locator: pp.2363–2370; Abstract—Methods/Results/Discussion. URL: https://pubmed.ncbi.nlm.nih.gov/16197952/ . Role: in the modeled design space, conformity was more influential than material choice for peak heel pressure; supports independent conformity, thickness and material parameters. **Model-based evidence.**
+
+<a id="ref-cad-064"></a>
+## REF-CAD-064 — Subject-specific heel cushioning material modeling
+Chatzistergos PE, Naemi R, Chockalingam N. *A method for subject-specific modelling and optimisation of the cushioning properties of insole materials used in diabetic footwear.* Med Eng Phys. 2015;37(6):531–538. PMID `25937545`; DOI `10.1016/j.medengphy.2015.03.009`. Locator: pp.531–538; Abstract—Methods/Results/Conclusion. URL: https://pubmed.ncbi.nlm.nih.gov/25937545/ . Role: cushioning response depends on subject/loading context; material name alone is insufficient. **Model-based / diabetic-foot context.**
+
+<a id="ref-cad-065"></a>
+## REF-CAD-065 — Pressure-guided CAD/CAM orthosis in chronic plantar fasciitis
+Nakhaee M et al. *The effects of a custom foot orthosis on dynamic plantar pressure in patients with chronic plantar fasciitis: A randomized controlled trial.* Prosthet Orthot Int. 2023;47(3):241–252. PMID `36037272`; DOI `10.1097/PXR.0000000000000179`. Locator: pp.241–252; Abstract—Methods/Results/Conclusions. URL: https://pubmed.ncbi.nlm.nih.gov/36037272/ . Role: links pressure-guided CAD/CAM orthoses with pressure/force, ultrasound and PROM outcomes; shows clinical outcome is not reducible to a single peak-pressure direction.
+
+<a id="ref-cad-066"></a>
+## REF-CAD-066 — Plantar heel pain orthoses systematic review/meta-analysis
+Whittaker GA et al. *Foot orthoses for plantar heel pain: a systematic review and meta-analysis.* Br J Sports Med. 2018;52(5):322–328. PMID `28935689`; DOI `10.1136/bjsports-2016-097355`. Locator: pp.322–328; Abstract—Results/Conclusion. URL: https://pubmed.ncbi.nlm.nih.gov/28935689/ . Role: moderate evidence for a small medium-term pain effect, uncertainty about clinical importance, and no clear custom-versus-prefabricated superiority.
+
+<a id="ref-cad-067"></a>
+## REF-CAD-067 — Heel cup + advice context in plantar fasciopathy RCT
+Riel H et al. *Does a corticosteroid injection plus exercise or exercise alone add to the effect of patient advice and a heel cup for patients with plantar fasciopathy? A randomised clinical trial.* Br J Sports Med. 2023;57(18):1180–1186. PMID `37414460`; PMCID `PMC10579183`; DOI `10.1136/bjsports-2023-106948`. Locator: pp.1180–1186; Abstract—Methods/Results/Conclusion. URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC10579183/ . Role: heel cup appears within a multimodal treatment context; the study does not isolate heel-cup geometry dose.
 
 ---
 
