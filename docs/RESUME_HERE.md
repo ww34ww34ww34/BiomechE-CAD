@@ -1,529 +1,585 @@
 # BiomechE-CAD — RESUME HERE
 
-> **Purpose:** this is the first document to read when resuming BiomechE-CAD after any interruption. It records the current functional baseline, evidence hierarchy, audit state, decisions, open gaps and exact next work so a new conversation can continue without reconstructing context.
+> **Purpose:** first document to read when resuming BiomechE-CAD. It records the current source hierarchy, architecture baseline, decisions, validation state, open questions and exact next work.
 
 **Repository:** `ww34ww34ww34/BiomechE-CAD`  
 **Canonical branch:** `main`  
 **Canonical documentation:** Markdown under `docs/`  
-**Current checkpoint:** 2026-08-14 — EasyCAD2 manual + 1.4 validation consolidation completed; previous EasyCAD2 research audited for loss; CAD-engine capability baseline (NURBS/B-Rep/mesh/SubD/operations/qualification suite) added.
+**Current checkpoint:** 2026-08-14 — EasyCAD2 primary evidence consolidated; CAD capability baseline revised after OpenSubdiv evidence/context; canonical control-cage/operation model and EasyCAD2 25-story parity matrix added.
 
 ---
 
-## 1. Project goal
+## 1. Product goal
 
-BiomechE-CAD is intended to become a professional vertical CAD for custom foot orthoses/insoles integrated with BiomechE.
+BiomechE-CAD is a professional vertical CAD for custom foot orthoses/insoles integrated with BiomechE.
 
-The first product baseline deliberately uses EasyCAD2 as the most detailed behavioral reference currently available, while the architecture is intended to be more open, versionable, testable and scientifically traceable than a mesh-only commercial workflow.
+EasyCAD2 is the initial detailed behavioral benchmark, not the architectural ceiling.
 
-Current target flow:
+Target product flow:
 
 ```text
 Patient / Case
-    -> OrthosisProject [LEFT/RIGHT]
-    -> AcquisitionLayer[]
-    -> Registration
-    -> BaseTemplate
-    -> ParametricOperation[]
-    -> CorrectiveElement[]
-    -> MaterialModifier[]
-    -> SculptOperation[]
-    -> Analysis + DFM/QC
-    -> ManufacturingProfile
-    -> ExportArtifact[]
-    -> Report
+ -> OrthosisProject [LEFT/RIGHT]
+ -> AcquisitionLayer[]
+ -> Registration
+ -> BaseTemplate / Canonical Cage
+ -> Versioned Clinical Operations
+ -> Corrective Elements
+ -> Material Modifiers
+ -> Analysis + DFM/QC
+ -> Manufacturing Profile
+ -> Export Artifacts
+ -> Report
 ```
 
 ---
 
-## 2. Source-of-truth hierarchy
+## 2. Primary EasyCAD2 evidence
 
-### Level A — primary EasyCAD2 evidence
+### EC2-MANUAL-1.1
 
-1. `EasyCAD2 Manuale ITA 2.0.pdf` — internal software version 1.1.x.x.
-2. `PdV0001_EasyCAD2 software validation plan.pdf` — validation baseline for EasyCAD2 1.4.x.x, 15/01/2026.
-3. `RdT001_Rapporto di Test di validazione software EasyCAD2 versione 14xx.pdf` — final report, 20/01/2026.
+`EasyCAD2 Manuale ITA 2.0.pdf`  
+software 1.1.x.x, 13/01/2024.
 
-The 1.1 manual is used for detailed UI/parameter behavior. The newer 1.4 validation documents are used to confirm that capabilities remained/currently existed in the later line even when the public manual is older.
+Detailed UI/geometry source for:
 
-### Level A2 — research and scientific evidence
+- DIMA;
+- pressure/scan acquisition;
+- MODIFICA;
+- ELEMENTI;
+- POST PROCESSING;
+- CONTROLLO;
+- PRODUCI;
+- history/save/warnings.
 
-Preserve:
+### EC2-VAL-PLAN-1.4
 
-- prior EasyCAD2 feature-by-feature research;
-- EasyCAD/easyCAD lineage findings;
-- vendor/market sources;
-- peer-reviewed foot-orthosis literature;
-- geometry/kernel primary documentation used for capability taxonomy;
-- competitor research as it is added.
+`PdV0001_EasyCAD2 software validation plan.pdf`  
+15/01/2026.
 
-Useful scientific baseline currently includes Telfer 2013, Farhan 2021, Muir 2022, Cherni 2022, Xu 2019, Ruiz-Ramos 2024 and Allan 2023. Exact bibliographic details are in the consolidated specification and `research/SOURCES.md`.
+Defines 25 validation user stories.
 
-Geometry capability references currently include official Open CASCADE documentation for B-Rep/NURBS/modeling algorithms, CGAL Polygon Mesh Processing for mesh boolean/repair/remeshing, McNeel openNURBS for NURBS/3DM interchange/evaluation, and Pixar OpenSubdiv for subdivision-surface evaluation/tessellation. These references inform the capability taxonomy only; they do **not** freeze the implementation stack.
+### EC2-VAL-REPORT-1.4
 
-### Level B — engineering decisions
+`RdT001_Rapporto di Test di validazione software EasyCAD2 versione 14xx.pdf`  
+20/01/2026.
 
-Use `DECISIONS.md`. Source evidence must not silently become an engineering rule.
-
-### Level C — current specifications
-
-Current canonical baselines:
-
-- `spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md` — product/clinical functionality;
-- `spec/CAD_ENGINE_CAPABILITY_SPEC.md` — geometry/CAD-engine capability contract and kernel qualification criteria.
-
-Future modular specifications should supersede or refine parts of them without deleting historical source evidence.
-
----
-
-## 3. Provenance convention
-
-Use these tags when origin matters:
+Result:
 
 ```text
-SOURCE / EASYCAD2-MANUAL
-SOURCE / EASYCAD2-VALIDATION
-SOURCE / EASYCAD-LEGACY
-SOURCE / LITERATURE
-SOURCE / MARKET
-SOURCE / GEOMETRY-DOC
-ENGINEERING DECISION
-OPEN QUESTION
-R&D CANDIDATE
+25 planned
+25 executed
+25 PASS
+0 FAIL
+0 BLOCKED
 ```
 
-Never invent a source locator or silently promote an inferred vendor behavior into a BiomechE-CAD requirement.
+Reference links and page map live in `docs/references/easycad2/README.md`.
+
+Do not commit the third-party PDF/screenshots to the public repo without explicit rights clearance.
 
 ---
 
-## 4. Current EasyCAD2 evidence baseline
+## 3. EasyCAD2 geometry behavior confirmed by primary documents
 
-### Confirmed workflow areas
+Important confirmed behaviors:
+
+- DX/SX mirror;
+- DIMA templates SPORT/SANDALO/CLASSIC/COMFORT/DONNA;
+- L/W/proportion editing;
+- pressure `.bpe/.csv` registration;
+- STL scan with heel/1st/5th landmarks and alignment;
+- global thickness + flatten;
+- heel/wrap/camber;
+- medial/lateral arch with start/center/end/height/depth/curvature;
+- rear/forefoot wedge in degrees, full/partial;
+- corrective-element library;
+- element position/rotation/XYZ scale;
+- `SOMMA` / `INTERSEZIONE` integration described relative to upper/lower orthosis surfaces;
+- direct XYZ element-vertex editing + CUSTOM preset;
+- material/rigidity regions;
+- local sculpt radius/strength;
+- global deformation toward scan data;
+- freehand/circle ROI deformation;
+- section, height, ruler and fixed-height tools;
+- minimum-thickness warning/fix;
+- Bridge/Straight/Oblique/advanced production closure;
+- STL/GCODE;
+- PDF report;
+- history/undo/redo/safe close.
+
+The documents repeatedly use mesh/vertex semantics for core editing and validation.
+
+---
+
+## 4. New implementation-context fact
+
+The project owner states with certainty that **EasyCAD2 uses OpenSubdiv**.
+
+This fact is accepted as project context, but the EasyCAD2 manual/validation docs do not state how OpenSubdiv is internally used.
+
+Therefore distinguish:
 
 ```text
-DATABASE / SETTINGS
-DIMA
-PRESSURE
-SCAN3D
-SCAN2D / IMAGE2D
-MODIFICA
-ELEMENTI
-POST PROCESSING
-CONTROLLO
-PRODUCI
-REPORT
-TOOLBAR / HISTORY / SAVE
+USER-PROVIDED FACT:
+EasyCAD2 uses OpenSubdiv.
+
+ENGINEERING INFERENCE:
+EasyCAD2 likely benefits from control-cage / subdivision-surface editing for at least part of the orthosis workflow.
 ```
 
-### Important capabilities now confirmed from primary documents
-
-- patient database, search, edit/delete and project history;
-- left/right project switching and project mirroring;
-- DIMA templates `SPORT`, `SANDALO`, `CLASSIC`, `COMFORT`, `DONNA`;
-- editable DIMA outline, L/W dimensions, shoe size and unlocked proportions;
-- pressure import `.bpe/.csv` with X/Y/rotation/scale;
-- Scan3D `.stl`, `heel`, `1st`, `5th` landmarks and alignment;
-- Image/Scan2D calibration;
-- global thickness and flatten;
-- rearfoot heel/wrap + camber parameters;
-- medial/lateral arch parameter sets including start/center/end, height, depth and curvature;
-- rearfoot/forefoot wedges in degrees, full/partial application;
-- element library by rearfoot/midfoot/forefoot/proprio/custom categories;
-- metatarsal-bar family visible in the EasyCAD2 library/workflow;
-- element position, rotation and XYZ scaling;
-- custom element vertex editing + reusable preset;
-- 3D-print modifier regions for differentiated rigidity;
-- global/per-element five-level hardness workflow;
-- local sculpt with radius/strength;
-- global deformation toward loaded scan/pressure data;
-- freehand/circle closed-region height deformation;
-- cross-section, fixed-height controls, height visualization and ruler;
-- minimum-thickness warning below 0.8 mm in the EasyCAD2 profile and automatic fix;
-- production closure modes Bridge, Straight and Oblique plus advanced hybrid controls;
-- STL, GCODE, project ZIP and print workflow;
-- text in Slice3D;
-- material/CNC/printer profiles;
-- PDF report in the 1.4 validation baseline;
-- undo/redo/action history;
-- safe save on application close.
-
-The EasyCAD2 1.4 validation report records 25/25 planned tests passed, 0 failed and 0 blocked.
+Do not claim exact EasyCAD2 internal formulas/topology without independent evidence.
 
 ---
 
-## 5. Current architecture direction
+## 5. Official OpenSubdiv facts relevant to architecture
 
-### 5.1 Non-destructive operations
+Official documentation states that OpenSubdiv:
 
-Where technically reasonable, preserve clinical/geometric operations as parameters instead of only baking them into a final mesh.
+- implements high-performance subdivision-surface evaluation;
+- is optimized for deforming surfaces with static topology at interactive frame rates;
+- works from polygonal control cages provided by the host application;
+- exposes a smooth limit surface;
+- supports arbitrary topology but regular quad-dominant regions are simpler/more predictable;
+- warns that an arbitrary polygon mesh is not automatically a good subdivision cage.
+
+References:
+
+- `https://www.opensubdiv.org/docs/intro.html`
+- `https://www.opensubdiv.org/docs/subdivision_surfaces.html`
+
+---
+
+## 6. Current geometry architecture baseline
+
+The previous B-Rep/NURBS-heavy P0 hypothesis has been superseded.
+
+Current baseline:
+
+```text
+Canonical Orthosis Control Cage
++ stable persistent vertex IDs
++ intrinsic anatomical coordinates
++ OpenSubdiv limit-surface evaluation
++ versioned parametric clinical operations
++ mask/field engine
++ scan/registration/query layer
++ orthosis-specific production-body generator
++ DFM validation
+```
+
+### Authoritative clinical model
+
+```text
+BaseCage + Operations + AlgorithmVersions
+```
+
+The final STL is derived, not authoritative.
+
+### Canonical cage direction
+
+- quad-dominant;
+- stable topology during ordinary clinical edits;
+- persistent vertex IDs;
+- LEFT/RIGHT compatible topology;
+- intrinsic coordinates:
+
+```text
+s ∈ [0,1]   heel -> toe
+q ∈ [-1,1] lateral -> medial
+```
+
+- reusable anatomical region weights/masks;
+- minimize extraordinary vertices in critical edit/high-curvature zones.
+
+### OpenSubdiv role
+
+OpenSubdiv is the expected P0 **surface evaluator**, not the business/domain model.
+
+```text
+BiomechCage
+ -> OpenSubdiv adapter
+ -> smooth limit surface
+ -> display/query/tessellation
+```
+
+### Clinical operations
+
+P0 operations include:
+
+```text
+TemplateMorph
+HeelWrap
+Camber
+MedialArch
+LateralArch
+RearfootWedge
+ForefootWedge
+CorrectiveElement
+Sculpt
+Smooth
+ScanConform
+HeightConstraint
+Thickness
+DFMFix
+MaterialModifier
+ProductionClosure
+```
+
+Each operation is versioned, deterministic and replayable.
+
+---
+
+## 7. Current capability classification
+
+### P0
+
+```text
+control-cage topology
+stable IDs / adjacency / boundary
+OpenSubdiv Catmull-Clark evaluation
+intrinsic anatomical parameterization
+template morph / L/W / mirror
+clinical deformation fields
+ROI/mask/falloff engine
+corrective elements
+vertex edit / sculpt / smooth
+STL scan + landmarks + registration
+BVH / closest-point / projection
+section / distance / height / angle / thickness
+orthosis-specific production body
+Bridge/Straight/Oblique/Hybrid closure
+watertight/min-thickness/DFM checks
+versioned operation history
+```
+
+### P1
+
+```text
+utility B-spline curves
+advanced custom-element cage editor
+ICP
+advanced mesh repair
+local/adaptive production remeshing if needed
+3MF/material-region export
+curvature/geodesic helpers
+positive mould
+text emboss/deboss
+```
+
+### P2 / adapter / future
+
+```text
+NURBS surface authoring
+trimmed B-Rep
+STEP/IGES
+Rhino exact interchange
+general loft/sweep/revolve
+general shell/offset
+fillet/chamfer kernel
+general solid boolean kernel
+implicit/SDF
+lattice/metamaterial
+FEM
+prediction/optimization/AI
+```
+
+General-purpose NURBS/B-Rep is therefore **not a P0 prerequisite**.
+
+---
+
+## 8. Important decisions
+
+See `docs/DECISIONS.md`.
+
+New decisions added:
+
+- `D-CAD-011` — OpenSubdiv-first canonical control-cage architecture;
+- `D-CAD-012` — general-purpose NURBS/B-Rep not P0;
+- `D-CAD-013` — any additional geometry library must earn entry through a failing fixture;
+- `D-CAD-014` — separate clinical upper surface from derived manufacturing body.
+
+OCCT, CGAL, Manifold and openNURBS are **not selected dependencies** at this checkpoint.
+
+---
+
+## 9. New canonical documents
+
+### Current capability baseline
+
+`docs/spec/CAD_ENGINE_CAPABILITY_SPEC.md`
+
+v2 replaces the old P0 classification. The previous version remains in Git history.
+
+### Canonical cage and operation model
+
+`docs/spec/03_geometry_operation_model.md`
+
+Defines:
+
+- authoritative representations;
+- quad-dominant canonical cage;
+- stable IDs;
+- intrinsic `(s,q)`;
+- anatomical masks;
+- OpenSubdiv adapter contract;
+- operation stack;
+- field composition;
+- corrective-element semantics;
+- scan layer;
+- production separation;
+- CQ-001..CQ-012 cage qualification tests.
+
+### Parametric geometry operators
+
+`docs/spec/05_parametric_orthosis_geometry.md`
+
+Defines a provisional deterministic math model for:
+
+- smooth compact masks/falloffs;
+- medial/lateral arch;
+- rear/forefoot wedge;
+- heel wrap/camber;
+- thickness/flatten;
+- corrective elements;
+- sculpt;
+- smooth;
+- scan conform;
+- height constraints;
+- min-thickness fix.
+
+These are BiomechE-CAD formulas, not claimed EasyCAD2 formulas.
+
+### EasyCAD2 parity gate
+
+`docs/validation/easycad2_geometry_parity.md`
+
+All 25 EasyCAD2 1.4 validation stories have an implementation path in the proposed architecture.
+
+This proves functional architecture coverage only; it does not prove the exact internal EasyCAD2 implementation.
+
+---
+
+## 10. Current mathematical direction
+
+Use intrinsic field-based deformation over stable cage vertices.
+
+Generic concept:
+
+```text
+Mask(v) -> [0,1]
+Displacement(v) -> Vector3
+P'(v) = P(v) + Mask(v) * Displacement(v)
+```
+
+Examples:
+
+### Arch
+
+```text
+longitudinal start/center/end bump
+× transverse medial/lateral profile
+× anatomical mask
+× target height
+```
+
+### Wedge
+
+```text
+h = tan(angle) * signed_distance_from_pivot_axis
+× rearfoot/forefoot mask
+× full/partial application mask
+```
+
+### Element
+
+Prefer clinically named field/cage semantics:
+
+```text
+ADD_FROM_TOP
+PLACE_FROM_BASE
+```
+
+rather than forcing general B-Rep booleans.
+
+### Sculpt
+
+```text
+radius + strength + smooth compact falloff
+```
+
+with replay stored as sparse stable-vertex displacement layer or compact stroke history.
+
+---
+
+## 11. Clinical surface vs production body
+
+Current BiomechE-CAD decision:
+
+- canonical cage primarily authors the **upper clinical/contact surface**;
+- thickness, lower surface and sidewalls are derived manufacturing semantics;
+- production closure is orthosis-specific, not a generic CAD shell requirement.
 
 Conceptually:
 
 ```text
-measurement/evidence
-    -> prescription
-    -> parametric operation
-    -> evaluated geometry
-    -> manufacturing artifact
+UpperClinicalSurface
++ ThicknessField
++ LowerSurfaceRule
++ ClosureProfile
+ -> ManufacturingBody
 ```
 
-An operation should be able to preserve:
+This separation still needs qualification against all production modes.
+
+---
+
+## 12. Geometry parity result against EasyCAD2
+
+The proposed architecture covers:
 
 ```text
-id
-type
-side
-anatomical region
-parameters + units
-ROI/mask
-source dataset
-clinical rationale
-author/time
-algorithm version
-before/after metrics
-enabled state
+US6 mirror
+US7 DIMA
+US8 pressure registration
+US9 Scan3D/Image2D alignment
+US10 thickness/flatten
+US11 heel
+US12 arches
+US13 wedges
+US14 elements
+US15 custom elements
+US16 material modifiers
+US17 sculpt
+US18 scan conform
+US19 section/fix heights
+US20 ruler
+US21 closure + STL/GCODE
+US22 differentiated hardness
+US24 minimum-thickness fix
 ```
 
-### 5.2 Pressure is quantitative data
+Non-geometry stories US1–US5/US23/US25 are covered by project/settings/report/persistence layers.
 
-Pressure must remain a numeric, metric dataset with provenance and registration; it must not be reduced to an RGB background texture.
-
-### 5.3 Coordinate semantics follow BiomechE
-
-Canonical public units should remain aligned with BiomechE:
-
-```text
-distance = mm
-angle = deg
-pressure = kPa
-force = N
-area = mm2
-```
-
-Sensor/matrix orientation must not be confused with anatomical coordinates.
-
-### 5.4 Materials are separate from geometry
-
-A stiffness/density/material modifier is a first-class region, not merely an external print setting or forced geometric deformation.
-
-### 5.5 CAM is downstream
-
-GCODE/CNC post-processing belongs outside the core geometric model.
-
-### 5.6 Hybrid CAD representation
-
-The current capability baseline requires a hybrid engine rather than a single-representation dogma:
-
-```text
-analytic + B-spline/NURBS geometry
-        +
-B-Rep topology
-        +
-polygon mesh for scan/sculpt/render/manufacturing
-        +
-optional SubD for selected freeform/render workflows
-```
-
-NURBS alone are insufficient because join/trim/topology/solid semantics and mesh/scan workflows are required. Mesh-only is insufficient because clinical parameters, exact curves/surfaces, offsets, thickness and robust feature history should not collapse immediately to irreversible triangles. SubD is useful but is not the source-of-truth of the first orthosis model.
-
-### 5.7 Kernel choice is capability-driven
-
-No geometry library is frozen yet. Candidate stacks must be scored against `CAD_ENGINE_CAPABILITY_SPEC.md` and its qualification suite, including:
-
-```text
-NURBS
-trimmed surfaces
-B-Rep
-join/sew
-boolean robustness
-offset/thicken
-loft/sweep/fill
-mesh repair/remesh
-scan fitting
-tessellation
-tolerance model
-threading
-license
-portability/WASM/server feasibility
-dependency weight
-```
+No validated EasyCAD2 story currently forces general NURBS/B-Rep into P0.
 
 ---
 
-## 6. Current baseline decisions
+## 13. Critical open questions
 
-The initial decision set is tracked in `DECISIONS.md` as `D-CAD-001` through `D-CAD-010`.
-
-Core direction:
-
-1. Markdown is canonical documentation.
-2. EasyCAD2 is the initial behavioral benchmark, not the architectural ceiling.
-3. Prefer versioned/non-destructive geometry operations.
-4. Use BiomechE-compatible canonical physical units.
-5. Acquisition provenance + registration transform are first-class data.
-6. Pressure remains quantitative.
-7. Material/stiffness regions are separate from pure geometry.
-8. CAM/GCODE is separated from geometry core.
-9. Exports bind to immutable project revisions.
-10. Every P0 feature needs acceptance criteria/regression testing.
-
-**Not yet frozen:** OCCT, CGAL, openNURBS, OpenSubdiv or any other geometry stack. They are candidates/references, not decisions.
-
----
-
-## 7. Audit status — previous EasyCAD2 research
-
-**AUDIT COMPLETE for the current consolidation.**
-
-The earlier EasyCAD2 feature inventory was checked against the unified specification.
-
-### Preserved
-
-- all previously listed direct EasyCAD2 features;
-- all earlier P0 requirements;
-- scientific rationale for posting/wedges;
-- numeric pressure/provenance requirement;
-- scan provenance requirement;
-- variable-stiffness/material-map direction;
-- explainable future automation/AI;
-- P0/P1/P2 prioritization.
-
-### Earlier lineage/secondary findings promoted by the new primary documents
-
-Now confirmed or substantially confirmed:
-
-- controlateral mirror;
-- arch start/center/end/curvature details;
-- wedge angles in degrees;
-- custom elements;
-- metatarsal bars;
-- proprioceptive element category;
-- material/stiffness modifier regions;
-- global/per-element hardness;
-- global deformation from exam data;
-- Bridge production closure;
-- minimum-thickness DFM warning + fix;
-- PDF report;
-- history/undo/redo.
-
-### Still open / not silently promoted
-
-- exact mathematical formulas used internally by EasyCAD2;
-- automatic DIMA generation specifically from Scan3D;
-- cloud template library;
-- wedge input directly in mm;
-- automatic patient-name engraving rather than generic 3D text;
-- exact toolpath/GCODE algorithm;
-- 3MF/multi-material native export;
-- OBJ/STEP support;
-- SDK/API/plugin system;
-- formal project schema/migration behavior;
-- positive mould generation for thermoforming;
-- exact regulatory/conformity report;
-- general third-party hardware compatibility.
+1. Final coordinate/registration contract.
+2. Project Schema v0.
+3. First concrete quad-dominant cage topology.
+4. Cage vertex count/resolution and edge-loop layout.
+5. Whether all template families share one topology family.
+6. OpenSubdiv boundary/crease settings.
+7. Arch displacement direction: anatomical vertical vs cage/limit normal.
+8. Calibration of EasyCAD-like arch `roundness/depth/curvature` semantics.
+9. Heel wrap/camber reference formula and limits.
+10. Wedge pivot/reference axis fixture.
+11. Corrective element representation: field vs small cage vs hybrid.
+12. Exact `PLACE_FROM_BASE` semantics.
+13. Scan-conform projection method.
+14. Production lower-surface/closure algorithms.
+15. Minimum-thickness repair policy.
+16. Performance budget desktop + any WASM/server target.
+17. Whether any fixture actually requires a second geometry library.
 
 ---
 
-## 8. Copyright / source handling rule
+## 14. Exact restart point
 
-The EasyCAD2 manual contains a copyright/reproduction restriction. Therefore:
+**Do not evaluate OCCT/CGAL/Manifold first.**
 
-- do not commit manual screenshots or the PDFs to this public repository without explicit rights clearance;
-- keep page numbers, feature descriptions and source URLs in the research/specification documents;
-- screenshots may be inspected for research but should not be redistributed automatically.
-
----
-
-## 9. Current P0 functional + CAD envelope
-
-### Workflow / persistence
-
-- patient/case/project;
-- LEFT/RIGHT;
-- mirror;
-- versioned project;
-- undo/redo/history;
-- autosave/crash-safe close.
-
-### Acquisition
-
-- BiomechE pressure;
-- CSV pressure;
-- STL scan;
-- 2D image;
-- registration;
-- heel/1st/5th landmarks;
-- source provenance.
-
-### DIMA / curves
-
-- template library;
-- closed editable outline;
-- line/arc/polyline/B-spline/NURBS curve support;
-- L/W constraints;
-- custom template.
-
-### Exact/parametric geometry
-
-- B-spline/NURBS curves and surfaces;
-- trimmed surfaces;
-- B-Rep vertex/edge/wire/face/shell/solid;
-- loft/sweep/extrude/ruled/fill;
-- join/sew;
-- trim/split/intersection;
-- offset/thicken/variable thickness;
-- boolean union/difference/intersection;
-- closest point/projection/section.
-
-### Parametric orthosis modification
-
-- thickness/flatten;
-- heel/wrap/camber;
-- medial arch;
-- lateral arch;
-- rearfoot wedge;
-- forefoot wedge;
-- smooth.
-
-### Elements / sculpt
-
-- heel, arch, metatarsal and local offload/support elements;
-- primitive/feature integration;
-- local raise/lower;
-- ROI deform;
-- deform toward scan.
-
-### Mesh
-
-- repair;
-- remesh;
-- smooth;
-- normals/orientation;
-- manifold/self-intersection validation;
-- clipping/slicing;
-- controlled tessellation.
-
-### QC
-
-- section;
-- height;
-- ruler;
-- wedge angle;
-- thickness map;
-- minimum thickness;
-- manifold/self-intersection/degenerate checks;
-- watertight manufacturing output.
-
-### Production
-
-- STL;
-- versioned project package;
-- production closure;
-- DFM report.
-
----
-
-## 10. Critical open questions before kernel implementation
-
-1. Coordinate and registration contract for pressure, Scan3D, Image2D, template and output mesh.
-2. Project Schema v0 and migration/versioning rules.
-3. BaseTemplate mathematical representation.
-4. Operation Stack evaluation semantics and dependency graph.
-5. Mathematical definition of heel/wrap/camber.
-6. Mathematical definition of medial/lateral arch operators.
-7. Mathematical definition of rearfoot/forefoot wedge and reference axis.
-8. Local ROI deformation/falloff model.
-9. Exact geometry representation strategy for the authoritative orthosis surface/body.
-10. Thickness/offset strategy and robustness.
-11. Boolean/element integration strategy.
-12. Manufacturing closure semantics.
-13. Material/stiffness physical property model.
-14. Exact regression/golden geometry strategy.
-15. API boundary between BiomechE and CAD.
-16. Candidate kernel qualification against `KQ-001` … `KQ-015` from the capability specification.
-17. Whether the final stack actually needs a full B-Rep kernel such as OCCT or can satisfy all P0 requirements with a lighter composition.
-
----
-
-## 11. Exact restart point
-
-**Next specification work remains:**
+Next work order:
 
 ```text
 1. docs/spec/01_coordinate_registration.md
 2. docs/spec/02_project_schema.md
-3. docs/spec/03_geometry_operation_model.md
-4. mathematical operators:
-   - heel/camber
+3. docs/spec/04_base_template.md
+   -> design first real canonical quad cage
+4. create OpenSubdiv proof-of-concept fixture
+5. implement intrinsic (s,q) mapping + semantic masks
+6. implement reference operators:
    - medial arch
    - lateral arch
    - rearfoot/forefoot wedge
-5. instantiate CAD Kernel Qualification Suite fixtures
-6. score candidate geometry stacks against P0/P1/P2 capabilities
+   - heel/wrap/camber
+   - metatarsal bar/dome
+7. execute CQ-001..CQ-012
+8. only if a concrete test fails, evaluate a second geometry library
 ```
 
-Do not start implementation by choosing a mesh or CAD library in isolation. The capability baseline is now explicit; implementation candidates must satisfy it rather than redefine it.
-
-After the common geometry baseline, continue the market audit using the EasyCAD2-derived feature matrix as a fixed comparison frame, starting with **ParoContour / DIERS**, then FitFoot360, Rodin4D/Neo, Vorum/Canfit and other relevant systems.
+Parallel research may continue with ParoContour/DIERS and other competitors, but must not derail the geometry qualification sequence.
 
 ---
 
-## 12. DONE
+## 15. DONE
 
-- [x] Broad CAD/orthosis research initiated.
-- [x] EasyCAD2 feature-by-feature first audit completed.
-- [x] EasyCAD2 Manual 1.1.x.x acquired and inspected.
-- [x] EasyCAD2 Validation Plan 1.4.x.x acquired and inspected.
-- [x] EasyCAD2 Validation Report 1.4.x.x acquired and inspected.
-- [x] 25 validation user stories integrated.
-- [x] Previous EasyCAD2 research audited for loss/coverage.
-- [x] Unified functional specification created.
-- [x] Functional specification committed to `docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md`.
-- [x] CAD engine capability specification created.
-- [x] NURBS/B-spline, B-Rep, primitives, join/sew, trim/split, booleans, offset/thicken, mesh, SubD and scan requirements classified P0/P1/P2.
-- [x] Hybrid exact/B-Rep/mesh/SubD role documented.
-- [x] CAD Kernel Qualification Suite KQ-001…KQ-015 outlined.
-- [x] Dynamic handover initialized and updated.
-- [x] BiomechE documentation method adopted as the project documentation model.
+- [x] EasyCAD2 feature-by-feature research baseline.
+- [x] EasyCAD2 manual 1.1 acquired and indexed.
+- [x] EasyCAD2 validation plan/report 1.4 acquired and integrated.
+- [x] 25/25 validation result recorded.
+- [x] Unified product functional specification.
+- [x] EasyCAD2 primary reference pack.
+- [x] Initial generic CAD capability taxonomy.
+- [x] Re-audit against actual EasyCAD2 geometry behavior.
+- [x] OpenSubdiv-first architecture adopted as baseline.
+- [x] General NURBS/B-Rep removed from P0.
+- [x] Canonical cage/operation model written.
+- [x] Provisional orthosis operator math written.
+- [x] 25-story architecture parity matrix written.
+- [x] Decision ledger updated.
+- [x] Spec index updated.
 
 ---
 
-## 13. TODO
+## 16. TODO
 
-- [ ] Finish competitor-by-competitor market research using the unified feature matrix.
+### Geometry / architecture
+
+- [ ] Freeze coordinate/registration specification.
+- [ ] Freeze Project Schema v0.
+- [ ] Design canonical cage fixture.
+- [ ] Freeze base-template specification.
+- [ ] Build OpenSubdiv proof of concept.
+- [ ] Implement and test intrinsic anatomical coordinates.
+- [ ] Implement CQ-001..CQ-012.
+- [ ] Freeze reference operator versions after fixtures.
+- [ ] Define production closure algorithms.
+- [ ] Define geometry invariants/golden fixtures.
+- [ ] Decide whether a second geometry library is actually needed.
+
+### Clinical/manufacturing
+
+- [ ] Complete corrective-element spec.
+- [ ] Complete sculpt/ROI spec.
+- [ ] Complete material/stiffness spec.
+- [ ] Complete analysis/QC/DFM spec.
+- [ ] Complete manufacturing spec.
+- [ ] Complete BiomechE integration spec.
+- [ ] Complete reporting/traceability spec.
+
+### Research
+
 - [ ] Deep audit ParoContour / DIERS.
 - [ ] Audit FitFoot360.
 - [ ] Audit Rodin4D/Neo.
 - [ ] Audit Vorum/Canfit.
-- [ ] Expand competitor list internationally.
-- [ ] Create coordinate/registration specification.
-- [ ] Create Project Schema v0.
-- [ ] Create geometry operation model.
-- [ ] Specify heel/arch/wedge mathematics.
-- [ ] Define variable thickness semantics.
-- [ ] Create actual CAD Kernel Qualification fixtures/tests.
-- [ ] Score OCCT and lighter NURBS/mesh compositions against the capability matrix.
-- [ ] Decide whether B-Rep is P0 implementation or only an interface/capability requirement.
-- [ ] Evaluate web/WASM/server portability for finalists.
-- [ ] Define material/stiffness physical model.
-- [ ] Define manufacturing/DFM profiles.
-- [ ] Define validation/golden-mesh framework.
-- [ ] Complete scientific/reference ledger.
+- [ ] Continue scientific source ledger.
 - [ ] Add regulatory/privacy analysis.
-- [ ] Re-audit this handover after every substantial new research batch.
 
 ---
 
-## 14. Handover maintenance protocol
+## 17. Handover maintenance protocol
 
-At the end of every substantial work session:
+After substantial work:
 
-1. update the relevant canonical spec/research document;
-2. record important source provenance;
-3. update DONE/TODO here;
-4. update current open questions;
-5. state the exact next restart point;
-6. audit whether a newly verified source changes an older conclusion;
-7. keep superseded source evidence rather than silently deleting it;
-8. if material compaction/deletion is desirable, explicitly review it first;
-9. do not leave a major decision only in chat — migrate it to Markdown;
-10. keep this file short enough to resume efficiently but complete enough to recover the project state.
+1. update canonical specs;
+2. preserve evidence provenance;
+3. distinguish source facts from inference/decision;
+4. update DONE/TODO;
+5. update critical open questions;
+6. state exact restart point;
+7. keep superseded architecture in Git history rather than pretending it never existed;
+8. do not leave a major decision only in chat.
