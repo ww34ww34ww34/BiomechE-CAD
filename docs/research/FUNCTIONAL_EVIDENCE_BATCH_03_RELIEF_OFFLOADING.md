@@ -2,7 +2,8 @@
 
 **Date:** 2026-08-14  
 **Status:** research input to `FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md`  
-**Architecture:** intentionally out of scope / parked.
+**Architecture:** intentionally out of scope / parked.  
+**Bibliography:** all external-source metadata is canonical in `docs/BIBLIOGRAPHY.md`.
 
 ---
 
@@ -10,7 +11,7 @@
 
 For BiomechE-CAD, a local `relief`, `aperture`, `cut-out`, `depression` or other offloading feature must not be treated as a purely geometric indentation.
 
-The literature consistently shows that plantar offloading is a **load-redistribution problem**:
+The literature consistently supports treating plantar offloading as a **load-redistribution problem** [REF-CAD-020; REF-CAD-029; REF-CAD-030]:
 
 ```text
 reduce load in target ROI
@@ -28,16 +29,7 @@ Therefore the functional specification must preserve the intent, anatomical targ
 
 ## 1.1 Systematic review evidence — apertures are useful, but not a universal recipe
 
-**Footwear and insole design features for offloading the diabetic at risk foot — systematic review and meta-analyses**  
-PMID: `33532602`  
-URL: https://pubmed.ncbi.nlm.nih.gov/33532602/
-
-Key product-relevant findings:
-
-- 54 studies were included.
-- Arch profile, metatarsal additions and pressure-informed design showed significant peak-pressure reductions in meta-analysis.
-- The review specifically reports that **apertures** can reduce plantar pressure.
-- The authors emphasize heterogeneity and recommend pressure analysis to improve and modify insole/footwear design.
+The systematic review/meta-analysis on footwear and insole features for the diabetic at-risk foot included 54 studies and reports pressure-reduction evidence for arch profile, metatarsal additions, pressure-informed design and apertures, while emphasizing heterogeneity [REF-CAD-007].
 
 **Functional implication:** support aperture/relief features, but do not encode a single geometry as universally optimal.
 
@@ -45,11 +37,7 @@ Key product-relevant findings:
 
 ## 1.2 Local pressure reduction can create adjacent overload
 
-**The effect of calcaneus and metatarsal head offloading insoles on gait and plantar pressure — pilot study, 2024**  
-PMID: `38758937`  
-URL: https://pubmed.ncbi.nlm.nih.gov/38758937/
-
-The tested offloading insoles reduced peak pressure and pressure-time integral in the target ROI, but load was transferred to surrounding regions; the authors explicitly note the potential for increased pressure-time integral in neighbouring locations.
+The 2024 pilot study on calcaneal and metatarsal-head offloading insoles found reductions in target-region peak pressure and pressure-time integral, with load transfer to surrounding regions and possible higher PTI nearby [REF-CAD-029, Abstract—Results/Conclusion; Fig. 6].
 
 **Functional implication:** every offloading evaluation must include an automatically generated **surrounding safety region** rather than reporting only the target ROI.
 
@@ -57,16 +45,7 @@ The tested offloading insoles reduced peak pressure and pressure-time integral i
 
 ## 1.3 Pressure redistribution is strongly patient-specific
 
-**Pressure relief and load redistribution by custom-made insoles in diabetic patients with neuropathy and foot deformity**  
-PMID: `15234488`  
-URL: https://pubmed.ncbi.nlm.nih.gov/15234488/
-
-In the analysed high-risk first-metatarsal-head feet:
-
-- some had substantial reduction;
-- some had intermediate reduction;
-- others did not achieve adequate offloading;
-- load was transferred toward the medial midfoot.
+Custom-made insoles in neuropathic diabetic feet showed heterogeneous individual response: in the analysed first-metatarsal-head high-risk feet, some achieved substantial offloading, some intermediate response and others inadequate response, with increased medial-midfoot loading [REF-CAD-020, Abstract—Results].
 
 **Functional implication:** a CAD feature cannot be labelled successful from geometry alone. The project model should allow post-design pressure verification and comparison.
 
@@ -74,11 +53,7 @@ In the analysed high-risk first-metatarsal-head feet:
 
 ## 1.4 Total-contact redistribution is part of the mechanism
 
-**The reduction and redistribution of plantar pressures using foot orthoses in diabetic patients**  
-PMID: `8792110`  
-URL: https://pubmed.ncbi.nlm.nih.gov/8792110/
-
-The custom orthoses in this study substantially reduced peak plantar pressure while increasing contact area.
+Kato et al. reported marked peak-pressure reduction together with increased contact area under custom orthoses [REF-CAD-030, pp. 115–118].
 
 **Functional implication:** BiomechE-CAD should track not only local peak pressure but also:
 
@@ -94,11 +69,7 @@ where the acquisition system provides them.
 
 ## 1.5 Rigid relief concepts have quantitative support
 
-**Reduction of plantar pressure with the rigid relief orthosis**  
-PMID: `8468692`  
-URL: https://pubmed.ncbi.nlm.nih.gov/8468692/
-
-The rigid relief orthosis combined a non-yielding local relief beneath a vulnerable site with total-contact fitting and showed significant pressure reduction at the first metatarsal head, with pressure changes at secondary regions as well.
+The rigid relief orthosis study combined non-yielding local relief with total-contact fitting and measured significant pressure reduction at the first metatarsal head, while also reporting pressure changes at secondary sites [REF-CAD-031, pp. 115–122].
 
 **Functional implication:** relief geometry and global supporting/contact geometry interact; a relief cannot be analysed in isolation.
 
@@ -106,16 +77,7 @@ The rigid relief orthosis combined a non-yielding local relief beneath a vulnera
 
 ## 1.6 “Donut”/ring relief is not intrinsically safe
 
-**The effect of 3 foot pads on plantar pressure of pes planus foot type**  
-PMID: `20231746`  
-DOI: `10.1123/jsr.19.1.71`  
-URL: https://pubmed.ncbi.nlm.nih.gov/20231746/
-
-In the tested group during slow running:
-
-- a metatarsal dome reduced peak and mean pressure;
-- a U-shaped pad reduced mean pressure;
-- a donut-shaped pad **increased peak plantar pressure** compared with no pad.
+In a pes-planus running study, a metatarsal dome reduced mean and peak pressure, a U-shaped pad reduced mean pressure, while a donut-shaped pad increased peak pressure compared with no pad [REF-CAD-032, pp. 71–85].
 
 **Functional implication:** BiomechE-CAD must not treat `DONUT`/ring relief as an automatically safe primitive or default prescription.
 
@@ -123,10 +85,7 @@ In the tested group during slow running:
 
 ## 1.7 Current guideline context
 
-**IWGDF Guidelines 2023 — Prevention and Offloading**  
-Official source: https://iwgdfguidelines.org/guidelines-2023/
-
-The current IWGDF framework treats offloading as an outcome that must be demonstrated in defined diabetic-foot contexts and supports therapeutic footwear/insoles as part of prevention and treatment pathways.
+The IWGDF framework treats offloading as a context-specific clinical outcome in diabetic-foot prevention/treatment pathways [GUIDE-IWGDF-2023].
 
 **Important product rule:** any numerical pressure target taken from a guideline must be attached to its population, protocol and clinical context; it must never become a global CAD threshold.
 
@@ -192,7 +151,7 @@ OffloadFeature
   algorithmVersion
 ```
 
-No parameter should silently inherit a literature-derived value as a universal default.
+No parameter should silently inherit a literature-derived value as a universal default [REF-CAD-013; REF-CAD-041; REF-CAD-042].
 
 ---
 
@@ -214,7 +173,7 @@ Optionally:
 GLOBAL FOOT MASK
 ```
 
-for detecting remote load transfer.
+for detecting remote load transfer [REF-CAD-004; REF-CAD-020; REF-CAD-029].
 
 Suggested data object:
 
@@ -248,7 +207,7 @@ OffloadAssessment
 
 A relief feature is geometrically valid when its geometry satisfies design/manufacturing constraints.
 
-A relief feature is **biomechanically verified** only when a defined measurement protocol reports the requested outcome.
+A relief feature is **biomechanically verified** only when a defined measurement protocol reports the requested outcome. Threshold literature is heterogeneous and context-dependent [REF-CAD-037; REF-CAD-038; GUIDE-IWGDF-2023].
 
 Generic acceptance structure:
 
@@ -292,6 +251,8 @@ surrounding support increase
 combination
 ```
 
+Evidence that geometry and mechanical properties can both change outcomes supports keeping them separate [REF-CAD-008; REF-CAD-009; REF-CAD-010; REF-CAD-021].
+
 Therefore the product model must keep separate:
 
 ```text
@@ -313,7 +274,7 @@ Do not implement rules like:
 
 unless a validated, population-specific model exists.
 
-Current evidence supports individual variability and redistribution effects.
+Current evidence supports individual variability and redistribution effects [REF-CAD-020; REF-CAD-029].
 
 The CAD should therefore support:
 
@@ -368,31 +329,31 @@ Width, length/radius, depth/height and edge-transition width are stored numerica
 
 ## OFF-003 — safety ring
 
-Every pressure-verification workflow automatically evaluates a surrounding region in addition to the target ROI.
+Every pressure-verification workflow automatically evaluates a surrounding region in addition to the target ROI [REF-CAD-029].
 
 ## OFF-004 — redistribution reporting
 
-The software reports whether pressure reduction in the target is accompanied by increased load in adjacent or remote regions.
+The software reports whether pressure reduction in the target is accompanied by increased load in adjacent or remote regions [REF-CAD-004; REF-CAD-020; REF-CAD-029].
 
 ## OFF-005 — no universal threshold leakage
 
-A clinical pressure threshold can only be applied when its population/protocol/evidence context is attached.
+A clinical pressure threshold can only be applied when its population/protocol/evidence context is attached [REF-CAD-037; REF-CAD-038; GUIDE-IWGDF-2023].
 
 ## OFF-006 — donut/ring not assumed beneficial
 
-No relief primitive is labelled intrinsically therapeutic or safe without measurement/context.
+No relief primitive is labelled intrinsically therapeutic or safe without measurement/context [REF-CAD-032].
 
 ## OFF-007 — geometry/material separation
 
-Changing local stiffness without changing geometry and changing geometry without changing stiffness are both independently representable.
+Changing local stiffness without changing geometry and changing geometry without changing stiffness are both independently representable [REF-CAD-009; REF-CAD-010].
 
 ## OFF-008 — manufacturing integrity
 
-A local relief cannot silently violate minimum thickness or produce a non-manufacturable region.
+A local relief cannot silently violate minimum thickness or produce a non-manufacturable region [EC2-MANUAL-1.1, pp. 52–53; EC2-VAL-PLAN-1.4, US24].
 
 ## OFF-009 — outcome traceability
 
-Measured outcome datasets identify the exact design and manufacturing revision used.
+Measured outcome datasets identify the exact design and manufacturing revision.
 
 ---
 
@@ -419,3 +380,27 @@ lower surface here
 ```
 
 This distinction should remain valid regardless of the future geometry engine.
+
+---
+
+## Bibliography links
+
+[EC2-MANUAL-1.1]: ../BIBLIOGRAPHY.md#ec2-manual-11
+[EC2-VAL-PLAN-1.4]: ../BIBLIOGRAPHY.md#ec2-val-plan-14
+[GUIDE-IWGDF-2023]: ../BIBLIOGRAPHY.md#guide-iwgdf-2023
+[REF-CAD-004]: ../BIBLIOGRAPHY.md#ref-cad-004
+[REF-CAD-007]: ../BIBLIOGRAPHY.md#ref-cad-007
+[REF-CAD-008]: ../BIBLIOGRAPHY.md#ref-cad-008
+[REF-CAD-009]: ../BIBLIOGRAPHY.md#ref-cad-009
+[REF-CAD-010]: ../BIBLIOGRAPHY.md#ref-cad-010
+[REF-CAD-013]: ../BIBLIOGRAPHY.md#ref-cad-013
+[REF-CAD-020]: ../BIBLIOGRAPHY.md#ref-cad-020
+[REF-CAD-021]: ../BIBLIOGRAPHY.md#ref-cad-021
+[REF-CAD-029]: ../BIBLIOGRAPHY.md#ref-cad-029
+[REF-CAD-030]: ../BIBLIOGRAPHY.md#ref-cad-030
+[REF-CAD-031]: ../BIBLIOGRAPHY.md#ref-cad-031
+[REF-CAD-032]: ../BIBLIOGRAPHY.md#ref-cad-032
+[REF-CAD-037]: ../BIBLIOGRAPHY.md#ref-cad-037
+[REF-CAD-038]: ../BIBLIOGRAPHY.md#ref-cad-038
+[REF-CAD-041]: ../BIBLIOGRAPHY.md#ref-cad-041
+[REF-CAD-042]: ../BIBLIOGRAPHY.md#ref-cad-042
