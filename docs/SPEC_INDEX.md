@@ -16,11 +16,13 @@ FUNCTIONALITY + EASYCAD2 PARITY + EVIDENCE
         ↓
 FUNCTIONAL SPEC v2 — CONSOLIDATED
         ↓
-PROJECT SCHEMA v0 — NEXT
+PROJECT SCHEMA v0 — ACTIVE / DONE BASELINE
         ↓
-KERNEL-INDEPENDENT ACCEPTANCE SUITE
+KERNEL-INDEPENDENT ACCEPTANCE SUITE — NEXT
         ↓
 COORDINATE / REGISTRATION FREEZE
+        ↓
+BIOMECHE INTEGRATION + REPORTING
         ↓
 ARCHITECTURE LATER
 ```
@@ -35,6 +37,7 @@ OpenSubdiv vs openNURBS/ON_SubD remains intentionally parked.
 |---|---|---|
 | [spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md](spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md) | **CANONICAL v2** | Consolidated evidence-led product scope, P0/P1/P2 priorities and cross-domain requirements after Batches 03–08 |
 | [spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md](spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md) | Historical baseline preserved | Original detailed EasyCAD2-inspired functional baseline; retained for audit/history |
+| [spec/02_project_schema.md](spec/02_project_schema.md) | **ACTIVE SCHEMA BASELINE v0** | Logical persisted contract: immutable revisions, exact definition snapshots, acquisitions, outcomes, patient experience, materials, manufacturing, physical parts, provenance and migration |
 | [spec/CAD_ENGINE_CAPABILITY_SPEC.md](spec/CAD_ENGINE_CAPABILITY_SPEC.md) | Capability baseline; architecture parked | Geometry capabilities independent from current research priority |
 | [spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md](spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md) | Current architecture-selection status | Records parked OpenSubdiv vs ON_SubD decision |
 | [spec/03_geometry_operation_model.md](spec/03_geometry_operation_model.md) | Hypothesis / not frozen | Earlier control-cage/operation-stack hypothesis |
@@ -46,6 +49,13 @@ OpenSubdiv vs openNURBS/ON_SubD remains intentionally parked.
 | [spec/10_manufacturing.md](spec/10_manufacturing.md) | **ACTIVE v0** | Manufacturing profiles/runs, AM/CNC provenance, immutable artifacts, QC/acceptance and physical-part identity |
 | [spec/13_use_case_profiles.md](spec/13_use_case_profiles.md) | **ACTIVE v0** | Evidence-context profiles, target provenance and non-transfer guards |
 | [spec/14_prom_comfort_adherence.md](spec/14_prom_comfort_adherence.md) | **ACTIVE v0** | PROM registry, pain/function/comfort/fit/satisfaction/adherence separation, wear exposure and licensing governance |
+
+## Machine-readable schema / fixtures
+
+| File | Status | Purpose |
+|---|---|---|
+| [`schemas/biomeche-cad-project-0.1.schema.json`](../schemas/biomeche-cad-project-0.1.schema.json) | **ACTIVE reference schema** | JSON Schema Draft 2020-12 envelope/common domain contract |
+| [`fixtures/project/minimal-valid-project.json`](../fixtures/project/minimal-valid-project.json) | Initial fixture | Smallest project envelope used to bootstrap schema validation |
 
 ---
 
@@ -65,7 +75,7 @@ OpenSubdiv vs openNURBS/ON_SubD remains intentionally parked.
 
 ---
 
-# Functional conclusions currently adopted
+# Functional/schema conclusions currently adopted
 
 1. EasyCAD2 is behavioral evidence, not scientific truth.
 2. External-source claims cite stable IDs from `BIBLIOGRAPHY.md` with truthful locators.
@@ -95,6 +105,13 @@ OpenSubdiv vs openNURBS/ON_SubD remains intentionally parked.
 26. CAD nominal geometry and manufactured measured geometry remain distinct.
 27. Qualified profile-defined blocking QC failures prevent validated-production status.
 28. Standards provide test/qualification semantics; they do not silently become universal clinical acceptance thresholds.
+29. Committed `DesignRevision` state is immutable; changes create successor revisions.
+30. Definition references used by committed revisions resolve exact version + hash/snapshot, never `latest` implicitly.
+31. Native semantic prescription/operations are authoritative; derived meshes are caches/artifacts, with explicit legacy-geometry mode when necessary.
+32. Raw acquisitions/assets are immutable and hash-addressable; derived transformations are separate provenance entities.
+33. A manufactured physical copy has identity separate from design revision and manufacturing artifact.
+34. Project schema is storage/container independent; JSON + JSON Schema 2020-12 is the portable reference serialization, not a database decision.
+35. Provenance is Entity/Activity/Agent-compatible; optional FHIR mappings do not replace the internal CAD domain model.
 
 ---
 
@@ -117,8 +134,8 @@ See `spec/13_use_case_profiles.md` and research Batch 06.
 
 | File | Status | Purpose |
 |---|---|---|
-| `spec/02_project_schema.md` | **NEXT** | Versioned schema including profiles, targets, PROM/adherence, materials, manufacturing, outcomes, physical artifacts, revisions and hashes |
-| `spec/01_coordinate_registration.md` | Freeze after schema/acceptance draft | Coordinate spaces, units, acquisitions and registration invariants |
+| `validation/functional_acceptance_suite.md` | **NEXT** | Cross-domain kernel-independent acceptance suite for schema + functional semantics |
+| `spec/01_coordinate_registration.md` | Freeze after acceptance draft | Coordinate spaces, units, acquisitions and registration invariants |
 | `spec/07_sculpt_and_roi_deformation.md` | Planned | Local authoring semantics and ROI provenance |
 | `spec/11_biomeche_integration.md` | Planned | Quantitative pressure bridge and pre/post outcome loop |
 | `spec/12_reporting_traceability.md` | Planned | Prescription/design/manufacturing/outcome reports |
@@ -127,8 +144,8 @@ See `spec/13_use_case_profiles.md` and research Batch 06.
 
 # Research / specification queue — NEXT
 
-1. **Create `spec/02_project_schema.md` v0** from the consolidated v2 domain model.
-2. Derive a kernel-independent functional acceptance suite from `OFF / CE / ARCH / HEEL / PROF / PROM / MAT / MAN` plus project/registration/history invariants.
+1. **Create kernel-independent functional acceptance suite** joining `SCHEMA / OFF / CE / ARCH / HEEL / PROF / PROM / MAT / MAN` plus EasyCAD parity invariants.
+2. Add richer Project Schema fixtures: bilateral; pressure→design→outcome; manufacturing→QC lineage.
 3. Freeze `spec/01_coordinate_registration.md` before geometry implementation.
 4. Define `spec/11_biomeche_integration.md` and `spec/12_reporting_traceability.md`.
 5. Competitor functional gap audit can proceed in parallel.
@@ -143,6 +160,7 @@ See `spec/13_use_case_profiles.md` and research Batch 06.
 | File | Status | Purpose |
 |---|---|---|
 | [validation/easycad2_geometry_parity.md](validation/easycad2_geometry_parity.md) | Existing behavioral coverage record | 25 EasyCAD user stories; not a frozen engine choice |
+| `validation/functional_acceptance_suite.md` | **NEXT** | Normative cross-domain functional/schema acceptance map |
 | `validation_strategy.md` | Planned | Validation hierarchy |
 | `geometry_invariants.md` | Planned | Numerical invariants |
 | `golden_geometry.md` | Planned | Golden fixtures / regression |
@@ -160,8 +178,9 @@ See `spec/13_use_case_profiles.md` and research Batch 06.
 6. Model/FE evidence remains explicitly model-based.
 7. Every P0 feature/profile eventually needs an acceptance criterion.
 8. PROM/instrument definitions preserve exact version/language and licensing status.
-9. Standards abstracts/scopes support high-level test semantics; claiming full standard compliance requires controlled access and applicability review.
+9. Standards abstracts/scopes support high-level semantics; claiming full standard compliance requires controlled access and applicability review.
 10. A test standard does not by itself define a universal product acceptance limit.
-11. Update `RESUME_HERE.md` after substantial work.
-12. Preserve superseded architecture/history in Git.
-13. Do not redistribute third-party EasyCAD PDFs/screenshots or questionnaire content publicly without rights clearance.
+11. Project Schema standards constrain representation/provenance; they do not redefine clinical requirements.
+12. Update `RESUME_HERE.md` after substantial work.
+13. Preserve superseded architecture/history in Git.
+14. Do not redistribute third-party EasyCAD PDFs/screenshots or questionnaire content publicly without rights clearance.
