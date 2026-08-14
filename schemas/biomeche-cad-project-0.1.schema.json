@@ -1,0 +1,728 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.biomeche.invalid/cad/biomeche-cad-project-0.1.schema.json",
+  "title": "BiomechE-CAD Project Manifest 0.1",
+  "description": "Reference serialization envelope for the BiomechE-CAD evidence-led project schema. Markdown semantic authority: docs/spec/02_project_schema.md.",
+  "type": "object",
+  "required": [
+    "schemaId",
+    "schemaVersion",
+    "projectId",
+    "projectCreatedAt",
+    "projectUpdatedAt",
+    "projectStatus",
+    "patientLink",
+    "case",
+    "orthosisProjects",
+    "definitions",
+    "assets",
+    "acquisitions",
+    "registrations",
+    "landmarkSets",
+    "roiDefinitions",
+    "designRevisions",
+    "outcomeTargets",
+    "outcomeMeasurements",
+    "outcomeComparisons",
+    "materialLots",
+    "mechanicalPropertyMeasurements",
+    "durabilityTests",
+    "manufacturingRuns",
+    "manufacturingArtifacts",
+    "physicalOrthoses",
+    "qcMeasurements",
+    "serviceStates",
+    "provenanceRecords",
+    "auditEvents",
+    "migrationHistory",
+    "packageValidation"
+  ],
+  "properties": {
+    "schemaId": { "const": "biomeche-cad-project" },
+    "schemaVersion": { "const": "0.1" },
+    "projectId": { "$ref": "#/$defs/id" },
+    "projectCreatedAt": { "$ref": "#/$defs/timestamp" },
+    "projectUpdatedAt": { "$ref": "#/$defs/timestamp" },
+    "projectStatus": {
+      "type": "string",
+      "enum": ["ACTIVE", "ARCHIVED", "CLOSED", "IMPORTED", "UNKNOWN"]
+    },
+    "patientLink": { "$ref": "#/$defs/patientLink" },
+    "case": { "$ref": "#/$defs/case" },
+    "orthosisProjects": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/orthosisProject" },
+      "maxItems": 2
+    },
+    "definitions": { "$ref": "#/$defs/projectDefinitions" },
+    "assets": { "type": "array", "items": { "$ref": "#/$defs/assetDescriptor" } },
+    "acquisitions": { "type": "array", "items": { "$ref": "#/$defs/acquisition" } },
+    "registrations": { "type": "array", "items": { "$ref": "#/$defs/registration" } },
+    "landmarkSets": { "type": "array", "items": { "$ref": "#/$defs/landmarkSet" } },
+    "roiDefinitions": { "type": "array", "items": { "$ref": "#/$defs/roiDefinition" } },
+    "designRevisions": { "type": "array", "items": { "$ref": "#/$defs/designRevision" } },
+    "outcomeTargets": { "type": "array", "items": { "$ref": "#/$defs/outcomeTarget" } },
+    "outcomeMeasurements": { "type": "array", "items": { "$ref": "#/$defs/outcomeMeasurement" } },
+    "outcomeComparisons": { "type": "array", "items": { "$ref": "#/$defs/outcomeComparison" } },
+    "materialLots": { "type": "array", "items": { "$ref": "#/$defs/materialLot" } },
+    "mechanicalPropertyMeasurements": { "type": "array", "items": { "$ref": "#/$defs/mechanicalPropertyMeasurement" } },
+    "durabilityTests": { "type": "array", "items": { "$ref": "#/$defs/durabilityTest" } },
+    "manufacturingRuns": { "type": "array", "items": { "$ref": "#/$defs/manufacturingRun" } },
+    "manufacturingArtifacts": { "type": "array", "items": { "$ref": "#/$defs/manufacturingArtifact" } },
+    "physicalOrthoses": { "type": "array", "items": { "$ref": "#/$defs/physicalOrthosis" } },
+    "qcMeasurements": { "type": "array", "items": { "$ref": "#/$defs/qcMeasurement" } },
+    "serviceStates": { "type": "array", "items": { "$ref": "#/$defs/serviceState" } },
+    "provenanceRecords": { "type": "array", "items": { "$ref": "#/$defs/provenanceRecord" } },
+    "auditEvents": { "type": "array", "items": { "$ref": "#/$defs/auditEvent" } },
+    "migrationHistory": { "type": "array", "items": { "$ref": "#/$defs/migrationRecord" } },
+    "packageValidation": { "$ref": "#/$defs/packageValidation" },
+    "extensions": { "type": "object", "additionalProperties": true }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Opaque persistent internal ID. UUIDv7 is preferred for newly generated IDs, but imported IDs may be retained where explicitly supported."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "side": {
+      "type": "string",
+      "enum": ["LEFT", "RIGHT"]
+    },
+    "hashValue": {
+      "type": "object",
+      "required": ["algorithm", "value"],
+      "properties": {
+        "algorithm": { "type": "string", "enum": ["sha256"] },
+        "value": { "type": "string", "minLength": 32 }
+      },
+      "additionalProperties": false
+    },
+    "externalIdentifier": {
+      "type": "object",
+      "required": ["system", "value"],
+      "properties": {
+        "system": { "type": "string", "minLength": 1 },
+        "value": { "type": "string", "minLength": 1 },
+        "type": { "type": "string" },
+        "issuer": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "agentRef": {
+      "type": "object",
+      "required": ["agentType", "id"],
+      "properties": {
+        "agentType": {
+          "type": "string",
+          "enum": ["PERSON", "ORGANIZATION", "DEVICE", "SOFTWARE", "SYSTEM"]
+        },
+        "id": { "$ref": "#/$defs/id" },
+        "displayName": { "type": "string" },
+        "externalIdentifiers": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/externalIdentifier" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "versionedRef": {
+      "type": "object",
+      "required": ["entityType", "id", "version"],
+      "properties": {
+        "entityType": { "type": "string", "minLength": 1 },
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "contentHash": { "$ref": "#/$defs/hashValue" },
+        "registryUri": { "type": "string" },
+        "snapshotRef": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": false
+    },
+    "evidenceRef": {
+      "type": "object",
+      "required": ["sourceId"],
+      "properties": {
+        "sourceId": { "type": "string", "minLength": 1 },
+        "locator": { "type": "string" },
+        "claimContext": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "quantity": {
+      "type": "object",
+      "required": ["value", "unit"],
+      "properties": {
+        "value": { "type": "number" },
+        "unit": { "type": "string", "minLength": 1 },
+        "unitCode": { "type": "string" },
+        "unitSystem": { "type": "string" },
+        "comparator": { "type": "string", "enum": ["<", "<=", ">=", ">"] }
+      },
+      "additionalProperties": false
+    },
+    "algorithmRef": {
+      "type": "object",
+      "required": ["algorithmId", "semanticVersion"],
+      "properties": {
+        "algorithmId": { "type": "string", "minLength": 1 },
+        "semanticVersion": { "type": "string", "minLength": 1 },
+        "buildHash": { "$ref": "#/$defs/hashValue" },
+        "parametersSchemaVersion": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "softwareBuildRef": {
+      "type": "object",
+      "required": ["product", "version"],
+      "properties": {
+        "product": { "type": "string" },
+        "version": { "type": "string" },
+        "commitHash": { "type": "string" },
+        "buildId": { "type": "string" },
+        "platform": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "assetDescriptor": {
+      "type": "object",
+      "required": ["assetId", "role", "mediaType", "byteLength", "hash", "storageRef", "createdAt", "availability"],
+      "properties": {
+        "assetId": { "$ref": "#/$defs/id" },
+        "role": { "type": "string", "minLength": 1 },
+        "mediaType": { "type": "string", "minLength": 1 },
+        "byteLength": { "type": "integer", "minimum": 0 },
+        "hash": { "$ref": "#/$defs/hashValue" },
+        "originalFileName": { "type": "string" },
+        "originalSourceUri": { "type": "string" },
+        "storageRef": { "type": "string", "minLength": 1 },
+        "createdAt": { "$ref": "#/$defs/timestamp" },
+        "sourceAssetIds": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "provenanceRecordId": { "$ref": "#/$defs/id" },
+        "availability": {
+          "type": "string",
+          "enum": ["EMBEDDED", "LOCAL_EXTERNAL", "REMOTE_EXTERNAL", "MISSING"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "patientLink": {
+      "type": "object",
+      "required": ["projectPatientId", "externalIdentifiers", "privacyClass"],
+      "properties": {
+        "projectPatientId": { "$ref": "#/$defs/id" },
+        "externalIdentifiers": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/externalIdentifier" }
+        },
+        "demographicsSnapshot": { "type": "object", "additionalProperties": true },
+        "privacyClass": {
+          "type": "string",
+          "enum": ["FULL_CLINICAL", "PSEUDONYMIZED", "MANUFACTURING_MINIMUM"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "case": {
+      "type": "object",
+      "required": ["caseId", "externalIdentifiers", "openedAt", "clinicianRefs", "attachedProfileRefs", "sourceAcquisitionIds", "notes"],
+      "properties": {
+        "caseId": { "$ref": "#/$defs/id" },
+        "externalIdentifiers": { "type": "array", "items": { "$ref": "#/$defs/externalIdentifier" } },
+        "openedAt": { "$ref": "#/$defs/timestamp" },
+        "closedAt": { "$ref": "#/$defs/timestamp" },
+        "clinicianRefs": { "type": "array", "items": { "$ref": "#/$defs/agentRef" } },
+        "clinicalIntentText": { "type": "string" },
+        "clinicalContextRefs": { "type": "array", "items": { "type": "string" } },
+        "attachedProfileRefs": { "type": "array", "items": { "$ref": "#/$defs/versionedRef" } },
+        "activeInterpretationProfileRef": { "$ref": "#/$defs/versionedRef" },
+        "sourceAcquisitionIds": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "orthosisProject": {
+      "type": "object",
+      "required": ["orthosisProjectId", "caseId", "side", "status"],
+      "properties": {
+        "orthosisProjectId": { "$ref": "#/$defs/id" },
+        "caseId": { "$ref": "#/$defs/id" },
+        "side": { "$ref": "#/$defs/side" },
+        "externalIdentifiers": { "type": "array", "items": { "$ref": "#/$defs/externalIdentifier" } },
+        "currentDesignRevisionId": { "$ref": "#/$defs/id" },
+        "status": { "type": "string", "enum": ["ACTIVE", "ARCHIVED", "CLOSED", "UNKNOWN"] }
+      },
+      "additionalProperties": false
+    },
+    "definitionHeader": {
+      "type": "object",
+      "required": ["id", "version", "displayName", "status", "contentHash"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string" },
+        "displayName": { "type": "string" },
+        "status": { "type": "string" },
+        "contentHash": { "$ref": "#/$defs/hashValue" },
+        "sourceRegistryUri": { "type": "string" },
+        "capturedAt": { "$ref": "#/$defs/timestamp" },
+        "evidenceRefs": { "type": "array", "items": { "$ref": "#/$defs/evidenceRef" } },
+        "payload": { "type": "object", "additionalProperties": true }
+      },
+      "additionalProperties": false
+    },
+    "projectDefinitions": {
+      "type": "object",
+      "required": ["baseTemplates", "indicationProfiles", "presetDefinitions", "materialDefinitions", "promInstrumentDefinitions", "manufacturingProfiles"],
+      "properties": {
+        "baseTemplates": { "type": "array", "items": { "$ref": "#/$defs/definitionHeader" } },
+        "indicationProfiles": { "type": "array", "items": { "$ref": "#/$defs/definitionHeader" } },
+        "presetDefinitions": { "type": "array", "items": { "$ref": "#/$defs/definitionHeader" } },
+        "materialDefinitions": { "type": "array", "items": { "$ref": "#/$defs/definitionHeader" } },
+        "promInstrumentDefinitions": { "type": "array", "items": { "$ref": "#/$defs/definitionHeader" } },
+        "manufacturingProfiles": { "type": "array", "items": { "$ref": "#/$defs/definitionHeader" } },
+        "algorithmDefinitions": { "type": "array", "items": { "$ref": "#/$defs/definitionHeader" } }
+      },
+      "additionalProperties": false
+    },
+    "frameDefinition": {
+      "type": "object",
+      "required": ["frameId", "frameType", "units", "conventionVersion"],
+      "properties": {
+        "frameId": { "$ref": "#/$defs/id" },
+        "frameType": { "type": "string" },
+        "side": { "$ref": "#/$defs/side" },
+        "units": { "type": "string" },
+        "conventionVersion": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "landmarkSet": {
+      "type": "object",
+      "required": ["landmarkSetId", "version", "frameId", "side", "landmarks"],
+      "properties": {
+        "landmarkSetId": { "$ref": "#/$defs/id" },
+        "version": { "type": "string" },
+        "frameId": { "$ref": "#/$defs/id" },
+        "side": { "$ref": "#/$defs/side" },
+        "sourceAcquisitionId": { "$ref": "#/$defs/id" },
+        "landmarks": { "type": "array", "items": { "type": "object", "additionalProperties": true } }
+      },
+      "additionalProperties": false
+    },
+    "registration": {
+      "type": "object",
+      "required": ["registrationId", "sourceFrameId", "targetFrameId", "transformType", "transformData", "method", "qualityState", "createdAt", "createdBy", "provenanceRecordId"],
+      "properties": {
+        "registrationId": { "$ref": "#/$defs/id" },
+        "sourceFrameId": { "$ref": "#/$defs/id" },
+        "targetFrameId": { "$ref": "#/$defs/id" },
+        "transformType": { "type": "string", "enum": ["RIGID_3D", "SIMILARITY_3D", "AFFINE_2D", "RIGID_2D", "OTHER"] },
+        "transformData": { "type": "object", "additionalProperties": true },
+        "method": { "type": "string" },
+        "landmarkCorrespondenceRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "algorithmRef": { "$ref": "#/$defs/algorithmRef" },
+        "errorMetrics": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "qualityState": { "type": "string" },
+        "createdAt": { "$ref": "#/$defs/timestamp" },
+        "createdBy": { "$ref": "#/$defs/agentRef" },
+        "provenanceRecordId": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": false
+    },
+    "roiDefinition": {
+      "type": "object",
+      "required": ["roiId", "version", "displayName", "side", "roiType", "frameId"],
+      "properties": {
+        "roiId": { "$ref": "#/$defs/id" },
+        "version": { "type": "string" },
+        "displayName": { "type": "string" },
+        "side": { "$ref": "#/$defs/side" },
+        "roiType": { "type": "string" },
+        "semanticRegion": { "type": "string" },
+        "frameId": { "$ref": "#/$defs/id" },
+        "geometryOrMaskAssetRef": { "$ref": "#/$defs/id" },
+        "generationParameters": { "type": "object", "additionalProperties": true },
+        "sourceRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "algorithmRef": { "$ref": "#/$defs/algorithmRef" },
+        "evidenceRefs": { "type": "array", "items": { "$ref": "#/$defs/evidenceRef" } }
+      },
+      "additionalProperties": false
+    },
+    "acquisition": {
+      "type": "object",
+      "required": ["acquisitionId", "acquisitionType", "caseRef", "side", "capturedAt", "importedAt", "rawAssetRefs", "units", "sourceFrameRef", "protocol", "qualityFlags", "provenanceRecordId"],
+      "properties": {
+        "acquisitionId": { "$ref": "#/$defs/id" },
+        "acquisitionType": { "type": "string", "enum": ["PRESSURE", "SCAN_3D", "SCAN_2D", "IMAGE_2D", "REFERENCE_MESH", "BIOMECHE_RESULT"] },
+        "caseRef": { "$ref": "#/$defs/id" },
+        "side": { "$ref": "#/$defs/side" },
+        "capturedAt": { "$ref": "#/$defs/timestamp" },
+        "importedAt": { "$ref": "#/$defs/timestamp" },
+        "operatorRef": { "$ref": "#/$defs/agentRef" },
+        "deviceRef": { "$ref": "#/$defs/agentRef" },
+        "rawAssetRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "units": { "type": "string" },
+        "sourceFrameRef": { "$ref": "#/$defs/id" },
+        "protocol": { "type": "object", "additionalProperties": true },
+        "qualityFlags": { "type": "array", "items": { "type": "string" } },
+        "provenanceRecordId": { "$ref": "#/$defs/id" },
+        "payload": { "type": "object", "additionalProperties": true }
+      },
+      "additionalProperties": false
+    },
+    "designOperation": {
+      "type": "object",
+      "required": ["operationId", "operationType", "operationOrder", "enabled", "side", "parameters", "algorithmRef", "authorRef", "createdAt"],
+      "properties": {
+        "operationId": { "$ref": "#/$defs/id" },
+        "operationType": { "type": "string", "enum": ["TEMPLATE_MORPH", "THICKNESS", "FLATTEN", "HEEL_CUP", "HEEL_RELIEF", "HEEL_CAMBER", "MEDIAL_ARCH", "LATERAL_ARCH", "REARFOOT_WEDGE", "FOREFOOT_WEDGE", "CORRECTIVE_ELEMENT", "OFFLOAD_FEATURE", "SCULPT", "SMOOTH", "SCAN_CONFORM", "HEIGHT_CONSTRAINT"] },
+        "operationOrder": { "type": "integer", "minimum": 0 },
+        "enabled": { "type": "boolean" },
+        "side": { "$ref": "#/$defs/side" },
+        "anatomicalRegionRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "roiRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "landmarkRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "parameters": { "type": "object", "additionalProperties": true },
+        "intendedEffect": { "type": "string" },
+        "sourceAcquisitionRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "evidenceRefs": { "type": "array", "items": { "$ref": "#/$defs/evidenceRef" } },
+        "sourcePresetRef": { "$ref": "#/$defs/versionedRef" },
+        "algorithmRef": { "$ref": "#/$defs/algorithmRef" },
+        "authorRef": { "$ref": "#/$defs/agentRef" },
+        "createdAt": { "$ref": "#/$defs/timestamp" }
+      },
+      "additionalProperties": false
+    },
+    "designRevision": {
+      "type": "object",
+      "required": ["revisionId", "orthosisProjectId", "side", "parentRevisionIds", "createdAt", "authorRef", "authorityMode", "baseTemplateRef", "sourceAcquisitionRefs", "registrationRefs", "attachedProfileRefs", "operationStack", "materialPrescription", "derivedGeometryRefs", "designMetrics", "validationSummary", "algorithmBundleRefs", "contentHash", "provenanceRecordId"],
+      "properties": {
+        "revisionId": { "$ref": "#/$defs/id" },
+        "orthosisProjectId": { "$ref": "#/$defs/id" },
+        "side": { "$ref": "#/$defs/side" },
+        "parentRevisionIds": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "createdAt": { "$ref": "#/$defs/timestamp" },
+        "authorRef": { "$ref": "#/$defs/agentRef" },
+        "rationale": { "type": "string" },
+        "revisionLabel": { "type": "string" },
+        "authorityMode": { "type": "string", "enum": ["SEMANTIC_PARAMETRIC", "IMPORTED_LEGACY_GEOMETRY"] },
+        "baseTemplateRef": { "$ref": "#/$defs/versionedRef" },
+        "sourceAcquisitionRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "registrationRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "attachedProfileRefs": { "type": "array", "items": { "$ref": "#/$defs/versionedRef" } },
+        "activeInterpretationProfileRef": { "$ref": "#/$defs/versionedRef" },
+        "operationStack": { "type": "array", "items": { "$ref": "#/$defs/designOperation" } },
+        "materialPrescription": { "type": "object", "additionalProperties": true },
+        "derivedGeometryRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "designMetrics": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "validationSummary": { "type": "object", "additionalProperties": true },
+        "algorithmBundleRefs": { "type": "array", "items": { "$ref": "#/$defs/algorithmRef" } },
+        "contentHash": { "$ref": "#/$defs/hashValue" },
+        "provenanceRecordId": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": false
+    },
+    "outcomeTarget": {
+      "type": "object",
+      "required": ["targetId", "caseId", "targetType", "metric", "roiRef", "criterion", "evidenceRefs", "evidenceConfidence", "createdAt", "createdBy"],
+      "properties": {
+        "targetId": { "$ref": "#/$defs/id" },
+        "caseId": { "$ref": "#/$defs/id" },
+        "orthosisProjectId": { "$ref": "#/$defs/id" },
+        "sourceProfileRef": { "$ref": "#/$defs/versionedRef" },
+        "targetType": { "type": "string" },
+        "metric": { "type": "string" },
+        "roiRef": { "$ref": "#/$defs/id" },
+        "criterion": { "type": "string" },
+        "quantity": { "$ref": "#/$defs/quantity" },
+        "range": { "type": "object", "additionalProperties": true },
+        "acquisitionProtocolRef": { "type": "string" },
+        "evidenceRefs": { "type": "array", "items": { "$ref": "#/$defs/evidenceRef" } },
+        "evidenceConfidence": { "type": "string" },
+        "createdAt": { "$ref": "#/$defs/timestamp" },
+        "createdBy": { "$ref": "#/$defs/agentRef" },
+        "copiedFromCanonicalTargetHash": { "$ref": "#/$defs/hashValue" }
+      },
+      "additionalProperties": false
+    },
+    "outcomeMeasurement": {
+      "type": "object",
+      "required": ["measurementId", "measurementKind", "caseId", "orthosisProjectId", "side", "designRevisionId", "metric", "units", "computationDefinition", "timestamp", "protocolRef", "qualityState", "provenanceRecordId"],
+      "properties": {
+        "measurementId": { "$ref": "#/$defs/id" },
+        "measurementKind": { "type": "string", "enum": ["MEASURED", "PREDICTED"] },
+        "caseId": { "$ref": "#/$defs/id" },
+        "orthosisProjectId": { "$ref": "#/$defs/id" },
+        "side": { "$ref": "#/$defs/side" },
+        "designRevisionId": { "$ref": "#/$defs/id" },
+        "physicalOrthosisId": { "$ref": "#/$defs/id" },
+        "acquisitionId": { "$ref": "#/$defs/id" },
+        "metric": { "type": "string" },
+        "roiRef": { "$ref": "#/$defs/id" },
+        "value": { "type": "number" },
+        "seriesRef": { "$ref": "#/$defs/id" },
+        "units": { "type": "string" },
+        "computationDefinition": { "type": "string" },
+        "timestamp": { "$ref": "#/$defs/timestamp" },
+        "protocolRef": { "type": "string" },
+        "qualityState": { "type": "string" },
+        "algorithmRef": { "$ref": "#/$defs/algorithmRef" },
+        "predictionModelRef": { "$ref": "#/$defs/versionedRef" },
+        "uncertainty": { "type": "object", "additionalProperties": true },
+        "provenanceRecordId": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": false
+    },
+    "outcomeComparison": {
+      "type": "object",
+      "required": ["comparisonId", "baselineMeasurementRefs", "outcomeMeasurementRefs", "compatibilityState", "compatibilityWarnings", "deltas", "algorithmRef", "createdAt"],
+      "properties": {
+        "comparisonId": { "$ref": "#/$defs/id" },
+        "baselineMeasurementRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "outcomeMeasurementRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "metricRoiMappings": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "compatibilityState": { "type": "string", "enum": ["VALID", "VALID_WITH_WARNINGS", "NOT_COMPARABLE", "INSUFFICIENT_DATA"] },
+        "compatibilityWarnings": { "type": "array", "items": { "type": "string" } },
+        "deltas": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "algorithmRef": { "$ref": "#/$defs/algorithmRef" },
+        "createdAt": { "$ref": "#/$defs/timestamp" }
+      },
+      "additionalProperties": false
+    },
+    "materialLot": {
+      "type": "object",
+      "required": ["lotId", "materialRef"],
+      "properties": {
+        "lotId": { "$ref": "#/$defs/id" },
+        "materialRef": { "$ref": "#/$defs/versionedRef" },
+        "supplierLot": { "type": "string" },
+        "manufactureDate": { "type": "string", "format": "date" },
+        "expiryDate": { "type": "string", "format": "date" },
+        "receivedDate": { "type": "string", "format": "date" },
+        "storageConditions": { "type": "string" },
+        "certificateRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "incomingMeasurements": { "type": "array", "items": { "$ref": "#/$defs/id" } }
+      },
+      "additionalProperties": false
+    },
+    "mechanicalPropertyMeasurement": {
+      "type": "object",
+      "required": ["measurementId", "propertyType", "units", "sourceType", "testMethod", "timestamp", "dataQuality"],
+      "properties": {
+        "measurementId": { "$ref": "#/$defs/id" },
+        "propertyType": { "type": "string" },
+        "value": { "type": "number" },
+        "curveRef": { "$ref": "#/$defs/id" },
+        "units": { "type": "string" },
+        "sourceType": { "type": "string", "enum": ["SUPPLIER_NOMINAL", "INCOMING_QC", "COUPON_TEST", "FINAL_PART_TEST", "SERVICE_STATE_TEST", "MODELLED", "ESTIMATED"] },
+        "testMethod": { "type": "string" },
+        "testStandard": { "type": "string" },
+        "instrument": { "type": "string" },
+        "specimenGeometry": { "type": "object", "additionalProperties": true },
+        "specimenThickness": { "$ref": "#/$defs/quantity" },
+        "locationRegionRef": { "$ref": "#/$defs/id" },
+        "temperature": { "$ref": "#/$defs/quantity" },
+        "humidity": { "$ref": "#/$defs/quantity" },
+        "conditioning": { "type": "string" },
+        "timestamp": { "$ref": "#/$defs/timestamp" },
+        "operatorRef": { "$ref": "#/$defs/agentRef" },
+        "dataQuality": { "type": "string" },
+        "sourceRefs": { "type": "array", "items": { "$ref": "#/$defs/evidenceRef" } }
+      },
+      "additionalProperties": false
+    },
+    "durabilityTest": {
+      "type": "object",
+      "required": ["testId", "specimenOrArtifactId", "testType", "cycleCount", "environment", "initialMeasurements", "intervalMeasurements", "finalMeasurements", "result"],
+      "properties": {
+        "testId": { "$ref": "#/$defs/id" },
+        "specimenOrArtifactId": { "$ref": "#/$defs/id" },
+        "testType": { "type": "string" },
+        "cycleCount": { "type": "integer", "minimum": 0 },
+        "loadStrainProfile": { "type": "object", "additionalProperties": true },
+        "frequency": { "$ref": "#/$defs/quantity" },
+        "environment": { "type": "object", "additionalProperties": true },
+        "initialMeasurements": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "intervalMeasurements": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "finalMeasurements": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "acceptanceRuleRef": { "type": "string" },
+        "result": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "manufacturingRun": {
+      "type": "object",
+      "required": ["runId", "manufacturingProfileRef", "designRevisionId", "machineId", "startTime", "materialLots", "processParameters", "generatedArtifacts", "logRefs", "warnings"],
+      "properties": {
+        "runId": { "$ref": "#/$defs/id" },
+        "manufacturingProfileRef": { "$ref": "#/$defs/versionedRef" },
+        "designRevisionId": { "$ref": "#/$defs/id" },
+        "manufacturingGeometryRevisionId": { "$ref": "#/$defs/id" },
+        "machineId": { "type": "string" },
+        "machineModel": { "type": "string" },
+        "machineStateRef": { "$ref": "#/$defs/id" },
+        "operatorRef": { "$ref": "#/$defs/agentRef" },
+        "startTime": { "$ref": "#/$defs/timestamp" },
+        "endTime": { "$ref": "#/$defs/timestamp" },
+        "materialLots": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "processParameters": { "type": "object", "additionalProperties": true },
+        "environment": { "type": "object", "additionalProperties": true },
+        "generatedArtifacts": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "logRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "manufacturingArtifact": {
+      "type": "object",
+      "required": ["artifactId", "designRevisionId", "manufacturingRunId", "side", "artifactType", "assetRef", "generatedAt", "generatorVersion", "profileRevision", "validationState"],
+      "properties": {
+        "artifactId": { "$ref": "#/$defs/id" },
+        "designRevisionId": { "$ref": "#/$defs/id" },
+        "manufacturingRunId": { "$ref": "#/$defs/id" },
+        "side": { "$ref": "#/$defs/side" },
+        "artifactType": { "type": "string" },
+        "assetRef": { "$ref": "#/$defs/id" },
+        "generatedAt": { "$ref": "#/$defs/timestamp" },
+        "generatorVersion": { "type": "string" },
+        "profileRevision": { "type": "string" },
+        "validationState": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "physicalOrthosis": {
+      "type": "object",
+      "required": ["physicalPartId", "orthosisProjectId", "side", "designRevisionId", "manufacturingRunId", "manufacturingArtifactId", "materialLotRefs", "manufacturedAt", "lifecycleState", "qcSummary"],
+      "properties": {
+        "physicalPartId": { "$ref": "#/$defs/id" },
+        "orthosisProjectId": { "$ref": "#/$defs/id" },
+        "side": { "$ref": "#/$defs/side" },
+        "designRevisionId": { "$ref": "#/$defs/id" },
+        "manufacturingRunId": { "$ref": "#/$defs/id" },
+        "manufacturingArtifactId": { "$ref": "#/$defs/id" },
+        "materialLotRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "manufacturedAt": { "$ref": "#/$defs/timestamp" },
+        "acceptedAt": { "$ref": "#/$defs/timestamp" },
+        "issuedAt": { "$ref": "#/$defs/timestamp" },
+        "serialOrHumanReadableId": { "type": "string" },
+        "lifecycleState": { "type": "string" },
+        "qcSummary": { "type": "object", "additionalProperties": true },
+        "currentServiceStateId": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": false
+    },
+    "qcMeasurement": {
+      "type": "object",
+      "required": ["measurementId", "artifactId", "requirementId", "units", "method", "timestamp", "result"],
+      "properties": {
+        "measurementId": { "$ref": "#/$defs/id" },
+        "artifactId": { "$ref": "#/$defs/id" },
+        "requirementId": { "type": "string" },
+        "value": { "type": "number" },
+        "dataRef": { "$ref": "#/$defs/id" },
+        "units": { "type": "string" },
+        "method": { "type": "string" },
+        "instrumentId": { "type": "string" },
+        "calibrationRef": { "$ref": "#/$defs/id" },
+        "operatorRef": { "$ref": "#/$defs/agentRef" },
+        "timestamp": { "$ref": "#/$defs/timestamp" },
+        "environment": { "type": "object", "additionalProperties": true },
+        "uncertainty": { "type": "object", "additionalProperties": true },
+        "result": { "type": "string", "enum": ["PASS", "FAIL", "INDETERMINATE"] }
+      },
+      "additionalProperties": false
+    },
+    "serviceState": {
+      "type": "object",
+      "required": ["serviceStateId", "physicalPartId", "timestamp", "wearObservations", "thicknessMeasurements", "mechanicalMeasurementRefs", "disposition"],
+      "properties": {
+        "serviceStateId": { "$ref": "#/$defs/id" },
+        "physicalPartId": { "$ref": "#/$defs/id" },
+        "timestamp": { "$ref": "#/$defs/timestamp" },
+        "estimatedCalendarAge": { "$ref": "#/$defs/quantity" },
+        "estimatedWearTime": { "$ref": "#/$defs/quantity" },
+        "estimatedWeightBearingExposure": { "$ref": "#/$defs/quantity" },
+        "estimatedCycles": { "type": "integer", "minimum": 0 },
+        "wearObservations": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "thicknessMeasurements": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "mechanicalMeasurementRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "pressureVerificationRef": { "$ref": "#/$defs/id" },
+        "patientExperienceBundleRef": { "$ref": "#/$defs/id" },
+        "disposition": { "type": "string", "enum": ["CONTINUE", "RECHECK", "REPLACE", "UNKNOWN"] }
+      },
+      "additionalProperties": false
+    },
+    "provenanceRecord": {
+      "type": "object",
+      "required": ["provenanceId", "activityType", "inputEntityRefs", "outputEntityRefs", "recordedAt", "agentRefs", "softwareBuildRefs"],
+      "properties": {
+        "provenanceId": { "$ref": "#/$defs/id" },
+        "activityType": { "type": "string" },
+        "inputEntityRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "outputEntityRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "startedAt": { "$ref": "#/$defs/timestamp" },
+        "endedAt": { "$ref": "#/$defs/timestamp" },
+        "recordedAt": { "$ref": "#/$defs/timestamp" },
+        "agentRefs": { "type": "array", "items": { "$ref": "#/$defs/agentRef" } },
+        "softwareBuildRefs": { "type": "array", "items": { "$ref": "#/$defs/softwareBuildRef" } },
+        "deviceRefs": { "type": "array", "items": { "$ref": "#/$defs/agentRef" } },
+        "algorithmRefs": { "type": "array", "items": { "$ref": "#/$defs/algorithmRef" } },
+        "profileRefs": { "type": "array", "items": { "$ref": "#/$defs/versionedRef" } },
+        "evidenceRefs": { "type": "array", "items": { "$ref": "#/$defs/evidenceRef" } },
+        "rationale": { "type": "string" },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "auditEvent": {
+      "type": "object",
+      "required": ["auditEventId", "eventType", "timestamp", "actorRef", "targetRefs", "outcome", "softwareBuildRef"],
+      "properties": {
+        "auditEventId": { "$ref": "#/$defs/id" },
+        "eventType": { "type": "string" },
+        "timestamp": { "$ref": "#/$defs/timestamp" },
+        "actorRef": { "$ref": "#/$defs/agentRef" },
+        "targetRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+        "outcome": { "type": "string" },
+        "rationale": { "type": "string" },
+        "softwareBuildRef": { "$ref": "#/$defs/softwareBuildRef" }
+      },
+      "additionalProperties": false
+    },
+    "migrationRecord": {
+      "type": "object",
+      "required": ["migrationId", "fromSchemaVersion", "toSchemaVersion", "migrationTool", "migrationAlgorithmVersion", "startedAt", "completedAt", "warnings", "informationLoss"],
+      "properties": {
+        "migrationId": { "$ref": "#/$defs/id" },
+        "fromSchemaVersion": { "type": "string" },
+        "toSchemaVersion": { "type": "string" },
+        "sourceProjectHash": { "$ref": "#/$defs/hashValue" },
+        "resultProjectHash": { "$ref": "#/$defs/hashValue" },
+        "migrationTool": { "$ref": "#/$defs/softwareBuildRef" },
+        "migrationAlgorithmVersion": { "type": "string" },
+        "startedAt": { "$ref": "#/$defs/timestamp" },
+        "completedAt": { "$ref": "#/$defs/timestamp" },
+        "warnings": { "type": "array", "items": { "type": "string" } },
+        "informationLoss": { "type": "string", "enum": ["NONE", "KNOWN_NONCRITICAL", "REQUIRES_REVIEW", "BLOCKING"] }
+      },
+      "additionalProperties": false
+    },
+    "packageValidation": {
+      "type": "object",
+      "required": ["state", "validatedAt", "validatorVersion", "errors", "warnings"],
+      "properties": {
+        "state": { "type": "string", "enum": ["VALID", "VALID_WITH_WARNINGS", "INVALID", "NOT_VALIDATED"] },
+        "validatedAt": { "$ref": "#/$defs/timestamp" },
+        "validatorVersion": { "type": "string" },
+        "errors": { "type": "array", "items": { "type": "string" } },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    }
+  }
+}
