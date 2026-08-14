@@ -40,6 +40,7 @@ The OpenSubdiv vs openNURBS/ON_SubD decision is intentionally parked.
 | [04_base_template.md](spec/04_base_template.md) | **Fixture candidate / not frozen** | `ORTHO_CAGE_41x17_V0` candidate and BT qualification gates |
 | [05_parametric_orthosis_geometry.md](spec/05_parametric_orthosis_geometry.md) | **Provisional math / not clinical evidence** | Reference formulas created for implementation experiments; not claimed EasyCAD2 or literature formulas |
 | [06_corrective_elements.md](spec/06_corrective_elements.md) | **ACTIVE functional baseline v0** | Evidence-led corrective element taxonomy, anatomical placement, metatarsal pad/bar/dome/relief semantics and acceptance tests |
+| [09_analysis_qc_dfm.md](spec/09_analysis_qc_dfm.md) | **ACTIVE functional baseline v0** | Peak pressure/PTI/contact-area/force/COP/shear policy, trial provenance, comparability, contextual thresholds, geometric QC and DFM |
 
 ---
 
@@ -77,7 +78,7 @@ These should now be driven from the functional/evidence matrix rather than from 
 | [06_corrective_elements.md](spec/06_corrective_elements.md) | **v0 ACTIVE** | Clinically named element library, anatomical placement, dimensions/dose, metatarsal family, neighboring-load analysis and acceptance metrics |
 | `spec/07_sculpt_and_roi_deformation.md` | Planned | Local authoring semantics and ROI provenance |
 | `spec/08_material_stiffness.md` | **Research-driven next** | Material/stiffness properties, regional maps and evidence boundaries |
-| `spec/09_analysis_qc_dfm.md` | **Research-driven next** | Sections, pressure/outcome metrics, angles, thickness, target/neighbor safety and manufacturing QC |
+| [09_analysis_qc_dfm.md](spec/09_analysis_qc_dfm.md) | **v0 ACTIVE** | Pressure/outcome metrics, protocol provenance, compatibility, contextual thresholds, target/neighbor safety, geometry QC and DFM |
 | `spec/10_manufacturing.md` | Planned | Manufacturing profiles and export semantics |
 | `spec/11_biomeche_integration.md` | **Research-driven next** | Quantitative pressure bridge, ROI, pre/post outcome loop and provenance |
 | `spec/12_reporting_traceability.md` | Planned | Prescription/design/manufacturing/outcome traceability and reports |
@@ -96,6 +97,8 @@ These should now be driven from the functional/evidence matrix rather than from 
 8. No architecture library should be selected simply because it contains more features.
 9. Offloading is treated as redistribution: local benefit must be checked against adjacent and remote loading.
 10. Literature-derived placement values may become evidence-linked presets, never universal hidden defaults.
+11. Pressure/outcome comparisons are protocol-bound; device/calibration/speed/steps/ROI-version provenance is part of the result.
+12. Measured and predicted biomechanical outcomes must remain separate data classes.
 
 ---
 
@@ -103,13 +106,13 @@ These should now be driven from the functional/evidence matrix rather than from 
 
 ### Functional/scientific
 
-1. pressure/outcome metric policy: peak, mean, PTI/FTI, contact area, COP and shear when supported;
-2. arch height/length/position dose + hardness interaction;
-3. heel cup/wrap/camber geometry vs cushioning/material;
-4. use-case/population profiles: diabetic offloading, metatarsalgia, flatfoot, plantar heel pain, sport;
-5. comfort/fit/adherence and PROM selection;
-6. material durability/manufacturing evidence;
-7. refine corrective-element presets only where evidence and population context justify them.
+1. arch height/length/position dose + hardness interaction;
+2. heel cup/wrap/camber geometry vs cushioning/material;
+3. use-case/population profiles: diabetic offloading, metatarsalgia, flatfoot, plantar heel pain, sport;
+4. comfort/fit/adherence and PROM selection;
+5. material durability/manufacturing evidence;
+6. refine corrective-element presets only where evidence and population context justify them;
+7. refine shear/COP policy as compatible acquisition hardware is defined.
 
 ### Competitors
 
