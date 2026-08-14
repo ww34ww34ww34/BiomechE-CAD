@@ -78,6 +78,20 @@ Locator priority:
 - **Locator:** `FOOT ORTHOSES` recommendation/evidence synthesis.
 - **Role:** plantar-heel-pain profile; orthoses are not an isolated short-term intervention and specific device superiority is limited.
 
+<a id="guide-cosmin"></a>
+## GUIDE-COSMIN — COSMIN outcome-measurement methodology
+- **Title/page:** COnsensus-based Standards for the selection of health Measurement INstruments (COSMIN) — selection of the most suitable outcome measurement instrument.
+- **Official pages:** https://www.cosmin.nl/ ; https://www.cosmin.nl/finding-right-tool/select-best-measurement-instrument/
+- **Locator:** `I want to select the most suitable outcome measurement instrument` / recommendation categories A-B-C and feasibility considerations.
+- **Role:** PROM selection should be based on construct, content validity, measurement properties, responsiveness/interpretability and feasibility; do not choose a questionnaire only because it is popular.
+
+<a id="guide-fda-pro-device-2022"></a>
+## GUIDE-FDA-PRO-DEVICE-2022 — FDA PRO instruments for medical-device evaluation
+- **Title:** *Principles for Selecting, Developing, Modifying, and Adapting Patient-Reported Outcome Instruments for Use in Medical Device Evaluation.* FDA Guidance for Industry and FDA Staff. January 2022.
+- **Official page:** https://www.fda.gov/regulatory-information/search-fda-guidance-documents/principles-selecting-developing-modifying-and-adapting-patient-reported-outcome-instruments-use
+- **Locator:** guidance scope / fit-for-purpose principle.
+- **Role:** selected PRO instruments and modifications/adaptations should be demonstrably fit for the intended device-evaluation context.
+
 ---
 
 # C. Scientific literature
@@ -404,6 +418,64 @@ Jor A et al. *Effects of foot orthoses on lower extremity joint kinematics and k
 ## REF-CAD-079 — Bone-stress injury prevention review
 Lavigne A et al. *The Role of Footwear, Foot Orthosis, and Training-Related Strategies in the Prevention of Bone Stress Injuries: A Systematic Review and Meta-Analysis.* Int J Exerc Sci. 2023;16(3):721–743. PMID `37649463`; PMCID `PMC10464778`; DOI `10.70252/ZNRS2138`. Locator: pp.721–743; Abstract—Results/Conclusion. Role: possible BSI prevention effect with low-quality/military-heavy evidence; do not generalize to athletes universally.
 
+## PROM / comfort / fit / adherence additions
+
+<a id="ref-cad-080"></a>
+## REF-CAD-080 — Foot Health Status Questionnaire development
+Bennett PJ, Patterson C, Wearing S, Baglioni T. *Development and validation of a questionnaire designed to measure foot-health status.* J Am Podiatr Med Assoc. 1998;88(9):419–428. PMID `9770933`; DOI `10.7547/87507315-88-9-419`. Locator: pp.419–428; Abstract. Role: 13-item foot-health PROM covering pain, function, footwear and general foot health.
+
+<a id="ref-cad-081"></a>
+## REF-CAD-081 — Foot Function Index development
+Budiman-Mak E, Conrad KJ, Roach KE. *The Foot Function Index: a measure of foot pain and disability.* J Clin Epidemiol. 1991;44(6):561–570. PMID `2037861`; DOI `10.1016/0895-4356(91)90220-4`. Locator: pp.561–570; Abstract. Role: foot pain/disability/activity-restriction PROM baseline.
+
+<a id="ref-cad-082"></a>
+## REF-CAD-082 — FFI measurement-properties systematic review
+*Measurement properties of the Foot Function Index (FFI) questionnaire: A systematic review.* PMID `38856157`. Locator: Abstract—Results/Conclusion. Role: recent COSMIN-oriented review; supports version/language-specific instrument governance rather than assuming all adaptations are equivalent.
+
+<a id="ref-cad-083"></a>
+## REF-CAD-083 — Foot and Ankle Ability Measure development
+Martin RL, Irrgang JJ, Burdett RG, Conti SF, Van Swearingen JM. *Evidence of validity for the Foot and Ankle Ability Measure (FAAM).* Foot Ankle Int. 2005;26(11):968–983. PMID `16309613`; DOI `10.1177/107110070502601113`. Locator: pp.968–983; Abstract—Methods/Results. Role: ADL and Sport function domains, responsiveness and context-specific MDC/MCID evidence.
+
+<a id="ref-cad-084"></a>
+## REF-CAD-084 — Italian 17-item Foot Function Index
+Venditto T et al. *17-Italian Foot Function Index with numerical rating scale: development, reliability, and validity of a modified version of the original Foot Function Index.* Foot. 2015;25(1):12–18. PMID `25641642`; DOI `10.1016/j.foot.2014.09.004`. Locator: Abstract—Methods/Results/Conclusions. Role: validated Italian-language candidate for musculoskeletal foot/ankle outcome tracking.
+
+<a id="ref-cad-085"></a>
+## REF-CAD-085 — Italian FAAM ADL validation
+*Foot and ankle ability measure: cross-cultural translation and validation of the Italian version of the ADL module (FAAM-I/ADL).* PMID `25134631`. Locator: Abstract—Methods/Results/Conclusions. Role: Italian-language FAAM ADL candidate; scoring/translation version must be explicit.
+
+<a id="ref-cad-086"></a>
+## REF-CAD-086 — EFAS Score multilingual PROM
+Richter M et al. *EFAS Score - Multilingual development and validation of a patient-reported outcome measure (PROM) by the score committee of the European Foot and Ankle Society (EFAS).* Foot Ankle Surg. 2018. PMID `29933960`; DOI `10.1016/j.fas.2018.05.004`. Locator: Abstract—Methods/Results/Conclusions. Role: short multilingual foot/ankle PROM validated including Italian; article reports score versions freely available via EFAS, but current redistribution terms must still be checked before bundling item text.
+
+<a id="ref-cad-087"></a>
+## REF-CAD-087 — Reliable footwear comfort assessment during running
+Mündermann A, Nigg BM, Stefanyshyn DJ, Humble RN. *Development of a reliable method to assess footwear comfort during running.* Gait Posture. 2002;16(1):38–45. PMID `12127185`; DOI `10.1016/S0966-6362(01)00197-7`. Locator: pp.38–45; Abstract. Role: comfort is task/protocol dependent; VAS can be reliable under a controlled repeated-measure protocol.
+
+<a id="ref-cad-088"></a>
+## REF-CAD-088 — Clinically meaningful footwear comfort scales
+Mills K et al. *Identifying clinically meaningful tools for measuring comfort perception of footwear.* PMID `20216463`. Locator: Abstract—Methods/Results. Role: VAS, Likert and ranking scales differ in reliability; approximately 10 mm change on a 100-mm VAS was meaningful in this specific study/protocol, not a universal project threshold.
+
+<a id="ref-cad-089"></a>
+## REF-CAD-089 — Footwear comfort narrative synthesis
+*Footwear comfort: a systematic search and narrative synthesis of the literature.* PMID `34876192`. Locator: Abstract—Results/Conclusion. Role: comfort is multifactorial and population/task dependent; simple VAS can capture overall comfort but design-factor evidence is fragmented.
+
+<a id="ref-cad-090"></a>
+## REF-CAD-090 — RUN-CAT comfort instrument
+*The running shoe comfort assessment tool (RUN-CAT): Development and evaluation of a new multi-item assessment tool for evaluating the comfort of running footwear.* PMID `32508250`; DOI `10.1080/02640414.2020.1773613`. Locator: Abstract—Methods/Results. Role: example of a validated task-specific multidimensional comfort instrument (heel cushioning, stability, forefoot cushioning, forefoot flexibility); not a generic orthosis PROM.
+
+<a id="ref-cad-091"></a>
+## REF-CAD-091 — Therapeutic-footwear adherence measurement systematic review
+*Usability of Different Methods to Assess and Improve Adherence to Therapeutic Footwear in Persons with the Diabetic Foot in Remission. A Systematic Review.* PMID `37545201`. Locator: Abstract—Results/Conclusion. Role: objective adherence methods (temperature sensor/activity monitor) reduce limitations of subjective self-report.
+
+<a id="ref-cad-092"></a>
+## REF-CAD-092 — Footwear adherence metric validation
+*Adherence and Wearing Time of Prescribed Footwear among People at Risk of Diabetes-Related Foot Ulcers: Which Measure to Use?* Sensors. 2023. PMID `36772691`; PMCID `PMC9919850`; DOI `10.3390/s23031648`. Locator: Abstract—Methods/Results/Conclusions. Role: proportion of weight-bearing time/steps with prescribed footwear is more valid than subjective wearing-time recall; adherence denominator matters.
+
+<a id="ref-cad-093"></a>
+## REF-CAD-093 — Plantar-heel-pain MID for VAS/FHSQ
+*Revised minimal important difference values for the visual analogue scale and Foot Health Status Questionnaire when used for plantar heel pain.* PMID `39682003`; PMCID `PMC11649508`; DOI `10.1002/jfa2.70021`. Locator: Abstract—Methods/Results. Role: MID is instrument-, construct- and population/context-specific and should be stored with evidence provenance.
+
 ---
 
 # D. Vendor / market sources
@@ -459,4 +531,6 @@ Open CASCADE Technology. https://dev.opencascade.org/ ; https://github.com/Open-
 9. Architecture documentation is evidence of technical capability, not clinical rationale.
 10. Model-based evidence must remain explicitly labelled and cannot silently become a clinical rule.
 11. Population/indication profiles must state non-transfer rules when evidence/guidelines define different pathways.
-12. `docs/research/SOURCES.md` tracks source intake/open verification; this file owns canonical metadata.
+12. PROM/instrument metadata must include the exact version/language and must not assume that translations or modified forms have identical measurement properties.
+13. Before bundling questionnaire item text or scoring code, verify current copyright/licensing/redistribution terms for that exact instrument/version.
+14. `docs/research/SOURCES.md` tracks source intake/open verification; this file owns canonical metadata.
