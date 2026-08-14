@@ -242,6 +242,30 @@ Canonical specification: `docs/spec/13_use_case_profiles.md`.
 
 ---
 
+## D-CAD-019 — Patient-reported outcome, comfort, fit and adherence remain separate versioned outcome classes
+
+**Status:** BASELINE  
+**Date:** 2026-08-14
+
+BiomechE-CAD will not collapse pain, function, foot-specific health, comfort, fit/usability, satisfaction and adherence into one hidden universal score.
+
+Rules:
+
+1. define the outcome construct before selecting a PROM instrument;
+2. store exact instrument version, language/cultural adaptation and scoring algorithm version;
+3. preserve domain/subscale scores independently;
+4. MID/MCID/MDC/SEM values remain instrument/domain/population/context specific and retain evidence provenance;
+5. comfort remains task/protocol specific and separate from pain/function;
+6. fit/usability remains separate from comfort;
+7. adherence stores method and denominator (`hours`, weight-bearing time, steps, prescribed session, etc.); objective and subjective adherence are not treated as equivalent;
+8. every measurement links to the exact design/manufacturing revision in use;
+9. questionnaire text/translations/scoring assets are shipped only after copyright/licensing/redistribution review;
+10. any future composite endpoint must be named, transparent, profile-specific and independently validated.
+
+Canonical specification: `docs/spec/14_prom_comfort_adherence.md`.
+
+---
+
 ## OPEN DECISIONS
 
 Architecture / implementation decisions intentionally deferred:
@@ -260,10 +284,10 @@ Architecture / implementation decisions intentionally deferred:
 
 Functional/scientific work still active:
 
-- PROM/comfort/fit/adherence model;
 - material durability/manufacturing evidence;
 - consolidated P0/P1 functional-spec promotion;
 - Project Schema v0;
 - kernel-independent acceptance suite;
 - final profile subtyping/version policy where evidence warrants finer distinctions;
+- final built-in PROM set after population fit + licensing review;
 - shear/COP depth after target acquisition hardware is fixed.
