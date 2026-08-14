@@ -1,0 +1,114 @@
+name: Bootstrap extended semantic fixture checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/bootstrap-extended-validator.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch-test-and-self-remove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Patch validator with new semantic cases
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("tools/validate_fixtures.py")
+          text = path.read_text(encoding="utf-8")
+          marker = '    else:\n        raise Failure(f"HARNESS: unknown fixture {fid}")'
+          if marker not in text:
+              raise SystemExit("validator marker not found")
+
+          block = r'''    elif fid == "biomeche-protocol-cross-device-non-comparable":
+        e = a["expected"]
+        comparisons = {x["comparisonId"]: x for x in p["outcomeComparisons"]}
+        c = comparisons[e["comparisonId"]]
+        measurements = {x["measurementId"]: x for x in p["outcomeMeasurements"]}
+        acquisitions = {x["acquisitionId"]: x for x in p["acquisitions"]}
+        bm = measurements[c["baselineMeasurementRefs"][0]]
+        om = measurements[c["outcomeMeasurementRefs"][0]]
+        ba = acquisitions[bm["acquisitionId"]]
+        oa = acquisitions[om["acquisitionId"]]
+        need(ba["protocol"].get("protocolId") == e["baselineProtocol"] and oa["protocol"].get("protocolId") == e["outcomeProtocol"] and e["baselineProtocol"] != e["outcomeProtocol"], "BINT-011", "protocol mismatch was not preserved")
+        need(c["compatibilityState"] == e["compatibilityState"] == "NOT_COMPARABLE", "BINT-011", "protocol mismatch was compared without gate")
+        need(ba["protocol"].get("sourceDeviceId") == e["baselineDevice"] and oa["protocol"].get("sourceDeviceId") == e["outcomeDevice"] and e["baselineDevice"] != e["outcomeDevice"], "BINT-012", "device-system mismatch was not preserved")
+        need("NO_VALIDATED_CROSS_DEVICE_POLICY" in c["compatibilityWarnings"], "BINT-012", "cross-device comparison lacks explicit no-policy warning")
+        out = ["BINT-011", "BINT-012"]
+    elif fid == "biomeche-reanalysis-append-only":
+        e = a["expected"]
+        acquisitions = {x["acquisitionId"]: x for x in p["acquisitions"]}
+        source = acquisitions[e["sourceAcquisitionId"]]
+        old = acquisitions[e["oldResultAcquisitionId"]]
+        new = acquisitions[e["newResultAcquisitionId"]]
+        need(source["acquisitionType"] == "PRESSURE", "BINT-015", "original quantitative acquisition missing")
+        need(old["acquisitionType"] == "BIOMECHE_RESULT" and new["acquisitionType"] == "BIOMECHE_RESULT" and old["acquisitionId"] != new["acquisitionId"], "BINT-015", "reanalysis reused result acquisition identity")
+        need(old["protocol"].get("sourceAcquisitionId") == source["acquisitionId"] and new["protocol"].get("sourceAcquisitionId") == source["acquisitionId"], "BINT-015", "reanalysis source linkage changed")
+        need(old["payload"]["producer"].get("commitHash") == e["oldProducerCommit"] and new["payload"]["producer"].get("commitHash") == e["newProducerCommit"] and e["oldProducerCommit"] != e["newProducerCommit"], "BINT-015", "producer history was not retained")
+        measurements = {x["measurementId"]: x for x in p["outcomeMeasurements"]}
+        om = measurements[e["oldMeasurementId"]]
+        nm = measurements[e["newMeasurementId"]]
+        need(om["measurementId"] != nm["measurementId"] and om["acquisitionId"] == old["acquisitionId"] and nm["acquisitionId"] == new["acquisitionId"], "BINT-015", "reanalysis overwrote measurement identity")
+        need(om["algorithmRef"]["semanticVersion"] == e["oldAlgorithmVersion"] and nm["algorithmRef"]["semanticVersion"] == e["newAlgorithmVersion"], "BINT-015", "algorithm-version history missing")
+        assets = {x["assetId"]: x for x in p["assets"]}
+        need(source["rawAssetRefs"] and all(x in assets for x in source["rawAssetRefs"]), "BINT-015", "raw source evidence was lost")
+        need(e["historyMustRemainAppendOnly"], "BINT-015", "append-only expectation missing")
+        out = ["BINT-015"]
+    elif fid == "report-reissue-semantic-reproducibility":
+        e = a["expected"]
+        reports = {x["reportArtifactId"]: x for x in p["reportArtifacts"]}
+        r1 = reports[e["originalReportId"]]
+        r2 = reports[e["reissuedReportId"]]
+        need(r1["reportArtifactId"] != r2["reportArtifactId"] and e["originalMustRemainPresent"], "RPT-014", "report reissue mutated/reused original identity")
+        assets = {x["assetId"]: x for x in p["assets"]}
+        need(r1["assetRef"] == e["originalAssetId"] and r2["assetRef"] == e["reissuedAssetId"] and r1["assetRef"] != r2["assetRef"], "RPT-014", "report reissue reused original bytes identity")
+        reissues = [x for x in p["provenanceRecords"] if x["activityType"] == "REPORT_REISSUE"]
+        need(reissues and e["originalReportId"] in reissues[0]["inputEntityRefs"] and e["reissuedReportId"] in reissues[0]["outputEntityRefs"], "RPT-014", "report reissue provenance missing")
+        semantic = {e["designRevisionId"], e["measurementId"]}
+        need(semantic <= set(r1["sourceRefs"]) and semantic <= set(r2["sourceRefs"]), "RPT-015", "semantic source set changed across reissue")
+        manifests = {x["reportArtifactId"]: x for x in p["extensions"]["reportSourceManifests"]}
+        m1, m2 = manifests[r1["reportArtifactId"]], manifests[r2["reportArtifactId"]]
+        need(m1["designRevisionId"] == m2["designRevisionId"] == e["designRevisionId"] and m1["measurementRefs"] == m2["measurementRefs"] == [e["measurementId"]], "RPT-015", "source manifest semantic refs differ")
+        need(m1["authoritativeValue"] == m2["authoritativeValue"] == e["authoritativeValue"] and m1["roundingPolicy"] == m2["roundingPolicy"], "RPT-015", "semantic value/rounding policy changed across reissue")
+        if not e["byteIdentityRequired"]:
+            need(h(assets[r1["assetRef"]]["hash"]) != h(assets[r2["assetRef"]]["hash"]), "RPT-015", "fixture does not demonstrate semantic reproducibility with different report bytes")
+        need(e["semanticSourceSetMustMatch"], "RPT-015", "semantic reproducibility expectation missing")
+        out = ["RPT-014", "RPT-015"]
+'''
+
+          if 'fid == "biomeche-protocol-cross-device-non-comparable"' not in text:
+              text = text.replace(marker, block + marker)
+              path.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install validator dependencies
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Validate extended fixture set before commit
+        run: python tools/validate_fixtures.py | tee extended-fixture-validation.log
+
+      - name: Commit validator update and remove bootstrap workflow
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/bootstrap-extended-validator.yml
+          git add tools/validate_fixtures.py
+          git commit -m "validation: execute comparison reanalysis and report reissue fixtures"
+          git push origin HEAD:main
