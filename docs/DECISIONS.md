@@ -4,7 +4,7 @@ This file records cross-cutting decisions separately from research evidence.
 
 **Status convention**
 
-- `BASELINE` — current working direction used by the specification; may be refined by a later explicit decision.
+- `BASELINE` — current working direction; may be refined by a later explicit decision.
 - `FROZEN` — implementation should treat the decision as stable until explicitly superseded.
 - `OPEN` — not decided.
 
@@ -15,7 +15,7 @@ This file records cross-cutting decisions separately from research evidence.
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-Canonical project specifications and handover material live as Markdown under `docs/`. PDF/DOCX may later be generated as snapshots, but must not become the only authoritative source.
+Canonical project specifications and handover material live as Markdown under `docs/`.
 
 ---
 
@@ -24,16 +24,16 @@ Canonical project specifications and handover material live as Markdown under `d
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-EasyCAD2 is currently the most detailed reference for workflow and feature coverage. BiomechE-CAD should preserve useful clinical/manufacturing capability while improving openness, provenance, versioning, regression testability and integration with BiomechE.
+Preserve useful EasyCAD2 clinical/manufacturing behavior while improving openness, provenance, versioning, regression testability and integration with BiomechE.
 
 ---
 
-## D-CAD-003 — Prefer non-destructive, versioned geometry operations
+## D-CAD-003 — Prefer non-destructive, versioned clinical/design operations
 
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-Where technically reasonable, heel, arch, wedge, corrective element, ROI deformation, smoothing and sculpt actions should be represented as reconstructable/versioned operations rather than only as irreversible mutations of the final mesh.
+Where technically reasonable, heel, arch, wedge, corrective element, ROI deformation, smoothing and sculpt actions should remain reconstructable/versioned rather than only irreversible final geometry.
 
 ---
 
@@ -41,8 +41,6 @@ Where technically reasonable, heel, arch, wedge, corrective element, ROI deforma
 
 **Status:** BASELINE  
 **Date:** 2026-08-14
-
-Public/canonical quantities should use:
 
 ```text
 distance = mm
@@ -61,7 +59,7 @@ Conversions are explicit and must not silently alter prescription semantics.
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-Pressure, Scan3D, Scan2D/Image2D and BiomechE-derived inputs preserve source identity, units, side, coordinate system, transformation/registration history and quality/provenance metadata.
+Pressure, Scan3D, Scan2D/Image2D and BiomechE-derived inputs preserve source identity, units, side, acquisition conditions, coordinate system, registration history and quality/provenance metadata.
 
 ---
 
@@ -70,7 +68,7 @@ Pressure, Scan3D, Scan2D/Image2D and BiomechE-derived inputs preserve source ide
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-Pressure may be rendered as a color overlay, but its authoritative representation remains numeric and metric. Algorithms, ROI statistics and design suggestions should refer to quantitative values and source provenance rather than an RGB texture.
+Pressure may be rendered as a color overlay, but its authoritative representation remains numeric and metric. ROI statistics and design/outcome comparisons must refer to quantitative values and source provenance rather than an RGB texture.
 
 ---
 
@@ -79,16 +77,16 @@ Pressure may be rendered as a color overlay, but its authoritative representatio
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-The data model must be capable of representing regions with differentiated material, density or stiffness without requiring those properties to be encoded only as external settings or geometric deformation.
+The data model must represent differentiated material, density or stiffness regions without requiring those properties to be encoded only as geometry.
 
 ---
 
-## D-CAD-008 — CAM/GCODE is downstream of the geometry core
+## D-CAD-008 — CAM/GCODE is downstream of the product geometry/design model
 
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-The CAD core defines the orthosis geometry and manufacturing semantics. CNC post-processing/toolpath/GCODE generation belongs to a separate CAM/post-processor layer with machine/profile versioning.
+CNC/toolpath/GCODE generation belongs to a separate manufacturing/post-processing layer with machine/profile versioning.
 
 ---
 
@@ -97,7 +95,7 @@ The CAD core defines the orthosis geometry and manufacturing semantics. CNC post
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-An STL/3MF/GCODE/project package/report must identify the exact project revision and manufacturing profile from which it was generated. Export artifacts should carry hashes and validation state where practical.
+STL/3MF/GCODE/project package/report artifacts must identify the exact design revision and manufacturing profile from which they were generated. Hashes and validation state should be retained where practical.
 
 ---
 
@@ -106,85 +104,156 @@ An STL/3MF/GCODE/project package/report must identify the exact project revision
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-Each P0 requirement requires acceptance criteria and, where applicable, deterministic geometry invariants or golden-regression fixtures. UI-level validation alone is insufficient for geometric correctness.
+Each P0 requirement requires acceptance criteria and, where applicable, deterministic geometric or data invariants. UI-level validation alone is insufficient.
 
 ---
 
-## D-CAD-011 — OpenSubdiv-first canonical control-cage architecture
+## D-CAD-011 — SubD/control-cage is a strong geometry hypothesis, but the foundation engine is not selected
+
+**Status:** OPEN / QUALIFICATION DEFERRED  
+**Date:** 2026-08-14
+
+The EasyCAD2 audit plus the project-owner fact that EasyCAD2 uses OpenSubdiv support a stable/mostly-stable control-cage + smooth-surface architecture as a strong hypothesis.
+
+However, **OpenSubdiv is no longer considered a frozen or presumptive P0 dependency**.
+
+When architecture work resumes, the principal SubD foundation candidates are:
+
+```text
+A) product-owned clinical layer + OpenSubdiv
+B) product-owned clinical layer + openNURBS / ON_SubD
+```
+
+The project should prefer **one** authoritative P0 SubD foundation rather than maintaining OpenSubdiv and ON_SubD representations in parallel without a concrete need.
+
+The comparison must use public/stable APIs only and the same orthosis fixtures.
+
+---
+
+## D-CAD-012 — General-purpose NURBS/B-Rep is not a P0 product prerequisite
 
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-BiomechE-CAD will use a **canonical orthosis control cage + versioned operation stack** as the leading P0 geometry architecture, with OpenSubdiv as the expected smooth limit-surface evaluator.
+The validated EasyCAD2 workflow does not require NURBS surface authoring, trimmed B-Rep, STEP/IGES, general loft/sweep/revolve, arbitrary shell/offset, fillet/chamfer or a full solid-boolean kernel as MVP product requirements.
 
-Rationale:
-
-- EasyCAD2 primary documentation validates direct mesh/vertex editing, parametric heel/arch/wedge changes, element positioning, sculpt and scan-conforming deformation;
-- the project owner states that EasyCAD2 uses OpenSubdiv;
-- official OpenSubdiv documentation is specifically optimized for deforming subdivision surfaces with static topology at interactive frame rates.
-
-This does **not** imply that BiomechE-CAD will clone EasyCAD2 internals or formulas.
+This does not prevent a future foundation such as openNURBS from providing additional capabilities incidentally; extra capabilities must not redefine the product specification.
 
 ---
 
-## D-CAD-012 — General-purpose NURBS/B-Rep is not a P0 prerequisite
+## D-CAD-013 — Additional geometry libraries must earn entry through a named requirement or failing fixture
 
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-The validated EasyCAD2 product behavior does not require BiomechE-CAD to make NURBS surface authoring, trimmed B-Rep, STEP/IGES, general loft/sweep/revolve, arbitrary shell/offset, fillet/chamfer or a full solid-boolean kernel prerequisites for the MVP.
-
-Utility B-spline curves remain allowed where useful. Exact CAD/NURBS/B-Rep may later enter through adapters for explicit interoperability/manufacturing use cases.
-
----
-
-## D-CAD-013 — Additional geometry libraries must earn entry through a failing fixture
-
-**Status:** BASELINE  
-**Date:** 2026-08-14
-
-Do not add OCCT, CGAL, Manifold, openNURBS or another major geometry dependency merely for theoretical capability coverage.
+Do not add OCCT, Manifold, CGAL, openNURBS, OpenSubdiv or another major geometry dependency merely for theoretical capability coverage.
 
 A dependency is justified only when:
 
-1. a named P0/P1 acceptance fixture cannot be implemented robustly with the current cage/OpenSubdiv/focused-algorithm stack;
-2. the failure is reproducible;
-3. the candidate library materially improves robustness or interoperability;
-4. license, portability, WASM/server feasibility and conversion cost are documented.
+1. a named product requirement/acceptance fixture needs it;
+2. the need/failure is reproducible;
+3. the candidate materially improves robustness, portability, performance or interoperability;
+4. license, target-platform feasibility and conversion/synchronization cost are documented.
 
 ---
 
-## D-CAD-014 — Clinical upper surface and manufacturing body are separated
+## D-CAD-014 — Clinical prescription and manufacturing realization are separate concepts
 
 **Status:** BASELINE  
 **Date:** 2026-08-14
 
-The canonical cage primarily authors the clinical upper/contact surface. Lower surface, sidewalls, thickness and Bridge/Straight/Oblique/Hybrid closure are derived manufacturing geometry.
+The clinical/design prescription must remain stable and traceable independently from the exact lower-surface, sidewall, closure, material and manufacturing realization.
 
-This allows clinical prescription to remain stable while production profiles change.
+A change in manufacturing profile must not silently change the semantic prescription.
 
-This is a BiomechE-CAD design choice, not a claim about EasyCAD2 internals.
+---
+
+## D-CAD-015 — Architecture selection is temporarily parked; functionality and scientific evidence lead current work
+
+**Status:** BASELINE  
+**Date:** 2026-08-14
+
+Current project priority is:
+
+```text
+EasyCAD2 behavior
++ scientific/biomechanical literature
++ measurable clinical/design parameters
++ outcome/traceability requirements
+        ↓
+functional product specification
+        ↓
+architecture/library selection later
+```
+
+The active canonical research document is:
+
+`docs/research/FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md`
+
+Architecture research is preserved, not discarded. The OpenSubdiv vs openNURBS/ON_SubD shoot-out resumes only after the functional/evidence matrix is sufficiently mature to define the required tests.
+
+---
+
+## D-CAD-016 — Clinically meaningful CAD features preserve dose, anatomical placement, units and reference frame
+
+**Status:** BASELINE  
+**Date:** 2026-08-14
+
+A named feature such as `RearfootWedge`, `ForefootWedge`, `MedialArch` or `MetatarsalPad` must not survive only as anonymous final geometry.
+
+Where applicable preserve:
+
+```text
+feature type
+side / anatomical region
+numerical dose
+units
+reference frame / landmark
+placement / extent
+material/mechanical properties
+intent
+algorithm/version
+```
+
+This is supported by literature showing dose- and placement-dependent biomechanical effects and is independent of eventual CAD implementation.
+
+---
+
+## D-CAD-017 — Outcome thresholds are context/protocol specific, not universal constants
+
+**Status:** BASELINE  
+**Date:** 2026-08-14
+
+Guideline thresholds or research targets must be stored with population/context, protocol, ROI, metric and evidence source.
+
+Example: diabetic-foot pressure-offloading criteria must not be silently reused as universal thresholds for flatfoot, plantar fasciitis, sport or other indications.
 
 ---
 
 ## OPEN DECISIONS
 
-The following decisions remain open or require qualification before freezing:
+Architecture / implementation decisions intentionally deferred:
 
+- OpenSubdiv vs openNURBS/ON_SubD as P0 SubD foundation;
+- exact canonical cage topology/resolution and topology-family count;
+- C++20 / C ABI / WASM deployment details;
 - exact project storage/container format;
-- exact coordinate and registration contract;
-- concrete canonical cage topology/resolution and topology-family count;
-- OpenSubdiv boundary/crease rules;
-- operation dependency/evaluation details beyond the current staged baseline;
-- exact heel/camber mathematical operator;
-- exact medial/lateral arch operator calibration;
-- wedge reference axes and measurement fixture;
-- corrective-element field/cage representation and `PLACE_FROM_BASE` semantics;
-- scan-conform projection semantics;
+- exact coordinate/registration contract;
+- exact mathematical realization of heel/arch/wedge operations;
+- corrective-element internal representation;
+- scan-conform implementation;
 - production lower-surface/closure algorithms;
-- physical stiffness/material model;
-- initial manufacturing target priority: additive, CNC or equal priority;
-- public API/ABI boundary for CAD engine integration;
-- whether a second geometry library is eventually needed after the cage qualification suite.
+- whether Manifold or another solid/mesh library is needed;
+- whether STEP/.3dm interoperability becomes a product requirement.
 
-A library choice must follow these requirements, not define them retroactively.
+Functional/scientific questions currently active:
+
+- population-specific indication profiles;
+- arch dose and placement evidence;
+- heel containment vs cushioning evidence;
+- metatarsal element dose/placement;
+- offloading ROI + neighboring-region safety metrics;
+- pressure metric selection (peak/PTI/FTI/contact area/COP/shear when available);
+- material/stiffness prescription semantics;
+- post-production outcome verification;
+- PROM/comfort/fit/adherence model.
