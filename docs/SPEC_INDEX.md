@@ -7,6 +7,7 @@ Markdown in this repository is the canonical specification source.
 - [RESUME_HERE.md](RESUME_HERE.md) — current state, source hierarchy, audit status, DONE/TODO and exact restart point.
 - [Architectural decisions](DECISIONS.md) — current baseline decisions and their status.
 - [Research sources](research/SOURCES.md) — primary EasyCAD2 documents, market sources and scientific baseline.
+- [EasyCAD2 primary reference pack](references/easycad2/README.md) — manual, validation plan and validation report with versions, source links, page map and evidence role.
 
 ## Current canonical functional specification
 
@@ -65,4 +66,4 @@ Competitors should be audited against the same capability taxonomy defined by th
 3. Every P0 feature must become testable through acceptance criteria and/or invariants.
 4. When a modular spec supersedes part of the consolidated baseline, preserve the baseline as historical provenance until an explicit compaction review.
 5. Update `RESUME_HERE.md` after substantial work.
-6. Do not commit third-party manual screenshots/PDFs to this public repository without rights clearance; store citations, page locators and descriptions instead.
+6. For third-party manuals/PDFs, keep exact source links, versions, page locators and evidence role in `docs/references/`. Binary copies should only be committed when repository rights/distribution policy explicitly allows it.
