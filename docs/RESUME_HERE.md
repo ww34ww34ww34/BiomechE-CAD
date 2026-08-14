@@ -2,7 +2,7 @@
 
 **Repository:** `ww34ww34ww34/BiomechE-CAD`  
 **Canonical branch:** `main`  
-**Current checkpoint:** 2026-08-14 — architecture selection is parked; current work is functionality + EasyCAD2 parity + scientific/biomechanical evidence.
+**Current checkpoint:** 2026-08-14 — architecture selection is parked; current work is functionality + EasyCAD2 parity + scientific/biomechanical evidence. Relief/offloading, corrective elements and pressure/outcome metric policy now have evidence-led functional baselines.
 
 ## 1. Product goal
 
@@ -53,10 +53,13 @@ product requirement
 architecture later
 ```
 
-Active canonical research:
+Active canonical research/specification:
 
 - `docs/research/FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md`
 - `docs/research/FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md`
+- `docs/research/FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md`
+- `docs/spec/06_corrective_elements.md`
+- `docs/spec/09_analysis_qc_dfm.md`
 - `docs/research/SOURCES.md`
 
 Architecture background is preserved in:
@@ -69,11 +72,15 @@ Architecture background is preserved in:
 1. **Pressure remains quantitative data.** It needs provenance, registration, ROI queries and revision-to-revision comparison.
 2. **Outcome targets are context-specific.** Literature/guideline thresholds must carry population, protocol, ROI, metric and source; they are not universal constants.
 3. **Dose matters.** Rearfoot/forefoot posting, metatarsal placement, arch geometry and mechanical properties should remain structured prescription variables.
-4. **Local offloading redistributes load.** Target ROI and surrounding regions should both be measurable.
-5. **Geometry and mechanical properties are separate design dimensions.** Material, hardness, stiffness, density and regional structures should not be encoded only as geometry.
-6. **Acquisition conditions matter.** Scan device/protocol/weight-bearing and registration provenance belong to the project.
-7. **Clinical response is heterogeneous.** The software must not hardcode one universal orthotic doctrine.
-8. **Outcome traceability matters.** The design/material/manufacturing revision should be linkable to later pressure and patient-reported outcomes.
+4. **Local offloading is redistribution, not disappearance of load.** Target ROI, surrounding safety region and remote load transfer should be measurable.
+5. **Metatarsal elements are landmark-based prescriptions.** Pad/dome/bar/relief position must be reportable relative to anatomical references in mm and normalized coordinates.
+6. **Geometry and mechanical properties are separate design dimensions.** Material, hardness, stiffness, density and regional structures should not be encoded only as geometry.
+7. **Acquisition conditions matter.** Scan device/protocol/weight-bearing and registration provenance belong to the project.
+8. **Pressure outcome is protocol-bound.** Device, calibration, speed/activity, footwear, number of steps and ROI/mask version are part of the result.
+9. **Peak pressure alone is insufficient.** PTI and contact area are P0 outcome metrics where source data support them; force/FTI are retained when validly available.
+10. **Shear is a separate physical quantity.** It may be imported/measured when hardware supports it but must never be silently inferred from normal pressure.
+11. **Clinical response is heterogeneous.** The software must not hardcode one universal orthotic doctrine.
+12. **Outcome traceability matters.** The design/material/manufacturing revision should be linkable to later pressure and patient-reported outcomes.
 
 ## 5. Current evidence matrix coverage
 
@@ -103,6 +110,12 @@ FSE-019 prescription -> design -> outcome traceability
 
 Batch 02 adds direct parameter/placement evidence for forefoot wedge, metatarsal pad, arch support and heel design.
 
+Batch 03 establishes relief/aperture as a target-ROI + surrounding-safety-region problem and adds `OFF-001..OFF-009` acceptance semantics.
+
+`spec/06_corrective_elements.md` now converts metatarsal pad/dome/bar/relief into a formal landmark-aware prescription object.
+
+`spec/09_analysis_qc_dfm.md` now defines the initial outcome metric/protocol policy.
+
 ## 6. Domain entities emerging from evidence
 
 Independent of the eventual CAD kernel, the product model increasingly needs:
@@ -110,14 +123,18 @@ Independent of the eventual CAD kernel, the product model increasingly needs:
 ```text
 Prescription
 Acquisition
+PressureAcquisition
 OutcomeTarget
 OutcomeMeasurement
+OffloadAssessment
+CorrectiveElement
 MaterialRegion
 StiffnessRegion
 DesignRevision
 ManufacturingProfile
 ClinicalOutcome
 PROMMeasurement
+MetricThreshold
 ```
 
 A meaningful feature should preserve where applicable:
@@ -133,6 +150,18 @@ material/mechanical properties
 intent
 source/evidence reference
 algorithm/version
+```
+
+Pressure/outcome data additionally preserve:
+
+```text
+device + calibration
+activity/speed protocol
+footwear
+step count
+ROI/mask version
+aggregation method
+quality/warnings
 ```
 
 ## 7. Architecture state — PARKED
@@ -159,26 +188,28 @@ Do not resume kernel selection yet.
 Next work:
 
 ```text
-1. relief/aperture evidence:
-   size, depth, transition, neighboring load transfer
+1. arch evidence:
+   height, extent, position, curvature, hardness/stiffness interaction
 
-2. metatarsal element evidence:
-   bar vs dome/pad, height, shape, placement
-
-3. arch evidence:
-   height, extent, position, hardness/stiffness interaction
-
-4. heel evidence:
+2. heel evidence:
    cup height/shape, wrap/camber, cushioning/material
 
-5. pressure/outcome metric policy:
-   peak, mean, PTI/FTI, contact area, COP, shear when supported
+3. population/use-case profiles:
+   diabetic offloading
+   mechanical metatarsalgia
+   flexible flatfoot
+   plantar heel pain
+   sport / performance
 
-6. separate evidence by use-case/population
+4. PROM/comfort/fit/adherence policy
 
-7. promote mature matrix rows into formal functional requirements
+5. material durability/manufacturing evidence
 
-8. derive acceptance tests independent of geometry kernel
+6. promote mature evidence rows into the main functional specification
+
+7. define Project Schema entities from the evidence-led data model
+
+8. only later resume geometry architecture shoot-out
 ```
 
 Competitor research can proceed in parallel, but competitors are feature evidence, not scientific evidence.
@@ -200,17 +231,24 @@ Competitor research can proceed in parallel, but competitors are feature evidenc
 - [x] Material/stiffness/regional-property evidence integrated.
 - [x] PROM/comfort/fit/adherence direction integrated.
 - [x] Parameter/dose evidence batch 02 created.
+- [x] Relief/aperture evidence batch 03 created.
+- [x] Target ROI + surrounding safety-ring offloading semantics defined.
+- [x] Corrective Elements functional spec v0 created.
+- [x] Metatarsal pad/dome/bar/relief landmark-placement model defined.
+- [x] Pressure/outcome metric policy v0 created.
+- [x] Peak pressure + PTI + contact area P0 policy defined.
+- [x] Device/calibration/speed/steps/ROI provenance policy defined.
+- [x] Contextual threshold and measured-vs-predicted separation defined.
 - [x] Decisions and spec index updated for the functionality-first phase.
 
 ## 10. TODO
 
-- [ ] Relief/aperture evidence batch.
-- [ ] Metatarsal shape/height evidence batch.
-- [ ] Arch dose/position evidence batch.
+- [ ] Arch dose/position/hardness evidence batch.
 - [ ] Heel geometry/material evidence batch.
-- [ ] Pressure metric policy.
 - [ ] Use-case/population evidence profiles.
 - [ ] PROM/comfort/fit/adherence specification.
 - [ ] Material durability/manufacturing evidence.
-- [ ] Promote mature matrix rows into P0/P1 functional specification.
+- [ ] Expand shear/COP policy when target acquisition systems are fixed.
+- [ ] Promote mature matrix rows into the consolidated P0/P1 functional specification.
+- [ ] Derive Project Schema v0 from evidence-led domain entities.
 - [ ] Later: OpenSubdiv vs openNURBS/ON_SubD shoot-out.
