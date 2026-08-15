@@ -1,7 +1,8 @@
 # BiomechE-CAD — Geometry Authoring Contract P0
 
-**Status:** CANONICAL DRAFT FOR FREEZE v0.1  
-**Date:** 2026-08-15  
+**Status:** FROZEN v1  
+**Freeze date:** 2026-08-15  
+**Freeze decision:** `D-CAD-027`  
 **Architecture:** geometry-kernel independent  
 **Functional authority:** `BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md`  
 **Coordinate authority:** `01_coordinate_registration.md`  
@@ -681,15 +682,26 @@ No statement in this contract should be interpreted as freezing OpenSubdiv or an
 
 ---
 
-# 13. Freeze criteria
+# 13. Freeze record
 
-This contract may move from `CANONICAL DRAFT FOR FREEZE` to `FROZEN v1` after a documentation review confirms:
+The freeze criteria have been reviewed and are satisfied at documentation level:
 
-1. all P0 operation families needed by Functional v2 have a semantic envelope;
-2. no operation relies on unlabelled coordinates or unitless dose;
-3. bilateral/mirror rules are representable;
-4. acquisition/landmark provenance is sufficient;
-5. inspection definitions are explicit;
-6. production realization is separated from clinical intent;
-7. numerical limits are delegated to the registry rather than hidden here;
-8. first representative geometry fixtures can be written without choosing a kernel.
+1. all P0 operation families required by Functional v2 have a semantic envelope;
+2. placement and physical dose are typed and unit-bearing;
+3. bilateral/mirror behavior is explicit and side-aware;
+4. capture condition and landmark provenance are represented;
+5. section/distance/angle/thickness/deviation inspection semantics are explicit;
+6. clinical/contact-surface intent is separated from production realization;
+7. numerical limits resolve through the frozen numerical registry rather than hidden literals;
+8. the representative P0 authoring acceptance catalog can be specified without selecting a geometry kernel.
+
+Freeze evidence:
+
+```text
+docs/validation/P0_AUTHORING_CROSS_DOCUMENT_AUDIT_2026-08-15.md
+docs/validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md
+docs/validation/P0_AUTHORING_ACCEPTANCE_INTEGRATION_ADDENDUM.md
+docs/TRACEABILITY_MATRIX.md
+```
+
+**Change control:** normative semantic changes to this contract require an explicit superseding decision/version. Algorithm implementation, geometry-kernel selection, performance optimization and qualified numerical values may evolve without reopening this semantic freeze provided they continue to satisfy this contract.
