@@ -2,7 +2,7 @@
 
 Clinical CAD for custom foot orthoses/insoles, designed to integrate with the BiomechE biomechanics ecosystem.
 
-The project starts from a detailed functional reconstruction of EasyCAD2 and expands it toward a versioned, auditable, non-destructive and scientifically traceable CAD architecture.
+BiomechE-CAD starts from a detailed EasyCAD2 behavioral baseline, but its target is broader: a versioned, auditable, non-destructive, scientifically traceable orthotic CAD with explicit acquisition, prescription, design, manufacturing, physical-part and outcome lineage.
 
 ## Documentation source of truth
 
@@ -10,48 +10,63 @@ Markdown under `docs/` is the canonical documentation source.
 
 **If you are resuming this project after an interruption, start with:**
 
-- [RESUME HERE](docs/RESUME_HERE.md) — current state, sources, decisions, DONE/TODO, audit status and exact restart point.
+- [RESUME HERE](docs/RESUME_HERE.md) — current mission, frozen decisions, DONE/TODO and exact restart point.
 
 Then use:
 
 - [Specification index](docs/SPEC_INDEX.md)
-- [Consolidated functional specification](docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md)
+- [Canonical Functional Specification v2](docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md)
+- [Requirement Traceability Matrix](docs/TRACEABILITY_MATRIX.md)
+- [Geometry Authoring Contract](docs/spec/16_geometry_authoring_contract.md)
+- [Workflow / Preset / Macro Contract](docs/spec/17_workflow_preset_macro.md)
+- [Numerical / Tolerance / Qualification Registry](docs/spec/18_numerical_qualification_registry.md)
 - [Architectural decisions](docs/DECISIONS.md)
-- [Research source inventory](docs/research/SOURCES.md)
+- [Technical debt register](docs/TECHNICAL_DEBT.md)
+- [Canonical bibliography](docs/BIBLIOGRAPHY.md)
 
-## Current baseline
+`docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md` is the preserved historical/audit baseline; it is **not** the current functional authority.
 
-The initial baseline is strongly inspired by EasyCAD2 and consolidates:
-
-- EasyCAD2 manual 1.1.x.x;
-- EasyCAD2 validation plan 1.4.x.x;
-- EasyCAD2 validation report 1.4.x.x;
-- prior EasyCAD/easyCAD2 market research;
-- initial scientific literature on foot orthoses, plantar-pressure offloading, 3D scanning, posting and stiffness;
-- architectural conventions inherited from the BiomechE documentation workflow.
-
-## Architectural direction
+## Current product direction
 
 ```text
 Patient / Case
-    -> OrthosisProject [DX/SX]
-    -> AcquisitionLayer[]
-    -> Registration
+    -> Acquisition + provenance
+    -> Registration + landmarks
+    -> OrthosisProject [LEFT / RIGHT]
     -> BaseTemplate
-    -> ParametricOperation[]
-    -> CorrectiveElement[]
-    -> MaterialModifier[]
-    -> SculptOperation[]
-    -> Analysis + DFM/QC
+    -> Versioned semantic authoring operations
+    -> Corrective / offload features
+    -> Material / mechanical prescription
+    -> Inspection + analysis + DFM/QC
     -> ManufacturingProfile
-    -> ExportArtifact[]
-    -> Report
+    -> ManufacturingArtifact
+    -> PhysicalOrthosis
+    -> Measured outcome / follow-up
+    -> Reproducible report
 ```
 
-The geometry history should remain non-destructive and versioned whenever technically reasonable. Clinical evidence, prescription parameters, geometry operations and manufacturing results must remain distinguishable.
+The design history is semantic and versioned. Dose, placement, units, anatomical reference, source acquisition, algorithm version and material/mechanical intent must survive into committed revisions.
+
+## Architecture status
+
+The geometry-engine shoot-out is intentionally parked.
+
+OpenSubdiv, openNURBS/ON_SubD, Manifold, OCCT or other geometry libraries must be judged against the frozen product/authoring contracts rather than driving those contracts.
+
+## Current documentation priority
+
+```text
+traceability                         baseline DONE
+geometry authoring semantics         canonical draft / freeze next
+workflow/preset/macro semantics      canonical draft / freeze next
+numerical/tolerance governance       canonical draft / freeze next
+representative geometry acceptance   next
+real device/process qualification    parallel
+geometry-engine selection            later
+```
+
+GitHub Actions / fixture-validation reliability is currently an explicitly deferred technical debt item (`TD-CI-001`). It does not block documentation progress and current CI status must not be used as proof that `main` is fully qualified.
 
 ## Documentation maintenance rule
 
-Research evidence must not be silently rewritten when engineering decisions evolve. If older documentation appears obsolete or redundant enough to delete or materially compact, preserve the historical evidence or explicitly review it before removal.
-
-`docs/RESUME_HERE.md` must be updated after every substantial research/specification session so another conversation can resume the project without reconstructing context from scratch.
+Research evidence must not be silently rewritten when engineering decisions evolve. Preserve historical baselines, make supersession explicit, and update `docs/RESUME_HERE.md`, `docs/SPEC_INDEX.md` and `docs/TRACEABILITY_MATRIX.md` after substantial specification work.
