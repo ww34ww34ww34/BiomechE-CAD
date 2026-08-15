@@ -19,14 +19,16 @@ Read in this order before substantial work:
 6. [spec/16_geometry_authoring_contract.md](spec/16_geometry_authoring_contract.md) — P0 geometry-authoring semantics, kernel independent.
 7. [spec/17_workflow_preset_macro.md](spec/17_workflow_preset_macro.md) — P0 reusable workflow/preset/macro semantics.
 8. [spec/18_numerical_qualification_registry.md](spec/18_numerical_qualification_registry.md) — numerical/tolerance/qualification governance.
-9. [validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md](validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md) — representative architecture-independent P0 acceptance scenarios.
-10. [spec/19_project_schema_v0_2_changeset.md](spec/19_project_schema_v0_2_changeset.md) — documented schema evolution; **not yet materialized**.
-11. [spec/11_biomeche_integration.md](spec/11_biomeche_integration.md) — frozen BiomechE↔CAD quantitative contract.
-12. [spec/12_reporting_traceability.md](spec/12_reporting_traceability.md) — frozen reporting/provenance contract.
-13. [spec/15_pressure_acquisition_qualification.md](spec/15_pressure_acquisition_qualification.md) — frozen pressure-device qualification methodology.
-14. [DECISIONS.md](DECISIONS.md) — cross-cutting decisions.
-15. [TECHNICAL_DEBT.md](TECHNICAL_DEBT.md) — explicitly deferred engineering debt.
-16. [BIBLIOGRAPHY.md](BIBLIOGRAPHY.md) — single authoritative bibliography.
+9. [validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md](validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md) — 22 representative architecture-independent P0 scenarios.
+10. [validation/P0_AUTHORING_CROSS_DOCUMENT_AUDIT_2026-08-15.md](validation/P0_AUTHORING_CROSS_DOCUMENT_AUDIT_2026-08-15.md) — cross-document consistency audit, 0 blocking contradictions.
+11. [validation/P0_AUTHORING_ACCEPTANCE_INTEGRATION_ADDENDUM.md](validation/P0_AUTHORING_ACCEPTANCE_INTEGRATION_ADDENDUM.md) — integrates `GAUTH/WFLOW/NREG` into the older acceptance baseline.
+12. [spec/19_project_schema_v0_2_changeset.md](spec/19_project_schema_v0_2_changeset.md) — documented schema evolution; **not yet materialized**.
+13. [spec/11_biomeche_integration.md](spec/11_biomeche_integration.md) — frozen BiomechE↔CAD quantitative contract.
+14. [spec/12_reporting_traceability.md](spec/12_reporting_traceability.md) — frozen reporting/provenance contract.
+15. [spec/15_pressure_acquisition_qualification.md](spec/15_pressure_acquisition_qualification.md) — frozen pressure-device qualification methodology.
+16. [DECISIONS.md](DECISIONS.md) — cross-cutting decisions.
+17. [TECHNICAL_DEBT.md](TECHNICAL_DEBT.md) — explicitly deferred engineering debt.
+18. [BIBLIOGRAPHY.md](BIBLIOGRAPHY.md) — single authoritative bibliography.
 
 `spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md` is historical/audit material and must not be mistaken for v2.
 
@@ -36,38 +38,23 @@ Read in this order before substantial work:
 
 ```text
 FUNCTIONALITY + EASYCAD2 + SCIENTIFIC EVIDENCE       DONE baseline
-        ↓
 FUNCTIONAL SPEC v2                                   CANONICAL
-        ↓
 PROJECT SCHEMA / PROVENANCE                          ACTIVE baseline
-        ↓
 COORDINATE / REGISTRATION                            FROZEN v1
-        ↓
 BIOMECHE INTEGRATION                                 FROZEN v1
-        ↓
 REPORTING / TRACEABILITY                             FROZEN v1
-        ↓
 PRESSURE ACQUISITION QUALIFICATION METHOD            FROZEN v1
-        ↓
 COMPETITOR + LITERATURE SECOND PASS                  DONE
-        ↓
-REQUIREMENT TRACEABILITY                             DONE v0.1
-        ↓
+REQUIREMENT TRACEABILITY                             DONE v0.3
 GEOMETRY AUTHORING CONTRACT                          CANONICAL DRAFT v0.1
-        ↓
 WORKFLOW / PRESET / MACRO CONTRACT                   CANONICAL DRAFT v0.1
-        ↓
 NUMERICAL / TOLERANCE / QUALIFICATION REGISTRY      CANONICAL DRAFT v0.1
-        ↓
-REPRESENTATIVE P0 AUTHORING ACCEPTANCE CATALOG       DONE v0.1
-        ↓
+P0 AUTHORING ACCEPTANCE CATALOG                      DONE — 22 scenarios
 PROJECT SCHEMA v0.2 CHANGE-SET                       DONE design draft / not materialized
-        ↓
-CROSS-DOCUMENT REVIEW + FREEZE                       NEXT
-        ↓
-REAL DEVICE / MATERIAL / PROCESS QUALIFICATION       PARALLEL
-        ↓
-GEOMETRY ENGINE SHOOT-OUT                            LATER
+CROSS-DOCUMENT AUDIT                                 DONE — 0 blockers
+ACCEPTANCE SUITE INTEGRATION                         DONE — addendum v1
+FINAL STATUS NORMALIZATION / FREEZE                  NEXT
+GEOMETRY ENGINE SCORECARD + SHOOT-OUT                AFTER FREEZE
 ```
 
 GitHub CI is **not** a current documentation gate. See `TECHNICAL_DEBT.md`, `TD-CI-001`.
@@ -92,7 +79,7 @@ GitHub CI is **not** a current documentation gate. See `TECHNICAL_DEBT.md`, `TD-
 | [spec/15_pressure_acquisition_qualification.md](spec/15_pressure_acquisition_qualification.md) | **FROZEN methodology v1** | Intended-use-specific device/protocol qualification |
 | [spec/16_geometry_authoring_contract.md](spec/16_geometry_authoring_contract.md) | **CANONICAL DRAFT v0.1** | Typed authoring operations, dose, placement, capture/landmark provenance, mirror, inspection, production boundary |
 | [spec/17_workflow_preset_macro.md](spec/17_workflow_preset_macro.md) | **CANONICAL DRAFT v0.1** | Versioned reusable preset/macro/workflow semantics and human authority |
-| [spec/18_numerical_qualification_registry.md](spec/18_numerical_qualification_registry.md) | **CANONICAL DRAFT v0.1** | Numeric authority classes, OPEN values, tolerance and qualification ownership |
+| [spec/18_numerical_qualification_registry.md](spec/18_numerical_qualification_registry.md) | **CANONICAL DRAFT v0.1** | Numeric authority classes, `OPEN` values, tolerance and qualification ownership |
 | [spec/19_project_schema_v0_2_changeset.md](spec/19_project_schema_v0_2_changeset.md) | DESIGN CHANGE-SET | Additive schema v0.2 direction; no JSON/schema migration yet |
 
 ---
@@ -101,14 +88,16 @@ GitHub CI is **not** a current documentation gate. See `TECHNICAL_DEBT.md`, `TD-
 
 | File | Status | Purpose |
 |---|---|---|
-| [TRACEABILITY_MATRIX.md](TRACEABILITY_MATRIX.md) | **CANONICAL v0.1** | Product family → owner → acceptance → evidence → open gap |
-| [validation/functional_acceptance_suite.md](validation/functional_acceptance_suite.md) | ACTIVE baseline | Existing kernel-independent acceptance families |
-| [validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md](validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md) | **CANONICAL TEST-SPEC v0.1** | 22 representative authoring/workflow/numerical scenarios; execution deferred |
+| [TRACEABILITY_MATRIX.md](TRACEABILITY_MATRIX.md) | **CANONICAL v0.3** | Product family → owner → acceptance → evidence → open gap |
+| [validation/functional_acceptance_suite.md](validation/functional_acceptance_suite.md) | ACTIVE baseline | Existing pre-authoring acceptance families; current-state wording supplemented by addendum |
+| [validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md](validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md) | **CANONICAL TEST-SPEC v0.1** | 22 representative authoring/workflow/numerical scenarios |
+| [validation/P0_AUTHORING_CROSS_DOCUMENT_AUDIT_2026-08-15.md](validation/P0_AUTHORING_CROSS_DOCUMENT_AUDIT_2026-08-15.md) | COMPLETE | 0 blocking semantic contradictions; 5 non-blocking harmonizations |
+| [validation/P0_AUTHORING_ACCEPTANCE_INTEGRATION_ADDENDUM.md](validation/P0_AUTHORING_ACCEPTANCE_INTEGRATION_ADDENDUM.md) | **CANONICAL ADDENDUM v1** | Registers `GAUTH/WFLOW/NREG` and current precedence without depending on CI |
 | [DECISIONS.md](DECISIONS.md) | CANONICAL | Cross-cutting durable decisions |
 | [TECHNICAL_DEBT.md](TECHNICAL_DEBT.md) | ACTIVE | Deferred engineering debt, including `TD-CI-001` |
 | [BIBLIOGRAPHY.md](BIBLIOGRAPHY.md) | **CANONICAL** | Stable source IDs and source-role governance |
 
-Existing acceptance namespaces:
+Existing acceptance namespaces remain:
 
 ```text
 SCHEMA-001..030
@@ -133,8 +122,6 @@ GAUTH-001..040
 WFLOW-001..030
 NREG-001..030
 ```
-
-The new catalog specifies architecture-independent cases for arch, heel, wedge, met-pad placement modes, pressure-target offload, sculpt, scan conform, requested-vs-realized constraints, acquisition/landmark provenance, section/distance/thickness/deviation-map inspection, workflow expansion/overrides/mirroring and numerical-rule resolution.
 
 ---
 
@@ -162,7 +149,7 @@ The new catalog specifies architecture-independent cases for arch, heel, wedge, 
 |---|---|
 | [spec/15_pressure_acquisition_qualification.md](spec/15_pressure_acquisition_qualification.md) | methodology frozen |
 | [research/SENSORMEDICA_FM12050_QUALIFICATION_INTAKE_2026-08-15.md](research/SENSORMEDICA_FM12050_QUALIFICATION_INTAKE_2026-08-15.md) | nominal/source intake complete |
-| [validation/FM12050_PFM2120_BENCH_QUALIFICATION_PROTOCOL_DRAFT.md](validation/FM12050_PFM2120_BENCH_QUALIFICATION_PROTOCOL_DRAFT.md) | execution structure ready, limits not frozen |
+| [validation/FM12050_PFM2120_BENCH_QUALIFICATION_PROTOCOL_DRAFT.md](validation/FM12050_PFM2120_BENCH_QUALIFICATION_PROTOCOL_DRAFT.md) | execution structure ready; limits not frozen |
 | [`qualification/templates/pressure-bench-result-0.1.json`](../qualification/templates/pressure-bench-result-0.1.json) | machine-readable result template |
 
 Real physical-unit qualification remains pending and is independent of the current documentation freeze.
@@ -198,18 +185,18 @@ Preserve, but do not treat as current product authority:
 9. Numeric rules are classified by authority; `OPEN` remains `OPEN`.
 10. Manufacturing/device/clinical limits are profile-owned; no global hidden tolerance.
 11. CAD nominal geometry, manufacturing artifact and measured physical part remain distinct.
-12. Architecture selection remains downstream of authoring/acceptance contracts.
-13. `TD-CI-001` is deferred and does not block documentation work.
+12. Cross-document audit found no blocking semantic contradiction in the P0 authoring package.
+13. Architecture selection remains downstream of authoring/acceptance contracts.
+14. `TD-CI-001` is deferred and does not block documentation work.
 
 ---
 
 # 9. Exact next documentation work
 
-1. Perform a cross-document consistency review of `16`, `17`, `18`, the P0 acceptance catalog and the v0.2 change set.
-2. Freeze the authoring/workflow/numerical contracts as v1 after resolving contradictions or missing P0 semantics.
-3. Update the existing functional acceptance baseline to reference the new families without duplicating their owning definitions.
-4. Define the first geometry-engine evaluation scorecard directly from `GAUTH/WFLOW/NREG` requirements.
-5. Only then resume OpenSubdiv vs openNURBS/ON_SubD evaluation.
+1. Normalize status headers/cross-references and freeze `16`, `17`, `18` as v1.
+2. Promote the P0 authoring catalog to frozen semantic test-spec v1 and the schema v0.2 document to approved change-set/not materialized.
+3. Derive a geometry-engine evaluation scorecard directly from `GAUTH/WFLOW/NREG` plus the 22 representative scenarios.
+4. Only then resume OpenSubdiv vs openNURBS/ON_SubD evaluation.
 
 Parallel real-device/material/process qualification may continue whenever physical evidence is available.
 
