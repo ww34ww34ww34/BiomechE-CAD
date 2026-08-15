@@ -1,141 +1,109 @@
-# BiomechE-CAD Specification Index
+# BiomechE-CAD — Specification Index
 
-Markdown under `docs/` is the canonical specification source.
+**Status:** CANONICAL DOCUMENT MAP  
+**Updated:** 2026-08-15
 
-## Start / resume here
+Markdown under `docs/` is the canonical documentation source.
 
-1. [RESUME_HERE.md](RESUME_HERE.md) — current checkpoint, DONE/TODO and exact restart point.
+---
+
+## 1. Resume order
+
+Read in this order before substantial work:
+
+1. [RESUME_HERE.md](RESUME_HERE.md) — current mission, state and exact restart point.
 2. [spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md](spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md) — **canonical product scope**.
-3. [spec/02_project_schema.md](spec/02_project_schema.md) — persisted semantic contract.
-4. [validation/functional_acceptance_suite.md](validation/functional_acceptance_suite.md) — kernel-independent cross-domain acceptance baseline.
-5. [spec/01_coordinate_registration.md](spec/01_coordinate_registration.md) — frozen coordinate/registration semantics.
-6. [spec/11_biomeche_integration.md](spec/11_biomeche_integration.md) — frozen BiomechE↔CAD quantitative integration semantics.
-7. [spec/12_reporting_traceability.md](spec/12_reporting_traceability.md) — frozen reporting/traceability semantics.
-8. [spec/15_pressure_acquisition_qualification.md](spec/15_pressure_acquisition_qualification.md) — frozen pressure-acquisition qualification methodology.
-9. [validation/fixture_validation_report_2026-08-15.md](validation/fixture_validation_report_2026-08-15.md) — latest CI-qualified fixture result.
-10. [DECISIONS.md](DECISIONS.md) — cross-cutting decisions.
-11. [BIBLIOGRAPHY.md](BIBLIOGRAPHY.md) — **single authoritative bibliography**.
+3. [TRACEABILITY_MATRIX.md](TRACEABILITY_MATRIX.md) — requirement → owner → acceptance → evidence → open state.
+4. [spec/02_project_schema.md](spec/02_project_schema.md) — persisted semantic model.
+5. [spec/01_coordinate_registration.md](spec/01_coordinate_registration.md) — frozen coordinate/laterality/registration semantics.
+6. [spec/16_geometry_authoring_contract.md](spec/16_geometry_authoring_contract.md) — P0 geometry-authoring semantics, kernel independent.
+7. [spec/17_workflow_preset_macro.md](spec/17_workflow_preset_macro.md) — P0 reusable workflow/preset/macro semantics.
+8. [spec/18_numerical_qualification_registry.md](spec/18_numerical_qualification_registry.md) — numerical defaults/tolerances/qualification governance.
+9. [spec/11_biomeche_integration.md](spec/11_biomeche_integration.md) — frozen BiomechE↔CAD quantitative contract.
+10. [spec/12_reporting_traceability.md](spec/12_reporting_traceability.md) — frozen reporting/provenance contract.
+11. [spec/15_pressure_acquisition_qualification.md](spec/15_pressure_acquisition_qualification.md) — frozen pressure-device qualification methodology.
+12. [DECISIONS.md](DECISIONS.md) — cross-cutting decisions.
+13. [TECHNICAL_DEBT.md](TECHNICAL_DEBT.md) — explicitly deferred engineering debt.
+14. [BIBLIOGRAPHY.md](BIBLIOGRAPHY.md) — single authoritative bibliography.
 
-`docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md` remains a historical/audit baseline and must not be destructively rewritten to look current.
+`spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md` is historical/audit material and must not be mistaken for v2.
 
 ---
 
-## Current work order
+## 2. Current work order
 
 ```text
-FUNCTIONALITY + EASYCAD2 + SCIENTIFIC EVIDENCE     DONE baseline
+FUNCTIONALITY + EASYCAD2 + SCIENTIFIC EVIDENCE       DONE baseline
         ↓
-FUNCTIONAL SPEC v2                                 DONE / CANONICAL
+FUNCTIONAL SPEC v2                                   CANONICAL
         ↓
-PROJECT SCHEMA v0                                  DONE baseline
+PROJECT SCHEMA / PROVENANCE                          ACTIVE baseline
         ↓
-KERNEL-INDEPENDENT ACCEPTANCE SUITE                DONE baseline
+COORDINATE / REGISTRATION                            FROZEN v1
         ↓
-RICH PROJECT / ACCEPTANCE FIXTURES                 DONE current batch
+BIOMECHE INTEGRATION                                 FROZEN v1
         ↓
-COORDINATE / REGISTRATION SEMANTICS                FROZEN v1
+REPORTING / TRACEABILITY                             FROZEN v1
         ↓
-BIOMECHE INTEGRATION                               FROZEN v1
+PRESSURE ACQUISITION QUALIFICATION METHOD            FROZEN v1
         ↓
-REPORTING / TRACEABILITY                           FROZEN v1
+COMPETITOR + LITERATURE SECOND PASS                  DONE
         ↓
-PRESSURE ACQUISITION QUALIFICATION METHOD          FROZEN v1
+REQUIREMENT TRACEABILITY                             DONE v0.1
         ↓
-CI-QUALIFIED PRE-KERNEL FIXTURES                   PASS — 16 / 0 failures
+GEOMETRY AUTHORING CONTRACT                          CANONICAL DRAFT / FREEZE NEXT
         ↓
-REAL DEVICE/PROTOCOL QUALIFICATION                 NEXT
+WORKFLOW / PRESET / MACRO CONTRACT                   CANONICAL DRAFT / FREEZE NEXT
         ↓
-BINT/RPT/PAQ EXECUTABLE EXPANSION                  PARALLEL
+NUMERICAL / TOLERANCE / QUALIFICATION REGISTRY      CANONICAL DRAFT / FREEZE NEXT
         ↓
-COMPETITOR DEEP AUDIT / WORKFLOW AUTOMATION        PARALLEL
+P0 GEOMETRY ACCEPTANCE + REPRESENTATIVE FIXTURES     NEXT
         ↓
-ARCHITECTURE SHOOT-OUT                             LATER
+REAL DEVICE / MATERIAL / PROCESS QUALIFICATION       PARALLEL
+        ↓
+GEOMETRY ENGINE SHOOT-OUT                            LATER
 ```
 
-OpenSubdiv vs openNURBS/ON_SubD remains intentionally parked. No OCCT/Manifold/other geometry kernel has been added.
+GitHub CI is **not** a current documentation gate. See `TECHNICAL_DEBT.md`, `TD-CI-001`.
 
 ---
 
-# Canonical product specifications
+# 3. Canonical product specifications
 
 | File | Status | Purpose |
 |---|---|---|
-| [spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md](spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md) | **CANONICAL v2** | Consolidated evidence-led P0/P1/P2 product scope |
-| [spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md](spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md) | Historical baseline preserved | Original detailed EasyCAD2-inspired baseline retained for audit/history |
-| [spec/01_coordinate_registration.md](spec/01_coordinate_registration.md) | **FROZEN semantic baseline v1** | CAD/anatomical frames, side, intrinsic `s/q`, pressure/index mapping, registration algebra, mirror, tolerance classes |
-| [spec/02_project_schema.md](spec/02_project_schema.md) | **ACTIVE SCHEMA BASELINE v0** | Immutable revisions, exact definitions, acquisitions, outcomes, materials, manufacturing, physical part, provenance and migration |
-| [spec/06_corrective_elements.md](spec/06_corrective_elements.md) | ACTIVE v0 | Corrective-element/offload taxonomy and semantics |
-| [spec/08_material_stiffness.md](spec/08_material_stiffness.md) | ACTIVE v0 | Material identity/lot/stacks/regions/effective properties/post-process/service state |
-| [spec/09_analysis_qc_dfm.md](spec/09_analysis_qc_dfm.md) | ACTIVE v0 | Quantitative pressure/PTI/contact/force/COP/shear direction, protocol provenance and QC/DFM |
-| [spec/10_manufacturing.md](spec/10_manufacturing.md) | ACTIVE v0 | Manufacturing profile/run/artifact, physical part, QC and acceptance |
-| [spec/11_biomeche_integration.md](spec/11_biomeche_integration.md) | **FROZEN semantic baseline v1** | BiomechE result envelope, KPI/quality/protocol provenance, comparison, reanalysis and dynamic capability gating |
-| [spec/12_reporting_traceability.md](spec/12_reporting_traceability.md) | **FROZEN semantic baseline v1** | Immutable report artifacts, exact source manifests, provenance, privacy and semantic reproducibility |
-| [spec/13_use_case_profiles.md](spec/13_use_case_profiles.md) | ACTIVE v0 | Evidence-context profiles and non-transfer guards |
-| [spec/14_prom_comfort_adherence.md](spec/14_prom_comfort_adherence.md) | ACTIVE v0 | PROM/function/pain/comfort/fit/satisfaction/adherence separation |
-| [spec/15_pressure_acquisition_qualification.md](spec/15_pressure_acquisition_qualification.md) | **FROZEN methodological baseline v1** | Intended-use-specific pressure-device/protocol/calibration/bench/repeatability/cross-device qualification contract; numeric limits remain profile-owned |
-
-## Architecture-hypothesis files — preserved, not current selection work
-
-| File | Status |
-|---|---|
-| [spec/CAD_ENGINE_CAPABILITY_SPEC.md](spec/CAD_ENGINE_CAPABILITY_SPEC.md) | capability baseline; architecture parked |
-| [spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md](spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md) | parked architecture-selection status |
-| [spec/03_geometry_operation_model.md](spec/03_geometry_operation_model.md) | historical hypothesis / not frozen; coordinate conflicts defer to `01_coordinate_registration.md` |
-| [spec/04_base_template.md](spec/04_base_template.md) | candidate / not frozen |
-| [spec/05_parametric_orthosis_geometry.md](spec/05_parametric_orthosis_geometry.md) | provisional math / not clinical evidence |
+| [spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md](spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md) | **CANONICAL v2** | Evidence-led P0/P1/P2 product scope |
+| [spec/02_project_schema.md](spec/02_project_schema.md) | ACTIVE schema baseline v0 | Immutable revisions, definitions, acquisitions, outcomes, materials, manufacturing, provenance |
+| [spec/01_coordinate_registration.md](spec/01_coordinate_registration.md) | **FROZEN v1** | CAD-ANAT-1, side, intrinsic coordinates, transforms, registration semantics |
+| [spec/06_corrective_elements.md](spec/06_corrective_elements.md) | ACTIVE v0 | Corrective/offload taxonomy and semantics |
+| [spec/08_material_stiffness.md](spec/08_material_stiffness.md) | ACTIVE v0 | Material identity, regions, effective/measured/service-aged mechanics |
+| [spec/09_analysis_qc_dfm.md](spec/09_analysis_qc_dfm.md) | ACTIVE v0 | Quantitative analysis, QC and DFM semantics |
+| [spec/10_manufacturing.md](spec/10_manufacturing.md) | ACTIVE v0 | Manufacturing profile/run/artifact/physical-part/QC lifecycle |
+| [spec/11_biomeche_integration.md](spec/11_biomeche_integration.md) | **FROZEN v1** | KPI/result provenance, quality, comparison and reanalysis |
+| [spec/12_reporting_traceability.md](spec/12_reporting_traceability.md) | **FROZEN v1** | Immutable report/source-manifest semantics |
+| [spec/13_use_case_profiles.md](spec/13_use_case_profiles.md) | ACTIVE v0 | Evidence-context profiles and non-transfer rules |
+| [spec/14_prom_comfort_adherence.md](spec/14_prom_comfort_adherence.md) | ACTIVE v0 | PROM/pain/function/comfort/fit/satisfaction/adherence separation |
+| [spec/15_pressure_acquisition_qualification.md](spec/15_pressure_acquisition_qualification.md) | **FROZEN methodology v1** | Intended-use-specific device/protocol qualification |
+| [spec/16_geometry_authoring_contract.md](spec/16_geometry_authoring_contract.md) | **CANONICAL DRAFT v0.1** | Typed authoring operations, dose, placement, capture/landmark provenance, mirror, inspection, production boundary |
+| [spec/17_workflow_preset_macro.md](spec/17_workflow_preset_macro.md) | **CANONICAL DRAFT v0.1** | Versioned reusable preset/macro/workflow semantics and human authority |
+| [spec/18_numerical_qualification_registry.md](spec/18_numerical_qualification_registry.md) | **CANONICAL DRAFT v0.1** | Numeric authority classes, OPEN values, tolerance and qualification ownership |
 
 ---
 
-# Project Schema / executable validation
+# 4. Traceability and governance
 
 | File | Status | Purpose |
 |---|---|---|
-| [`schemas/biomeche-cad-project-0.1.schema.json`](../schemas/biomeche-cad-project-0.1.schema.json) | ACTIVE reference schema | JSON Schema Draft 2020-12 serialization |
-| [`fixtures/project/minimal-valid-project.json`](../fixtures/project/minimal-valid-project.json) | baseline | minimal valid envelope |
-| [`fixtures/project/bilateral-project.json`](../fixtures/project/bilateral-project.json) | rich fixture | bilateral ownership/mirror lineage |
-| [`fixtures/project/pressure-design-outcome-loop.json`](../fixtures/project/pressure-design-outcome-loop.json) | rich fixture | pressure→design→measured-outcome loop |
-| [`fixtures/project/manufacturing-qc-lineage.json`](../fixtures/project/manufacturing-qc-lineage.json) | rich fixture | design→run→artifact→part→QC lineage |
-| [`fixtures/project/migration-v0.1.json`](../fixtures/project/migration-v0.1.json) | rich fixture | legacy migration provenance |
-| [`tools/validate_fixtures.py`](../tools/validate_fixtures.py) | ACTIVE harness | JSON Schema + current kernel-independent semantic checks |
-| [`requirements-dev.txt`](../requirements-dev.txt) | ACTIVE | validator development dependency |
-| [validation/fixture_validation_report_2026-08-15.md](validation/fixture_validation_report_2026-08-15.md) | **CI PASS** | latest exact run/result/IDs/scope |
-| [`.github/workflows/validate-fixtures.yml`](../.github/workflows/validate-fixtures.yml) | ACTIVE CI | validates schema/fixtures on relevant pushes/PRs |
-
-## Acceptance fixtures
-
-Current acceptance fixture set:
-
-```text
-fixtures/acceptance/biomeche-result-import.json
-fixtures/acceptance/blocking-qc.json
-fixtures/acceptance/material-property-provenance.json
-fixtures/acceptance/mirror-semantics.json
-fixtures/acceptance/offload-safety-ring.json
-fixtures/acceptance/pressure-qualification-profile.json
-fixtures/acceptance/profile-non-transfer.json
-fixtures/acceptance/prom-versioning.json
-fixtures/acceptance/registration-known-transform.json
-fixtures/acceptance/report-source-exactness.json
-fixtures/acceptance/roi-version-comparison.json
-```
-
-Latest CI-qualified result:
-
-```text
-commit:    93fdf584881b1f8e24285919b1579ba8cc312fc1
-workflow:  Validate project fixtures
-run:       31849317559 / run 4
-fixtures:  16
-failures:  0
-```
-
-The pressure-qualification fixture is deliberately synthetic/nonclinical: it proves profile semantics and the `OPEN means OPEN` rule, not real-device accuracy.
+| [TRACEABILITY_MATRIX.md](TRACEABILITY_MATRIX.md) | **CANONICAL v0.1** | Product requirement family → canonical owner → acceptance → evidence → open gap |
+| [DECISIONS.md](DECISIONS.md) | CANONICAL | Cross-cutting durable decisions |
+| [TECHNICAL_DEBT.md](TECHNICAL_DEBT.md) | ACTIVE | Deferred engineering debt, including `TD-CI-001` |
+| [BIBLIOGRAPHY.md](BIBLIOGRAPHY.md) | **CANONICAL** | Stable source IDs and source-role governance |
 
 ---
 
-# Acceptance namespaces
+# 5. Acceptance families
 
-Canonical cross-domain suite:
+Existing families:
 
 ```text
 SCHEMA-001..030
@@ -148,104 +116,110 @@ PROM-001..020
 MAT-001..018
 MAN-001..018
 XACC-001..050
+BINT-001..018
+RPT-001..018
+PAQ-001..020
 ```
 
-Domain-contract families defined in frozen specifications:
+New authoring-phase families defined by canonical drafts:
 
 ```text
-BINT-001..018  -> spec/11_biomeche_integration.md
-RPT-001..018   -> spec/12_reporting_traceability.md
-PAQ-001..020   -> spec/15_pressure_acquisition_qualification.md
+GAUTH-001..040   geometry authoring
+WFLOW-001..030   workflow/preset/macro
+NREG-001..030    numerical/tolerance/qualification registry
 ```
 
-Current executable subset is recorded exactly in `validation/fixture_validation_report_2026-08-15.md`.
-
-A later maintenance pass may merge catalog summaries into `functional_acceptance_suite.md`, but the frozen semantic definitions remain in their owning domain specs.
+The semantic definitions are authoritative even while `TD-CI-001` keeps executable GitHub validation temporarily outside the documentation gate.
 
 ---
 
-# Current BiomechE integration pin
-
-Integration work currently references:
-
-```text
-ww34ww34ww34/BiomechE
-d5e467a1a5551f4280cfef5b483da1999f1566e0
-```
-
-The upstream state is frozen through dynamic-gait `DYN-005`; `DYN-006` dynamic pressure/force/integral/region semantics are still upstream NEXT. CAD therefore pins the supported capability/version and does not invent replacement formulas.
-
-Canonical source ID: `ARCH-BIOMECHE-INTEGRATION-2026-08-15`.
-
----
-
-# Functional/scientific research
+# 6. Research / market evidence
 
 | File | Status | Purpose |
 |---|---|---|
-| [research/FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md](research/FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md) | ACTIVE master matrix | feature → evidence → requirement mapping |
-| [research/FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md](research/FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md) | complete | wedge/metatarsal/arch/heel dose |
+| [research/FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md](research/FUNCTIONAL_SCIENTIFIC_EVIDENCE_MATRIX.md) | ACTIVE master matrix | feature ↔ scientific evidence ↔ requirement |
+| [research/FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md](research/FUNCTIONAL_EVIDENCE_BATCH_02_PARAMETER_DOSE.md) | complete | posting/metatarsal/arch/heel dose |
 | [research/FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md](research/FUNCTIONAL_EVIDENCE_BATCH_03_RELIEF_OFFLOADING.md) | complete | relief/offloading redistribution |
 | [research/FUNCTIONAL_EVIDENCE_BATCH_04_ARCH.md](research/FUNCTIONAL_EVIDENCE_BATCH_04_ARCH.md) | complete | arch geometry/mechanics/context/outcome |
 | [research/FUNCTIONAL_EVIDENCE_BATCH_05_HEEL.md](research/FUNCTIONAL_EVIDENCE_BATCH_05_HEEL.md) | complete | heel containment/relief/camber/material |
-| [research/FUNCTIONAL_EVIDENCE_BATCH_06_USE_CASE_PROFILES.md](research/FUNCTIONAL_EVIDENCE_BATCH_06_USE_CASE_PROFILES.md) | complete | indication/profile boundaries |
-| [research/FUNCTIONAL_EVIDENCE_BATCH_07_PROM_COMFORT_ADHERENCE.md](research/FUNCTIONAL_EVIDENCE_BATCH_07_PROM_COMFORT_ADHERENCE.md) | complete | outcome-instrument and adherence governance |
-| [research/FUNCTIONAL_EVIDENCE_BATCH_08_MATERIAL_MANUFACTURING.md](research/FUNCTIONAL_EVIDENCE_BATCH_08_MATERIAL_MANUFACTURING.md) | complete | material/process/QC/service provenance |
-| [research/COMPETITOR_FUNCTIONAL_GAP_AUDIT_2026-08-15.md](research/COMPETITOR_FUNCTIONAL_GAP_AUDIT_2026-08-15.md) | first public-source baseline | current orthotic CAD/CAM functional-gap audit |
-| [research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md](research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md) | archived background | library/portability research; not current priority |
+| [research/FUNCTIONAL_EVIDENCE_BATCH_06_USE_CASE_PROFILES.md](research/FUNCTIONAL_EVIDENCE_BATCH_06_USE_CASE_PROFILES.md) | complete | profile/population boundaries |
+| [research/FUNCTIONAL_EVIDENCE_BATCH_07_PROM_COMFORT_ADHERENCE.md](research/FUNCTIONAL_EVIDENCE_BATCH_07_PROM_COMFORT_ADHERENCE.md) | complete | PROM/comfort/adherence governance |
+| [research/FUNCTIONAL_EVIDENCE_BATCH_08_MATERIAL_MANUFACTURING.md](research/FUNCTIONAL_EVIDENCE_BATCH_08_MATERIAL_MANUFACTURING.md) | complete | material/process/QC/service evidence |
+| [research/COMPETITOR_FUNCTIONAL_GAP_AUDIT_2026-08-15.md](research/COMPETITOR_FUNCTIONAL_GAP_AUDIT_2026-08-15.md) | baseline | EasyCAD2/OrthoCAD/Insolution/Voxelcare/Sharp Shape functional comparison |
+| [research/COMPETITOR_LITERATURE_GAP_AUDIT_2026-08-15.md](research/COMPETITOR_LITERATURE_GAP_AUDIT_2026-08-15.md) | **second pass complete** | expanded competitor set + literature answers to authoring gaps |
+| [research/SENSORMEDICA_FM12050_QUALIFICATION_INTAKE_2026-08-15.md](research/SENSORMEDICA_FM12050_QUALIFICATION_INTAKE_2026-08-15.md) | intake complete / not qualified | first Sensor Medica pressure-platform family intake |
 
 ---
 
-# Current adopted conclusions
+# 7. Pressure/device qualification package
+
+| File | Status |
+|---|---|
+| [spec/15_pressure_acquisition_qualification.md](spec/15_pressure_acquisition_qualification.md) | methodology frozen |
+| [research/SENSORMEDICA_FM12050_QUALIFICATION_INTAKE_2026-08-15.md](research/SENSORMEDICA_FM12050_QUALIFICATION_INTAKE_2026-08-15.md) | nominal/source intake complete |
+| [validation/FM12050_PFM2120_BENCH_QUALIFICATION_PROTOCOL_DRAFT.md](validation/FM12050_PFM2120_BENCH_QUALIFICATION_PROTOCOL_DRAFT.md) | execution structure ready, limits not frozen |
+| [`qualification/templates/pressure-bench-result-0.1.json`](../qualification/templates/pressure-bench-result-0.1.json) | machine-readable result template |
+
+Real physical-unit qualification remains pending and is independent of the documentation work now in progress.
+
+---
+
+# 8. Historical / architecture-hypothesis material
+
+Preserve, but do not treat as current product authority:
+
+| File | Status |
+|---|---|
+| [spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md](spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md) | historical functional baseline |
+| [spec/03_geometry_operation_model.md](spec/03_geometry_operation_model.md) | historical OpenSubdiv-first hypothesis; domain conflicts defer to `16_geometry_authoring_contract.md` |
+| [spec/04_base_template.md](spec/04_base_template.md) | candidate / not frozen |
+| [spec/05_parametric_orthosis_geometry.md](spec/05_parametric_orthosis_geometry.md) | provisional math / not clinical authority |
+| [spec/CAD_ENGINE_CAPABILITY_SPEC.md](spec/CAD_ENGINE_CAPABILITY_SPEC.md) | engine capability baseline; architecture parked |
+| [spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md](spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md) | parked architecture-selection checkpoint |
+| [research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md](research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md) | archived library/portability research |
+
+---
+
+# 9. Current adopted conclusions
 
 1. EasyCAD2 is behavioral evidence, not scientific truth.
-2. Pressure remains numeric quantitative data; heatmaps are derived views.
-3. Dose/placement/reference/units survive as structured prescription semantics.
-4. Offloading is evaluated as redistribution: target + safety-ring + remote regions.
-5. Geometry and material/mechanical dose are separate.
-6. Thresholds are population/context/protocol/ROI specific.
-7. Profile attachment is versioned evidence context, not diagnosis or auto-prescription.
-8. PROM/pain/function/comfort/fit/satisfaction/adherence remain distinct.
-9. Material nominal/manufactured/effective/service-aged states remain distinct.
-10. `CAD export != ManufacturingArtifact != PhysicalOrthosis != accepted part`.
-11. Committed `DesignRevision` and issued reports are immutable historical entities.
-12. Raw acquisitions/assets and BiomechE result bundles are hash-addressed provenance anchors.
-13. BiomechE is quantitative KPI authority; CAD owns prescription/design/lifecycle semantics.
-14. `UNAVAILABLE` measurement is not zero; quality state survives integration.
-15. Cross-device/protocol pressure comparison is explicitly gated.
-16. Reanalysis creates new result/measurement identities rather than rewriting history.
-17. Reports retain exact source refs/manifests; PDF/HTML/charts are presentation artifacts.
-18. Semantic report reproducibility is distinguished from byte-identical rendering.
-19. Pressure-device qualification is intended-use/profile-specific; bench and human-protocol evidence are distinct.
-20. No hidden universal step count, spatial resolution or device-accuracy limit is allowed.
-21. Unknown qualification limits remain `OPEN`, not implementation defaults.
-22. No hidden universal `BiomechE Score`.
-23. Architecture selection remains downstream of these contracts.
+2. BiomechE-CAD is a vertical orthotic CAD, not a generic modeler.
+3. Semantic prescription survives final geometry.
+4. Dose, placement, units, side, anatomical reference and source provenance are structured data.
+5. Capture context and landmark provenance matter when scan geometry influences design.
+6. Geometry dose and mechanical/material dose remain distinct.
+7. Named orthotic operations remain domain concepts even if low-level geometry primitives are shared.
+8. Workflow knowledge is P0 semantic infrastructure; advanced automation is later UX.
+9. Presets/macros use exact version/hash and cannot rewrite historical revisions.
+10. Numeric rules are typed by authority; `OPEN` remains `OPEN`.
+11. Clinical thresholds are profile/population/protocol/ROI specific.
+12. Manufacturing tolerance belongs to a qualified process/profile, not a global CAD constant.
+13. CAD nominal geometry, manufactured artifact and measured physical part remain distinct.
+14. BiomechE remains quantitative KPI authority.
+15. Reports are immutable derivations from exact source entities.
+16. Architecture selection remains downstream of frozen product/authoring contracts.
+17. `TD-CI-001` is deferred and does not block documentation work.
 
 ---
 
-# Work queue — NEXT
+# 10. Work queue — exact next documentation steps
 
-1. **Identify the exact first Sensor Medica pressure platform/device unit** to qualify and collect authoritative datasheet/service/calibration information.
-2. Implement the first real `PressureAcquisitionQualificationProfile`: hardware revision, serial/unit, SensorGeometry, calibration, raw→physical conversion and intended-use scope.
-3. Build bench qualification fixtures/data for force scale, zero/drift, linearity, hysteresis/creep, saturation and COP where required.
-4. Define static-load protocol qualification; then dynamic overground; stabilometry separately when required.
-5. Expand executable `BINT-011/012/015`, `RPT-014/015` and remaining `PAQ-*` cases.
-6. Follow upstream BiomechE `DYN-006+` and bind dynamic pressure/force/region semantics only after they freeze.
-7. Deepen competitor audit from manuals/trials; address `GAP-COMP-001` workflow macros in parallel.
-8. Qualify actual material/manufacturing profiles and tolerances.
-9. Select built-in PROM instruments only after population/psychometric/licensing review.
-10. Only after these: resume OpenSubdiv vs openNURBS/ON_SubD shoot-out.
+1. Review/freeze `16_geometry_authoring_contract.md` as v1.
+2. Review/freeze `17_workflow_preset_macro.md` as v1.
+3. Review/freeze `18_numerical_qualification_registry.md` as v1.
+4. Allocate representative geometry acceptance scenarios/fixtures for arch, heel, wedge, corrective element, mirror, section, thickness and deviation-map semantics.
+5. Define schema-v0.2 change set required for capture context, richer landmark provenance and workflow applications — **documentation first, migration later**.
+6. Continue real FM12050/material/process qualification in parallel when physical evidence is available.
+7. Resume geometry-engine shoot-out only after the authoring/acceptance contracts are sufficiently frozen.
 
 ---
 
-# Documentation rules
+# 11. Documentation maintenance rules
 
-1. `docs/BIBLIOGRAPHY.md` is the single authoritative bibliography.
-2. Add a source ID before a canonical claim relies on it; never invent page numbers.
-3. Vendor pages establish market capabilities/specifications only, not efficacy or achieved qualification performance.
-4. Scientific thresholds remain population/context/protocol/ROI specific.
-5. Standards are used only to the scope actually reviewed.
-6. Preserve superseded historical/architecture material in Git.
-7. Update `RESUME_HERE.md` and this index after substantial work.
-8. Architecture dependencies must still earn entry through a named requirement/failing fixture.
+1. `BIBLIOGRAPHY.md` remains the single bibliographic authority.
+2. Vendor evidence establishes market capability, not efficacy.
+3. Study-specific doses do not become universal defaults.
+4. `OPEN` values are never filled by convenience.
+5. Historical documents remain visibly historical.
+6. Update `RESUME_HERE.md`, this index and `TRACEABILITY_MATRIX.md` after substantial work.
+7. CI state is governed by `TECHNICAL_DEBT.md` while `TD-CI-001` is open.
