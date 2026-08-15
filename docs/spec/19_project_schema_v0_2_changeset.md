@@ -1,9 +1,9 @@
 # BiomechE-CAD — Project Schema v0.2 Change-Set Specification
 
-**Status:** DESIGN CHANGE-SET / NOT YET MATERIALIZED  
-**Date:** 2026-08-15  
+**Status:** APPROVED CHANGE-SET / NOT MATERIALIZED  
+**Approval date:** 2026-08-15  
 **Parent schema:** `02_project_schema.md` / reference serialization `biomeche-cad-project-0.1`  
-**Rule:** documentation first; do not modify schema JSON, fixtures or migrations until this change set is reviewed.
+**Rule:** documentation-approved evolution; do not modify schema JSON, fixtures or migrations until implementation work explicitly opens schema v0.2 materialization.
 
 ---
 
@@ -472,16 +472,18 @@ These remain separate future decisions.
 
 ---
 
-# 16. Review checklist before materializing schema v0.2
+# 16. Approval / materialization checklist
 
-1. Does each proposed field correspond to a frozen P0 requirement?
-2. Can old v0.1 data map without invented provenance?
-3. Are workflow definitions distinct from applications/expanded operations?
-4. Are numerical rules references, not hidden code constants?
-5. Can requested vs realized geometry be represented without mutating prescription intent?
-6. Can geometry inspection results preserve method/revision/frame?
-7. Are manufacturing tolerances still profile-owned?
-8. Is any proposed object dependent on a specific geometry kernel? If yes, remove or redesign it.
-9. Is the migration direction explicit before touching JSON Schema?
+The documentation review approved this change-set direction because:
 
-Only after this review should the reference serialization advance from `0.1` to `0.2`.
+1. each proposed field maps to a frozen P0 authoring/workflow/numerical requirement;
+2. v0.1 can migrate without invented provenance;
+3. workflow definitions remain distinct from applications/expanded operations;
+4. numerical rules are explicit references rather than hidden code constants;
+5. requested vs realized geometry can be represented without mutating prescription intent;
+6. geometry inspection retains method/revision/frame;
+7. manufacturing tolerances remain profile-owned;
+8. no proposed object requires a specific geometry kernel;
+9. migration direction is explicit before touching JSON Schema.
+
+**Not materialized means:** `schemas/biomeche-cad-project-0.1.schema.json`, fixtures, migration code and runtime objects remain unchanged until a later explicit implementation task. Approval of this document is not a claim that schema v0.2 already exists in code.
