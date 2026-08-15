@@ -3,7 +3,7 @@
 **Repository:** `ww34ww34ww34/BiomechE-CAD`  
 **Canonical branch:** `main`  
 **Checkpoint date:** 2026-08-15  
-**Current phase:** P0 authoring-contract formalization. Product/domain discovery is mature; geometry-authoring, workflow/macro and numerical-governance contracts exist as canonical drafts, representative architecture-independent acceptance scenarios are specified, and the Project Schema v0.2 evolution is documented but not yet materialized. GitHub CI is explicitly deferred as technical debt and is not a documentation gate.
+**Current phase:** **P0 authoring-contract freeze**. Product/domain discovery is mature. Geometry-authoring, workflow/macro and numerical-governance contracts exist as canonical drafts; 22 representative architecture-independent acceptance scenarios are specified; the Project Schema v0.2 evolution is documented but not materialized; the cross-document audit found **0 blocking semantic contradictions**; acceptance-suite integration is complete through a canonical addendum. GitHub CI remains deferred as `TD-CI-001` and is not a documentation gate.
 
 ---
 
@@ -20,15 +20,17 @@
 9. `docs/spec/18_numerical_qualification_registry.md`
 10. `docs/validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md`
 11. `docs/spec/19_project_schema_v0_2_changeset.md`
-12. `docs/spec/11_biomeche_integration.md`
-13. `docs/spec/12_reporting_traceability.md`
-14. `docs/spec/15_pressure_acquisition_qualification.md`
-15. `docs/research/COMPETITOR_LITERATURE_GAP_AUDIT_2026-08-15.md`
-16. `docs/TECHNICAL_DEBT.md`
-17. `docs/DECISIONS.md`
-18. `docs/BIBLIOGRAPHY.md`
+12. `docs/validation/P0_AUTHORING_CROSS_DOCUMENT_AUDIT_2026-08-15.md`
+13. `docs/validation/P0_AUTHORING_ACCEPTANCE_INTEGRATION_ADDENDUM.md`
+14. `docs/spec/11_biomeche_integration.md`
+15. `docs/spec/12_reporting_traceability.md`
+16. `docs/spec/15_pressure_acquisition_qualification.md`
+17. `docs/research/COMPETITOR_LITERATURE_GAP_AUDIT_2026-08-15.md`
+18. `docs/TECHNICAL_DEBT.md`
+19. `docs/DECISIONS.md`
+20. `docs/BIBLIOGRAPHY.md`
 
-`BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md` is the current functional authority. The old functional spec is historical/audit material.
+`BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md` is the functional authority. The old functional spec is historical/audit material.
 
 ---
 
@@ -63,13 +65,15 @@ BIOMECHE INTEGRATION                                 FROZEN v1
 REPORTING / TRACEABILITY                             FROZEN v1
 PRESSURE ACQUISITION QUALIFICATION METHOD            FROZEN v1
 COMPETITOR + LITERATURE SECOND PASS                  DONE
-REQUIREMENT TRACEABILITY                             DONE v0.1
+REQUIREMENT TRACEABILITY                             DONE v0.3
 GEOMETRY AUTHORING CONTRACT                          CANONICAL DRAFT v0.1
 WORKFLOW / PRESET / MACRO CONTRACT                   CANONICAL DRAFT v0.1
 NUMERICAL / TOLERANCE / QUALIFICATION REGISTRY      CANONICAL DRAFT v0.1
-P0 AUTHORING ACCEPTANCE CATALOG                      DONE v0.1
+P0 AUTHORING ACCEPTANCE CATALOG                      DONE v0.1 — 22 scenarios
 PROJECT SCHEMA v0.2 CHANGE-SET                       DONE design draft / NOT MATERIALIZED
-CROSS-DOCUMENT REVIEW + FREEZE                       NEXT
+CROSS-DOCUMENT AUDIT                                 DONE — 0 blocking contradictions
+ACCEPTANCE SUITE INTEGRATION                         DONE — canonical addendum v1
+FINAL STATUS NORMALIZATION / FREEZE 16+17+18         NEXT
 GEOMETRY ENGINE EVALUATION SCORECARD                 AFTER FREEZE
 ARCHITECTURE SHOOT-OUT                               LATER
 ```
@@ -108,13 +112,11 @@ mm, s, N, kPa, deg, mm²
 
 ---
 
-## 5. Geometry Authoring Contract — current P0 direction
+## 5. Geometry Authoring Contract
 
-Canonical draft:
+Canonical draft: `docs/spec/16_geometry_authoring_contract.md`.
 
-`docs/spec/16_geometry_authoring_contract.md`
-
-Key rules:
+Core P0 rules:
 
 ```text
 semantic operation is authoritative
@@ -123,7 +125,7 @@ invalid/unresolved state is explicit
 capture condition survives into design provenance
 landmark provenance includes source method/review state
 placement uses a typed reference, not anonymous XYZ
-requested dose and realized constrained dose can differ explicitly
+requested dose and constrained realized dose are distinguishable
 geometry dose != mechanical dose
 mirror transforms semantics, not only coordinates
 inspection definitions are reproducible
@@ -131,19 +133,7 @@ clinical/contact surface intent is separate from production realization
 deterministic replay is version-bound
 ```
 
-Required P0 operation families include:
-
-```text
-template / outline / sizing
-medial + lateral arch
-heel cup / relief / camber / medial heel skive / mechanical heel region
-rearfoot + forefoot wedge
-corrective element
-offload feature
-sculpt
-scan conform
-height/thickness/DFM constraints
-```
+Required P0 operation families include template/outline/sizing, medial/lateral arch, heel cup/relief/camber/medial heel skive/mechanical heel region, rear/forefoot wedge, corrective element, offload feature, sculpt, scan conform and height/thickness/DFM constraints.
 
 Typed placement modes include:
 
@@ -161,11 +151,9 @@ CUSTOM_REGISTERED_REFERENCE
 
 ## 6. Workflow / Preset / Macro Contract
 
-Canonical draft:
+Canonical draft: `docs/spec/17_workflow_preset_macro.md`.
 
-`docs/spec/17_workflow_preset_macro.md`
-
-Market audit showed reusable design knowledge is table stakes, so `GAP-COMP-001` is now:
+Market audit promoted reusable workflow knowledge to:
 
 ```text
 P0 semantic infrastructure
@@ -180,15 +168,13 @@ WorkflowDefinition    ordered reusable multi-step knowledge
 WorkflowApplication   project-owned exact expansion
 ```
 
-Rules include exact version/hash, typed inputs, explicit defaults/overrides/dependencies, compatibility and mirror policy, deterministic expansion, suggestion != confirmation and historical immutability.
+Rules include exact version/hash, typed inputs, explicit defaults/overrides/dependencies, compatibility and mirror policies, deterministic expansion, suggestion != confirmation and historical immutability.
 
 ---
 
 ## 7. Numerical / Tolerance / Qualification Registry
 
-Canonical draft:
-
-`docs/spec/18_numerical_qualification_registry.md`
+Canonical draft: `docs/spec/18_numerical_qualification_registry.md`.
 
 Authority classes:
 
@@ -204,7 +190,7 @@ MANUFACTURING_ACCEPTANCE_LIMIT
 OUTCOME_INTERPRETATION_RULE
 ```
 
-Every governed number has rule ID/version, units, scope, owner and status:
+Governed rules carry ID/version, unit, scope, owner and status:
 
 ```text
 OPEN
@@ -214,7 +200,7 @@ FROZEN_CONVENTION
 DEPRECATED
 ```
 
-Critical doctrine:
+Doctrine:
 
 ```text
 study dose != universal default
@@ -222,55 +208,70 @@ display precision != acceptance tolerance
 algorithm replay epsilon != manufacturing tolerance
 landmark uncertainty != registration tolerance != manufacturing tolerance
 no global CAD_TOLERANCE
-no fallback from missing qualification limit to a UI default
+missing qualification limit never falls back to a UI convenience value
 ```
 
 ---
 
-## 8. P0 Authoring Acceptance Catalog
+## 8. P0 Authoring Acceptance
 
-Canonical test specification:
+Canonical catalog: `docs/validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md`.
 
-`docs/validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md`
+22 representative architecture-independent scenarios cover arch, heel, wedge, met-pad placement modes, pressure-target offload, sculpt, scan conform, requested-vs-realized geometry, weight-bearing `UNKNOWN`, landmark review provenance, section/distance/thickness, CAD-vs-part deviation, workflow versioning/overrides/confirmation/mirror and numerical-rule resolution.
 
-It currently defines 22 representative architecture-independent scenarios, including:
+Integration with the older acceptance suite is now explicit through:
+
+`docs/validation/P0_AUTHORING_ACCEPTANCE_INTEGRATION_ADDENDUM.md`
+
+New namespaces:
 
 ```text
-arch dose/placement
-heel semantic decomposition
-wedge side/mirror semantics
-met-pad landmark-relative vs normalized placement
-pressure-target offload
-sculpt replay
-scan conform
-requested vs constrained realized dose
-weight-bearing UNKNOWN behavior
-landmark review provenance
-section/distance/thickness semantics
-CAD-vs-physical deviation map
-workflow version expansion
-overrides
-suggestion vs confirmation
-unsafe mirror blocking
-OPEN manufacturing tolerance
-UI default not usable as qualification limit
-profile-scoped evidence rule
-replay epsilon distinct from part tolerance
+GAUTH-001..040
+WFLOW-001..030
+NREG-001..030
 ```
 
-Synthetic test numbers are explicitly non-clinical.
+The owning specs remain normative; the addendum avoids duplicating all definitions into the older suite.
 
 ---
 
-## 9. Project Schema v0.2 change-set
+## 9. Cross-document audit
 
-Design document:
+Canonical audit:
 
-`docs/spec/19_project_schema_v0_2_changeset.md`
+`docs/validation/P0_AUTHORING_CROSS_DOCUMENT_AUDIT_2026-08-15.md`
 
-**Important:** no JSON Schema, fixture or migration has been changed yet.
+Result:
 
-Proposed additive evolution covers:
+```text
+BLOCKING CONTRADICTIONS             0
+NON-BLOCKING HARMONIZATIONS         5
+NEW ARCHITECTURE DEPENDENCIES       0
+NEW UNIVERSAL CLINICAL DEFAULTS     0
+NEW UNIVERSAL MANUFACTURING LIMITS  0
+```
+
+Non-blocking harmonizations recorded:
+
+```text
+HARM-001  richer placement vocabulary in 16 supersedes compact wording in 06
+HARM-002  manufacturing literal limits gain future NumericalRule refs
+HARM-003  WorkflowApplication materialized in schema v0.2 later
+HARM-004  machine-readable NumericalRule registry later
+HARM-005  acceptance-suite integration — NOW CLOSED by canonical addendum v1
+```
+
+The package is semantically ready for final status normalization/freeze.
+
+---
+
+## 10. Project Schema v0.2 change-set
+
+Design document: `docs/spec/19_project_schema_v0_2_changeset.md`.
+
+**No JSON Schema, fixture or migration has been changed.**
+
+Proposed additive evolution:
 
 ```text
 formal ScanAcquisition captureContext
@@ -282,73 +283,40 @@ ParameterOverrideRecord
 NumericalRuleRef
 OperationEvaluation requested-vs-realized state
 GeometryInspection typed measurements
-manufacturing acceptance rule refs
+manufacturing acceptance-rule refs
 optional acquisition-compatibility assessment
 ```
 
-Migration rule:
+Migration doctrine:
 
 ```text
-missing historical info -> UNKNOWN / LEGACY_UNKNOWN
+missing historical information -> UNKNOWN / LEGACY_UNKNOWN
 never invent provenance
-standalone v0.1 operations remain valid without fabricating a workflow source
+standalone v0.1 operations remain valid without fabricated workflow history
 ```
-
-Materialize schema v0.2 only after cross-document review.
-
----
-
-## 10. Requirement traceability
-
-Canonical:
-
-`docs/TRACEABILITY_MATRIX.md`
-
-A requirement family is considered incomplete documentation if it lacks:
-
-```text
-canonical owner
-acceptance direction
-evidence/rationale
-explicit open/qualification state
-```
-
-New acceptance namespaces:
-
-```text
-GAUTH-001..040
-WFLOW-001..030
-NREG-001..030
-```
-
-Existing namespaces remain in force (`SCHEMA`, `XACC`, `ARCH`, `HEEL`, `CE`, `OFF`, `MAT`, `MAN`, `BINT`, `RPT`, `PAQ`, etc.).
 
 ---
 
 ## 11. CI / GitHub Actions technical debt — deferred
 
-Canonical debt register:
-
-`docs/TECHNICAL_DEBT.md`
-
-Item:
+Canonical debt register: `docs/TECHNICAL_DEBT.md`.
 
 ```text
 TD-CI-001 — GitHub Actions / fixture-validation reliability
-STATUS: DEFERRED BY PROJECT OWNER
+STATUS: DEFERRED BY PROJECT OWNER — NON-BLOCKING FOR DOCUMENTATION
 ```
 
-Known state includes 19 fixtures with 3 newer IDs not recognized by the current validator and a workflow pipeline that may mask a validator exit status through `| tee` without explicit `pipefail`.
+Known issues include 19 current fixtures with 3 newer IDs not recognized by the current validator and a shell pipeline that can hide validator failure through `| tee` without explicit `pipefail`.
 
 Current rule:
 
 ```text
 CI does not block documentation/specification work.
-Do not use current green CI as proof that main is fully qualified.
-Do not weaken/delete semantic requirements because the harness is behind.
+Current green CI is not proof that main is fully qualified.
+Semantic requirements are not weakened/deleted because the harness is behind.
 ```
 
-Fix later in a dedicated engineering pass using the exit criteria already written in `TECHNICAL_DEBT.md`.
+Fix later in a dedicated engineering pass using the exit criteria in `TECHNICAL_DEBT.md`.
 
 ---
 
@@ -359,35 +327,21 @@ Methodology: `spec/15_pressure_acquisition_qualification.md` — frozen.
 FM12050/PFM2120:
 
 ```text
-source/family intake          DONE
-bench protocol structure     READY
-machine-readable result form READY
-real physical-unit qualification  NOT DONE
-sensor geometry/conversion   TO QUALIFY
-numeric PASS limits          profile/evidence owned
+source/family intake               DONE
+bench protocol structure           READY
+machine-readable result form       READY
+real physical-unit qualification   NOT DONE
+sensor geometry/conversion         TO QUALIFY
+numeric PASS limits                profile/evidence owned
 ```
 
 This can proceed in parallel when hardware/reference evidence is available.
 
 ---
 
-## 13. Research state
+## 13. Architecture state — PARKED
 
-Completed:
-
-- EasyCAD2 manual + validation, 25/25 behavioral baseline;
-- scan, pressure, offloading, metatarsal, arch, heel, use-case, PROM, material/manufacturing literature;
-- first competitor audit;
-- second-pass competitor audit including FitFoot360/FIT360, paro360/paroContour, Canfit/Qwadra/Rodin4D, Amfit and newer Sharp Shape signals;
-- literature review focused on reproducible CAD authoring, acquisition context, typed placement, pressure-guided design and process-specific qualification.
-
-Do not restart a generic feature survey unless a new gap requires it.
-
----
-
-## 14. Architecture state — PARKED
-
-Historical architecture documents remain evidence/hypotheses:
+Historical architecture hypotheses remain useful evidence:
 
 ```text
 spec/03_geometry_operation_model.md
@@ -399,11 +353,11 @@ spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md
 
 For product semantics, `16_geometry_authoring_contract.md` now takes precedence over the old OpenSubdiv-first hypothesis.
 
-The eventual geometry engine must satisfy the contract; the contract must not be rewritten around the engine.
+The eventual engine must satisfy the contract; the contract must not be rewritten around the engine.
 
 ---
 
-## 15. DONE
+## 14. DONE
 
 - [x] Functional v2 canonical.
 - [x] Project Schema v0.1 baseline.
@@ -413,62 +367,58 @@ The eventual geometry engine must satisfy the contract; the contract must not be
 - [x] Pressure qualification methodology v1 frozen.
 - [x] FM12050 family/source intake + bench plan.
 - [x] Competitor + scientific evidence baseline and second pass.
-- [x] Requirement Traceability Matrix v0.1.
-- [x] Geometry Authoring Contract v0.1.
-- [x] Workflow/Preset/Macro Contract v0.1.
-- [x] Numerical/Tolerance/Qualification Registry v0.1.
-- [x] P0 Authoring Acceptance Catalog v0.1.
+- [x] Requirement Traceability Matrix v0.3.
+- [x] Geometry Authoring Contract v0.1 drafted.
+- [x] Workflow/Preset/Macro Contract v0.1 drafted.
+- [x] Numerical/Tolerance/Qualification Registry v0.1 drafted.
+- [x] P0 Authoring Acceptance Catalog — 22 scenarios.
 - [x] Project Schema v0.2 change-set documented.
-- [x] README and SPEC_INDEX realigned.
-- [x] `TD-CI-001` explicitly recorded and removed from documentation gating.
+- [x] Cross-document audit — 0 blockers.
+- [x] Acceptance-suite integration addendum v1.
+- [x] README/SPEC_INDEX/handover realignment.
+- [x] `TD-CI-001` recorded and removed from documentation gating.
 - [x] Architecture remains parked.
 
 ---
 
-## 16. TODO — exact restart point
+## 15. TODO — exact restart point
 
-### NEXT A — cross-document audit and freeze
+### NEXT A — final documentation freeze
 
-Audit together:
+Normalize the status headers/cross-references and promote:
 
 ```text
-16_geometry_authoring_contract.md
-17_workflow_preset_macro.md
-18_numerical_qualification_registry.md
-P0_AUTHORING_ACCEPTANCE_CATALOG.md
-19_project_schema_v0_2_changeset.md
-02_project_schema.md
-functional_acceptance_suite.md
+16_geometry_authoring_contract.md          -> FROZEN v1
+17_workflow_preset_macro.md                -> FROZEN v1
+18_numerical_qualification_registry.md     -> FROZEN v1
+P0_AUTHORING_ACCEPTANCE_CATALOG.md         -> FROZEN semantic test-spec v1
+19_project_schema_v0_2_changeset.md        -> APPROVED CHANGE-SET / NOT MATERIALIZED
 ```
 
-Resolve duplication/conflicts and promote `16/17/18` to `FROZEN v1` when complete.
+No CI repair is required for this semantic/documentation freeze.
 
-### NEXT B — acceptance integration
+### NEXT B — geometry-engine evaluation scorecard
 
-Update the existing `functional_acceptance_suite.md` to reference `GAUTH`, `WFLOW`, `NREG` and the new catalog without duplicating owning definitions.
-
-### NEXT C — architecture evaluation scorecard
-
-After freeze, derive a geometry-engine scorecard from actual requirements:
+Derive the architecture comparison directly from frozen requirements:
 
 ```text
 semantic replay support
-local deformation/authoring primitives
-mirror determinism
+local orthotic deformation primitives
+bilateral/mirror determinism
 inspection queries
 thickness/production realization
-WASM/desktop/server portability
-performance
-interoperability
 numerical reproducibility
-implementation complexity
+performance
+WASM/desktop/server portability
+interoperability/export
+implementation/dependency complexity
 ```
 
-Then compare OpenSubdiv vs ON_SubD/alternatives.
+Then compare OpenSubdiv vs ON_SubD/other justified candidates.
 
 ### PARALLEL
 
-Real FM12050, material and process qualification when physical evidence is available.
+Real FM12050, material and manufacturing-process qualification when physical evidence is available.
 
 ### DEFERRED
 
