@@ -1,7 +1,8 @@
 # BiomechE-CAD — Numerical / Tolerance / Qualification Registry
 
-**Status:** CANONICAL DRAFT FOR FREEZE v0.1  
-**Date:** 2026-08-15  
+**Status:** FROZEN v1  
+**Freeze date:** 2026-08-15  
+**Freeze decision:** `D-CAD-029`  
 **Scope:** governance of numerical defaults, limits, tolerances, acceptance thresholds and measurement uncertainty across CAD, biomechanics, devices and manufacturing.  
 **Architecture:** implementation independent.
 
@@ -496,13 +497,24 @@ NREG-022..030 reserved
 
 ---
 
-# 11. Freeze criteria
+# 11. Freeze record
 
-Move to `FROZEN v1` when:
+The documentation review confirms the v1 numerical-governance contract:
 
-1. all numerical authority classes are accepted;
-2. the `OPEN` rule is explicitly preserved across specs;
-3. geometry, device, manufacturing and clinical tolerances remain distinct;
-4. workflow/preset defaults can reference exact registry rules;
-5. representative P0 numbers can be catalogued without inventing universal thresholds;
-6. the registry model is sufficient to drive later machine-readable implementation.
+1. all numerical authority classes are explicit and non-interchangeable;
+2. `OPEN` remains a valid persisted/semantic state rather than a missing-value invitation;
+3. geometry, device, manufacturing and clinical tolerances remain separate;
+4. workflow/preset defaults can resolve exact rule IDs/versions;
+5. representative P0 scenarios can be specified without inventing universal thresholds;
+6. the model is sufficient for later machine-readable implementation and schema evolution.
+
+Freeze evidence:
+
+```text
+docs/validation/P0_AUTHORING_CROSS_DOCUMENT_AUDIT_2026-08-15.md
+docs/validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md
+docs/validation/P0_AUTHORING_ACCEPTANCE_INTEGRATION_ADDENDUM.md
+docs/spec/19_project_schema_v0_2_changeset.md
+```
+
+**Change control:** actual qualified values, tolerances and defaults remain intentionally evolvable within their named scopes. Changing the authority classes, `OPEN` semantics, cross-class fallback prohibition or separation of algorithm/device/manufacturing/clinical thresholds requires an explicit superseding decision/version.
