@@ -5,13 +5,13 @@
 
 ---
 
-Continua il progetto **BiomechE-CAD** dal checkpoint documentale corrente.
+Continua il progetto **BiomechE-CAD** dal checkpoint corrente.
 
-Prima di qualsiasi modifica o nuova decisione, considera come documentazione canonica il repository:
+Repository canonico:
 
 `ww34ww34ww34/BiomechE-CAD`, branch `main`.
 
-Leggi **in questo ordine**:
+Prima di fare modifiche o prendere nuove decisioni, leggi almeno in questo ordine:
 
 ```text
 docs/RESUME_HERE.md
@@ -28,6 +28,8 @@ docs/validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md
 docs/spec/19_project_schema_v0_2_changeset.md
 docs/validation/P0_AUTHORING_CROSS_DOCUMENT_AUDIT_2026-08-15.md
 docs/validation/P0_AUTHORING_ACCEPTANCE_INTEGRATION_ADDENDUM.md
+docs/research/architecture/GEOMETRY_ENGINE_EVALUATION_SCORECARD_2026-08-15.md
+docs/validation/GEOMETRY_ENGINE_POC_QUALIFICATION_PLAN_2026-08-15.md
 docs/DECISIONS.md
 docs/TECHNICAL_DEBT.md
 docs/BIBLIOGRAPHY.md
@@ -35,9 +37,9 @@ docs/BIBLIOGRAPHY.md
 
 ## Stato da assumere
 
-La fase di ricerca generale/funzionale e di progettazione semantica P0 è matura.
+La ricerca generale/funzionale e la progettazione semantica P0 sono mature.
 
-Sono già **FROZEN v1**:
+Sono **FROZEN v1**:
 
 ```text
 coordinate / registration semantics
@@ -47,96 +49,184 @@ pressure-acquisition qualification methodology
 Geometry Authoring Contract
 Workflow / Preset / Macro Contract
 Numerical / Tolerance / Qualification Registry
-P0 Authoring Acceptance Catalog — 22 semantic scenarios
+P0 Authoring Acceptance Catalog — AUTH-C01..C22
 ```
 
 Il cross-document audit ha trovato **0 contraddizioni semantiche bloccanti**.
 
-`docs/spec/19_project_schema_v0_2_changeset.md` è **APPROVED CHANGE-SET / NOT MATERIALIZED**: non modificare ancora schema JSON, fixture o migrazioni salvo un task esplicito successivo.
+Project Schema v0.2 è **APPROVED CHANGE-SET / NOT MATERIALIZED**. Non modificare JSON Schema, fixture o migrazioni salvo task esplicito.
 
-## Debito tecnico CI — NON BLOCCANTE
+## Geometry Engine Evaluation — stato corrente
 
-`TD-CI-001` è deliberatamente differito dal project owner.
+La **Geometry Engine Evaluation Scorecard v0.1 è stata completata**.
 
-Non spendere tempo a riparare GitHub Actions, validator o fixture e non usare lo stato CI come gate per il lavoro corrente. Non dichiarare però `main` completamente qualificato. Quando il debito sarà riaperto, partire da `docs/TECHNICAL_DEBT.md`.
-
-## Regole che NON devono essere riaperte senza una nuova evidenza/decisione
+Sono stati definiti, prima di qualunque selezione:
 
 ```text
-EasyCAD2 = behavioral evidence, non verità scientifica
+HG-01..HG-15 hard gates
+16 weighted criteria = 100 punti
+mapping GAUTH/WFLOW/NREG -> capability richiesta
+mapping AUTH-C01..C22 -> architecture tests
+PoC/benchmark uncertainties
+candidate-neutral qualification plan Q0..Q7
+```
+
+**NON È STATO SELEZIONATO ALCUN ENGINE.**
+
+Candidati principali invariati:
+
+```text
+A. product-owned clinical/domain layer + Pixar OpenSubdiv
+B. product-owned clinical/domain layer + openNURBS / ON_SubD
+```
+
+Primary-source snapshot corrente:
+
+- OpenSubdiv: evidenza forte per evaluator SubD focalizzato, deformazioni a topologia statica, limit/basis derivatives e core C++ con dipendenze minime;
+- ON_SubD/openNURBS: evidenza forte per toolkit geometrico più ampio, limit/surface point, tangent/normal, cache/invalidation e interoperabilità 3DM;
+- `rhino3dm 8.32.1`: evidenza concreta di famiglia openNURBS per .NET e JavaScript/WebAssembly, ma non prova la parità completa delle API authoring ON_SubD in WASM;
+- nearest-point/projection, production body/closure/min-thickness/DFM, determinismo e workload performance restano selection-critical PoC per entrambi.
+
+Non attribuire una capability perché “Rhino la sa fare”: usare soltanto API openNURBS/ON_SubD/rhino3dm realmente esposte o un PoC del nostro adapter.
+
+## Regole che NON devono essere riaperte senza nuova evidenza/decisione
+
+```text
 semantic prescription survives geometry
-DesignRevision committed = immutable
+committed DesignRevision = immutable
 capture context / landmark provenance = first class
 placement = typed anatomical/reference semantics, non XYZ anonimo
 geometry dose != mechanical/material dose
 no hidden universal clinical default
 OPEN means OPEN
 algorithm tolerance != manufacturing tolerance != device limit != clinical threshold
-CAD nominal != manufacturing artifact != physical accepted part
-mirror is semantic and side-aware
-workflow definitions use exact id/version/hash and preserve expanded historical operations
-BiomechE remains quantitative KPI authority
-architecture/kernel must satisfy the frozen contract, not redefine it
+CAD nominal != ManufacturingArtifact != PhysicalOrthosis
+mirror = semantic and side-aware
+workflow/preset = exact id/version/hash + preserved historical expansion
+BiomechE = quantitative KPI authority
+the geometry kernel must satisfy the frozen contract, not redefine it
 ```
 
-## Prossimo task principale
+## Debito tecnico CI — NON BLOCCANTE
 
-Procedi con **GEOMETRY ENGINE EVALUATION SCORECARD**.
+`TD-CI-001` resta deliberatamente differito.
 
-Non scegliere subito una libreria.
+Non spendere tempo a riparare GitHub Actions, validator o fixture. Non usare CI come gate della fase corrente e non dichiarare `main` completamente qualificato. Quando il debito sarà riaperto, partire da `docs/TECHNICAL_DEBT.md`.
 
-Deriva prima una scorecard oggettiva direttamente dai contratti frozen e dai 22 casi `AUTH-C01..C22`.
+## PROSSIMO TASK PRINCIPALE — Q0 Geometry Engine PoC Qualification
 
-Valuta almeno:
+Procedi ora con la prima fase eseguibile del piano, **senza scegliere un vincitore e senza ottimizzare un candidato prima di aver costruito la stessa baseline per l'altro**.
+
+### Q0-A — Native C++20 build / dependency audit
+
+Per OpenSubdiv e openNURBS/ON_SubD:
 
 ```text
-product-owned clinical semantics isolation
-stable/replayable geometry representation
-SubD/surface quality
-local parametric deformation
-sculpt/freeform edit feasibility
-mirror/bilateral support
-surface point/normal/derivative queries
-scan nearest-point / projection / conform support
-section / distance / height / angle / thickness queries
-deviation-map feasibility
-production body / lower-surface / closure path
-minimum-thickness/DFM support
-determinism and numerical control
-interactive performance and incremental invalidation
-large scan handling
-C++20 compatibility
-single-core portability across desktop/server/web-WASM
-web rendering/interoperability path
-license
-API stability
-transitive dependency weight
-serialization isolation
-C#/.NET interoperability if useful
-STL/3MF/CNC/manufacturing handoff
-ability to satisfy each relevant frozen acceptance scenario
+pin exact upstream tag + commit
+build Release sul toolchain C++20 scelto
+build headless/server
+crea lo stesso narrow product-owned adapter/harness
+cattura compiler/version/flags
+cattura static/dynamic link graph
+cattura transitive dependency manifest
+cattura binary footprint
+verifica che nessun tipo kernel diventi semantic persisted state
 ```
 
-Principal candidates to start with:
+Baseline upstream da verificare nuovamente al momento dell'esecuzione:
 
 ```text
-A. product-owned clinical layer + Pixar OpenSubdiv
-B. product-owned clinical layer + openNURBS / ON_SubD
+OpenSubdiv v3.7.0
+openNURBS v8.32.26160.13001
+rhino3dm 8.32.1 = interoperability evidence, non dependency obbligatoria
 ```
 
-Considera OCCT, Manifold, CGAL, libigl, geometry-central o altre librerie **solo come componenti ausiliari** se un requisito frozen dimostra una necessità concreta. Non aggiungere dipendenze per capability teoriche.
+### Q0-B — Direct WebAssembly build
 
-Usa ricerca web aggiornata e **fonti primarie** per API, versioni, licenze, WASM, dipendenze e capability tecniche. Dove opportuno costruisci piccoli proof-of-concept/benchmark plan, ma prima definisci criteri, pesi, hard gate e scenari di confronto.
+Compila lo **stesso product-owned C++ core/adapter** con Emscripten/WASM per entrambi.
 
-## Output richiesto nella nuova chat
+Misura almeno:
 
-1. audit rapido del checkpoint letto;
-2. scorecard con hard gates vs weighted criteria;
-3. mapping `GAUTH/WFLOW/NREG/AUTH-Cxx -> capability richiesta al geometry stack`;
-4. confronto preliminare OpenSubdiv vs ON_SubD con fonti aggiornate;
-5. lista delle incognite da verificare con PoC reali;
-6. piano di benchmark/qualification dell'engine;
-7. aggiornamento progressivo della documentazione nel repo;
-8. sempre un riepilogo **DONE / TODO** e un handover aggiornato.
+```text
+compile success/failure
+WASM binary size
+startup/init
+baseline/peak heap
+thread/SIMD configuration if used
+surface query smoke test
+native-vs-WASM numerical delta
+render-buffer extraction path
+```
 
-Non riaprire la ricerca generale sui CAD plantari salvo che emerga un gap concreto dalla scorecard.
+Non dare OpenSubdiv/WASM per scontato solo perché è C++. Non dare ON_SubD authoring/WASM per scontato solo perché esiste rhino3dm.js.
+
+### Dopo Q0 — Q1 shared canonical fixture
+
+Se entrambi restano candidati, costruisci una sola candidate-neutral `FIX-GEOM-01` e prova:
+
+```text
+product-owned serialization -> kernel reconstruction
+stable control/address mapping
+limit point
+Du/Dv or equivalent tangent data
+normal
+replay equivalence
+explicit invalidation behavior
+```
+
+Solo dopo passare a local authoring/sculpt/mirror.
+
+## Performance doctrine
+
+Registra sempre performance e memoria, ma **non inventare soglie PASS**.
+
+Finché non viene approvato un engineering profile `ARCH-PERF-*`, usare:
+
+```text
+MEASURED / NOT YET QUALIFIED
+```
+
+Raccogli almeno:
+
+```text
+min/p50/p95/p99/max/mean
+sample count
+cold vs steady state
+peak memory/WASM heap
+allocations where practical
+control/faces/render triangles
+scan tier if applicable
+invalidation scope
+compiler/toolchain/flags
+candidate tag/commit
+```
+
+Replay epsilon deve essere un esplicito `ALGORITHM_NUMERICAL_TOLERANCE`; non deve mai usare una manufacturing acceptance tolerance.
+
+## Auxiliary libraries
+
+OCCT, Manifold, CGAL, libigl, geometry-central o altro entrano solo se un hard gate frozen + PoC dimostra un gap concreto.
+
+Il trigger più probabile da testare è `HG-08`:
+
+```text
+production lower surface
+offset/closure/watertight body
+self-intersection / solid validation
+minimum thickness / DFM
+```
+
+Non aggiungere un general-purpose CAD kernel preventivamente.
+
+## Output richiesto
+
+1. audit del checkpoint corrente;
+2. esecuzione documentata di Q0 per entrambi i candidati, se il repo/tooling disponibile lo permette;
+3. result manifest riproducibile per ciascun candidato;
+4. confronto native/server/WASM e dependency footprint;
+5. hard gates aggiornati `PASS/FAIL/UNKNOWN` con evidence grade;
+6. nessuna selezione finché restano gate critici aperti;
+7. aggiornamento progressivo di scorecard, qualification report, `TRACEABILITY_MATRIX.md`, `RESUME_HERE.md` e questo handover;
+8. DONE/TODO sempre aggiornati.
+
+Non ripartire dalla ricerca generale sui CAD plantari. La ricerca successiva deve essere esclusivamente guidata da un gap della scorecard/PoC.
