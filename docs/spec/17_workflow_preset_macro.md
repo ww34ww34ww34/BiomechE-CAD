@@ -1,7 +1,8 @@
 # BiomechE-CAD — Workflow / Preset / Macro Contract
 
-**Status:** CANONICAL DRAFT FOR FREEZE v0.1  
-**Date:** 2026-08-15  
+**Status:** FROZEN v1  
+**Freeze date:** 2026-08-15  
+**Freeze decision:** `D-CAD-028`  
 **Architecture:** implementation independent  
 **Functional authority:** `BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md`  
 **Geometry-authoring authority:** `16_geometry_authoring_contract.md`  
@@ -405,13 +406,24 @@ Do not modify schema v0.1 or fixture serialization opportunistically merely to m
 
 ---
 
-# 12. Freeze criteria
+# 12. Freeze record
 
-Move to `FROZEN v1` when documentation review confirms:
+The documentation review confirms the v1 contract:
 
-1. single-operation preset vs multi-operation workflow semantics are clear;
+1. single-operation preset and multi-operation workflow semantics are distinct;
 2. exact version/hash and historical expansion are preserved;
-3. typed inputs/default governance/overrides are explicit;
+3. typed inputs, default governance, dependencies and overrides are explicit;
 4. bilateral/mirror and compatibility rules are defined;
-5. user authority vs suggestions is clear;
-6. the P0 schema migration direction is known without requiring a kernel choice.
+5. human authority, suggestion and confirmation states remain distinguishable;
+6. Project Schema v0.2 evolution is explicitly designed without requiring a geometry-kernel choice.
+
+Freeze evidence:
+
+```text
+docs/research/COMPETITOR_LITERATURE_GAP_AUDIT_2026-08-15.md
+docs/validation/P0_AUTHORING_CROSS_DOCUMENT_AUDIT_2026-08-15.md
+docs/validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md
+docs/spec/19_project_schema_v0_2_changeset.md
+```
+
+**Change control:** new UI automation, conditional logic, optimization or vendor-specific convenience may be added later, but any change to historical versioning, semantic expansion, mirror safety, typed binding or human-confirmation semantics requires an explicit superseding decision/version.
