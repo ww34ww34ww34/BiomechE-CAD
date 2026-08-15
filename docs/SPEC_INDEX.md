@@ -24,13 +24,15 @@ Read in this order before substantial work:
 11. [spec/19_project_schema_v0_2_changeset.md](spec/19_project_schema_v0_2_changeset.md) — **APPROVED CHANGE-SET / NOT MATERIALIZED**.
 12. [validation/P0_AUTHORING_CROSS_DOCUMENT_AUDIT_2026-08-15.md](validation/P0_AUTHORING_CROSS_DOCUMENT_AUDIT_2026-08-15.md) — cross-document consistency audit, 0 blocking contradictions.
 13. [validation/P0_AUTHORING_ACCEPTANCE_INTEGRATION_ADDENDUM.md](validation/P0_AUTHORING_ACCEPTANCE_INTEGRATION_ADDENDUM.md) — integrates `GAUTH/WFLOW/NREG` into the older acceptance baseline.
-14. [spec/11_biomeche_integration.md](spec/11_biomeche_integration.md) — frozen BiomechE↔CAD quantitative contract.
-15. [spec/12_reporting_traceability.md](spec/12_reporting_traceability.md) — frozen reporting/provenance contract.
-16. [spec/15_pressure_acquisition_qualification.md](spec/15_pressure_acquisition_qualification.md) — frozen pressure-device qualification methodology.
-17. [DECISIONS.md](DECISIONS.md) — cross-cutting decisions, including `D-CAD-027..029` authoring freeze.
-18. [TECHNICAL_DEBT.md](TECHNICAL_DEBT.md) — explicitly deferred engineering debt.
-19. [BIBLIOGRAPHY.md](BIBLIOGRAPHY.md) — single authoritative bibliography.
-20. [NEXT_CHAT_PROMPT.md](NEXT_CHAT_PROMPT.md) — copy/paste continuation prompt for a new conversation.
+14. [research/architecture/GEOMETRY_ENGINE_EVALUATION_SCORECARD_2026-08-15.md](research/architecture/GEOMETRY_ENGINE_EVALUATION_SCORECARD_2026-08-15.md) — **ACTIVE BASELINE v0.1**, hard gates + weighted criteria + candidate evidence, no winner.
+15. [validation/GEOMETRY_ENGINE_POC_QUALIFICATION_PLAN_2026-08-15.md](validation/GEOMETRY_ENGINE_POC_QUALIFICATION_PLAN_2026-08-15.md) — **ACTIVE PLAN v0.1**, Q0..Q7 candidate-neutral qualification.
+16. [spec/11_biomeche_integration.md](spec/11_biomeche_integration.md) — frozen BiomechE↔CAD quantitative contract.
+17. [spec/12_reporting_traceability.md](spec/12_reporting_traceability.md) — frozen reporting/provenance contract.
+18. [spec/15_pressure_acquisition_qualification.md](spec/15_pressure_acquisition_qualification.md) — frozen pressure-device qualification methodology.
+19. [DECISIONS.md](DECISIONS.md) — cross-cutting decisions, including `D-CAD-027..029` authoring freeze.
+20. [TECHNICAL_DEBT.md](TECHNICAL_DEBT.md) — explicitly deferred engineering debt.
+21. [BIBLIOGRAPHY.md](BIBLIOGRAPHY.md) — single authoritative bibliography.
+22. [NEXT_CHAT_PROMPT.md](NEXT_CHAT_PROMPT.md) — copy/paste continuation prompt for a new conversation.
 
 `spec/BIOMECHE_CAD_FUNCTIONAL_SPEC.md` is historical/audit material and must not be mistaken for v2.
 
@@ -47,7 +49,7 @@ BIOMECHE INTEGRATION                                 FROZEN v1
 REPORTING / TRACEABILITY                             FROZEN v1
 PRESSURE ACQUISITION QUALIFICATION METHOD            FROZEN v1
 COMPETITOR + LITERATURE SECOND PASS                  DONE
-REQUIREMENT TRACEABILITY                             DONE v0.3
+REQUIREMENT TRACEABILITY                             CANONICAL v0.5
 GEOMETRY AUTHORING CONTRACT                          FROZEN v1
 WORKFLOW / PRESET / MACRO CONTRACT                   FROZEN v1
 NUMERICAL / TOLERANCE / QUALIFICATION REGISTRY      FROZEN v1
@@ -56,8 +58,9 @@ PROJECT SCHEMA v0.2 CHANGE-SET                       APPROVED / NOT MATERIALIZED
 CROSS-DOCUMENT AUDIT                                 DONE — 0 blockers
 ACCEPTANCE SUITE INTEGRATION                         DONE — addendum v1
 P0 AUTHORING FREEZE AUDIT                            DONE — architecture-entry GO
-GEOMETRY ENGINE EVALUATION SCORECARD                 NEXT
-ARCHITECTURE SHOOT-OUT                               AFTER SCORECARD
+GEOMETRY ENGINE EVALUATION SCORECARD                 DONE baseline v0.1 — NO WINNER
+GEOMETRY ENGINE POC/QUALIFICATION PLAN               DONE plan v0.1 — Q0 NEXT
+ARCHITECTURE SHOOT-OUT / FINAL SELECTION             BLOCKED ON POC EVIDENCE
 ```
 
 GitHub CI is **not** a current documentation/architecture-analysis gate. See `TECHNICAL_DEBT.md`, `TD-CI-001`.
@@ -87,16 +90,18 @@ GitHub CI is **not** a current documentation/architecture-analysis gate. See `TE
 
 ---
 
-# 4. Traceability / acceptance / governance
+# 4. Traceability / acceptance / architecture qualification / governance
 
 | File | Status | Purpose |
 |---|---|---|
-| [TRACEABILITY_MATRIX.md](TRACEABILITY_MATRIX.md) | **CANONICAL v0.3** | Product family → owner → acceptance → evidence → open gap |
+| [TRACEABILITY_MATRIX.md](TRACEABILITY_MATRIX.md) | **CANONICAL v0.5** | Product family → owner → acceptance → evidence → architecture/qualification state |
 | [validation/functional_acceptance_suite.md](validation/functional_acceptance_suite.md) | ACTIVE baseline | Existing acceptance baseline; authoring phase supplemented by canonical addendum |
 | [validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md](validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md) | **FROZEN semantic test-spec v1** | 22 representative authoring/workflow/numerical scenarios |
 | [validation/P0_AUTHORING_CROSS_DOCUMENT_AUDIT_2026-08-15.md](validation/P0_AUTHORING_CROSS_DOCUMENT_AUDIT_2026-08-15.md) | COMPLETE | 0 blocking semantic contradictions; 5 non-blocking harmonizations |
 | [validation/P0_AUTHORING_ACCEPTANCE_INTEGRATION_ADDENDUM.md](validation/P0_AUTHORING_ACCEPTANCE_INTEGRATION_ADDENDUM.md) | **CANONICAL ADDENDUM v1** | Registers `GAUTH/WFLOW/NREG` without depending on CI |
 | [P0_AUTHORING_FREEZE_AUDIT_2026-08-15.md](P0_AUTHORING_FREEZE_AUDIT_2026-08-15.md) | **COMPLETE / GO** | Definitive freeze verdict and architecture-entry audit |
+| [research/architecture/GEOMETRY_ENGINE_EVALUATION_SCORECARD_2026-08-15.md](research/architecture/GEOMETRY_ENGINE_EVALUATION_SCORECARD_2026-08-15.md) | **ACTIVE BASELINE v0.1** | HG-01..15; 100-point weighted scorecard; contract/scenario mapping; preliminary OpenSubdiv vs ON_SubD evidence; no selection |
+| [validation/GEOMETRY_ENGINE_POC_QUALIFICATION_PLAN_2026-08-15.md](validation/GEOMETRY_ENGINE_POC_QUALIFICATION_PLAN_2026-08-15.md) | **ACTIVE PLAN v0.1** | Candidate-neutral Q0..Q7 build/WASM/replay/query/production/performance qualification |
 | [DECISIONS.md](DECISIONS.md) | CANONICAL | `D-CAD-027` geometry authoring freeze; `028` workflow freeze; `029` numerical governance freeze |
 | [TECHNICAL_DEBT.md](TECHNICAL_DEBT.md) | ACTIVE | Deferred engineering debt, including `TD-CI-001` |
 | [BIBLIOGRAPHY.md](BIBLIOGRAPHY.md) | **CANONICAL** | Stable source IDs and source-role governance |
@@ -127,9 +132,15 @@ WFLOW-001..030
 NREG-001..030
 ```
 
+Architecture-evaluation hard gates:
+
+```text
+HG-01..HG-15
+```
+
 ---
 
-# 5. Research / market evidence
+# 5. Research / market / architecture evidence
 
 | File | Status | Purpose |
 |---|---|---|
@@ -144,6 +155,8 @@ NREG-001..030
 | [research/COMPETITOR_FUNCTIONAL_GAP_AUDIT_2026-08-15.md](research/COMPETITOR_FUNCTIONAL_GAP_AUDIT_2026-08-15.md) | baseline | first market comparison |
 | [research/COMPETITOR_LITERATURE_GAP_AUDIT_2026-08-15.md](research/COMPETITOR_LITERATURE_GAP_AUDIT_2026-08-15.md) | **second pass complete** | expanded competitor set + literature answers to authoring gaps |
 | [research/SENSORMEDICA_FM12050_QUALIFICATION_INTAKE_2026-08-15.md](research/SENSORMEDICA_FM12050_QUALIFICATION_INTAKE_2026-08-15.md) | intake complete / not qualified | first Sensor Medica pressure-platform family intake |
+| [research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md](research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md) | historical architecture research | pre-freeze library investigation; subordinate to current scorecard |
+| [research/architecture/GEOMETRY_ENGINE_EVALUATION_SCORECARD_2026-08-15.md](research/architecture/GEOMETRY_ENGINE_EVALUATION_SCORECARD_2026-08-15.md) | **current architecture baseline** | gap-driven current primary-source comparison and selection method |
 
 ---
 
@@ -156,7 +169,7 @@ NREG-001..030
 | [validation/FM12050_PFM2120_BENCH_QUALIFICATION_PROTOCOL_DRAFT.md](validation/FM12050_PFM2120_BENCH_QUALIFICATION_PROTOCOL_DRAFT.md) | execution structure ready; limits not frozen |
 | [`qualification/templates/pressure-bench-result-0.1.json`](../qualification/templates/pressure-bench-result-0.1.json) | machine-readable result template |
 
-Real physical-unit qualification remains pending and is independent of the authoring documentation freeze.
+Real physical-unit qualification remains pending and is independent of the authoring documentation freeze and geometry-engine scorecard.
 
 ---
 
@@ -170,9 +183,11 @@ Preserve, but do not treat as current product authority:
 | [spec/03_geometry_operation_model.md](spec/03_geometry_operation_model.md) | historical OpenSubdiv-first hypothesis; product semantics defer to frozen `16` |
 | [spec/04_base_template.md](spec/04_base_template.md) | candidate / not frozen |
 | [spec/05_parametric_orthosis_geometry.md](spec/05_parametric_orthosis_geometry.md) | provisional math / not clinical authority |
-| [spec/CAD_ENGINE_CAPABILITY_SPEC.md](spec/CAD_ENGINE_CAPABILITY_SPEC.md) | engine capability baseline; architecture parked |
-| [spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md](spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md) | parked architecture-selection checkpoint |
-| [research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md](research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md) | archived library/portability research |
+| [spec/CAD_ENGINE_CAPABILITY_SPEC.md](spec/CAD_ENGINE_CAPABILITY_SPEC.md) | historical capability baseline; current evaluation authority is the new scorecard |
+| [spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md](spec/CAD_ENGINE_ARCHITECTURE_STATUS_2026-08-14.md) | parked pre-freeze architecture-selection checkpoint |
+| [research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md](research/architecture/GEOMETRY_STACK_DEEP_RESEARCH_VALIDATED_2026-08-14.md) | archived/general library portability research |
+
+Current architecture evaluation must begin from the frozen contracts + current scorecard, not from an old library preference.
 
 ---
 
@@ -191,28 +206,33 @@ Preserve, but do not treat as current product authority:
 11. CAD nominal geometry, manufacturing artifact and measured physical part remain distinct.
 12. Cross-document audit found no blocking semantic contradiction in the P0 authoring package.
 13. Project Schema v0.2 direction is approved but not yet materialized.
-14. Architecture selection is now allowed to begin via a scorecard but remains undecided.
-15. `TD-CI-001` is deferred and does not block the next phase.
+14. Geometry-engine evaluation is **hard-gate-first**; weighted scoring cannot compensate a gate failure.
+15. OpenSubdiv vs ON_SubD remains **undecided** after current primary-source review.
+16. OpenSubdiv currently has stronger evidence for focused/lean high-performance SubD evaluation; ON_SubD/openNURBS currently has stronger evidence for broader toolkit/interoperability and a concrete .NET/WASM family precedent through rhino3dm.
+17. Spatial queries, production-body/DFM, deterministic replay, workload performance and full `AUTH-C01..C22` engine coverage remain PoC-critical.
+18. Auxiliary libraries are earned only by a demonstrated frozen-requirement gap.
+19. Performance measurements do not become PASS until an explicit engineering profile owns the budget.
+20. `TD-CI-001` is deferred and does not block direct architecture PoC evidence.
 
 ---
 
 # 9. Exact next work
 
-1. Build the **Geometry Engine Evaluation Scorecard** from the frozen `GAUTH/WFLOW/NREG` requirements and `AUTH-C01..C22`.
-2. Separate **hard gates** from weighted criteria before scoring any library.
-3. Map each relevant frozen scenario to concrete stack capabilities and benchmark questions.
-4. Research current primary sources for OpenSubdiv and openNURBS/ON_SubD APIs, versions, license, dependencies, portability and WASM feasibility.
-5. Identify unknowns requiring small PoCs/benchmarks instead of assumptions.
-6. Only after the scorecard exists, perform the candidate comparison/shoot-out.
+Execute **Q0** from `validation/GEOMETRY_ENGINE_POC_QUALIFICATION_PLAN_2026-08-15.md` for both candidates:
 
-Principal starting candidates:
+1. pin exact upstream tag + commit;
+2. build the same narrow product-owned C++20 adapter/harness natively;
+3. build a headless/server configuration;
+4. capture transitive dependencies, link mode and binary footprint;
+5. directly attempt the same core/adapter with Emscripten/WebAssembly;
+6. capture WASM binary/startup/heap and numerical smoke evidence;
+7. do not optimize one candidate before both have the same baseline.
 
-```text
-product-owned clinical layer + Pixar OpenSubdiv
-product-owned clinical layer + openNURBS / ON_SubD
-```
+Then build shared `FIX-GEOM-01` and run Q1 representation/replay + limit point/derivative/normal qualification.
 
-Other libraries enter only when a frozen requirement demonstrates a need.
+Only after Q0/Q1 proceed to local authoring, sculpt, semantic mirror, scan/spatial queries, inspection, production/DFM, determinism, performance, rendering/.NET/manufacturing handoff and final `AUTH-C01..C22` harness.
+
+Other libraries enter only when a frozen requirement + PoC demonstrates a concrete need.
 
 Parallel physical device/material/process qualification remains valid whenever evidence is available.
 
@@ -226,6 +246,7 @@ Parallel physical device/material/process qualification remains valid whenever e
 4. `OPEN` values are never filled by convenience.
 5. Historical documents remain visibly historical.
 6. Update `RESUME_HERE.md`, this index and `TRACEABILITY_MATRIX.md` after substantial work.
-7. CI state is governed by `TECHNICAL_DEBT.md` while `TD-CI-001` is open.
-8. Normative changes to frozen `16/17/18` require explicit superseding decision/version.
-9. New-chat continuation text is maintained in `NEXT_CHAT_PROMPT.md`.
+7. Update the scorecard and PoC qualification report after every architecture qualification phase.
+8. CI state is governed by `TECHNICAL_DEBT.md` while `TD-CI-001` is open.
+9. Normative changes to frozen `16/17/18` require explicit superseding decision/version.
+10. New-chat continuation text is maintained in `NEXT_CHAT_PROMPT.md`.
