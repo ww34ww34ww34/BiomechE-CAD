@@ -451,6 +451,74 @@ This freezes the qualification **methodology**, not real Sensor Medica accuracy/
 
 ---
 
+## D-CAD-027 — Geometry Authoring Contract P0 is frozen before engine selection
+
+**Status:** FROZEN  
+**Date:** 2026-08-15
+
+Canonical specification: `docs/spec/16_geometry_authoring_contract.md`.
+
+Rules:
+
+1. clinically/manufacturing meaningful edits remain typed semantic operations or equivalent typed prescription state;
+2. placement is a typed anatomical/reference concept and is never reduced to anonymous XYZ alone;
+3. capture context, landmark source/review provenance and registration identity survive when they influence authoring;
+4. geometry dose, mechanical/material dose and manufacturing constraints remain distinct;
+5. requested vs constrained realized dose is explicit;
+6. mirror is side-aware semantic transformation, not only coordinate reflection;
+7. inspection definitions identify revision, method/frame/representation and units;
+8. clinical/contact-surface intent remains distinct from production realization;
+9. deterministic replay is bound to exact source definitions, operation order, algorithms and profiles;
+10. OpenSubdiv, ON_SubD and other geometry engines remain downstream implementation choices.
+
+The 22-case P0 authoring acceptance catalog can be expressed without selecting a kernel, satisfying the freeze gate.
+
+---
+
+## D-CAD-028 — Reusable workflow/preset/macro semantics are frozen as P0 infrastructure
+
+**Status:** FROZEN  
+**Date:** 2026-08-15
+
+Canonical specification: `docs/spec/17_workflow_preset_macro.md`.
+
+Rules:
+
+1. `PresetDefinition` configures one operation/family while `WorkflowDefinition` represents ordered reusable multi-step knowledge;
+2. committed use resolves exact definition `id + version + hash/snapshot`, never implicit `latest`;
+3. historical revisions preserve the expanded semantic child operations, not only a macro name;
+4. inputs are typed and dependencies are explicit;
+5. defaults retain numerical-governance authority and overrides preserve before/after provenance;
+6. compatibility, mirror safety and required review/confirmation policy are part of the workflow version;
+7. suggestion is not confirmation and P0 does not authorize hidden auto-diagnosis/auto-prescription;
+8. bilateral applications become independent side-owned states after expansion;
+9. deterministic re-execution with changed source/profile/algorithm creates a new application/revision identity;
+10. advanced automation/conditional UX may evolve later without weakening these semantics.
+
+---
+
+## D-CAD-029 — Numerical/tolerance/qualification governance is frozen; OPEN is product truth
+
+**Status:** FROZEN  
+**Date:** 2026-08-15
+
+Canonical specification: `docs/spec/18_numerical_qualification_registry.md`.
+
+Rules:
+
+1. every product-significant governed number has owner, scope, unit, authority class and lifecycle;
+2. `OPEN` is an explicit valid state and is not replaced by a convenience value;
+3. authority classes distinguish convention, UI/product defaults, evidence-profile rules, algorithm parameters/tolerances, device qualification limits, manufacturing acceptance limits and outcome interpretation rules;
+4. a value from one authority class cannot silently satisfy another class;
+5. study-specific doses remain population/context/reference scoped;
+6. algorithm replay epsilon is distinct from manufacturing tolerance;
+7. landmark uncertainty, registration residual, device accuracy and manufacturing tolerance remain distinct;
+8. no global `CAD_TOLERANCE` is defined;
+9. CAD nominal geometry and measured achieved-part geometry remain distinct;
+10. manufacturing/device/clinical limits may be qualified later within named profiles without reopening this governance freeze.
+
+---
+
 ## OPEN DECISIONS
 
 Architecture / implementation decisions intentionally deferred:
@@ -472,13 +540,14 @@ Architecture / implementation decisions intentionally deferred:
 
 Functional/specification/qualification work still active:
 
+- Geometry Engine Evaluation Scorecard and evidence-based candidate shoot-out;
+- Project Schema v0.2 materialization when an explicit implementation task is opened;
 - first real Sensor Medica pressure device/unit qualification profile and measured acceptance limits;
-- executable `BINT-*`, `RPT-*` and `PAQ-*` coverage expansion;
 - real product registration qualification and tolerances;
 - cross-device pressure harmonization qualification where needed;
-- deeper competitor functional-gap audit from manuals/trials where legally available;
-- workflow macro/preset orchestration semantics (`GAP-COMP-001`);
+- advanced workflow/macro UX and conditional automation beyond the frozen P0 semantic contract;
 - external clinical-media adapter semantics (`GAP-COMP-002`);
 - BiomechE `DYN-006+` dynamic pressure/force/integral/region bindings as upstream freezes;
 - final built-in PROM set after population fit + licensing review;
-- product-specific manufacturing qualification/tolerances and actual material/process library entries.
+- product-specific manufacturing qualification/tolerances and actual material/process library entries;
+- `TD-CI-001` GitHub Actions / fixture-validator repair when explicitly reopened by the project owner.
