@@ -1,6 +1,6 @@
 # BiomechE-CAD — Requirement Traceability Matrix
 
-**Status:** CANONICAL TRACEABILITY BASELINE v0.2  
+**Status:** CANONICAL TRACEABILITY BASELINE v0.3  
 **Date:** 2026-08-15  
 **Architecture:** kernel/runtime/storage independent  
 **Functional authority:** `spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md`  
@@ -11,7 +11,7 @@
 
 ## 1. Purpose
 
-For each major product requirement family this matrix records:
+For every major product-requirement family this matrix records:
 
 ```text
 WHY it exists
@@ -21,14 +21,14 @@ WHAT evidence constrains it
 WHAT remains open
 ```
 
-Detailed acceptance semantics stay in owning specs/catalogs; this file is the navigation/coverage layer.
+Detailed acceptance semantics remain in their owning specs/catalogs. This file is the canonical navigation and coverage layer.
 
 Status vocabulary:
 
 ```text
 FROZEN       product meaning stable
-ACTIVE       usable baseline, refinements possible
-DRAFT-FREEZE canonical P0 draft exists; cross-document review is next
+ACTIVE       usable baseline; refinements possible
+DRAFT-FREEZE canonical P0 draft exists; final status normalization remains
 QUALIFY      semantic contract exists; real device/process/profile evidence required
 P1/P2        deliberately later
 PARKED       downstream decision intentionally postponed
@@ -42,15 +42,15 @@ PARKED       downstream decision intentionally postponed
 |---|---|---|---|---|---|
 | Product scope / vertical orthotic CAD | FROZEN | `spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md` | cross-domain | EasyCAD2 + competitor + scientific evidence | none at inventory level |
 | Project/revision/provenance | ACTIVE | `spec/02_project_schema.md` | `SCHEMA-*`, `XACC-*` | provenance/reproducibility doctrine | v0.2 materialization later |
-| Schema v0.2 evolution | DRAFT-FREEZE | `spec/19_project_schema_v0_2_changeset.md` | migration/change-set review | new P0 authoring requirements | review, then JSON schema/migration later |
+| Schema v0.2 evolution | DRAFT-FREEZE | `spec/19_project_schema_v0_2_changeset.md` | migration/change-set review | new P0 authoring requirements | approve/freeze change-set; materialize later |
 | Coordinate/laterality/registration | FROZEN | `spec/01_coordinate_registration.md` | `XACC-*` | BiomechE/ISB/anatomical context | numeric limits profile-owned |
-| Scan capture context | DRAFT-FREEZE | `spec/16_geometry_authoring_contract.md` + schema v0.2 change-set | `GAUTH-*`, `AUTH-C07`, `AUTH-C09` | `REF-CAD-002`, `REF-CAD-003` | freeze + later schema materialization |
-| Landmark provenance | DRAFT-FREEZE | authoring contract + schema v0.2 change-set | `GAUTH-*`, `AUTH-C10` | `REF-CAD-002`, `REF-CAD-003`, `REF-CAD-107` | freeze + UI details later |
+| Scan capture context | DRAFT-FREEZE | `spec/16_geometry_authoring_contract.md` + schema v0.2 change-set | `GAUTH-*`, `AUTH-C07`, `AUTH-C09` | `REF-CAD-002`, `REF-CAD-003` | final freeze/status normalization |
+| Landmark provenance | DRAFT-FREEZE | authoring contract + schema v0.2 change-set | `GAUTH-*`, `AUTH-C10` | `REF-CAD-002`, `REF-CAD-003`, `REF-CAD-107` | final freeze/status normalization |
 | Base template / outline / sizing | DRAFT-FREEZE | `spec/16_geometry_authoring_contract.md` | `GAUTH-*` | EasyCAD2/market baseline | exact geometry implementation later |
 | Arch authoring | DRAFT-FREEZE | `spec/16_geometry_authoring_contract.md` | `ARCH-*`, `GAUTH-*`, `AUTH-C01` | `REF-CAD-017`, `053`, `055`, `056` | no universal numeric default |
 | Heel authoring | DRAFT-FREEZE | `spec/16_geometry_authoring_contract.md` | `HEEL-*`, `GAUTH-*`, `AUTH-C02` | `REF-CAD-018`, `058..067` | no universal cup/skive/relief dose |
 | Rear/forefoot wedge/posting | DRAFT-FREEZE | `spec/16_geometry_authoring_contract.md` | `GAUTH-*`, `AUTH-C03` | `REF-CAD-001`, `REF-CAD-015` | defaults profile-specific |
-| Corrective elements | ACTIVE / authoring draft | `spec/06_corrective_elements.md` + `16` | `CE-*`, `GAUTH-*` | EasyCAD2 + market named corrections | kernel-specific realization later |
+| Corrective elements | ACTIVE / authoring draft | `spec/06_corrective_elements.md` + `16` | `CE-*`, `GAUTH-*` | EasyCAD2 + market named corrections | terminology harmonization later |
 | Met-pad/reference-relative placement | DRAFT-FREEZE | `spec/16_geometry_authoring_contract.md` | `GAUTH-*`, `AUTH-C04` | `REF-CAD-013`, `REF-CAD-014` | multiple placement modes preserved |
 | Offloading / accommodation | ACTIVE | `spec/06_corrective_elements.md` + `16` | `OFF-*`, `GAUTH-*`, `AUTH-C05` | `REF-CAD-004`, `005`, `007`, `008` | real outcome loop requires qualified acquisition |
 | Sculpt / local freeform | DRAFT-FREEZE | `spec/16_geometry_authoring_contract.md` | `GAUTH-*`, `AUTH-C06` | EasyCAD2 + market | low-level representation later |
@@ -109,16 +109,17 @@ Competitor convergence around saved templates/adjustments/histories/workflows ma
 ## 4. Documentation gates before architecture selection
 
 ```text
-GATE-DOC-01  traceability matrix current                         DONE v0.2
-GATE-DOC-02  Geometry Authoring Contract written                 DONE draft; FREEZE NEXT
-GATE-DOC-03  Workflow/Preset/Macro Contract written              DONE draft; FREEZE NEXT
-GATE-DOC-04  Numerical/Qualification Registry written            DONE draft; FREEZE NEXT
+GATE-DOC-01  traceability matrix current                         DONE v0.3
+GATE-DOC-02  Geometry Authoring Contract written                 DONE draft
+GATE-DOC-03  Workflow/Preset/Macro Contract written              DONE draft
+GATE-DOC-04  Numerical/Qualification Registry written            DONE draft
 GATE-DOC-05  P0 authoring acceptance catalog allocated           DONE v0.1
 GATE-DOC-06  representative semantic fixture/test specs written  DONE — 22 scenarios
 GATE-DOC-07  Project Schema v0.2 change-set documented           DONE design draft
-GATE-DOC-08  cross-document contradiction/coverage audit         NEXT
-GATE-DOC-09  16/17/18 promoted to FROZEN v1                     NEXT
-GATE-DOC-10  geometry-engine evaluation scorecard                AFTER FREEZE
+GATE-DOC-08  cross-document contradiction/coverage audit         DONE — 0 blockers
+GATE-DOC-09  acceptance-suite integration                        DONE — canonical addendum v1
+GATE-DOC-10  16/17/18 final status normalization / freeze        NEXT
+GATE-DOC-11  geometry-engine evaluation scorecard                AFTER FREEZE
 ```
 
 `TD-CI-001` is not part of these documentation gates. It must be closed before executable qualification is trusted again, not before specification freeze.
