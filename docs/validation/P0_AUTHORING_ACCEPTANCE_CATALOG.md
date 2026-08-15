@@ -1,7 +1,7 @@
 # BiomechE-CAD — P0 Authoring Acceptance Catalog
 
-**Status:** CANONICAL TEST-SPEC BASELINE v0.1  
-**Date:** 2026-08-15  
+**Status:** FROZEN SEMANTIC TEST-SPEC v1  
+**Freeze date:** 2026-08-15  
 **Execution:** specification-only while `TD-CI-001` is deferred  
 **Architecture:** geometry-kernel independent  
 **Owners:** `spec/16_geometry_authoring_contract.md`, `spec/17_workflow_preset_macro.md`, `spec/18_numerical_qualification_registry.md`
@@ -10,7 +10,7 @@
 
 ## 0. Purpose
 
-This catalog translates the new P0 authoring contracts into representative, executable-later scenarios **without choosing a geometry kernel**.
+This catalog translates the frozen P0 authoring contracts into representative, executable-later scenarios **without choosing a geometry kernel**.
 
 Synthetic values used in these scenarios exist only to make semantics testable. They are not clinical recommendations.
 
@@ -484,15 +484,17 @@ The numerical values used for golden tests are engineering fixture values, not c
 
 ---
 
-# 8. Exit criteria for this catalog
+# 8. Freeze record
 
-This catalog is sufficient to unblock architecture evaluation when:
+The catalog is frozen as the semantic test-spec baseline because:
 
-1. every major P0 geometry family has at least one representative semantic scenario;
+1. every major P0 geometry family has representative semantic coverage;
 2. mirror and provenance cases are present;
 3. inspection semantics are testable;
 4. workflow expansion/override behavior is testable;
 5. `OPEN` numerical behavior is testable;
-6. the cases can be implemented against competing geometry engines without changing their product meaning.
+6. the scenarios can be implemented against competing geometry engines without changing product meaning.
 
-`TD-CI-001` affects where/how these are executed later, not the acceptance definitions themselves.
+Future implementation may add more cases, property tests and golden geometry without changing these existing v1 scenario meanings. Any incompatible semantic change requires a new catalog version.
+
+`TD-CI-001` affects where/how these are executed later, not the frozen acceptance definitions themselves.
