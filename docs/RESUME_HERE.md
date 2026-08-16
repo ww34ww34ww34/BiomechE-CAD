@@ -3,11 +3,11 @@
 **Repository:** `ww34ww34ww34/BiomechE-CAD`  
 **Canonical branch:** `main`  
 **Checkpoint date:** 2026-08-16  
-**Current phase:** **P0 WRITTEN DOCUMENTATION COMPLETE + CANONICAL VISUAL SOURCE BASELINE v1 COMPLETE.**  
-**Outstanding visual evidence:** rendered/browser captures `VIS-03R/VIS-04R`.  
-**Architecture status:** **NO GEOMETRY ENGINE SELECTED.** Q0..Q7 plan preserved.
+**Current phase:** **P0 PRODUCT DOCUMENTATION COMPLETE + CANONICAL VISUAL SOURCE/BROWSER BASELINE COMPLETE.**  
+**Only visual packaging residual:** repository storage of the already-rendered M01..M14 PNG binaries.  
+**Architecture status:** **NO GEOMETRY ENGINE SELECTED.** Q0..Q7 plan preserved and ready to resume.
 
-The P0 product/semantic documentation has closed with **0 blocking cross-document contradictions**. A versioned navigable visual source containing M01..M14 is now saved in the repository and mapped to requirements. Pixel/browser golden captures remain pending because no connected render pipeline was available in the closure session.
+The P0 product/semantic documentation closed with **0 blocking cross-document contradictions**. The canonical visual source M01..M14 has been browser-executed and audited. Canonical bibliography normalization for the 2025/2026 standards/regulatory/human-factors sources is complete.
 
 Project Schema v0.2 remains **APPROVED / NOT MATERIALIZED**. `TD-CI-001` remains deliberately deferred and non-blocking.
 
@@ -21,32 +21,32 @@ Project Schema v0.2 remains **APPROVED / NOT MATERIALIZED**. `TD-CI-001` remains
 4. `docs/ux/BIOMECHE_CAD_VISUAL_REFERENCE_V1.md`
 5. `docs/ux/mockups/v1/manifest.md`
 6. `docs/ux/VISUAL_REFERENCE_CROSS_DOCUMENT_AUDIT_2026-08-16.md`
-7. `docs/SPEC_INDEX.md`
-8. `docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md`
-9. `docs/TRACEABILITY_MATRIX.md`
-10. `docs/spec/01_coordinate_registration.md`
-11. `docs/spec/02_project_schema.md`
-12. `docs/spec/06_corrective_elements.md`
-13. `docs/spec/08_material_stiffness.md`
-14. `docs/spec/09_analysis_qc_dfm.md`
-15. `docs/spec/10_manufacturing.md`
-16. `docs/spec/11_biomeche_integration.md`
-17. `docs/spec/12_reporting_traceability.md`
-18. `docs/spec/13_use_case_profiles.md`
-19. `docs/spec/14_prom_comfort_adherence.md`
-20. `docs/spec/15_pressure_acquisition_qualification.md`
-21. `docs/spec/16_geometry_authoring_contract.md`
-22. `docs/spec/17_workflow_preset_macro.md`
-23. `docs/spec/18_numerical_qualification_registry.md`
-24. `docs/spec/19_project_schema_v0_2_changeset.md`
-25. `docs/spec/20_input_scan_reference_data.md`
-26. `docs/spec/21_product_workflow_interaction.md`
-27. `docs/spec/22_interchange_manufacturing_handoff.md`
-28. `docs/spec/23_realtime_performance_contract.md`
-29. `docs/validation/24_validation_verification_master_plan.md`
-30. `docs/spec/25_intended_use_risk_privacy_security_boundary.md`
-31. `docs/research/CURRENT_SOURCE_SUPPLEMENT_2026-08-16.md`
-32. `docs/research/VISUAL_HUMAN_FACTORS_EVIDENCE_2026-08-16.md`
+7. `docs/ux/VISUAL_RENDER_BROWSER_AUDIT_2026-08-16.md`
+8. `docs/ux/mockups/v1/rendered/README.md`
+9. `docs/SPEC_INDEX.md`
+10. `docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md`
+11. `docs/TRACEABILITY_MATRIX.md`
+12. `docs/spec/01_coordinate_registration.md`
+13. `docs/spec/02_project_schema.md`
+14. `docs/spec/06_corrective_elements.md`
+15. `docs/spec/08_material_stiffness.md`
+16. `docs/spec/09_analysis_qc_dfm.md`
+17. `docs/spec/10_manufacturing.md`
+18. `docs/spec/11_biomeche_integration.md`
+19. `docs/spec/12_reporting_traceability.md`
+20. `docs/spec/13_use_case_profiles.md`
+21. `docs/spec/14_prom_comfort_adherence.md`
+22. `docs/spec/15_pressure_acquisition_qualification.md`
+23. `docs/spec/16_geometry_authoring_contract.md`
+24. `docs/spec/17_workflow_preset_macro.md`
+25. `docs/spec/18_numerical_qualification_registry.md`
+26. `docs/spec/19_project_schema_v0_2_changeset.md`
+27. `docs/spec/20_input_scan_reference_data.md`
+28. `docs/spec/21_product_workflow_interaction.md`
+29. `docs/spec/22_interchange_manufacturing_handoff.md`
+30. `docs/spec/23_realtime_performance_contract.md`
+31. `docs/validation/24_validation_verification_master_plan.md`
+32. `docs/spec/25_intended_use_risk_privacy_security_boundary.md`
 33. `docs/BIBLIOGRAPHY.md`
 34. `docs/NEXT_CHAT_PROMPT.md`
 
@@ -142,24 +142,13 @@ WRITTEN DOCUMENTATION CLOSURE                GO
 
 ### `spec/04_base_template.md`
 
-Status:
-
 ```text
 ENGINEERING CANDIDATE / QUALIFICATION FIXTURE
 ```
 
-Therefore the following are **not** product requirements:
-
-```text
-41×17 topology
-specific vertex/index layout
-Catmull-Clark/OpenSubdiv realization
-specific control spacing
-```
+`41×17`, specific vertex/index layout, Catmull-Clark/OpenSubdiv realization and control spacing are not product requirements.
 
 ### `spec/05_parametric_orthosis_geometry.md`
-
-Status:
 
 ```text
 ENGINEERING MATHEMATICAL REFERENCE — INTENTIONALLY PROVISIONAL
@@ -169,7 +158,7 @@ Exact arch/wedge/heel/sculpt/smooth/scan-conform formulas, directions and sample
 
 ---
 
-## 6. Canonical visual reference — SOURCE BASELINE COMPLETE
+## 6. Canonical visual reference — SOURCE + BROWSER BASELINE COMPLETE
 
 Visual brief:
 
@@ -179,6 +168,10 @@ Editable/navigable source:
 
 `docs/ux/mockups/v1/biomeche-cad-mockups-v1.html`
 
+Canonical source blob at browser-audit start:
+
+`588b6440bd9622b2d45493704d714dee1e6bd2df`
+
 Manifest:
 
 `docs/ux/mockups/v1/manifest.md`
@@ -187,111 +180,103 @@ Source-level audit:
 
 `docs/ux/VISUAL_REFERENCE_CROSS_DOCUMENT_AUDIT_2026-08-16.md`
 
-Current visual status:
+Browser/runtime/accessibility audit:
+
+`docs/ux/VISUAL_RENDER_BROWSER_AUDIT_2026-08-16.md`
+
+Rendered archive contract:
+
+`docs/ux/mockups/v1/rendered/README.md`
+
+Current status:
 
 ```text
 VIS-01 visual brief / design system           DONE
 VIS-02 M01..M14 navigable source               DONE
 VIS-03 source/version archive                  DONE
 VIS-04 requirement ↔ screen mapping            DONE
-VIS-03R rendered PNG archive                   PENDING
-VIS-04R browser/pixel visual audit             PENDING
+VIS-03R-RUN 14/14 browser PNG captures         DONE
+VIS-03R-ARCH repository binary PNG storage     OPEN — packaging only
+VIS-04R browser/runtime/accessibility audit    DONE — PASS WITH CORRECTIVE ITEMS
 ```
+
+Browser pass:
+
+```text
+Chromium             144.0.7559.96
+M01..M13             1440×960
+M14                  1024×768
+M07/M10              dark references confirmed
+runtime exceptions   0
+```
+
+The PNG binaries were generated during the audit but the transient sandbox reset before they could be transferred to GitHub. The repository must therefore not claim a binary golden archive that does not exist.
 
 Authority:
 
 ```text
 WRITTEN SPECIFICATION = SEMANTIC AUTHORITY
-HTML/MOCKUP            = VISUAL / INTERACTION REFERENCE
+HTML/MOCKUP            = CANONICAL VISUAL / INTERACTION SOURCE
+PNG                     = RENDERED REFERENCE ARTIFACT
 ```
 
 ---
 
-## 7. Canonical M01..M14 screens
+## 7. Browser/a11y corrective items
+
+The browser review did not find semantic contradictions. It did identify three implementation/design-system corrections:
 
 ```text
-M01 Project / Patient / Case
-M02 Import / Scan qualification
-M03 Registration / Landmarks
-M04 Base orthosis / Template
-M05 Parametric authoring
-M06 Corrective / Offloading elements
-M07 Sculpt / Local editing
-M08 Materials / mechanical prescription
-M09 Inspection / Geometry QC
-M10 BiomechE Before / After / Delta
-M11 DFM / Manufacturing preparation
-M12 Revision / Provenance / Report
-M13 Physical-part QC / Outcome follow-up
-M14 Responsive / compact reference
+VIS-A11Y-01  meaningful M10 quantitative SVGs need accessible name/description,
+             or explicit decorative semantics only when equivalent accessible
+             numeric information is adjacent.
+
+VIS-A11Y-02  viewport tool stand-ins must become semantic controls if interactive,
+             with keyboard support and programmatic name/role/state.
+
+VIS-A11Y-03  freeze and test an explicit :focus-visible treatment in light/dark.
 ```
 
-Visual direction v1:
+Also preserve the already-frozen rule that drag interaction must have a suitable non-drag/numeric path where required.
+
+These items affect presentation/control implementation and do not change clinical/domain semantics.
+
+---
+
+## 8. Canonical bibliography — NORMALIZED
+
+`docs/BIBLIOGRAPHY.md` remains the single bibliographic authority and was normalized on 2026-08-16.
+
+Current stable IDs now include, among others:
 
 ```text
-premium medical-tech workstation
-3D-first
-high information density without legacy industrial-CAD chrome
-light canonical baseline + dark representative screens
-teal / blue / sage / restrained warm accents
-no purple-dominant identity
-persistent case / side / revision / profile context
-semantic controls, not raw topology
-requested vs realized values
-status via text/icon/shape + color
-quantitative palettes separated from process-status colors
-provenance through progressive disclosure
+STD-ISOIEC-25422-2025
+STD-ISOASTM-52915-2020
+STD-ISOASTM-52951-2026
+STD-ISO-14971-2019
+STD-ISO-13485-2016
+STD-ISO-9241-210-2019
+STD-IEC-62366-1-2015-A1-2020
+STD-W3C-WCAG-2.2
+GUIDE-W3C-WCAG2ICT-2.2
+REG-EU-MDR-2017-745
+GUIDE-MDCG-2019-11-REV1-2025
+GUIDE-MDCG-2021-24-REV1-2026
+GUIDE-MDCG-2019-16-REV1
+GUIDE-MDCG-2021-3
+REG-EU-GDPR-2016-679
+GUIDE-FDA-HFE-2026
 ```
 
----
-
-## 8. Human-factors/accessibility evidence
-
-Current visual evidence baseline:
-
-`docs/research/VISUAL_HUMAN_FACTORS_EVIDENCE_2026-08-16.md`
-
-It maps current ISO 9241-210, IEC 62366-1, FDA human-factors and WCAG 2.2 principles into `HF-VIS-001..010`.
-
-This is design guidance, not a conformity claim.
+Source roles remain constrained: standards/guidance/regulations support terminology, applicability, qualification or design governance but do not automatically create conformance, certification, product classification or universal clinical thresholds.
 
 ---
 
-## 9. Current-source scientific/regulatory validation
+## 9. Acceptance / V&V
 
-Closure was revalidated using existing canonical papers/guidelines plus current official 2025/2026 sources recorded in:
+`TRACEABILITY_MATRIX.md` is now **v0.8**.
 
-`docs/research/CURRENT_SOURCE_SUPPLEMENT_2026-08-16.md`
-
-Important new sources awaiting stable IDs in the single canonical `BIBLIOGRAPHY.md` include:
-
-```text
-ISO/IEC 25422:2025 — 3MF
-ISO/ASTM 52915:2020 — AMF
-ISO/ASTM 52951:2026 — AM data packages
-EU MDR current consolidated text
-MDCG 2019-11 rev.1 (2025)
-MDCG 2021-24 rev.1 (2026)
-MDCG 2019-16 rev.1
-MDCG 2021-3
-GDPR
-ISO 14971:2019
-ISO 13485:2016
-ISO 9241-210:2019
-IEC 62366-1:2015+A1:2020
-FDA HFE 2026
-WCAG 2.2
-```
-
-Bibliography normalization is maintenance work; it does not reopen frozen semantics.
-
----
-
-## 10. Acceptance / V&V
-
-`TRACEABILITY_MATRIX.md` v0.6 and the V&V master plan own coverage/evidence semantics.
-
-New closure namespaces:
+New closure namespaces include:
 
 ```text
 PROF-013..014
@@ -310,7 +295,7 @@ VIS-001..020
 
 ---
 
-## 11. Geometry engine — PRESERVED / NO WINNER
+## 10. Geometry engine — PRESERVED / NO WINNER
 
 Still valid:
 
@@ -328,13 +313,13 @@ A. product-owned domain layer + Pixar OpenSubdiv
 B. product-owned domain layer + openNURBS / ON_SubD
 ```
 
-No new product/visual document closes an engine gate by appearance.
+No product, bibliography or visual document closes an engine gate.
 
 If architecture work is resumed, start at Q0; do not restart generic library research.
 
 ---
 
-## 12. Project Schema v0.2 / CI — unchanged
+## 11. Project Schema v0.2 / CI — unchanged
 
 ```text
 Project Schema v0.2    APPROVED / NOT MATERIALIZED
@@ -345,39 +330,37 @@ Do not modify schemas/fixtures/migrations or CI unless explicitly requested.
 
 ---
 
-## 13. Exact remaining documentation/visual tasks
+## 12. Remaining work
 
-### DOCUMENTATION MAINTENANCE
+### Mechanical visual packaging only
 
-Normalize new 2025/2026 sources into stable IDs in `docs/BIBLIOGRAPHY.md` without changing source roles or frozen requirements.
+Store the 14 already-defined/rendered PNG references under:
 
-Optionally fold the closure/visual decisions into `DECISIONS.md` in a dedicated maintenance pass.
+`docs/ux/mockups/v1/rendered/`
 
-### VIS-03R / VIS-04R
+using the filenames and manifest metadata defined in that directory's `README.md`.
 
-When browser/render tooling is available:
+Do not create placeholders. Re-render from the canonical HTML when an environment with a persistent binary-transfer path is available, then record browser/version/source blob/hash/file size.
+
+### Engineering may resume now
+
+The source/browser visual baseline is sufficient to resume architecture work if the owner chooses. The missing PNG copies are archival convenience, not a semantic/architecture-entry blocker.
+
+Next engineering task remains:
 
 ```text
-capture M01..M13 at 1440×960
-capture M14 at 1024×768
-include dark M07/M10
-verify no runtime/console errors
-inspect overflow/clipping/density/status readability
-archive captures under docs/ux/mockups/v1/rendered/
-record hashes/browser/version in manifest
-rerun visual audit
+Q0 — Geometry Engine Qualification
+native + server/headless + direct WASM build/dependency evidence
+OpenSubdiv vs openNURBS/ON_SubD
+no winner assumed
 ```
-
-### AFTER / PARALLEL
-
-Geometry-engine Q0 may now resume if owner chooses; render capture/bibliography maintenance do not require reopening semantics.
 
 ---
 
-## 14. DONE
+## 13. DONE
 
 - [x] DOC-00..DOC-14.
-- [x] Six former `ACTIVE v0` product specs frozen v1.
+- [x] Former `ACTIVE v0` product specs frozen v1.
 - [x] `04/05` explicitly de-authorized as product truth.
 - [x] Input/scan/reference contract.
 - [x] Product workflow/interaction contract.
@@ -386,26 +369,28 @@ Geometry-engine Q0 may now resume if owner chooses; render capture/bibliography 
 - [x] V&V master plan.
 - [x] Intended-use/risk/privacy/security boundary.
 - [x] Final written audit: 0 blockers / GO.
-- [x] Current scientific/standards/regulatory verification supplement.
-- [x] Human-factors visual evidence baseline.
 - [x] VIS-01 visual reference.
 - [x] VIS-02 M01..M14 navigable HTML source.
 - [x] VIS-03 source/version archive.
-- [x] VIS-04 source-level requirement mapping and audit.
-- [x] No engine selected prematurely.
+- [x] VIS-04 requirement↔screen mapping.
+- [x] 14/14 browser renders executed.
+- [x] VIS-04R browser/runtime/accessibility audit.
+- [x] canonical bibliography stable-ID normalization.
+- [x] rendered archive path/metadata contract.
+- [x] no engine selected prematurely.
 
 ---
 
-## 15. TODO
+## 14. TODO
 
-- [ ] canonical `BIBLIOGRAPHY.md` stable-ID normalization for new current sources;
-- [ ] `VIS-03R` rendered captures;
-- [ ] `VIS-04R` browser/pixel/accessibility review;
-- [ ] optional `DECISIONS.md` maintenance;
-- [ ] resume Q0 only when requested/appropriate.
+- [ ] store/recreate the 14 PNG binaries in `docs/ux/mockups/v1/rendered/` when a persistent binary-transfer path is available;
+- [ ] implement/test `VIS-A11Y-01..03` in the actual UI/design system;
+- [ ] resume Q0 when the owner chooses;
+- [ ] later materialize Project Schema v0.2 only under explicit task;
+- [ ] later execute real pressure/material/manufacturing qualification streams.
 
 ---
 
-## 16. New-chat handover
+## 15. New-chat handover
 
-`docs/NEXT_CHAT_PROMPT.md` should resume from the remaining documentation/visual maintenance tasks, or from Q0 only if the owner explicitly changes priority.
+`docs/NEXT_CHAT_PROMPT.md` should resume either from the mechanical PNG archive task or, preferably if the owner wants engineering progress, directly from Q0 geometry-engine qualification. Do not restart generic CAD/library research.
