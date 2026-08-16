@@ -2,7 +2,7 @@
 
 **Status:** CANONICAL  
 **Date initialized:** 2026-08-14  
-**Last normalized:** 2026-08-15  
+**Last normalized:** 2026-08-16  
 **Purpose:** single authoritative bibliography for EasyCAD2 evidence, scientific literature, guidelines, standards, vendor sources and architecture references used by BiomechE-CAD.
 
 > Other project documents cite the stable source IDs defined here instead of duplicating bibliographic metadata. `docs/research/SOURCES.md` is an intake/research ledger; this file is the canonical bibliographic authority.
@@ -565,9 +565,9 @@ Wilkinson MD et al. *The FAIR Guiding Principles for scientific data management 
 
 ---
 
-# D. Standards / test-method / interoperability references
+# D. Standards / test-method / interoperability / regulatory / human-factors references
 
-**Scope note:** a standards entry documents terminology/test/interoperability/qualification semantics available from the official source. It does not mean BiomechE-CAD automatically claims conformance to the complete standard. Full conformance decisions require applicability review and, for paid standards, controlled access to the licensed text.
+**Scope note:** a standards or guidance entry documents terminology, test, interoperability, qualification, regulatory or human-factors semantics available from the official source. It does **not** mean BiomechE-CAD automatically claims conformance, certification, legal classification or a universal acceptance threshold. Full conformance/applicability decisions require their own controlled assessment and, for paid standards, controlled access to the licensed text.
 
 <a id="std-iso-868-2003"></a>
 ## STD-ISO-868-2003 — Shore durometer hardness
@@ -647,6 +647,56 @@ Wilkinson MD et al. *The FAIR Guiding Principles for scientific data management 
 - **Locator:** official Abstract/Scope.
 - **Role:** explicit build positioning/orientation/coordinate vocabulary for manufacturing provenance.
 
+<a id="std-isoiec-25422-2025"></a>
+## STD-ISOIEC-25422-2025 — 3D Manufacturing Format (3MF) specification suite
+- **Standard:** ISO/IEC 25422:2025, *Information technology — 3D Manufacturing Format (3MF) specification suite.* Edition 1; published 2025-06.
+- **Official URL:** https://www.iso.org/standard/90283.html
+- **Locator:** official Abstract/Scope.
+- **Role:** current standardized 3MF carrier-suite context. It supports format-capability reasoning, but does not make 3MF the BiomechE-CAD semantic authority or prove that every project semantic is preserved by a given exporter/importer.
+
+<a id="std-isoastm-52915-2020"></a>
+## STD-ISOASTM-52915-2020 — Additive Manufacturing File Format (AMF) v1.2
+- **Standard:** ISO/ASTM 52915:2020, *Specification for additive manufacturing file format (AMF) Version 1.2.* Edition 3; published 2020-03; confirmed current in 2026.
+- **Official URL:** https://www.iso.org/standard/74640.html
+- **Locator:** official Abstract/Scope.
+- **Role:** AM interchange-carrier semantics. Carrier support does not replace a project/manufacturing manifest, provenance, integrity policy or explicit information-loss declaration.
+
+<a id="std-isoastm-52951-2026"></a>
+## STD-ISOASTM-52951-2026 — Data packages for AM parts
+- **Standard:** ISO/ASTM 52951:2026, *Additive manufacturing — Data — Data packages for AM parts.* Edition 1; published 2026-06.
+- **Official URL:** https://www.iso.org/standard/76828.html
+- **Locator:** official Abstract/Scope.
+- **Recorded scope point:** establishes methods/parameter sets/models for a part data package across the AM workflow from design to acceptance and a referenceable digital thread; the detailed requirements are based on PBF-LB/M, while generalized workflow concepts may apply more broadly.
+- **Role:** supports traceable design→manufacture→acceptance package semantics. It does not by itself qualify a BiomechE-CAD polymer-AM or CNC process.
+
+<a id="std-iso-14971-2019"></a>
+## STD-ISO-14971-2019 — Medical-device risk management
+- **Standard:** ISO 14971:2019, *Medical devices — Application of risk management to medical devices.* Edition 3; confirmed current in 2025.
+- **Official URL:** https://www.iso.org/standard/72704.html
+- **Locator:** official Abstract/Scope.
+- **Role:** lifecycle risk-management framework. It does not prescribe one universal acceptable-risk level and is not a substitute for a product-specific risk-management file.
+
+<a id="std-iso-13485-2016"></a>
+## STD-ISO-13485-2016 — Medical-device quality-management systems
+- **Standard:** ISO 13485:2016, *Medical devices — Quality management systems — Requirements for regulatory purposes.* Edition 3; reviewed/confirmed current in 2025.
+- **Official URL:** https://www.iso.org/standard/59752.html
+- **Locator:** official Abstract/Scope.
+- **Role:** QMS/regulatory-quality context. Referencing it in BiomechE-CAD documentation is not a claim that the project or organization is certified to ISO 13485.
+
+<a id="std-iso-9241-210-2019"></a>
+## STD-ISO-9241-210-2019 — Human-centred design for interactive systems
+- **Standard:** ISO 9241-210:2019, *Ergonomics of human-system interaction — Part 210: Human-centred design for interactive systems.* Edition 2; confirmed current in 2025.
+- **Official URL:** https://www.iso.org/standard/77520.html
+- **Locator:** official Abstract/Scope.
+- **Role:** human-centred design lifecycle/process context for workflow and visual-reference validation; does not define BiomechE-CAD clinical semantics.
+
+<a id="std-iec-62366-1-2015-a1-2020"></a>
+## STD-IEC-62366-1-2015-A1-2020 — Medical-device usability engineering
+- **Standard:** IEC 62366-1:2015+A1:2020 consolidated version, *Medical devices — Part 1: Application of usability engineering to medical devices.* Edition 1.1.
+- **Official URL:** https://webstore.iec.ch/en/publication/63181
+- **Locator:** official Abstract/Scope.
+- **Role:** usability engineering related to safety/use error. Applicability and formal conformance remain part of the future regulatory/QMS assessment.
+
 <a id="std-isb-global-cs-1995"></a>
 ## STD-ISB-GLOBAL-CS-1995 — ISB global coordinate-system reporting proposal
 - **Citation:** Wu G, Cavanagh PR. *ISB recommendations for standardization in the reporting of kinematic data.* J Biomech. 1995;28(10):1257–1261. PMID `8550644`; DOI `10.1016/0021-9290(95)00017-C`.
@@ -674,6 +724,20 @@ Wilkinson MD et al. *The FAIR Guiding Principles for scientific data management 
 - **Official URL:** https://www.w3.org/TR/prov-o/
 - **Locator:** §2 `PROV-O at a glance`; §3.1 `Starting Point Terms` (`Entity`, `Activity`, `Agent`).
 - **Role:** conceptual/interoperability provenance model for input/output entities, generating activities and responsible agents; RDF storage is not required internally.
+
+<a id="std-w3c-wcag-22"></a>
+## STD-W3C-WCAG-2.2 — Web Content Accessibility Guidelines 2.2
+- **Specification:** W3C Recommendation, *Web Content Accessibility Guidelines (WCAG) 2.2*, republished with errata 12 December 2024.
+- **Official URL:** https://www.w3.org/TR/WCAG22/
+- **Locator:** normative Success Criteria; especially non-text content, use of color, focus, keyboard, dragging movements, target size, labels/name/role/value as applicable.
+- **Role:** testable accessibility reference for web-rendered visual prototypes and a source of accessibility principles. It is not by itself a complete native-desktop conformance claim.
+
+<a id="guide-w3c-wcag2ict-22"></a>
+## GUIDE-W3C-WCAG2ICT-2.2 — Applying WCAG 2.2 to non-web software/documents
+- **Guidance:** W3C Group Note, *Guidance on Applying WCAG 2 to Non-Web Information and Communications Technologies (WCAG2ICT)*, 11 December 2025.
+- **Official URL:** https://www.w3.org/TR/wcag2ict-22/
+- **Locator:** Abstract / guidance for non-web documents and software.
+- **Role:** informative, non-normative bridge for applying WCAG concepts to desktop/non-web software. It explicitly does not set requirements on its own.
 
 <a id="std-rfc-9562"></a>
 ## STD-RFC-9562 — UUIDs
@@ -723,6 +787,53 @@ Wilkinson MD et al. *The FAIR Guiding Principles for scientific data management 
 - **Official URL:** https://hl7.org/fhir/R5/questionnaireresponse.html
 - **Locator:** §2.6 resource scope and §2.6.2 boundaries/relationships; `QuestionnaireResponse.questionnaire` linkage.
 - **Role:** optional mapping path for PROM/questionnaire responses while preserving exact instrument/version/licensing semantics in the BiomechE-CAD model.
+
+<a id="reg-eu-mdr-2017-745"></a>
+## REG-EU-MDR-2017-745 — Regulation (EU) 2017/745 (MDR)
+- **Regulation:** Regulation (EU) 2017/745 on medical devices; current consolidated text consulted 2026-08-16.
+- **Official URL:** https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02017R0745-20260101
+- **Locator:** definitions, intended purpose, software/custom-made-device provisions and applicable annexes/rules as used by a future formal assessment.
+- **Role:** regulatory boundary authority. The project does not infer a final BiomechE-CAD classification solely from this bibliography entry.
+
+<a id="guide-mdcg-2019-11-rev1-2025"></a>
+## GUIDE-MDCG-2019-11-REV1-2025 — Qualification/classification of software under MDR/IVDR
+- **Guidance:** MDCG 2019-11 rev.1, *Guidance on Qualification and Classification of Software in Regulation (EU) 2017/745 – MDR and Regulation (EU) 2017/746 – IVDR*, June 2025.
+- **Official registry:** European Commission MDCG endorsed guidance page.
+- **Locator:** software qualification/classification decision logic and intended-purpose context.
+- **Role:** future formal software-regulatory assessment. It does not pre-classify BiomechE-CAD while intended purpose/deployment claims remain under controlled definition.
+
+<a id="guide-mdcg-2021-24-rev1-2026"></a>
+## GUIDE-MDCG-2021-24-REV1-2026 — Classification of medical devices
+- **Guidance:** MDCG 2021-24 rev.1, *Guidance on classification of medical devices*, April 2026; Commission update dated 20 April 2026.
+- **Official registry:** European Commission MDCG guidance/current update pages.
+- **Locator:** classification-rule interpretation.
+- **Role:** classification context for a future formal MDR assessment; not an automatic classification of the CAD software or manufactured orthosis.
+
+<a id="guide-mdcg-2019-16-rev1"></a>
+## GUIDE-MDCG-2019-16-REV1 — Cybersecurity for medical devices
+- **Guidance:** MDCG 2019-16 rev.1, *Guidance on Cybersecurity for medical devices*, publication listed by the European Commission as July 2020.
+- **Official registry:** European Commission MDCG endorsed guidance page.
+- **Role:** medical-device cybersecurity lifecycle context when/if applicable. Concrete security architecture and regulatory applicability remain separately assessed.
+
+<a id="guide-mdcg-2021-3"></a>
+## GUIDE-MDCG-2021-3 — Questions and Answers on Custom-Made Devices
+- **Guidance:** MDCG 2021-3, *Questions and Answers on Custom-Made Devices*, March 2021.
+- **Official URL:** European Commission custom-made-device guidance/current topic pages.
+- **Role:** custom-made/adaptable/patient-matched regulatory terminology and boundary context. Product architecture must not equate “patient-specific” with one legal category without formal assessment.
+
+<a id="reg-eu-gdpr-2016-679"></a>
+## REG-EU-GDPR-2016-679 — General Data Protection Regulation
+- **Regulation:** Regulation (EU) 2016/679 (GDPR).
+- **Official URL:** https://eur-lex.europa.eu/eli/reg/2016/679/oj
+- **Locators:** Article 25 `Data protection by design and by default`; Article 32 `Security of processing`; other provisions require applicability-specific assessment.
+- **Role:** privacy/security boundary for personal and health-related data. This bibliography entry is not legal advice and does not replace a deployment-specific DPIA/controller-processor assessment where required.
+
+<a id="guide-fda-hfe-2026"></a>
+## GUIDE-FDA-HFE-2026 — Applying Human Factors and Usability Engineering to Medical Devices
+- **Guidance:** U.S. FDA, *Applying Human Factors and Usability Engineering to Medical Devices — Guidance for Industry and Food and Drug Administration Staff*, Final, August 2026; docket FDA-2011-D-0469.
+- **Official URL:** https://www.fda.gov/regulatory-information/search-fda-guidance-documents/applying-human-factors-and-usability-engineering-medical-devices
+- **Locator:** guidance purpose/scope and human-factors/usability-engineering process recommendations.
+- **Role:** current human-factors safety evidence for minimizing use error and designing for intended users/use environments. It is guidance, not a claim of FDA applicability or clearance for BiomechE-CAD.
 
 ---
 
@@ -836,3 +947,5 @@ Open CASCADE Technology. https://dev.opencascade.org/ ; https://github.com/Open-
 18. `docs/research/SOURCES.md` tracks source intake/open verification; this file owns canonical metadata.
 19. Competitor/vendor pages may support a statement that a feature is publicly advertised/documented; they do not prove clinical efficacy, internal implementation semantics or absence of unmentioned capabilities.
 20. A pinned BiomechE repository snapshot may define integration semantics for that revision; later upstream changes require a new/updated integration pin rather than silently reinterpreting historical results.
+21. Regulatory/guidance sources constrain applicability assessments but must not be converted into a product classification without the controlled intended-purpose and deployment context.
+22. Human-factors/accessibility guidance may constrain interaction design and verification but cannot redefine clinical/domain semantics.
