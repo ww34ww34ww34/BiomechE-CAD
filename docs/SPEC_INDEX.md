@@ -88,21 +88,23 @@ ux/mockups/v1/biomeche-cad-mockups-v1.html
 ux/VISUAL_REFERENCE_CROSS_DOCUMENT_AUDIT_2026-08-16.md
 ux/VISUAL_RENDER_BROWSER_AUDIT_2026-08-16.md
 ux/mockups/v1/rendered/README.md
+ux/mockups/v1/rendered/render_reference.py
 ```
 
 Status:
 
 ```text
-VIS-01              DONE
-VIS-02              DONE
-VIS-03 source       DONE
-VIS-04 source       DONE
-VIS-03R-RUN         DONE — 14/14 captures executed
-VIS-04R             DONE — PASS WITH corrective items
-VIS-03R-ARCHIVE     OPEN — PNG repository packaging only
+VIS-01                    DONE
+VIS-02                    DONE
+VIS-03 source             DONE
+VIS-04 source             DONE
+VIS-03R-RUN               DONE — 14/14 captures executed
+VIS-04R                   DONE — PASS WITH corrective items
+VIS-03R-REPRODUCIBILITY   DONE — versioned Chromium/Playwright renderer + SHA-256 manifest generation
+PNG MATERIALIZATION       OPTIONAL derived cache / not a semantic, documentation or architecture gate
 ```
 
-Visual corrective items: `VIS-A11Y-01..03` in `TRACEABILITY_MATRIX.md`.
+Visual corrective items: `VIS-A11Y-01..03` in `TRACEABILITY_MATRIX.md` and `DECISIONS_2026-08-16_CLOSURE_Q0_ADDENDUM.md`.
 
 ---
 
@@ -174,8 +176,6 @@ Commit generated JSON evidence before promoting any hard gate.
 
 If Q0 qualifies both/sufficient candidates, proceed to Q1 common geometry/replay/query fixture.
 
-PNG binary archive completion may be done opportunistically; it is not an architecture-entry gate.
-
 ---
 
 ## 8. Deferred/non-blocking
@@ -186,4 +186,5 @@ TD-CI-001                              DEFERRED / NON-BLOCKING
 physical pressure qualification       FUTURE evidence stream
 material/manufacturing qualification  FUTURE evidence stream
 formal regulatory/QMS deployment      FUTURE assessment
+materialized visual PNG copies        OPTIONAL review cache; reproducible renderer is canonical render contract
 ```
