@@ -1,6 +1,6 @@
 # BiomechE-CAD — Requirement Traceability Matrix
 
-**Status:** **CANONICAL TRACEABILITY BASELINE v0.9**  
+**Status:** **CANONICAL TRACEABILITY BASELINE v0.10**  
 **Date:** 2026-08-16  
 **Functional authority:** `spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md`  
 **V&V authority:** `validation/24_validation_verification_master_plan.md`  
@@ -38,7 +38,7 @@
 | V&V governance | CANONICAL v1 | `validation/24_validation_verification_master_plan.md` | `VV-*` | executable evidence grows with product |
 | Intended use/risk/privacy/security | CANONICAL / classification OPEN | `25_intended_use_risk_privacy_security_boundary.md` | `REG-*` | formal deployment/regulatory work |
 | Bibliography | CANONICAL / NORMALIZED | `BIBLIOGRAPHY.md` | stable IDs | maintenance only |
-| Visual baseline | CANONICAL SOURCE / BROWSER AUDITED | `ux/BIOMECHE_CAD_VISUAL_REFERENCE_V1.md` | `VIS-*` + browser audit | PNG binary archive only |
+| Visual baseline | CANONICAL SOURCE / BROWSER AUDITED / REPRODUCIBLE | `ux/BIOMECHE_CAD_VISUAL_REFERENCE_V1.md` + `ux/mockups/v1/rendered/render_reference.py` | `VIS-*` + browser audit + generated SHA-256 manifest contract | actual UI implementation / optional PNG review cache |
 | Geometry engine | **Q0 ACTIVE / NO WINNER** | scorecard + PoC plan + `qualification/geometry-engine/q0/` | `HG-01..15`, Q0..Q7 | real native/WASM Q0 builds |
 
 ---
@@ -60,15 +60,16 @@ CAD_ENGINE_ARCHITECTURE_STATUS_...      HISTORICAL
 ## 3. Documentation / visual gates
 
 ```text
-GATE-DOC-*           DONE — P0 written closure / 0 blockers
-GATE-BIB-01          DONE — current-source stable-ID normalization
-GATE-VIS-01          DONE — visual brief
-GATE-VIS-02          DONE — M01..M14 navigable source
-GATE-VIS-03          DONE — source/version archive
-GATE-VIS-04          DONE — requirement↔screen mapping/source audit
-GATE-VIS-03R-RUN     DONE — 14/14 browser captures executed
-GATE-VIS-04R         DONE — browser/runtime/a11y audit PASS with corrective items
-GATE-VIS-03R-ARCH    OPEN — repository PNG binary packaging only
+GATE-DOC-*             DONE — P0 written closure / 0 blockers
+GATE-BIB-01            DONE — current-source stable-ID normalization
+GATE-VIS-01            DONE — visual brief
+GATE-VIS-02            DONE — M01..M14 navigable source
+GATE-VIS-03            DONE — source/version archive
+GATE-VIS-04            DONE — requirement↔screen mapping/source audit
+GATE-VIS-03R-RUN       DONE — 14/14 browser captures executed
+GATE-VIS-04R           DONE — browser/runtime/a11y audit PASS with corrective items
+GATE-VIS-03R-REPRO     DONE — versioned Playwright/Chromium renderer + capture-manifest SHA-256 contract
+PNG binary copies      OPTIONAL derived review cache; not a visual/documentation gate
 ```
 
 Visual corrective items:
@@ -78,6 +79,8 @@ VIS-A11Y-01 meaningful quantitative graphics need accessible naming/description 
 VIS-A11Y-02 interactive viewport tools must be semantic controls with keyboard/name/role/state
 VIS-A11Y-03 explicit tested focus-visible treatment in light/dark
 ```
+
+These are implementation obligations, not reasons to reopen frozen product semantics.
 
 ---
 
@@ -164,7 +167,6 @@ A registered test ID is a specification, not a claim of CI execution.
 ## 6. Current OPEN / QUALIFY items
 
 ```text
-store/recreate 14 PNG binaries in repository
 real Q0 candidate native/server/WASM builds
 Q1..Q7 geometry/query/DFM/determinism/performance evidence
 final geometry engine selection
@@ -174,14 +176,7 @@ Project Schema v0.2 implementation
 physical pressure/material/manufacturing qualification
 formal regulatory/QMS/privacy/security deployment assessment
 actual UI implementation of VIS-A11Y-01..03
+optional materialized PNG review copies when useful
 ```
 
 ---
-
-## 7. Selection rule — unchanged
-
-```text
-HARD GATES -> Q0..Q7 EXECUTED EVIDENCE -> WEIGHTED CRITERIA -> FINAL DECISION
-```
-
-A candidate cannot win by forcing weaker frozen semantics, by matching a visual mockup, or from source/API inspection alone.
