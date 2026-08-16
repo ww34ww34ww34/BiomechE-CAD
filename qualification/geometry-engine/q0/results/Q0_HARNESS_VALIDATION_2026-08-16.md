@@ -1,8 +1,8 @@
 # BiomechE-CAD — Q0 Harness Validation
 
 **Date:** 2026-08-16  
-**Status:** PASS FOR HARNESS / CANDIDATE BUILDS STILL NOT EXECUTED  
-**Purpose:** validate the BiomechE-owned Q0 harness independently from third-party candidate compilation.
+**Status:** **PASS FOR HARNESS / CANDIDATE BUILDS STILL NOT EXECUTED**  
+**Purpose:** validate the BiomechE-owned Q0 qualification infrastructure independently from third-party candidate compilation.
 
 ---
 
@@ -17,44 +17,93 @@ Emscripten   NOT INSTALLED (`emcmake`/`emcc` absent)
 Git          2.47.3
 ```
 
-This environment does not contain the pinned OpenSubdiv/openNURBS source trees and cannot resolve GitHub through direct `git clone`; candidate build PASS is therefore not claimed.
+The runtime does not contain the pinned OpenSubdiv/openNURBS source trees and direct `git clone` cannot resolve GitHub from the execution container. Actual candidate build PASS is therefore not claimed.
 
 ---
 
-## 2. Runner syntax / NOT_EXECUTED semantics
+## 2. Runner syntax
 
-`run_q0.py` was reconstructed from the committed source and passed Python bytecode compilation:
+Current strengthened `run_q0.py` passed Python bytecode compilation:
 
 ```text
 python3 -m py_compile run_q0.py
 PASS
 ```
 
-The WASM path was exercised in an environment without Emscripten.
+---
 
-Observed result:
+## 3. Source-pin falsification tests
 
-```json
-{
-  "schema": "BiomechE.CAD.GeometryEngineQ0Result/1",
-  "candidateId": "opensubdiv",
-  "mode": "wasm",
-  "status": "NOT_EXECUTED",
-  "reason": "emcmake_not_found"
-}
-```
+The runner now requires the exact commit from `candidate-lock.json`.
 
-Observed process exit:
+### Unverifiable source archive
+
+Input: source directory with no Git metadata and no `--source-commit`.
+
+Observed:
 
 ```text
-3
+exit   4
+status NOT_EXECUTED
+reason source_commit_unverified
 ```
 
-This confirms the runner does not silently turn a missing toolchain into PASS or candidate FAIL.
+**PASS:** unverified source is not compiled/qualified silently.
+
+### Wrong declared commit
+
+Input: source directory with a commit value different from the OpenSubdiv lock.
+
+Observed:
+
+```text
+exit   5
+status SOURCE_PIN_MISMATCH
+```
+
+**PASS:** a wrong upstream revision cannot masquerade as qualification evidence.
+
+### Correct pin but missing Emscripten
+
+Input: exact declared OpenSubdiv commit + license file, `--mode wasm`, no `emcmake` installed.
+
+Observed:
+
+```text
+exit   7
+status NOT_EXECUTED
+reason emcmake_not_found
+licenseSha256 recorded = true
+```
+
+**PASS:** missing WASM toolchain is neither candidate PASS nor candidate FAIL.
 
 ---
 
-## 3. Common adapter/executable C++20 smoke
+## 4. Evidence fields added to runner
+
+For an executed build the runner records:
+
+```text
+expected upstream/ref/commit
+actual or declared source commit
+source-pin match
+license SHA-256
+host platform/system/architecture
+Python/CMake/C++/Emscripten/Node versions
+configure command/result/duration/stdout/stderr
+build command/result/duration/stdout/stderr
+CMakeCache SHA-256 + selected compiler/flags/generator entries
+artifact paths/sizes/SHA-256
+runtime result
+native dependency probe via dumpbin / otool / ldd where available
+```
+
+This closes the main Q0 reproducibility-manifest gap for build smoke evidence.
+
+---
+
+## 5. Common adapter/executable C++20 smoke
 
 The product-owned `adapter.hpp` + `main.cpp` contract was compiled with a local stub adapter under:
 
@@ -68,63 +117,43 @@ Observed output:
 {"candidateId":"stub","candidateVersion":"0","capabilityMask":5,"ok":true}
 ```
 
-Result: **PASS** for the candidate-neutral ABI-free C++ harness structure.
+Result: **PASS** for the candidate-neutral C++ harness structure.
 
 ---
 
-## 4. Candidate adapter source-shape compile smoke
+## 6. Candidate adapter source-shape smoke
 
-Because upstream source trees were unavailable locally, temporary minimal headers reproducing only the exact API signatures used by the Q0 adapters were created from the pinned upstream primary-source definitions.
+Temporary minimal headers reproducing only the exact pinned upstream API signatures used by the Q0 adapters were compiled through the common harness.
 
-Both adapter translation units compiled and ran through the same common harness:
+Observed:
 
 ```text
 opensubdiv 1
 opennurbs 1
 ```
 
-This validates:
+This validates the BiomechE adapter source shape and factory/link organization. It does **not** validate the actual upstream build, transitive dependencies, ABI/numerical behavior or WASM portability.
 
-- namespace/include/factory usage in our adapter source shape;
-- candidate type containment behind `biomeche_q0/adapter.hpp`;
-- common factory/executable linkage pattern.
-
-It **does not** validate upstream library compilation, transitive dependencies, ABI behavior, numerical behavior or WASM portability. Those remain actual Q0 candidate executions.
+Pinned upstream primary source separately confirms the OpenSubdiv factory/options/GetLevel API used by the adapter and the openNURBS public version/include/SubD path.
 
 ---
 
-## 5. Upstream API cross-check
-
-Pinned OpenSubdiv primary source confirms:
-
-```text
-TopologyRefinerFactory<MESH>::Options()
-  defaults to Catmull-Clark
-  exposes validateFullTopology
-TopologyRefinerFactory<MESH>::Create(...)
-TopologyRefiner::GetLevel(int)
-TopologyLevel::GetNumVertices()/GetNumFaces()
-```
-
-Pinned openNURBS source documents `ON::Version()` as the supported application version query, and its public toolkit header exposes the normal standalone-application include path. `ON_SubD` is part of the public header set.
-
-This provides primary-source API evidence for the Q0 smoke source, while actual compilation remains the final proof.
-
----
-
-## 6. Harness verdict
+## 7. Harness verdict
 
 ```text
 Python runner syntax                         PASS
-Missing-Emscripten truthfulness              PASS
-Common C++20 adapter contract                PASS
-Candidate source-shape compile smoke         PASS
-Candidate-native OpenSubdiv build            NOT EXECUTED
-Candidate-native openNURBS build             NOT EXECUTED
-Direct Emscripten OpenSubdiv build            NOT EXECUTED
-Direct Emscripten openNURBS build             NOT EXECUTED
+source commit required/verified              PASS
+wrong commit rejection                       PASS
+missing-Emscripten truthfulness              PASS
+license hash evidence path                   PASS
+common C++20 adapter contract                PASS
+candidate source-shape compile smoke         PASS
+candidate-native OpenSubdiv build            NOT EXECUTED
+candidate-native openNURBS build             NOT EXECUTED
+direct Emscripten OpenSubdiv build           NOT EXECUTED
+direct Emscripten openNURBS build            NOT EXECUTED
 ```
 
 **Q0 HARNESS = READY FOR REAL EXECUTION.**
 
-No architecture gate that requires actual candidate compilation is promoted to PASS by this harness validation.
+No hard gate requiring actual candidate compilation is promoted to PASS by these harness-only tests.
