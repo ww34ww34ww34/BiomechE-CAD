@@ -1,16 +1,19 @@
 # BiomechE-CAD — Parametric Orthosis Geometry Operators
 
-**Status:** mathematical reference model v0 / intentionally provisional  
-**Date:** 2026-08-14  
-**Dependency:** `03_geometry_operation_model.md`; final global coordinate semantics depend on `01_coordinate_registration.md`.
+**Status:** **ENGINEERING MATHEMATICAL REFERENCE — INTENTIONALLY PROVISIONAL / NOT PRODUCT AUTHORITY**  
+**Version:** v0 reference model  
+**Date:** 2026-08-16 status clarification; original proposal 2026-08-14  
+**Authority:** semantic operator behavior is governed by `16_geometry_authoring_contract.md`; reusable parameter/preset semantics by `17_workflow_preset_macro.md`; numerical/default/tolerance ownership by `18_numerical_qualification_registry.md`.
 
-> The formulas below are **BiomechE-CAD engineering proposals**. EasyCAD2 documents parameter names and observable behavior, but does not disclose its internal formulas. The purpose is to create deterministic, testable operators with equivalent clinical semantics, not to claim algorithmic identity.
+> **NON-AUTHORITATIVE ALGORITHM HYPOTHESES.** The formulas below are candidate deterministic implementations and qualification fixtures. They are not validated clinical laws, not proof of EasyCAD2 algorithmic identity, and do not select a geometry engine. Exact bump functions, displacement directions, smoothing/projection methods, supported envelopes and tolerances may change after PoC/qualification without reopening frozen product semantics.
+
+> EasyCAD2 documents parameter names and observable behavior, but does not disclose its internal formulas. The purpose of this file is to preserve candidate implementations that can be tested against the frozen semantic contract.
 
 ---
 
-## 1. Intrinsic domain
+## 1. Intrinsic domain — candidate representation
 
-For every canonical-cage vertex `v`:
+A future implementation may expose stable intrinsic/surface coordinates. The historical candidate used:
 
 ```text
 s(v) ∈ [0,1]    heel -> distal/toe
@@ -19,19 +22,21 @@ q(v) ∈ [-1,1]  lateral -> medial
 
 Local position is `P(v)` and a chosen displacement direction is `d(v)`.
 
-`d(v)` is operation-specific:
+Candidate direction classes:
 
-- `GLOBAL_Z`;
-- `LIMIT_NORMAL`;
-- `CAGE_NORMAL`;
-- `ANATOMICAL_VERTICAL`;
-- explicit local frame axis.
+```text
+GLOBAL_Z
+LIMIT_NORMAL
+CAGE_NORMAL
+ANATOMICAL_VERTICAL
+explicit local frame axis
+```
 
-Never hide direction choice inside an implementation.
+**Frozen requirement:** direction/reference choice must be explicit, versioned and replayable. No particular direction above is the product default until qualified.
 
 ---
 
-## 2. Common smooth functions
+## 2. Common smooth functions — candidate primitives
 
 ### 2.1 Clamp
 
@@ -55,61 +60,40 @@ R(s) = S((b-s)/(b-c))
 B(s;a,c,b) = L(s) * R(s)
 ```
 
-Properties:
-
-- zero outside `[a,b]`;
-- equals 1 at `c`;
-- C1 smooth at endpoints for baseline smoothstep;
-- deterministic and easy to test.
-
 ### 2.4 Shape exponent
 
 ```text
 B_p = B^p, p > 0
 ```
 
-`p` changes concentration/curvature without moving start/center/end.
-
 ### 2.5 Compact transverse profile
-
-For normalized lateral distance `x`:
 
 ```text
 Phi(x,p) = (1 - x²)^p     if |x| < 1
            0              otherwise
 ```
 
-This gives finite support and smooth local blending for `p >= 2`.
+These functions are convenient deterministic PoC bases only. The product contract does not require these exact functions.
 
 ---
 
-# 3. Medial arch operator
+# 3. Medial arch operator — candidate realization
 
-EasyCAD2 exposes, according to the manual/validation baseline:
+EasyCAD2 exposes controls such as height, roundness, depth, curvature and start/center/end percentages according to the manual/validation baseline. BiomechE-CAD's frozen semantics require explicit requested dose, typed placement/reference and inspectable realized dose.
 
-```text
-height [mm]
-roundness
-depth [%]
-curvature
-start [%]
-center [%]
-end [%]
-```
-
-## 3.1 Proposed parameter mapping
+Candidate mapping:
 
 ```text
-H          = arch height [mm]
-a,c,b      = start/center/end mapped to s ∈ [0,1]
+H          = requested arch height [mm]
+a,c,b      = start/center/end mapped to candidate intrinsic s
 q_center   = medial transverse centerline
 sigma      = transverse width/depth control
 p_long     = longitudinal curvature exponent
 p_trans    = transverse curvature exponent
-roundness  = peak-softening/blend parameter
+roundness  = peak-shape/blend parameter
 ```
 
-## 3.2 Baseline displacement
+Candidate displacement:
 
 ```text
 wL(v) = B(s(v); a,c,b)^p_long
@@ -119,34 +103,15 @@ w(v)  = wL(v) * wT(v) * MedialMask(v)
 ΔP(v) = d(v) * H * w(v)
 ```
 
-`q_center(s)` may be a low-order curve following the medial arch centerline.
+A candidate roundness realization may blend the field with a local smooth average. Exact mapping remains qualification-dependent.
 
-## 3.3 Roundness
-
-Roundness should not be implemented as an undocumented magic constant. Candidate semantics:
-
-```text
-w_round = lerp(w, smooth_local_average(w), r)
-```
-
-or an equivalent peak-shape interpolation.
-
-The chosen formula must be frozen as `MedialArch/v1` only after visual + geometric fixtures.
-
-## 3.4 Acceptance criteria
-
-- height at designated center reaches target within tolerance;
-- displacement is zero outside support ROI;
-- start/center/end semantics remain monotonic;
-- no inverted cage faces in supported range;
-- limit surface has no visible ripple at transition;
-- serialization round-trip reproduces geometry.
+Acceptance must be measurement-based and use the frozen requested-vs-realized semantics; algorithm epsilon is not a clinical/manufacturing tolerance.
 
 ---
 
 # 4. Lateral arch operator
 
-Same mathematical family as medial arch but with lateral semantic mask and centerline.
+A lateral arch may share implementation primitives with medial arch while remaining a distinct semantic operator family. Candidate field:
 
 ```text
 w(v) = B(s;a,c,b)^p_long
@@ -156,181 +121,64 @@ w(v) = B(s;a,c,b)^p_long
 ΔP(v) = d(v) * H * w(v)
 ```
 
-Medial/lateral are separate operator types so parameter defaults, limits and clinical semantics can differ even if they share implementation primitives.
+Shared math does not imply shared clinical defaults or supported envelopes.
 
 ---
 
 # 5. Rearfoot / forefoot wedge
 
-EasyCAD2 validation confirms wedge inclination specified/applied in degrees and full/partial application.
-
-The core contract should therefore be angular, not an arbitrary Z displacement.
-
-## 5.1 Reference geometry
-
-Let:
+The frozen product contract treats wedge/posting dose as an explicit angular prescription where appropriate. A candidate geometric realization is:
 
 ```text
-θ = target wedge angle [deg]
-A = selected anatomical pivot axis/line
-d⊥(v) = signed transverse distance of vertex from A
-```
-
-Baseline height contribution:
-
-```text
+θ = requested wedge angle [deg]
+A = typed anatomical/reference pivot axis/line
+d⊥(v) = signed transverse distance from A
 h(v) = tan(θ) * d⊥(v)
+ΔP(v) = z_dir * h(v) * regionMask(v)
 ```
 
-Apply a longitudinal region mask:
-
-```text
-Rearfoot: Wr(s)
-Forefoot: Wf(s)
-```
-
-and optional medial/lateral/full-partial application mask `Wp(v)`:
-
-```text
-ΔP(v) = z_dir * h(v) * Wr/f(s) * Wp(v)
-```
-
-## 5.2 Pivot preservation
-
-The pivot axis must have zero displacement by construction.
-
-This prevents wedge application from silently translating the whole orthosis.
-
-## 5.3 Measurement-based validation
-
-Test 2°, 4°, 6° fixtures:
-
-```text
-abs(measured_angle - θ) <= ANGLE_TOL
-```
-
-Measurement should use the same documented reference region, not arbitrary global mesh points.
+The pivot/reference must be serialized and inspectable. Example fixtures such as 2°/4°/6° remain **engineering test samples**, not clinical defaults or UI recommendations.
 
 ---
 
 # 6. Heel wrap / rearfoot operator
 
-EasyCAD2 exposes heel/wrap height, wrap curvature and camber-related controls.
-
-The internal EasyCAD formula is unknown.
-
-BiomechE-CAD v0 should use a semantic heel coordinate centered at `Hc` in intrinsic space.
-
-## 6.1 Heel elliptical radius
+Heel cup/wrap/camber is semantically first-class, but exact fields are not frozen. Historical candidate constructs include an elliptical heel support field, perimeter emphasis and independent camber field:
 
 ```text
 r(v) = sqrt(((s-sh)/as)^2 + ((q-qh)/aq)^2)
-```
-
-Define heel support falloff:
-
-```text
-Wh(v) = Phi(r(v), p_heel)
-```
-
-## 6.2 Boundary emphasis for cup/wrap
-
-A heel cup rises more near the heel perimeter than at the central plantar contact.
-
-Use a boundary-distance semantic field `b(v) ∈ [0,1]`, where 1 approaches selected heel boundary:
-
-```text
-Wwrap(v) = Wh(v) * b(v)^p_boundary
+Wh(v) = candidate compact falloff
+Wwrap(v) = Wh(v) * boundaryWeight(v)^p
 ΔPwrap(v) = d_wrap(v) * Hwrap * Wwrap(v)
 ```
 
-`d_wrap` may include vertical + inward normal components depending on the chosen clinical model.
-
-## 6.3 Camber longitudinal component
-
-Represent camber with start/end/height as an independent smooth longitudinal field:
-
-```text
-Wcamber(v) = B(s; a_cam, c_cam, b_cam)^p_cam * RearfootMask(v)
-ΔPcamber(v) = d_cam(v) * Hcam * Wcamber(v)
-```
-
-Keeping wrap and camber as separate subfields allows independent testing and later calibration.
+and a separate longitudinal camber field. Keeping requested wrap/camber semantics separate is useful; exact equations/directions require qualification.
 
 ---
 
 # 7. Global thickness and flatten
 
-Thickness is a manufacturing/solid-generation semantic field:
+Thickness belongs to production/material realization rather than being silently baked into the clinical/contact surface.
+
+Candidate field:
 
 ```text
 t(v) = t_global + Σ localThicknessModifiers(v)
 ```
 
-## 7.1 Global thickness
-
-Set `t_global` in mm; do not bake it into the clinical upper cage.
-
-## 7.2 Flatten
-
-`FlattenOperation` is a high-level operation with an explicit target plane/frame.
-
-Possible v0 behavior:
-
-- preserve template outline;
-- replace clinical upper height with a constant or controlled planar target as defined by the product UX;
-- generate lower production surface consistent with target thickness.
-
-Because EasyCAD2’s exact internal flatten construction is undocumented, the exact BiomechE-CAD behavior must be specified via golden fixtures and UI acceptance criteria.
+`FlattenOperation` remains a named semantic operation only when its target/reference and preservation policy are explicit. The exact construction must be qualified with visual/geometric fixtures and manufacturing constraints.
 
 ---
 
 # 8. Corrective element field
 
-A P0 corrective element should be representable as:
+A candidate corrective element may be evaluated as a signed local contribution in a stable local coordinate system:
 
 ```text
-E(s,q; params) -> signed height/support contribution
+E(localCoordinates; params) -> signed height/support contribution
 ```
 
-with transform parameters:
-
-```text
-center_s
-center_q
-rotation
-scale_s
-scale_q
-scale_z
-```
-
-Transform intrinsic coordinates into element-local coordinates `(u,v)` and evaluate:
-
-```text
-h = scale_z * E(u,v)
-```
-
-## 8.1 ADD_FROM_TOP
-
-```text
-z_target = z_current + h
-```
-
-or normal-direction equivalent.
-
-## 8.2 PLACE_FROM_BASE
-
-Element target is referenced to production base/lower surface:
-
-```text
-z_target = max(z_current, z_base + h)
-```
-
-This is a **BiomechE-CAD candidate semantic interpretation** of EasyCAD2’s documented upper/lower-surface integration behavior, not a claim of identical implementation.
-
-## 8.3 Example metatarsal dome/bar basis
-
-A compact ellipsoidal basis:
+Candidate compact ellipsoidal basis:
 
 ```text
 rho² = (u/a)^2 + (v/b)^2
@@ -338,61 +186,50 @@ E = H * (1-rho²)^p   if rho < 1
     0                 otherwise
 ```
 
-A bar can use an elongated `a/b` ratio or a spline centerline.
+This is only one possible implementation. `06_corrective_elements.md` owns clinical semantic identity, typed placement, requested/realized dose, intended effect and evidence context.
+
+Historical notions such as `ADD_FROM_TOP` / `PLACE_FROM_BASE` are candidate realization policies and must be made explicit/versioned if used; they do not override `GAUTH` production-boundary semantics.
 
 ---
 
 # 9. Sculpt brush
 
-For brush center projected to intrinsic/surface location `C`, radius `R`, signed strength `A`:
+Candidate local field:
 
 ```text
-x = distance_surface_or_local(P(v), C) / R
-w = Phi(x, p)
+x = distance(P(v), C) / R
+w = Phi(x,p)
 ΔP(v) = d(v) * A * w
 ```
 
-P0 implementation may use local Euclidean distance on sufficiently regular cage neighborhoods; P1 can use geodesic/surface distance if fixtures prove value.
-
-Brush strokes should consolidate into sparse displacement layers keyed by persistent vertex ID.
+The frozen requirement is that sculpt remains replayable with stable addressing/reference, explicit radius/strength/direction and versioned algorithm semantics. Euclidean vs geodesic distance is a qualification choice.
 
 ---
 
 # 10. Smooth
 
-Smoothing is not allowed to silently destroy prescribed heights or protected boundaries.
+Smoothing may never silently destroy prescribed geometry or protected boundaries.
 
-Baseline cage-space smoothing:
+Historical candidate cage-space form:
 
 ```text
 P'_i = P_i + λ * mask_i * (weightedNeighborAverage(P_i) - P_i)
 ```
 
-Constraints:
-
-- preserve protected boundary when requested;
-- preserve fixed/locked vertices;
-- avoid net shrinkage where possible (Taubin-like two-step or constrained smoothing can be evaluated);
-- save algorithm/version/iterations/strength.
-
-OpenSubdiv smoothing does not replace this operation: subdivision evaluates a limit surface; it does not semantically perform the user's EasyCAD2-style `Smooth` edit.
+Possible Taubin-like/constrained alternatives remain implementation choices. A smoothing operation must preserve its method/version/iterations/strength and protected/fixed semantics; SubD evaluation itself is not equivalent to a user `Smooth` edit.
 
 ---
 
 # 11. Global scan conform
 
-Given registered scan target `T` and ROI mask `m(v)`:
+Frozen semantics require exact source/registration/ROI/projection/residual/version provenance. A candidate realization is:
 
-1. query target point `Q(v)` by selected projection method;
-2. compute delta `δ(v) = Q(v) - P(v)`;
-3. clamp magnitude to `max_displacement`;
-4. apply strength and falloff.
+1. query target `Q(v)` by an explicit projection method;
+2. compute delta `δ(v)`;
+3. apply strength/falloff and any explicit bounded displacement policy;
+4. report pre/post residual and protected-region movement.
 
-```text
-ΔP(v) = m(v) * strength * clampVector(δ(v), maxDisp)
-```
-
-Projection method is serialized:
+Candidate projection classes:
 
 ```text
 CLOSEST_POINT
@@ -400,139 +237,127 @@ ANATOMICAL_VERTICAL
 SURFACE_NORMAL_RAY
 ```
 
-The validation fixture must report pre/post residual distance and protected-region displacement.
+No method is the product default until qualification. Any maximum displacement is an explicit qualified numerical parameter, not a hidden safety rule.
 
 ---
 
-# 12. Height constraints / CONTROLLO fixes
+# 12. Height constraints / control fixes
 
-EasyCAD2 exposes operations such as fixing medial/lateral arch height, heel/forefoot minimum height and maximum project height.
-
-Model these as explicit constraint operations rather than hidden post-processing.
-
-Example target-height operation:
+Named constraints may represent target arch heights, heel/forefoot bounds or project-height controls, but each must preserve:
 
 ```text
 ConstraintRegion
 TargetMetric
-TargetValue [mm]
+TargetValue + units
 AdjustmentPolicy
-Tolerance
+NumericalAuthorityRef
 ```
 
-Possible policies:
-
-```text
-SHIFT_REGION
-SCALE_FIELD
-CLAMP_MAX
-CLAMP_MIN
-BLEND_TO_TARGET
-```
-
-Each must be deterministic and previewable.
+Candidate policies such as shift/scale/clamp/blend are implementation strategies. They require deterministic replay and requested-vs-realized inspection.
 
 ---
 
 # 13. Minimum thickness auto-fix
 
-For production thickness field `t(v)` and rule `t_min(v)`:
+Minimum thickness is a manufacturing-profile concern. A candidate correction algorithm may compute local violations and prefer modifying lower/production geometry while preserving the clinical/contact surface where possible.
+
+Frozen rules:
 
 ```text
-violation(v) = max(0, t_min(v) - t(v))
+manufacturing minimum != global CAD constant
+manufacturing tolerance != algorithm epsilon
+correction must be previewable/auditable
+requested clinical surface change must never be silent
 ```
 
-Generate a smoothed correction field while respecting protected clinical upper surface where possible.
-
-Preferred P0 policy:
-
-- modify lower/production geometry first;
-- alter clinical upper surface only if manufacturing profile explicitly allows it;
-- record max correction and affected area;
-- show preview before commit.
-
-EasyCAD2’s 0.8 mm warning is a compatibility reference, not a universal BiomechE-CAD constant.
+EasyCAD2's historical warning value is compatibility evidence only, not a BiomechE-CAD universal rule.
 
 ---
 
-# 14. Operator invariants
+# 14. Operator invariants inherited from frozen contracts
 
-All P0 operators must satisfy:
-
-```text
-finite coordinates
-no NaN/Inf
-stable vertex IDs
-topology unchanged unless operation explicitly says otherwise
-no inverted control faces in supported parameter envelope
-bounded displacement
-replay determinism
-unit-explicit parameters
-mirror semantics defined
-```
-
-For a frozen algorithm version:
+Any candidate implementation must satisfy at least:
 
 ```text
-serialize -> load -> replay -> compare
+finite coordinates / explicit invalid state
+stable product semantic IDs/references
+deterministic version-bound replay
+typed units
+side-aware mirror semantics
+requested vs realized distinction
+bounded/qualified supported envelope
+no silent topology/provenance loss
 ```
 
-must stay inside declared geometric tolerance.
+Representation-specific conditions such as control-face inversion are architecture qualification checks, not universal product concepts.
 
 ---
 
 # 15. Parameter-limit policy
 
-Do not guess clinically safe min/max from implementation convenience.
-
-Each operator has three envelopes:
+Three different concepts must remain separate:
 
 ```text
-HARD_NUMERIC_LIMITS
-PRODUCT_UI_LIMITS
-VALIDATED_CLINICAL/MANUFACTURING_LIMITS
+HARD_NUMERIC_LIMITS              implementation safety
+PRODUCT_UI_LIMITS                product/UX profile
+VALIDATED_CLINICAL_OR_MANUFACTURING_LIMITS
 ```
 
-Only the latter two may be exposed as product constraints after validation.
+Every value requires an explicit NREG authority class/status. No limit is frozen merely because it appears in this engineering reference.
 
 ---
 
-# 16. Golden fixtures to create first
+# 16. Candidate golden fixtures
 
-1. Neutral template cage.
-2. Medial arch low/medium/high.
-3. Lateral arch low/medium/high.
-4. Rearfoot wedge 2/4/6°.
-5. Forefoot wedge 2/4/6°.
-6. Heel wrap low/high.
-7. Camber low/high.
-8. Metatarsal dome/bar placement + scaling.
-9. Sculpt raise/lower.
-10. Scan conform rectangle ROI.
-11. Minimum thickness violation + fix.
-12. Mirror right->left for every above fixture.
-
-Each fixture stores:
+Useful future qualification fixtures include:
 
 ```text
-input cage hash
-operation JSON
-expected metrics
-expected output cage hash/tolerance signature
-reference screenshots
-manufacturing mesh validation report
+neutral template
+medial/lateral arch variants
+rear/forefoot wedge sample angles
+heel wrap/camber variants
+metatarsal dome/bar placement/scaling
+sculpt raise/lower
+scan conform ROI
+minimum-thickness violation/correction
+right↔left semantic mirror
 ```
+
+Fixture parameter values are test samples unless separately qualified. Each fixture should retain input hash, semantic operation record, algorithm version, expected metrics/tolerance authority, reference images and production/inspection result where relevant.
 
 ---
 
-# 17. Open questions
+# 17. Open engineering questions
 
-- exact mapping of EasyCAD2 `roundness`, `depth`, `curvature` to our medial arch formula;
-- exact heel wrap/camber interpretation;
-- whether displacement should default to anatomical vertical or limit-surface normal per operator;
-- exact semantics of `PLACE_FROM_BASE` for elements;
-- whether current-cage normals or baseline normals produce more stable clinical behavior;
-- whether scan conform should preserve local tangential position;
-- whether production closure should use direct triangulated construction or an auxiliary robust-solid library.
+Still intentionally open until architecture/algorithm qualification:
 
-These are test/calibration questions, not reasons to adopt a full B-Rep kernel prematurely.
+- mapping of vendor-like roundness/depth/curvature controls to internal operators;
+- exact heel wrap/camber construction;
+- displacement direction by operator;
+- local-element realization relative to clinical vs production surfaces;
+- baseline vs current normals/reference fields;
+- scan-conform projection strategy and tangential preservation;
+- smoothing family;
+- production closure/body strategy;
+- robust spatial-query implementation;
+- candidate representation/topology.
+
+These are not reasons to alter the frozen semantic authoring contract.
+
+---
+
+# 18. Final disposition
+
+```text
+named operator semantics           product authority: spec/16 + related frozen specs
+exact formulas in this file        engineering hypotheses
+specific smooth/bump basis         engineering hypotheses
+projection/smoothing algorithms    engineering hypotheses
+sample fixture values              qualification samples
+algorithm tolerances               OPEN until NREG-qualified
+clinical defaults/thresholds       NONE frozen here
+manufacturing limits               NONE frozen here
+geometry engine                    NOT selected by this file
+```
+
+This file remains useful for PoC continuity and deterministic algorithm experiments, but it cannot override or redefine the frozen product contract.
