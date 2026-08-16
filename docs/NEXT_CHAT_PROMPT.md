@@ -17,6 +17,9 @@ Repository canonico:
 docs/RESUME_HERE.md
 docs/P0_DOCUMENTATION_CLOSURE_AND_VISUAL_REFERENCE_PLAN_2026-08-16.md
 docs/validation/P0_DOCUMENTATION_FINAL_CROSS_DOCUMENT_AUDIT_2026-08-16.md
+docs/ux/BIOMECHE_CAD_VISUAL_REFERENCE_V1.md
+docs/ux/mockups/v1/manifest.md
+docs/ux/VISUAL_REFERENCE_CROSS_DOCUMENT_AUDIT_2026-08-16.md
 docs/SPEC_INDEX.md
 docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md
 docs/TRACEABILITY_MATRIX.md
@@ -43,6 +46,7 @@ docs/validation/24_validation_verification_master_plan.md
 docs/spec/25_intended_use_risk_privacy_security_boundary.md
 docs/validation/P0_DOCUMENTATION_CLOSURE_ACCEPTANCE_ADDENDUM_2026-08-16.md
 docs/research/CURRENT_SOURCE_SUPPLEMENT_2026-08-16.md
+docs/research/VISUAL_HUMAN_FACTORS_EVIDENCE_2026-08-16.md
 docs/research/architecture/GEOMETRY_ENGINE_EVALUATION_SCORECARD_2026-08-15.md
 docs/validation/GEOMETRY_ENGINE_POC_QUALIFICATION_PLAN_2026-08-15.md
 docs/DECISIONS.md
@@ -52,216 +56,179 @@ docs/BIBLIOGRAPHY.md
 
 ## Stato da assumere
 
-**DOC-00..DOC-14 sono completati.**
-
-Il final cross-document audit ha dato:
+Il lavoro di documentazione P0 è chiuso:
 
 ```text
+DOC-00..DOC-14                   COMPLETE
 WRITTEN DOCUMENTATION CLOSURE    GO
 BLOCKING CONTRADICTIONS          0
 ```
 
-Sono ora FROZEN/canonical anche:
+È completata anche la baseline visuale **a livello sorgente**:
 
 ```text
-06 corrective/offloading elements
-08 material/stiffness
-09 analysis/QC/DFM
-10 manufacturing lifecycle
-13 use-case profiles
-14 PROM/comfort/adherence
-20 input/scan/reference data
-21 product workflow/interaction
-22 interchange/manufacturing handoff
-23 realtime/performance doctrine (budget numerici OPEN)
-24 V&V master plan
-25 intended-use/risk/privacy/security boundary (classificazione normativa OPEN)
+VIS-01 visual reference/design system        DONE
+VIS-02 M01..M14 navigable HTML source        DONE
+VIS-03 editable/source archive               DONE
+VIS-04 requirement ↔ screen mapping/audit    DONE
+VIS-03R rendered PNG archive                 PENDING
+VIS-04R browser/pixel/accessibility audit    PENDING
 ```
 
-`04_base_template.md` e `05_parametric_orthosis_geometry.md` sono esplicitamente **engineering hypotheses / qualification references**, non product authority.
-
-Project Schema v0.2 resta **APPROVED / NOT MATERIALIZED**. Non modificare JSON Schema, fixture o migrazioni salvo task esplicito.
-
-`TD-CI-001` resta deliberatamente differito e non è un gate.
-
-## PROSSIMO TASK ESATTO — VIS-01
-
-Crea il canonical visual-reference brief:
+Artifact visuale canonico:
 
 ```text
-docs/ux/BIOMECHE_CAD_VISUAL_REFERENCE_V1.md
+docs/ux/mockups/v1/biomeche-cad-mockups-v1.html
 ```
 
-Deve tradurre le specifiche frozen in una direzione visuale/interattiva coerente, senza inventare nuove regole cliniche.
+Non dichiarare PNG/pixel golden già validati: il browser/render pass non è stato eseguito.
 
-Definisci almeno:
+## Product semantics frozen
 
-```text
-visual principles
-information architecture
-workspace anatomy
-navigation model
-3D viewport anatomy
-right/left + case/profile persistent context
-inspector/property panels
-quantitative/BiomechE panels
-warning/blocking/unresolved states
-requested vs realized presentation
-source/provenance/revision presentation
-material/mechanical presentation
-manufacturing/QC state presentation
-light/dark palette direction
-typography/iconography density
-responsive/compact policy
-visual accessibility rules
-```
-
-Usa come interaction authority:
-
-`docs/spec/21_product_workflow_interaction.md`.
-
-## VIS-02 — canonical mockups
-
-Poi genera e salva nel repo un set visuale coerente:
+Non riaprire senza nuova evidenza/decisione:
 
 ```text
-M01 Project / Patient / Case
-M02 Import / Scan qualification
-M03 Registration / Landmarks
-M04 Base orthosis / Template
-M05 Parametric authoring
-M06 Corrective / Offloading elements
-M07 Sculpt / Local editing
-M08 Materials / mechanical prescription
-M09 Inspection / Geometry QC
-M10 BiomechE Before / After / Delta
-M11 DFM / Manufacturing preparation
-M12 Revision / Provenance / Report
-M13 Physical-part QC / Outcome follow-up
-M14 Responsive / compact view
-```
-
-Target structure:
-
-```text
-docs/ux/mockups/v1/README.md
-docs/ux/mockups/v1/manifest.md
-source/editable assets
-rendered canonical references
-```
-
-Quando pratico, conservare sia sorgente modificabile sia immagine/rendering di riferimento.
-
-## VIS-03 — versioning
-
-Ogni schermata deve avere:
-
-```text
-screen ID
-version
-status
-viewport
-theme
-purpose
-source asset
-rendered asset
-owning specs
-acceptance IDs
-limitations
-supersedes/superseded-by
-```
-
-## VIS-04 — requirement ↔ screen traceability
-
-Crea una matrice che colleghi ogni `Mxx` almeno a:
-
-```text
-21_product_workflow_interaction / UX-*
-owning domain specs
-INPUT/CE/MAT/AQ/MAN/BINT/RPT/REG as relevant
-state/error/empty variants
-```
-
-Chiudi con un visual cross-document audit.
-
-## Regola di authority visuale
-
-```text
-WRITTEN SPECIFICATION = SEMANTIC AUTHORITY
-MOCKUP = VISUAL / INTERACTION REFERENCE
-```
-
-Se un mockup sembra contraddire una specifica frozen, correggere il mockup; non cambiare automaticamente la specifica.
-
-## Direzione estetica
-
-Il visual reference deve essere professionale, medicale e premium, con alta densità informativa da workstation CAD ma senza look da CAD industriale anni 2000.
-
-Preferire:
-
-```text
-pulito / contemporaneo
-medical-tech
-light + dark coerenti
-superfici soft / moderatamente glass solo dove utile
-3D al centro
-comandi semantici chiari
-sidebar/inspector ordinati
-numeri/units/provenance facilmente leggibili
-colori di stato non come unico segnale
-```
-
-Evita viola dominante. I mockup precedenti del progetto possono ispirare la direzione medical/pastello, ma le specifiche frozen decidono il contenuto.
-
-## Principi frozen da non riaprire
-
-```text
-semantic prescription survives geometry
 committed DesignRevision immutable
 original source != processed/registered/derived
 capture context + landmark provenance first-class
-placement typed anatomical/reference, not raw XYZ
-requested dose != realized dose
+file coordinates != anatomical coordinates
+placement typed anatomical/reference, not raw XYZ authority
+requested dose != realized CAD dose
 geometry dose != mechanical/material dose
+semantic prescription survives geometry
+mirror semantic + side-aware
 no hidden universal clinical default
 OPEN means OPEN
-algorithm tolerance != manufacturing tolerance != device limit != clinical threshold != performance budget
-CAD nominal != ManufacturingArtifact != ManufacturingRun != PhysicalOrthosis
-mirror semantic + side-aware
-workflow/preset exact id/version/hash
+algorithm tolerance != device limit != manufacturing tolerance != clinical threshold != performance budget
+pressure heatmap != quantitative authority
+BiomechE quantitative KPI authority
 profile != diagnosis
 suggestion != confirmation
-BiomechE quantitative KPI authority
+pain/function/comfort/fit/satisfaction/adherence distinct
+MeasuredOutcome != PredictedOutcome
+DesignRevision != ManufacturingArtifact != ManufacturingRun != PhysicalOrthosis
+CAD nominal != measured manufactured geometry
 file format != semantic authority
 preview != commit != manufacturing release
 ```
 
-## Architecture state — preserved / deferred
+## Historical engineering docs
 
-No engine è selezionato.
+`04_base_template.md` è **ENGINEERING CANDIDATE / QUALIFICATION FIXTURE**, non product authority.
 
-Candidates remain:
+`05_parametric_orthosis_geometry.md` è **PROVISIONAL ENGINEERING MATHEMATICAL REFERENCE**, non product authority.
+
+Quindi `41×17`, Catmull-Clark/OpenSubdiv, formule di bump/smooth/wedge/scan-conform e sample values non sono requisiti frozen.
+
+## Project Schema / CI
+
+```text
+Project Schema v0.2   APPROVED / NOT MATERIALIZED
+TD-CI-001              DEFERRED / NON-BLOCKING
+```
+
+Non modificare schema JSON, fixture, migrazioni o CI salvo task esplicito.
+
+## Fonti / bibliografia
+
+La closure è stata validata con paper/guideline già canonici e con fonti ufficiali correnti 2025/2026 registrate in:
+
+```text
+docs/research/CURRENT_SOURCE_SUPPLEMENT_2026-08-16.md
+docs/research/VISUAL_HUMAN_FACTORS_EVIDENCE_2026-08-16.md
+```
+
+Resta manutenzione utile normalizzare in `BIBLIOGRAPHY.md` stable ID per:
+
+```text
+ISO/IEC 25422:2025 — 3MF
+ISO/ASTM 52915:2020 — AMF
+ISO/ASTM 52951:2026 — AM data packages
+EU MDR
+MDCG 2019-11 rev.1
+MDCG 2021-24 rev.1
+MDCG 2019-16 rev.1
+MDCG 2021-3
+GDPR
+ISO 14971:2019
+ISO 13485:2016
+ISO 9241-210:2019
+IEC 62366-1:2015+A1:2020
+FDA HFE 2026
+WCAG 2.2
+```
+
+Questa normalizzazione non deve cambiare le semantiche frozen.
+
+## Se l'obiettivo resta documentale/visuale
+
+Procedi con:
+
+### A. Bibliography normalization
+
+Integra le nuove fonti correnti nel singolo `docs/BIBLIOGRAPHY.md`, mantenendo la tassonomia/ID governance esistente. Non creare una seconda bibliography authority.
+
+### B. VIS-03R / VIS-04R quando hai un renderer/browser disponibile
+
+```text
+apri l'esatto HTML committed
+cattura M01..M13 a 1440×960
+cattura M14 a 1024×768
+includi M07/M10 dark
+verifica console/runtime
+controlla clipping/overflow/density/status readability
+verifica contrast/accessibility quanto richiesto
+salva sotto docs/ux/mockups/v1/rendered/
+registra browser/version/device-scale/hash in manifest
+riesegui visual audit
+```
+
+## Se il proprietario decide di passare all'engineering
+
+Riprendi **Q0 Geometry Engine Qualification**, senza una nuova ricerca generica sulle librerie.
+
+Candidati ancora invariati:
 
 ```text
 A. product-owned domain layer + Pixar OpenSubdiv
 B. product-owned domain layer + openNURBS / ON_SubD
 ```
 
-Q0..Q7 riparte soltanto dopo VIS closure salvo diversa priorità esplicita.
+Nessun vincitore è selezionato.
 
-## Bibliography/source maintenance
+Sequenza:
 
-`docs/research/CURRENT_SOURCE_SUPPLEMENT_2026-08-16.md` registra fonti correnti 2025/2026 ancora da normalizzare in `BIBLIOGRAPHY.md` (3MF/AMF/AM data packages, MDR/MDCG, GDPR, ISO 14971/13485).
+```text
+Q0 native/server/WASM build + dependency audit
+Q1 candidate-neutral geometry/replay/query fixture
+Q2 local authoring/sculpt/mirror
+Q3 scan/spatial queries/inspection
+Q4 production body/DFM
+Q5 determinism/incremental/performance
+Q6 interop/.NET/manufacturing handoff
+Q7 AUTH-C01..C22 engine-backed qualification
+```
 
-Questa normalizzazione può essere fatta in parallelo al VIS ma non deve riaprire le specifiche.
+Performance deve sempre essere misurata secondo `23_realtime_performance_contract.md`; senza un budget esplicito usare `MEASURED / NOT YET QUALIFIED`.
 
-## Output richiesto
+## Visual authority
 
-- file visual-reference canonici nel repo;
-- mockup realmente salvati/versionati;
-- mapping requisiti↔screen;
-- nessuna nuova regola clinica introdotta dalla grafica;
-- aggiornamento di `TRACEABILITY_MATRIX.md`, `SPEC_INDEX.md`, `RESUME_HERE.md` e questo handover al cambio fase;
-- DONE/TODO chiari.
+```text
+WRITTEN SPECIFICATION = SEMANTIC AUTHORITY
+CANONICAL HTML/MOCKUP  = VISUAL / INTERACTION SOURCE REFERENCE
+```
 
-Non ripartire dalla ricerca generale sui CAD plantari e non ripartire da DOC-00/Q0.
+Se un mockup contraddice una spec frozen, correggere il mockup.
+
+## Output richiesto a ogni cambio fase
+
+Aggiornare:
+
+```text
+TRACEABILITY_MATRIX.md
+SPEC_INDEX.md
+RESUME_HERE.md
+NEXT_CHAT_PROMPT.md
+```
+
+mantenendo DONE/TODO chiari e senza dichiarare evidenze non realmente eseguite.
