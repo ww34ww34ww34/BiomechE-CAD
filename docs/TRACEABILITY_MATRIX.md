@@ -1,10 +1,11 @@
 # BiomechE-CAD — Requirement Traceability Matrix
 
-**Status:** **CANONICAL TRACEABILITY BASELINE v0.7**  
+**Status:** **CANONICAL TRACEABILITY BASELINE v0.8**  
 **Date:** 2026-08-16  
 **Functional authority:** `spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md`  
 **V&V authority:** `validation/24_validation_verification_master_plan.md`  
 **Visual authority:** `ux/BIOMECHE_CAD_VISUAL_REFERENCE_V1.md` + `ux/mockups/v1/manifest.md`  
+**Bibliographic authority:** `BIBLIOGRAPHY.md` — normalized 2026-08-16  
 **CI note:** `TD-CI-001` remains deferred/non-blocking.
 
 ---
@@ -60,14 +61,15 @@ DEFERRED     planned but not current gate
 | PROM/comfort/fit/adherence | **FROZEN v1** | `14_prom_comfort_adherence.md` | `PROM-001..020` | M13 | exact instrument/license choices |
 | Workflow/preset/macro | **FROZEN v1** | `17_workflow_preset_macro.md` | `WFLOW-*`, `AUTH-C15..18` | M04,M05,M06,M12 | runtime/schema materialization |
 | Numerical governance | **FROZEN v1** | `18_numerical_qualification_registry.md` | `NREG-*`, `AUTH-C19..22` | M05,M09,M10,M11 | machine-readable registry later |
-| Product interaction/state | **FROZEN v1** | `21_product_workflow_interaction.md` | `UX-001..022` | M01..M14 | executable UI validation |
+| Product interaction/state | **FROZEN v1** | `21_product_workflow_interaction.md` | `UX-001..022` | M01..M14 | executable UI implementation |
 | Interchange/handoff | **FROZEN v1** | `22_interchange_manufacturing_handoff.md` | `XCHG-001..018` | M11,M12,M13 | exporter/importer conformance |
 | Manufacturing lifecycle | **FROZEN v1 / QUALIFY physical** | `10_manufacturing.md` | `MAN-001..018` | M11,M12,M13 | process/part qualification |
 | Reporting/traceability | **FROZEN v1** | `12_reporting_traceability.md` | `RPT-*` | M12,M13 | renderer/signing/archive implementation |
 | Performance doctrine | **FROZEN doctrine / budgets OPEN** | `23_realtime_performance_contract.md` | `PERF-001..016` | M07,M10,M14 | `ARCH-PERF-*` profiles later |
 | V&V governance | **CANONICAL v1** | `validation/24_validation_verification_master_plan.md` | `VV-001..018` | all | executable evidence grows with product |
-| Intended use/risk/privacy/security boundary | **CANONICAL / classification OPEN** | `25_intended_use_risk_privacy_security_boundary.md` | `REG-001..016` | M01,M11,M12,M13 | formal regulatory/QMS/deployment decisions |
-| Canonical visual reference | **CANONICAL SOURCE v1** | `ux/BIOMECHE_CAD_VISUAL_REFERENCE_V1.md` | `VIS-001..020`, visual audit | M01..M14 | rendered/browser goldens pending |
+| Intended use/risk/privacy/security boundary | **CANONICAL / classification OPEN** | `25_intended_use_risk_privacy_security_boundary.md` | `REG-001..016`; current MDR/MDCG/GDPR/ISO refs | M01,M11,M12,M13 | formal regulatory/QMS/deployment decisions |
+| Canonical bibliography | **CANONICAL / NORMALIZED** | `BIBLIOGRAPHY.md` | stable IDs for scientific, standard, regulatory and HFE evidence | n/a | ongoing maintenance only |
+| Canonical visual reference | **CANONICAL SOURCE v1 / BROWSER AUDITED** | `ux/BIOMECHE_CAD_VISUAL_REFERENCE_V1.md` | `VIS-001..020`; browser audit | M01..M14 | binary PNG archive packaging only |
 | Geometry engine | **DEFERRED / NO WINNER** | scorecard + Q0..Q7 plan | `HG-01..15`, Q0..Q7 | none selects engine | architecture qualification |
 
 ---
@@ -87,6 +89,7 @@ TRC-EVID-009 file format is not semantic authority
 TRC-EVID-010 performance is measured before qualification
 TRC-EVID-011 regulatory status follows intended purpose/formal assessment
 TRC-EVID-012 visual mockup cannot create semantic authority
+TRC-EVID-013 accessibility/HFE rules constrain presentation and control semantics without redefining clinical meaning
 ```
 
 ---
@@ -95,13 +98,23 @@ TRC-EVID-012 visual mockup cannot create semantic authority
 
 ```text
 GATE-DOC-01..19     DONE — written closure / 0 blockers
+GATE-BIB-01         DONE — current 2025/2026 source normalization into canonical bibliography
 GATE-VIS-01         DONE — visual brief v1
 GATE-VIS-02         DONE — navigable M01..M14 HTML source
 GATE-VIS-03         DONE — source/version archive
 GATE-VIS-04         DONE — requirement↔screen traceability/source audit
-GATE-VIS-03R        PENDING — rendered PNG archive
-GATE-VIS-04R        PENDING — browser/pixel/accessibility visual review
+GATE-VIS-03R-RUN    DONE — 14/14 browser PNG captures executed
+GATE-VIS-03R-ARCH   OPEN — repository binary PNG packaging only
+GATE-VIS-04R        DONE — Chromium browser/runtime/accessibility audit; PASS with corrective items
 ```
+
+Canonical render audit:
+
+`docs/ux/VISUAL_RENDER_BROWSER_AUDIT_2026-08-16.md`
+
+Rendered archive contract:
+
+`docs/ux/mockups/v1/rendered/README.md`
 
 `TD-CI-001` is not a documentation/visual gate.
 
@@ -138,7 +151,7 @@ XACC-* cross-domain scenarios
 HG-01..HG-15 architecture gates
 ```
 
-The closure addendum registers new post-authoring namespaces without claiming current CI execution.
+The closure addendum registers new post-authoring namespaces without claiming CI execution.
 
 ---
 
@@ -163,13 +176,20 @@ M14 compact                             UX / VIS / human-factors evidence
 
 Full mapping: `docs/ux/mockups/v1/manifest.md`.
 
+Browser audit corrective items to preserve into implementation:
+
+```text
+VIS-A11Y-01 meaningful M10 quantitative graphics require accessible name/description or explicit decorative semantics plus equivalent numeric representation
+VIS-A11Y-02 interactive viewport tools must use semantic controls with keyboard/name/role/state
+VIS-A11Y-03 design system must freeze and verify visible focus treatment in light/dark modes
+```
+
 ---
 
 ## 7. Open items that are not contradictions
 
 ```text
-BIBLIOGRAPHY stable-ID normalization for newly verified 2025/2026 sources
-rendered M01..M14 captures + browser visual audit
+repository storage of the 14 already-rendered PNG reference binaries
 Project Schema v0.2 implementation
 geometry engine Q0..Q7 + selection
 exact geometry algorithms/topology
@@ -178,7 +198,10 @@ performance budgets
 physical pressure/material/manufacturing qualification
 formal software MDR classification/QMS/DPIA/security architecture
 exact PROM licensing/selection per deployment
+production implementation of VIS-A11Y-01..03
 ```
+
+Bibliography normalization and browser/a11y visual review are no longer open items.
 
 ---
 
