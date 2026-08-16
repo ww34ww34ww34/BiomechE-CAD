@@ -20,6 +20,8 @@ docs/validation/P0_DOCUMENTATION_FINAL_CROSS_DOCUMENT_AUDIT_2026-08-16.md
 docs/ux/BIOMECHE_CAD_VISUAL_REFERENCE_V1.md
 docs/ux/mockups/v1/manifest.md
 docs/ux/VISUAL_REFERENCE_CROSS_DOCUMENT_AUDIT_2026-08-16.md
+docs/ux/VISUAL_RENDER_BROWSER_AUDIT_2026-08-16.md
+docs/ux/mockups/v1/rendered/README.md
 docs/SPEC_INDEX.md
 docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md
 docs/TRACEABILITY_MATRIX.md
@@ -44,19 +46,16 @@ docs/spec/22_interchange_manufacturing_handoff.md
 docs/spec/23_realtime_performance_contract.md
 docs/validation/24_validation_verification_master_plan.md
 docs/spec/25_intended_use_risk_privacy_security_boundary.md
-docs/validation/P0_DOCUMENTATION_CLOSURE_ACCEPTANCE_ADDENDUM_2026-08-16.md
-docs/research/CURRENT_SOURCE_SUPPLEMENT_2026-08-16.md
-docs/research/VISUAL_HUMAN_FACTORS_EVIDENCE_2026-08-16.md
+docs/BIBLIOGRAPHY.md
 docs/research/architecture/GEOMETRY_ENGINE_EVALUATION_SCORECARD_2026-08-15.md
 docs/validation/GEOMETRY_ENGINE_POC_QUALIFICATION_PLAN_2026-08-15.md
 docs/DECISIONS.md
 docs/TECHNICAL_DEBT.md
-docs/BIBLIOGRAPHY.md
 ```
 
 ## Stato da assumere
 
-Il lavoro di documentazione P0 è chiuso:
+La documentazione P0 è chiusa:
 
 ```text
 DOC-00..DOC-14                   COMPLETE
@@ -64,28 +63,87 @@ WRITTEN DOCUMENTATION CLOSURE    GO
 BLOCKING CONTRADICTIONS          0
 ```
 
-È completata anche la baseline visuale **a livello sorgente**:
+La baseline visuale è chiusa a livello sorgente e browser:
 
 ```text
 VIS-01 visual reference/design system        DONE
 VIS-02 M01..M14 navigable HTML source        DONE
 VIS-03 editable/source archive               DONE
-VIS-04 requirement ↔ screen mapping/audit    DONE
-VIS-03R rendered PNG archive                 PENDING
-VIS-04R browser/pixel/accessibility audit    PENDING
+VIS-04 requirement↔screen mapping/audit      DONE
+VIS-03R-RUN 14/14 browser captures           DONE
+VIS-04R browser/runtime/a11y audit           DONE — PASS WITH CORRECTIVE ITEMS
+VIS-03R-ARCH repository PNG binaries         OPEN — packaging only
 ```
 
-Artifact visuale canonico:
+Browser audit:
 
 ```text
-docs/ux/mockups/v1/biomeche-cad-mockups-v1.html
+Chromium 144.0.7559.96
+M01..M13 1440×960
+M14      1024×768
+M07/M10  dark
+runtime exceptions 0
 ```
 
-Non dichiarare PNG/pixel golden già validati: il browser/render pass non è stato eseguito.
+Canonical visual source:
+
+`docs/ux/mockups/v1/biomeche-cad-mockups-v1.html`
+
+Canonical browser audit:
+
+`docs/ux/VISUAL_RENDER_BROWSER_AUDIT_2026-08-16.md`
+
+The 14 PNGs were generated during the browser pass but the transient sandbox reset before binary transfer to GitHub. Do **not** claim that the PNG binary archive already exists. The destination/metadata contract is `docs/ux/mockups/v1/rendered/README.md`.
+
+## Browser/a11y corrective items
+
+Preserve into production implementation:
+
+```text
+VIS-A11Y-01
+Meaningful M10 quantitative SVGs need accessible name/description,
+or explicit decorative semantics only when equivalent accessible numeric data are adjacent.
+
+VIS-A11Y-02
+If viewport tool stand-ins become interactive, implement them as semantic controls
+with keyboard support and programmatic name/role/state.
+
+VIS-A11Y-03
+Freeze and test an explicit visible focus treatment in light and dark modes.
+```
+
+These are implementation/presentation corrections, not changes to the frozen clinical/domain model.
+
+## Bibliography
+
+`docs/BIBLIOGRAPHY.md` is the single canonical authority and is now normalized as of 2026-08-16.
+
+Stable IDs now cover the new current-source set, including:
+
+```text
+STD-ISOIEC-25422-2025
+STD-ISOASTM-52915-2020
+STD-ISOASTM-52951-2026
+STD-ISO-14971-2019
+STD-ISO-13485-2016
+STD-ISO-9241-210-2019
+STD-IEC-62366-1-2015-A1-2020
+STD-W3C-WCAG-2.2
+GUIDE-W3C-WCAG2ICT-2.2
+REG-EU-MDR-2017-745
+GUIDE-MDCG-2019-11-REV1-2025
+GUIDE-MDCG-2021-24-REV1-2026
+GUIDE-MDCG-2019-16-REV1
+GUIDE-MDCG-2021-3
+REG-EU-GDPR-2016-679
+GUIDE-FDA-HFE-2026
+```
+
+Do not turn a standards/guidance entry into automatic conformance, certification, legal classification or a clinical threshold.
 
 ## Product semantics frozen
 
-Non riaprire senza nuova evidenza/decisione:
+Do not reopen without new evidence/decision:
 
 ```text
 committed DesignRevision immutable
@@ -114,11 +172,11 @@ preview != commit != manufacturing release
 
 ## Historical engineering docs
 
-`04_base_template.md` è **ENGINEERING CANDIDATE / QUALIFICATION FIXTURE**, non product authority.
+`04_base_template.md` = ENGINEERING CANDIDATE / QUALIFICATION FIXTURE.
 
-`05_parametric_orthosis_geometry.md` è **PROVISIONAL ENGINEERING MATHEMATICAL REFERENCE**, non product authority.
+`05_parametric_orthosis_geometry.md` = PROVISIONAL ENGINEERING MATHEMATICAL REFERENCE.
 
-Quindi `41×17`, Catmull-Clark/OpenSubdiv, formule di bump/smooth/wedge/scan-conform e sample values non sono requisiti frozen.
+`41×17`, Catmull-Clark/OpenSubdiv, specific formulas/sample values are not frozen product requirements.
 
 ## Project Schema / CI
 
@@ -127,76 +185,28 @@ Project Schema v0.2   APPROVED / NOT MATERIALIZED
 TD-CI-001              DEFERRED / NON-BLOCKING
 ```
 
-Non modificare schema JSON, fixture, migrazioni o CI salvo task esplicito.
+Do not modify schema JSON, fixtures, migrations or CI unless explicitly tasked.
 
-## Fonti / bibliografia
+## Preferred next task — engineering
 
-La closure è stata validata con paper/guideline già canonici e con fonti ufficiali correnti 2025/2026 registrate in:
-
-```text
-docs/research/CURRENT_SOURCE_SUPPLEMENT_2026-08-16.md
-docs/research/VISUAL_HUMAN_FACTORS_EVIDENCE_2026-08-16.md
-```
-
-Resta manutenzione utile normalizzare in `BIBLIOGRAPHY.md` stable ID per:
+The written + browser visual baseline is now sufficient to resume:
 
 ```text
-ISO/IEC 25422:2025 — 3MF
-ISO/ASTM 52915:2020 — AMF
-ISO/ASTM 52951:2026 — AM data packages
-EU MDR
-MDCG 2019-11 rev.1
-MDCG 2021-24 rev.1
-MDCG 2019-16 rev.1
-MDCG 2021-3
-GDPR
-ISO 14971:2019
-ISO 13485:2016
-ISO 9241-210:2019
-IEC 62366-1:2015+A1:2020
-FDA HFE 2026
-WCAG 2.2
+Q0 — Geometry Engine Qualification
 ```
 
-Questa normalizzazione non deve cambiare le semantiche frozen.
+Do not restart generic library research.
 
-## Se l'obiettivo resta documentale/visuale
-
-Procedi con:
-
-### A. Bibliography normalization
-
-Integra le nuove fonti correnti nel singolo `docs/BIBLIOGRAPHY.md`, mantenendo la tassonomia/ID governance esistente. Non creare una seconda bibliography authority.
-
-### B. VIS-03R / VIS-04R quando hai un renderer/browser disponibile
-
-```text
-apri l'esatto HTML committed
-cattura M01..M13 a 1440×960
-cattura M14 a 1024×768
-includi M07/M10 dark
-verifica console/runtime
-controlla clipping/overflow/density/status readability
-verifica contrast/accessibility quanto richiesto
-salva sotto docs/ux/mockups/v1/rendered/
-registra browser/version/device-scale/hash in manifest
-riesegui visual audit
-```
-
-## Se il proprietario decide di passare all'engineering
-
-Riprendi **Q0 Geometry Engine Qualification**, senza una nuova ricerca generica sulle librerie.
-
-Candidati ancora invariati:
+Candidates remain:
 
 ```text
 A. product-owned domain layer + Pixar OpenSubdiv
 B. product-owned domain layer + openNURBS / ON_SubD
 ```
 
-Nessun vincitore è selezionato.
+No winner selected.
 
-Sequenza:
+Qualification sequence:
 
 ```text
 Q0 native/server/WASM build + dependency audit
@@ -209,20 +219,23 @@ Q6 interop/.NET/manufacturing handoff
 Q7 AUTH-C01..C22 engine-backed qualification
 ```
 
-Performance deve sempre essere misurata secondo `23_realtime_performance_contract.md`; senza un budget esplicito usare `MEASURED / NOT YET QUALIFIED`.
+Performance must always be measured under `23_realtime_performance_contract.md`; without approved `ARCH-PERF-*` budgets use `MEASURED / NOT YET QUALIFIED`.
 
-## Visual authority
+## Optional mechanical visual packaging
+
+If a persistent binary-transfer/render path is available, recreate/store:
 
 ```text
-WRITTEN SPECIFICATION = SEMANTIC AUTHORITY
-CANONICAL HTML/MOCKUP  = VISUAL / INTERACTION SOURCE REFERENCE
+docs/ux/mockups/v1/rendered/M01-case-1440x960.png
+...
+docs/ux/mockups/v1/rendered/M14-compact-1024x768.png
 ```
 
-Se un mockup contraddice una spec frozen, correggere il mockup.
+and record source blob/browser/version/viewport/device-scale/hash/file size. This is archival packaging, not an architecture-entry blocker.
 
-## Output richiesto a ogni cambio fase
+## Output at every phase transition
 
-Aggiornare:
+Update:
 
 ```text
 TRACEABILITY_MATRIX.md
@@ -231,4 +244,4 @@ RESUME_HERE.md
 NEXT_CHAT_PROMPT.md
 ```
 
-mantenendo DONE/TODO chiari e senza dichiarare evidenze non realmente eseguite.
+Keep DONE/TODO explicit and never claim evidence that was not actually executed.
