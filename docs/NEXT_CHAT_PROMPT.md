@@ -29,6 +29,7 @@ qualification/geometry-engine/q0/README.md
 qualification/geometry-engine/q0/candidate-lock.json
 qualification/geometry-engine/q0/results/Q0_EVIDENCE_STATUS_2026-08-16.md
 qualification/geometry-engine/q0/results/Q0_HARNESS_VALIDATION_2026-08-16.md
+docs/ux/mockups/v1/rendered/render_reference.py
 docs/BIBLIOGRAPHY.md
 ```
 
@@ -44,7 +45,8 @@ bibliography normalization        DONE
 M01..M14 visual source            DONE
 browser renders                   14/14 DONE
 browser/runtime/a11y audit        DONE — PASS WITH corrective items
-PNG binary archive in GitHub      OPEN — packaging only / NON-BLOCKING
+render reproducibility            DONE — versioned Playwright/Chromium renderer + SHA-256 capture manifest
+materialized PNG copies           OPTIONAL derived review cache
 ```
 
 Project Schema v0.2 = **APPROVED / NOT MATERIALIZED**.
@@ -174,6 +176,12 @@ HG-14 dependency containment
 
 If Q0 is acceptable, proceed to Q1 common geometry/replay/query fixture. Do not restart generic library research.
 
+## Current execution-environment limitation
+
+The present chat runtime has CMake/GCC/Ninja/Node/Python but **no Emscripten**, no direct network/DNS checkout path, and the safe downloader cannot materialize the GitHub archive redirect into the local build container. Web/GitHub evidence can verify the pins and upstream build contracts, but this environment cannot truthfully execute the four pinned-source Q0 builds.
+
+Treat this as `NOT EXECUTED`, not candidate failure.
+
 ## Performance doctrine
 
 Performance remains central and must be measured under `docs/spec/23_realtime_performance_contract.md`.
@@ -184,13 +192,15 @@ Until explicit `ARCH-PERF-*` budgets exist:
 MEASURED / NOT YET QUALIFIED
 ```
 
-## Visual residual
+## Visual render regeneration
 
-When a persistent binary-transfer path is available, recreate/store the 14 PNGs under:
+The canonical visual package can be materialized on demand with:
 
-`docs/ux/mockups/v1/rendered/`
+```bash
+python docs/ux/mockups/v1/rendered/render_reference.py --chromium /path/to/chromium
+```
 
-following `rendered/README.md`. This is archival packaging, not a Q0 blocker.
+It generates M01..M14 and `capture-manifest.json` with source/browser/viewport/runtime/SHA-256 provenance. Binary PNG copies in Git are optional review cache, not a remaining VIS gate.
 
 ## At each phase transition
 
