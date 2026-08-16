@@ -1,33 +1,48 @@
 # BiomechE-CAD — PROM, Comfort, Fit and Adherence Functional Specification
 
-**Status:** ACTIVE functional baseline v0  
-**Date:** 2026-08-14  
+**Version:** v1 — evidence-led frozen product contract  
+**Status:** **FROZEN v1**  
+**Date:** 2026-08-16  
 **Architecture:** implementation-neutral.  
-**Evidence basis:** `docs/research/FUNCTIONAL_EVIDENCE_BATCH_07_PROM_COMFORT_ADHERENCE.md` and `docs/BIBLIOGRAPHY.md`.
+**Evidence basis:** `docs/research/FUNCTIONAL_EVIDENCE_BATCH_07_PROM_COMFORT_ADHERENCE.md` and `docs/BIBLIOGRAPHY.md`.  
+**Authority boundary:** use-case applicability belongs to `13_use_case_profiles.md`; numerical interpretation rules belong to `18_numerical_qualification_registry.md`; exact design/manufacturing/report linkage belongs to `02_project_schema.md`/`12_reporting_traceability.md`.
+
+---
+
+## 0. Freeze rationale
+
+This v1 freezes **measurement and provenance semantics**, not one universal questionnaire or composite success score. COSMIN methodology requires the construct to be defined first and instrument selection to be evidence-based and fit for purpose; FDA device guidance likewise emphasizes fit-for-purpose PRO use. Therefore pain, function, comfort, fit, satisfaction and adherence remain separate outcomes, with exact instrument/version/language/scoring and interpretation provenance.
+
+Frozen rule:
+
+```text
+pain
+!= function
+!= comfort
+!= fit/usability
+!= satisfaction
+!= adherence / wear exposure
+```
+
+No hidden global `BiomechEScore` is permitted in P0/P1.
 
 ---
 
 ## 1. Scope
 
-This specification defines how BiomechE-CAD records and interprets patient-reported and real-world use outcomes linked to an orthosis revision.
-
-The system SHALL keep the following concepts separate:
-
-```text
-pain
-function/activity
-foot-specific health / quality of life
-comfort
-fit/usability
-satisfaction/perceived benefit
-adherence/wear exposure
-```
-
-There SHALL NOT be a hidden global composite `BiomechEScore` in P0/P1.
+This specification defines how BiomechE-CAD records and interprets patient-reported and real-world use outcomes linked to an orthosis revision and, when available, the exact physical part.
 
 ---
 
-## 2. PROM instrument registry
+## 2. Construct-before-instrument rule
+
+Before selecting a named PROM, the intended construct/domain must be explicit. `pain`, `physical function`, `foot health`, `comfort`, `satisfaction` and `adherence` are not interchangeable labels.
+
+Instrument selection SHOULD follow a fit-for-purpose process based on construct relevance, content validity, reliability, measurement error, responsiveness, interpretability, feasibility, population/language and licensing [GUIDE-COSMIN; GUIDE-FDA-PRO-DEVICE-2022].
+
+---
+
+## 3. PROM instrument registry
 
 ```text
 PROMInstrumentDefinition
@@ -55,6 +70,8 @@ PROMInstrumentDefinition
     populationContext
     estimationMethod?
     evidenceRef
+    authorityClass
+    qualificationState
 
   licensing
     status: UNKNOWN | REVIEWED | CLEARED | RESTRICTED
@@ -74,10 +91,11 @@ PROMInstrumentDefinition
 - Score direction SHALL be explicit (`higher=better`, `higher=worse`, or domain-specific).
 - Interpretation values such as MID/MCID/MDC SHALL carry context and source; they SHALL NOT be global constants.
 - Questionnaire item text SHALL NOT be bundled when redistribution rights are unknown or restricted.
+- A registry entry marked `CLEARED` SHALL record what was reviewed; it does not imply general legal clearance outside the reviewed use/territory/version.
 
 ---
 
-## 3. PROM measurement
+## 4. PROM measurement
 
 ```text
 PROMMeasurement
@@ -87,6 +105,7 @@ PROMMeasurement
   instrumentId
   instrumentVersion
   language
+  culturalAdaptationId?
   scoringAlgorithmVersion
 
   timestamp
@@ -103,6 +122,7 @@ PROMMeasurement
   indicationProfileId?
   designRevisionId
   manufacturingRevisionId
+  physicalPartId?
   side
 
   footwearContext?
@@ -119,10 +139,11 @@ PROMMeasurement
 3. Domain/subscale scores SHALL remain individually queryable.
 4. A total score SHALL exist only if the selected instrument defines one.
 5. Missing responses and any imputation/scoring warnings SHALL be preserved.
+6. `UNAVAILABLE`, `NOT_COLLECTED`, `MISSING` and a valid numeric zero SHALL remain distinguishable where relevant.
 
 ---
 
-## 4. Candidate instrument policy
+## 5. Candidate instrument policy
 
 BiomechE-CAD does not select one universal PROM.
 
@@ -138,11 +159,19 @@ EFAS Score
 
 Other candidates such as FFI, FHSQ and FAAM may be used where the exact language/version and population context are appropriate [REF-CAD-080; REF-CAD-081; REF-CAD-083].
 
-Instrument selection SHOULD follow a fit-for-purpose process based on construct, measurement properties, interpretability and feasibility [GUIDE-COSMIN; GUIDE-FDA-PRO-DEVICE-2022].
+A candidate becomes built-in only after:
+
+```text
+construct/context fit reviewed
+measurement properties reviewed
+exact version/language identified
+scoring reproducibility defined
+license/redistribution status reviewed
+```
 
 ---
 
-## 5. Comfort assessment
+## 6. Comfort assessment
 
 Comfort SHALL be modelled independently from pain/function PROMs.
 
@@ -170,6 +199,7 @@ ComfortAssessment
 
   designRevisionId
   manufacturingRevisionId
+  physicalPartId?
 ```
 
 ### Suggested configurable dimensions
@@ -192,7 +222,7 @@ Comfort thresholds from a specific study/protocol SHALL NOT become global defaul
 
 ---
 
-## 6. Fit / usability assessment
+## 7. Fit / usability assessment
 
 ```text
 FitUsabilityAssessment
@@ -211,13 +241,14 @@ FitUsabilityAssessment
 
   designRevisionId
   manufacturingRevisionId
+  physicalPartId?
 ```
 
-Fit/usability SHALL remain separate from comfort because a device may be comfortable during a short test but impractical in the prescribed footwear or daily setting.
+Fit/usability SHALL remain separate from comfort because a device may be comfortable during a short test but impractical in prescribed footwear or daily setting.
 
 ---
 
-## 7. Satisfaction / perceived benefit
+## 8. Satisfaction / perceived benefit
 
 ```text
 SatisfactionAssessment
@@ -229,13 +260,14 @@ SatisfactionAssessment
   notes?
   designRevisionId
   manufacturingRevisionId
+  physicalPartId?
 ```
 
 Satisfaction SHALL NOT be substituted for pain/function outcomes or adherence.
 
 ---
 
-## 8. Adherence / wear exposure
+## 9. Adherence / wear exposure
 
 ```text
 AdherenceMeasurement
@@ -273,6 +305,7 @@ AdherenceMeasurement
 
   designRevisionId
   manufacturingRevisionId
+  physicalPartId?
 ```
 
 ### Adherence rules
@@ -281,16 +314,18 @@ AdherenceMeasurement
 - `hours/day` SHALL NOT be treated as equivalent to `% weight-bearing time` or `% steps with device`.
 - Objective and subjective adherence SHALL remain distinguishable.
 - When both footwear temperature sensing and activity sensing are available, the system SHOULD support exposure-normalized adherence.
-- Diabetic high-risk profiles SHOULD prefer objective adherence data when feasible because current evidence shows substantially better validity than subjective recall [REF-CAD-091; REF-CAD-092].
+- Diabetic high-risk profiles SHOULD prefer objective adherence data when feasible because evidence shows limitations of subjective recall and benefits of objective measurement [REF-CAD-091; REF-CAD-092].
+- Low adherence does not retroactively invalidate geometric manufacture/QC; it changes real-world exposure/outcome interpretation.
 
 ---
 
-## 9. Patient experience bundle
+## 10. Patient experience bundle
 
 ```text
 PatientExperienceBundle
   designRevisionId
   manufacturingRevisionId
+  physicalPartId?
 
   painMeasurements[]
   functionMeasurements[]
@@ -314,11 +349,11 @@ Fit in work footwear   poor
 Adherence              low
 ```
 
-This is a valid multidimensional outcome and SHALL not be simplified to one green/red status without an explicit profile rule.
+This is a valid multidimensional outcome and SHALL not be simplified to one green/red status without an explicit, profile-bound qualified rule.
 
 ---
 
-## 10. Longitudinal comparison
+## 11. Longitudinal comparison
 
 A comparison SHALL require:
 
@@ -327,7 +362,7 @@ same or explicitly mapped instrument/version
 compatible domain definition
 known score direction
 known timepoints
-linked orthosis revisions
+linked orthosis revisions / physical-part context
 ```
 
 If instrument versions differ, the system SHALL mark the comparison as:
@@ -340,9 +375,11 @@ NOT_DIRECTLY_COMPARABLE
 
 No crosswalk SHALL be generated ad hoc without validation evidence.
 
+A change score may be computed numerically when mathematically valid, but interpretation as meaningful/important change requires the appropriate context-bound rule.
+
 ---
 
-## 11. Interpretation rules
+## 12. Interpretation rules
 
 ```text
 InterpretationRule
@@ -359,6 +396,8 @@ InterpretationRule
   value/range
   direction
   evidenceRef
+  authorityClass
+  qualificationState
   confidence
 ```
 
@@ -372,17 +411,19 @@ patient-perceived change
 
 and SHALL not assume they are equivalent.
 
+`REF-CAD-093` is an example of population/instrument-specific MID evidence; such a value must not become universal.
+
 ---
 
-## 12. Licensing / localization
+## 13. Licensing / localization
 
-Before shipping a named instrument:
+Before shipping a named instrument's protected text/scoring assets:
 
 ```text
 licenseStatus == CLEARED
 ```
 
-SHALL be required for any questionnaire text/scoring asset that requires redistribution permission.
+SHALL be required where redistribution/commercial-use permission is needed.
 
 The software SHOULD maintain:
 
@@ -395,11 +436,27 @@ translation provenance
 last review date
 ```
 
-A translated instrument SHALL retain the exact validated adaptation identity.
+A translated instrument SHALL retain exact validated adaptation identity.
+
+A literature citation proving validity does not prove redistribution rights.
 
 ---
 
-## 13. Priority
+## 14. Relation to profile semantics
+
+`13_use_case_profiles.md` may recommend constructs/instruments or require adherence in a context, but:
+
+```text
+profile recommendation != instrument validity
+profile selection != questionnaire license
+profile threshold != global interpretation rule
+```
+
+Every interpretation remains source/version/context bound.
+
+---
+
+## 15. Priority
 
 ### P0
 
@@ -407,11 +464,12 @@ A translated instrument SHALL retain the exact validated adaptation identity.
 - version/language/scoring provenance;
 - generic PROM measurement storage;
 - domain scores;
-- design/manufacturing linkage;
+- design/manufacturing/physical-part linkage;
 - comfort / fit / satisfaction / adherence separate objects;
 - adherence denominator/method;
 - interpretation-rule schema;
 - licensing metadata;
+- missing/unavailable semantics;
 - import/export/report serialization.
 
 ### P1
@@ -434,7 +492,7 @@ A translated instrument SHALL retain the exact validated adaptation identity.
 
 ---
 
-## 14. Acceptance tests
+## 16. Acceptance tests
 
 ```text
 PROM-001  construct-before-instrument rule
@@ -442,9 +500,9 @@ PROM-002  version/language round-trip
 PROM-003  domain-score persistence
 PROM-004  score-direction persistence
 PROM-005  scoring-version reproducibility
-PROM-006  exact revision linkage
+PROM-006  exact revision/physical-part linkage where available
 PROM-007  recall/admin context persistence
-PROM-008  interpretation provenance
+PROM-008  interpretation provenance + authority
 PROM-009  comfort != pain/function
 PROM-010  comfort protocol persistence
 PROM-011  fit != comfort
@@ -453,7 +511,7 @@ PROM-013  objective != subjective adherence
 PROM-014  no hidden universal composite
 PROM-015  licensing gate
 PROM-016  validated localization identity
-PROM-017  missing-item warnings persist
+PROM-017  missing-item / unavailable semantics persist
 PROM-018  old score reproducibility
 PROM-019  longitudinal comparison compatibility status
 PROM-020  report shows multidimensional outcomes without silent averaging
@@ -461,7 +519,23 @@ PROM-020  report shows multidimensional outcomes without silent averaging
 
 ---
 
-## 15. Bibliography
+## 17. Frozen invariants
+
+```text
+construct != instrument
+instrument version/language != interchangeable by name
+MID/MCID/MDC != global constant
+comfort != pain/function
+fit != comfort
+satisfaction != adherence
+hours/day != %weight-bearing != %steps
+missing/unavailable != numeric zero
+literature validity != redistribution license
+```
+
+---
+
+## Bibliography
 
 [GUIDE-COSMIN]: ../BIBLIOGRAPHY.md#guide-cosmin
 [GUIDE-FDA-PRO-DEVICE-2022]: ../BIBLIOGRAPHY.md#guide-fda-pro-device-2022
