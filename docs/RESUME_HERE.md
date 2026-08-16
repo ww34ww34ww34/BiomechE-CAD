@@ -6,7 +6,7 @@
 **Current phase:** **Q0 GEOMETRY ENGINE QUALIFICATION — HARNESS READY / REAL CANDIDATE BUILDS NEXT.**  
 **Selection status:** **NO GEOMETRY ENGINE SELECTED.**  
 **P0 product documentation:** COMPLETE / GO / 0 blockers.  
-**Visual baseline:** source + browser audit COMPLETE; PNG repository archive remains packaging-only.
+**Visual baseline:** source + browser audit + reproducible renderer COMPLETE; materialized PNG copies are optional derived cache.
 
 Project Schema v0.2 remains **APPROVED / NOT MATERIALIZED**. `TD-CI-001` remains deliberately deferred and non-blocking.
 
@@ -81,8 +81,15 @@ VIS-03 source/version archive               DONE
 VIS-04 requirement↔screen traceability      DONE
 VIS-03R-RUN 14/14 browser captures          DONE
 VIS-04R browser/runtime/a11y audit          DONE — PASS WITH corrective items
-VIS-03R-ARCHIVE PNG files in GitHub         OPEN — packaging only
+VIS-03R-REPRODUCIBILITY                     DONE — versioned renderer + capture-manifest SHA-256 contract
+materialized PNG copies                     OPTIONAL derived review cache
 ```
+
+Canonical reproducible renderer:
+
+`docs/ux/mockups/v1/rendered/render_reference.py`
+
+It reads the exact self-contained HTML source, explicitly executes `render('Mxx')`, captures the frozen viewports and writes `capture-manifest.json` containing source identity, browser/version, viewport, runtime exception count, file size and SHA-256 for each materialized PNG.
 
 Browser reference:
 
@@ -93,6 +100,8 @@ M14      1024×768
 M07/M10  dark
 runtime exceptions 0
 ```
+
+The renderer implementation was re-executed on 2026-08-16 using Chromium `144.0.7559.96` against the same source-equivalent reconstruction methodology as the canonical browser audit: all 14 screens captured with zero runtime exceptions. The canonical audit remains `docs/ux/VISUAL_RENDER_BROWSER_AUDIT_2026-08-16.md`.
 
 Visual implementation corrections to preserve:
 
@@ -177,7 +186,20 @@ openNURBS headless/server       NOT EXECUTED
 openNURBS direct WASM           NOT EXECUTED
 ```
 
-The chat execution environment has CMake/C++/Node but no Emscripten and no usable direct clone/DNS path for bringing the pinned upstream source trees into the local container. Therefore no candidate build PASS/FAIL is claimed here.
+The current chat execution environment has:
+
+```text
+CMake 3.31.6
+GCC/G++ 14.2.0
+Ninja 1.12.1
+Node 22.16.0
+Python 3.13.5
+Emscripten NOT INSTALLED
+```
+
+Direct network/DNS access from the runtime is unavailable. GitHub/web access can verify the exact upstream source/tag/API evidence but cannot mount the complete pinned source trees into this build container as a local checkout. Attempts to obtain the archive through the available download path were blocked by the environment's redirect/safe-URL boundary. Therefore no candidate build PASS/FAIL is claimed here.
+
+Primary upstream evidence remains positive for the intended Q0 method: OpenSubdiv documents a dependency-light C++ core and build-time disabling of optional GPU/example stacks; openNURBS exposes a public native C++ toolkit/build. This is **not** a substitute for executed pinned-source builds.
 
 Exact runner:
 
@@ -228,6 +250,7 @@ HARD GATES -> Q0..Q7 EXECUTED EVIDENCE -> WEIGHTED CRITERIA -> FINAL DECISION
 - [x] P0 written documentation closure / 0 blockers.
 - [x] canonical bibliography normalized.
 - [x] visual source M01..M14 + browser audit.
+- [x] reproducible visual renderer + generated SHA-256 capture-manifest contract.
 - [x] visual human-factors corrective items recorded.
 - [x] Q0 exact upstream candidate pins.
 - [x] Q0 product-owned C++20 adapter boundary.
@@ -243,6 +266,7 @@ HARD GATES -> Q0..Q7 EXECUTED EVIDENCE -> WEIGHTED CRITERIA -> FINAL DECISION
 2. Commit generated JSON evidence and dependency/binary-size data.
 3. Update HG-01/HG-10/HG-13/HG-14 strictly from executed evidence.
 4. If Q0 passes sufficiently, proceed to Q1 common geometry/replay/query fixture.
-5. Separately, when convenient, recreate/store the 14 PNG binaries under `docs/ux/mockups/v1/rendered/`; this is not an architecture blocker.
+
+Materialized PNG copies may be committed opportunistically for review convenience, but are not a remaining documentation/visual gate because the canonical HTML + versioned renderer + generated hash manifest form the reproducible visual-reference contract.
 
 Do not restart generic CAD/library research.
