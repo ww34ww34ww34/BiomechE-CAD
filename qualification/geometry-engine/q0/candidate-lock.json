@@ -1,0 +1,29 @@
+{
+  "schema": "BiomechE.CAD.GeometryEngineQ0CandidateLock/1",
+  "capturedAt": "2026-08-16",
+  "selectionStatus": "NO_WINNER",
+  "candidates": [
+    {
+      "candidateId": "opensubdiv",
+      "upstream": "PixarAnimationStudios/OpenSubdiv",
+      "refType": "tag",
+      "ref": "v3_7_0",
+      "tagObjectSha": "4951f30c00f395aa831a9fc42577cc28ce46fa81",
+      "commit": "9dab8a47bfbb1388ec8388fe61f5f916e6123f38",
+      "licensePath": "LICENSE.txt",
+      "licenseBlobSha": "aa357669b831a0bc7ebb827181b060782b580f24",
+      "sourceRole": "geometry-engine-candidate"
+    },
+    {
+      "candidateId": "opennurbs",
+      "upstream": "mcneel/opennurbs",
+      "refType": "branch-snapshot",
+      "ref": "8.x",
+      "commit": "00bdd2ce8f3e4cd3d4921343909bbe123b2e9d58",
+      "licensePath": "LICENSE",
+      "licenseBlobSha": "101db5f8f5b99e27d7142bc1074c8159924e68de",
+      "cmakeBlobSha": "5a1044c6934c0d01b1c88353ec948c8c6a7f982d",
+      "sourceRole": "geometry-engine-candidate"
+    }
+  ]
+}
