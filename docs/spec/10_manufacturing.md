@@ -1,9 +1,30 @@
 # BiomechE-CAD — Manufacturing Functional Specification
 
-**Status:** ACTIVE functional baseline v0  
-**Date:** 2026-08-14  
+**Version:** v1 — evidence-led frozen product contract  
+**Status:** **FROZEN v1**  
+**Date:** 2026-08-16  
 **Architecture:** implementation-neutral.  
-**Evidence basis:** `docs/research/FUNCTIONAL_EVIDENCE_BATCH_08_MATERIAL_MANUFACTURING.md`, EasyCAD2 behavioral baseline and `docs/BIBLIOGRAPHY.md`.
+**Evidence basis:** `docs/research/FUNCTIONAL_EVIDENCE_BATCH_08_MATERIAL_MANUFACTURING.md`, EasyCAD2 behavioral baseline and `docs/BIBLIOGRAPHY.md`.  
+**Authority boundary:** `08_material_stiffness.md` owns material/mechanical prescription semantics; `09_analysis_qc_dfm.md` owns analysis/QC semantics; `18_numerical_qualification_registry.md` owns limit/tolerance authority classes; `12_reporting_traceability.md` owns immutable reporting/source manifests.
+
+---
+
+## 0. Freeze rationale
+
+This v1 freezes the lifecycle and provenance semantics from committed design to manufactured and accepted physical orthosis. It does not freeze a slicer, CAM engine, machine, process parameter, format preference, manufacturing tolerance or qualification threshold.
+
+Current ISO/ASTM standards reinforce the existing model: part definition, feedstock, characteristics, inspection and acceptance are separate information classes; process/site qualification is explicit; polymer part properties are mechanical/physical/geometrical; orientation/coordinates must be reportable. ISO/ASTM 52951:2026 further supports a design-to-acceptance data-package/digital-thread concept. BiomechE-CAD therefore keeps product-owned semantic lineage independent of any single exchange file.
+
+Frozen rule:
+
+```text
+DesignRevision
+!= ManufacturingGeometry / Handoff
+!= ManufacturingArtifact
+!= ManufacturingRun
+!= PhysicalOrthosis
+!= Accepted PhysicalOrthosis
+```
 
 ---
 
@@ -59,7 +80,9 @@ ManufacturingProfile
     RETIRED
 ```
 
-Changing any parameter classified as qualification-critical SHALL create a new profile revision.
+Changing any parameter classified as qualification-critical SHALL create a new profile revision or an explicitly new qualification state according to the profile policy.
+
+No numeric acceptance limit is globally embedded in this specification; such limits are explicit NREG `MANUFACTURING_ACCEPTANCE_LIMIT` records owned by a profile/version.
 
 ---
 
@@ -101,7 +124,7 @@ A run is an execution record, not a reusable configuration.
 ManufacturingArtifact
   artifactId
   designRevisionId
-  manufacturingRunId
+  manufacturingRunId?
 
   side
   artifactType
@@ -111,6 +134,7 @@ ManufacturingArtifact
     GCODE
     CNC_TOOLPATH
     PROJECT_PACKAGE
+    MANUFACTURING_PACKAGE
     PHYSICAL_PART_RECORD
     OTHER
 
@@ -119,9 +143,12 @@ ManufacturingArtifact
   generatorVersion
   profileRevision
   validationState
+  coordinateConventionRef?
 ```
 
-Once a generated artifact has been used for manufacturing, it SHALL NOT be silently replaced under the same artifact ID/hash.
+Once a generated artifact has been released or used for manufacturing, it SHALL NOT be silently replaced under the same artifact ID/hash.
+
+An interchange artifact is never the sole source of clinical prescription semantics.
 
 ---
 
@@ -155,7 +182,7 @@ AMProcessState
   postProcess[]
 ```
 
-ISO 17295:2023 provides a common AM orientation/coordinate vocabulary [STD-ISO-17295-2023]. ISO/ASTM 52903-1 defines feedstock requirement semantics for extrusion-based polymer AM [STD-ISOASTM-52903-1-2020].
+ISO 17295:2023 provides positioning/orientation/coordinate vocabulary [STD-ISO-17295-2023]. ISO/ASTM 52903-1 defines feedstock requirement semantics for extrusion-based polymer AM [STD-ISOASTM-52903-1-2020].
 
 ---
 
@@ -210,6 +237,8 @@ PostProcessStep
 
 Property-changing operations such as heat/thermoforming/curing/lamination SHALL be recorded. Heating has been shown to change mechanical response of common insole materials [REF-CAD-096].
 
+Manual finishing that can materially change geometry or interfaces SHALL likewise be recordable when profile-relevant.
+
 ---
 
 ## 8. QCRequirement
@@ -236,6 +265,8 @@ QCRequirement
 
 A tolerance without a measurement method is incomplete.
 
+Every numeric limit SHALL carry explicit NREG authority/provenance and profile version.
+
 ---
 
 ## 9. QCMeasurement
@@ -243,7 +274,7 @@ A tolerance without a measurement method is incomplete.
 ```text
 QCMeasurement
   measurementId
-  artifactId
+  artifactId / physicalPartId
   requirementId
 
   value / dataRef
@@ -264,6 +295,8 @@ QCMeasurement
 
 Actual measured values SHALL remain distinct from nominal CAD values.
 
+`INDETERMINATE` or missing required data is not silently treated as PASS.
+
 ---
 
 ## 10. Geometric trueness / dimensional QC
@@ -280,7 +313,9 @@ ManufacturedGeometryMeasurement
     OTHER
 
   designReferenceRevision
+  manufacturingReferenceArtifact
   alignmentMethod
+  alignmentVersion
   dimensions[]
   deviationMapRef?
   measurementUncertainty?
@@ -292,7 +327,7 @@ Therefore:
 
 ```text
 orthosis tolerance
-= ManufacturingProfile requirement
+= explicit ManufacturingProfile acceptance requirement
 ```
 
 not a global hard-coded CAD value.
@@ -301,7 +336,7 @@ not a global hard-coded CAD value.
 
 ## 11. AM part / process qualification semantics
 
-ISO/ASTM 52901:2017 distinguishes part definition, feedstock, final characteristics/properties, inspection and acceptance [STD-ISOASTM-52901-2017]. ISO/ASTM 52920:2023 provides production-process/site qualification principles [STD-ISOASTM-52920-2023]. ISO/ASTM 52924:2023 classifies polymer AM part properties as mechanical, physical and geometrical [STD-ISOASTM-52924-2023].
+ISO/ASTM 52901:2017 distinguishes part definition, feedstock, final characteristics/properties, inspection and acceptance [STD-ISOASTM-52901-2017]. ISO/ASTM 52920:2023 provides production-process/site qualification principles [STD-ISOASTM-52920-2023]. ISO/ASTM 52924:2023 classifies polymer-AM part properties as mechanical, physical and geometrical [STD-ISOASTM-52924-2023].
 
 BiomechE-CAD SHALL therefore allow a profile to define separate gates:
 
@@ -314,6 +349,8 @@ FUNCTIONAL
 DOCUMENTATION
 ```
 
+A profile may require all, a subset, or additional domain-specific gates. Absence of one gate does not imply qualification of that dimension.
+
 ---
 
 ## 12. Artifact lifecycle
@@ -322,6 +359,8 @@ DOCUMENTATION
 DESIGN_READY
   ↓
 ARTIFACT_GENERATED
+  ↓
+RELEASED_FOR_MANUFACTURING
   ↓
 MANUFACTURING_STARTED
   ↓
@@ -340,7 +379,7 @@ RECHECK | REPLACED | RETIRED
 
 ### Blocking rule
 
-If a qualified profile defines a blocking QC requirement, a FAIL or missing required measurement SHALL prevent `ACCEPTED` / validated-production state.
+If a qualified profile defines a blocking QC requirement, a FAIL, INDETERMINATE state or missing mandatory measurement SHALL prevent `ACCEPTED` / validated-production state unless a separately versioned, auditable deviation/conditional-acceptance policy explicitly permits otherwise.
 
 ---
 
@@ -386,30 +425,33 @@ ManufacturedMaterialRegion
 
 A multi-material/lattice export SHALL preserve the mapping between semantic design region and realized manufacturing region where the selected output format/process permits it.
 
-P0 schema SHALL not depend on STL being able to carry this information.
+P0 schema SHALL not depend on STL or any other single geometry format being able to carry the complete semantic model.
 
 ---
 
-## 15. Production package
+## 15. Production / manufacturing package
 
 A portable manufacturing handoff SHOULD be able to include:
 
 ```text
 manifest
-patient/case pseudonymous ID as policy permits
+pseudonymous case/part identifiers as policy permits
 design revision ID
 manufacturing profile + revision
 materials / lots
-process parameters
+process parameters / schemas
 geometry/toolpath artifacts + hashes
 orientation/coordinate contract
 required post-process
 required QC plan
-acceptance limits
+acceptance limits + authority refs
 software/generator versions
+release/approval provenance
 ```
 
-This package supports external manufacturing without making the external system authoritative for clinical prescription semantics.
+ISO/ASTM 52951:2026 provides current supporting evidence for a structured AM part data package/digital thread from design to acceptance. BiomechE-CAD's internal package remains application-specific and must retain clinical/design lineage even when an external manufacturer uses a different transport format.
+
+Detailed file-format/loss semantics belong to `DOC-10 — Interchange & Manufacturing Handoff Contract`.
 
 ---
 
@@ -460,16 +502,31 @@ MAN-005  AM infill/lattice/layer/shell params round-trip
 MAN-006  CNC tooling/CAM/fixture provenance round-trip
 MAN-007  post-process steps versioned
 MAN-008  artifact hash immutable
-MAN-009  QC metric+method+tolerance complete
+MAN-009  QC metric+method+tolerance authority complete
 MAN-010  acceptance state requires profile-defined QC
-MAN-011  blocking failure prevents validated-production status
+MAN-011  blocking failure/indeterminate/missing prevents validated-production status unless explicit deviation policy
 MAN-012  measured manufactured != nominal CAD geometry
 MAN-013  coupon/specimen may link to build/run/part
-MAN-014  measured properties link to exact run/artifact
+MAN-014  measured properties link to exact run/artifact/physical part
 MAN-015  multi-material interfaces traceable
 MAN-016  service inspection links exact physical part
 MAN-017  no unsupported universal lifetime/replacement rule
-MAN-018  qualification-critical process change creates profile revision
+MAN-018  qualification-critical process change creates profile revision/requalification state
+```
+
+---
+
+## 18. Frozen invariants
+
+```text
+DesignRevision != ManufacturingArtifact
+ManufacturingArtifact != ManufacturingRun
+ManufacturingRun != PhysicalOrthosis
+manufactured != accepted
+nominal CAD != measured manufactured geometry
+file format != semantic authority
+process parameter != qualification unless profile says so
+missing blocking QC != PASS
 ```
 
 ---
@@ -485,3 +542,5 @@ MAN-018  qualification-critical process change creates profile revision
 [STD-ISOASTM-52903-1-2020]: ../BIBLIOGRAPHY.md#std-isoastm-52903-1-2020
 [STD-ISOASTM-52920-2023]: ../BIBLIOGRAPHY.md#std-isoastm-52920-2023
 [STD-ISOASTM-52924-2023]: ../BIBLIOGRAPHY.md#std-isoastm-52924-2023
+
+**Current-source supplement pending canonical bibliography normalization:** ISO/ASTM 52951:2026, *Additive manufacturing — Data — Data packages for AM parts*, Edition 1, ISO/TC 261, published 2026-06.
