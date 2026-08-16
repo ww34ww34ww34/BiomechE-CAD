@@ -1,14 +1,31 @@
 # BiomechE-CAD — Indication / Use-case Profile Functional Specification
 
-**Version:** v0 — evidence-led  
-**Date:** 2026-08-14  
-**Status:** ACTIVE functional baseline  
+**Version:** v1 — evidence-led frozen product contract  
+**Date:** 2026-08-16  
+**Status:** **FROZEN v1**  
 **Architecture:** deliberately unspecified.  
-**Evidence basis:** `docs/research/FUNCTIONAL_EVIDENCE_BATCH_06_USE_CASE_PROFILES.md` and `docs/BIBLIOGRAPHY.md`.
+**Evidence basis:** `docs/research/FUNCTIONAL_EVIDENCE_BATCH_06_USE_CASE_PROFILES.md` and `docs/BIBLIOGRAPHY.md`.  
+**Authority boundary:** profile rules may reference but never override `18_numerical_qualification_registry.md`; geometry remains governed by `16_geometry_authoring_contract.md`; reusable presets/workflows remain governed by `17_workflow_preset_macro.md`.
 
 ---
 
-## 0. Purpose
+## 0. Freeze rationale
+
+This v1 freezes the context/non-transfer model, not a diagnosis engine or a fixed library of clinical prescriptions. Current guidelines and systematic reviews reinforce that orthotic meaning depends on population, condition, activity, protocol and intended outcome. In particular, diabetic recurrence prevention and active-ulcer offloading are different pathways, and plantar-heel-pain guidance treats orthoses as part of multimodal care rather than a universal standalone solution.
+
+Frozen rule:
+
+```text
+same CAD feature
++ different population / indication / task / protocol
+= potentially different interpretation
+```
+
+No profile can silently inject a universal threshold or `optimal` geometry.
+
+---
+
+## 1. Purpose
 
 Define a versioned context layer that determines **how CAD features and outcomes are interpreted**, without turning BiomechE-CAD into a diagnostic engine or hardcoding one orthotic doctrine.
 
@@ -29,16 +46,18 @@ A profile does not prescribe geometry automatically.
 
 ---
 
-# 1. Core contract
+# 2. Core contract
 
 ```text
 IndicationProfile
   profileId
   profileVersion
+  profileHash/snapshot
   displayName
 
   populationBoundary
   indicationBoundary
+  activity/taskBoundary?
   excludedOrSeparateContexts[]
 
   relevantFeatureTypes[]
@@ -46,6 +65,8 @@ IndicationProfile
   safetyRegionRules[]
 
   targetRules[]
+    ruleId
+    authorityClass
     metric
     ROI
     criterion
@@ -53,6 +74,7 @@ IndicationProfile
     protocolRef
     evidenceRef
     confidence
+    qualificationState
 
   requiredAcquisitionMetadata[]
   warnings[]
@@ -62,13 +84,15 @@ IndicationProfile
   evidenceConfidence
 ```
 
-Every project stores the exact profile version used.
+Every project stores the exact profile version/hash or immutable snapshot used.
+
+A profile target is an `EVIDENCE_PROFILE_RULE` or other explicit NREG class; it does not become a global product constant by being placed in a profile.
 
 ---
 
-# 2. Initial P0 profile set
+# 3. Initial P0 profile set
 
-## 2.1 `DIABETIC_REULCERATION_PREVENTION`
+## 3.1 `DIABETIC_REULCERATION_PREVENTION`
 
 Boundary:
 
@@ -86,6 +110,8 @@ Key semantics:
 - adherence/wear exposure is first-class;
 - pressure-guided design/iteration is supported [GUIDE-IWGDF-2023; REF-CAD-004; REF-CAD-005; REF-CAD-068; REF-CAD-069].
 
+IWGDF 2023 recommends therapeutic footwear with demonstrated plantar-pressure relieving effect during walking to help prevent plantar ulcer recurrence in appropriate high-risk contexts [GUIDE-IWGDF-2023]. That recommendation remains profile-specific.
+
 ### Active-ulcer guard
 
 `ACTIVE_DIABETIC_PLANTAR_ULCER` is **not** silently treated as this prevention profile. For a neuropathic plantar forefoot/midfoot ulcer, IWGDF 2023 recommends a non-removable knee-high offloading device as first-choice healing intervention [GUIDE-IWGDF-2023, Offloading guideline].
@@ -94,7 +120,7 @@ The CAD may participate in later/downstream footwear design, but the profile UI/
 
 ---
 
-## 2.2 `MECHANICAL_METATARSALGIA`
+## 3.2 `MECHANICAL_METATARSALGIA`
 
 Boundary:
 
@@ -124,11 +150,13 @@ neighbor/transfer load
 comfort / shoe fit
 ```
 
-Placement remains landmark-relative and evidence-linked, never a universal hidden default [REF-CAD-011; REF-CAD-013; REF-CAD-041; REF-CAD-042; REF-CAD-072].
+Placement remains landmark-relative and evidence-linked, never a universal hidden default [REF-CAD-011; REF-CAD-012; REF-CAD-013; REF-CAD-041; REF-CAD-042; REF-CAD-072].
+
+The 2024 central-metatarsal meta-analysis supports pressure reduction from bespoke/customized treatment but does not establish a single universally superior construction [REF-CAD-011].
 
 ---
 
-## 2.3 `FLEXIBLE_FLATFOOT`
+## 3.3 `FLEXIBLE_FLATFOOT`
 
 Required subtype dimensions:
 
@@ -166,7 +194,7 @@ A medial-midfoot pressure increase is not automatically failure; it may accompan
 
 ---
 
-## 2.4 `PLANTAR_HEEL_PAIN`
+## 3.4 `PLANTAR_HEEL_PAIN`
 
 Boundary:
 
@@ -194,11 +222,11 @@ heel PeakPressure / PTI / MeanPressure
 ContactArea
 ```
 
-Orthoses are interpreted as part of conservative/multimodal care, not as an isolated guaranteed treatment; pressure and pain/function outcomes remain separate [GUIDE-HEEL-PAIN-2023; REF-CAD-066; REF-CAD-074].
+Orthoses are interpreted as part of conservative/multimodal care, not as an isolated guaranteed treatment. The 2023 heel-pain CPG specifically advises against orthoses as an isolated short-term treatment while allowing them in combination with other treatments [GUIDE-HEEL-PAIN-2023]. Pressure and pain/function outcomes remain separate.
 
 ---
 
-## 2.5 `SPORT_PERFORMANCE`
+## 3.5 `SPORT_PERFORMANCE`
 
 Boundary:
 
@@ -237,7 +265,7 @@ Do not equate biomechanical change, injury prevention and performance improvemen
 
 ---
 
-## 2.6 `GENERIC_CUSTOM_ORTHOSIS`
+## 3.6 `GENERIC_CUSTOM_ORTHOSIS`
 
 Safe fallback when no evidence profile is selected or available.
 
@@ -261,7 +289,7 @@ Evidence confidence: `DOMAIN-ONLY`.
 
 ---
 
-# 3. Multi-profile projects
+# 4. Multi-profile projects
 
 A person may have more than one clinically relevant context.
 
@@ -274,18 +302,20 @@ activeInterpretationProfile
 
 Every target/warning/preset records the profile that supplied it.
 
-The system must never combine two thresholds into an anonymous global rule.
+The system must never combine two thresholds into an anonymous global rule. Conflicting rules remain explicit and require human resolution or a separately defined precedence policy.
 
 ---
 
-# 4. Target provenance
+# 5. Target provenance
 
 ```text
 ProfileTarget
   profileId
   profileVersion
+  profileHash/snapshot
   targetId
 
+  authorityClass
   population
   metric
   ROI
@@ -296,13 +326,14 @@ ProfileTarget
   evidenceRef
   evidenceLocator
   confidence
+  qualificationState
 ```
 
 A target copied into a project remains traceable even if the canonical profile is later updated.
 
 ---
 
-# 5. Evidence-confidence vocabulary
+# 6. Evidence-confidence vocabulary
 
 ```text
 HIGH_NARROW_CONTEXT
@@ -314,15 +345,20 @@ DOMAIN_ONLY
 
 The confidence applies to the specific claim/target, not to the entire orthosis category.
 
+This vocabulary communicates evidence context and is not itself a statistical quality grade unless a referenced evidence-assessment method defines one.
+
 ---
 
-# 6. Non-transfer policy
+# 7. Non-transfer policy
 
 The first profile library must enforce at least:
 
 ```text
 Diabetic re-ulceration target
   != mechanical-metatarsalgia target
+
+Active diabetic ulcer pathway
+  != recurrence-prevention insole pathway
 
 Pediatric Sever heel evidence
   != adult plantar heel pain
@@ -340,9 +376,11 @@ Injury prevention signal
   != performance improvement
 ```
 
+Profile transfer must be explicit, reviewable and versioned.
+
 ---
 
-# 7. Profile selection must not diagnose
+# 8. Profile selection must not diagnose
 
 BiomechE-CAD may support:
 
@@ -355,9 +393,34 @@ but must not serialize an automatically suggested profile as a confirmed diagnos
 
 Pressure, scan morphology and symptom maps are input evidence, not diagnoses by themselves.
 
+Any future model-generated suggestion SHALL retain model/version/applicability/uncertainty provenance and remain a suggestion until confirmed.
+
 ---
 
-# 8. P0 UI semantics
+# 9. Profile interaction with presets/workflows
+
+A profile may:
+
+```text
+recommend an available preset/workflow
+activate warnings
+surface relevant metrics
+surface evidence-linked target candidates
+```
+
+but application still follows `17_workflow_preset_macro.md`:
+
+```text
+suggestion != application
+application != human confirmation
+profile identity != workflow identity
+```
+
+Exact preset/workflow id/version/hash and historical expansion remain preserved.
+
+---
+
+# 10. P0 UI semantics
 
 Minimum UI behavior:
 
@@ -367,14 +430,15 @@ Minimum UI behavior:
 4. warnings when profile boundary is violated;
 5. no hidden automatic threshold transfer;
 6. metric dashboard can be profile-oriented without deleting raw metrics;
-7. switching profile shows which targets/presets become inactive.
+7. switching profile shows which targets/presets become inactive;
+8. suggested vs confirmed profile state is visually distinct.
 
 ---
 
-# 9. Acceptance tests
+# 11. Acceptance tests
 
 ## PROF-001 — version persistence
-Profile ID/version round-trips through save/load/history.
+Profile ID/version/hash or immutable snapshot round-trips through save/load/history.
 
 ## PROF-002 — evidence provenance
 Every profile-derived target resolves to a canonical bibliography source.
@@ -409,9 +473,15 @@ Changing the active profile is a versioned/auditable project event.
 ## PROF-012 — profile target snapshot
 A target already applied to a design retains its source/profile version after a future library update.
 
+## PROF-013 — suggestion is not diagnosis
+A machine-suggested candidate profile cannot become confirmed without explicit human confirmation.
+
+## PROF-014 — workflow independence
+A profile-recommended workflow retains its own exact id/version/hash and project application record.
+
 ---
 
-# 10. Priority
+# 12. Priority
 
 ## P0
 
@@ -421,7 +491,8 @@ A target already applied to a design retains its source/profile version after a 
 - non-transfer guards;
 - multi-profile provenance;
 - generic neutral fallback;
-- evidence refs and confidence.
+- evidence refs and confidence;
+- suggestion/confirmation distinction.
 
 ## P1
 
@@ -440,17 +511,24 @@ A target already applied to a design retains its source/profile version after a 
 
 ---
 
-# 11. Product conclusion
-
-The profile system is a **semantic safety and provenance layer**:
+# 13. Frozen invariants
 
 ```text
-same CAD feature
-+ different population/context
-= different interpretation
+profile != diagnosis
+profile suggestion != confirmation
+profile target != global threshold
+profile default != universal optimum
+pressure outcome != pain/function outcome
+prevention pathway != active-ulcer treatment pathway
+sport biomechanical effect != treatment efficacy
+profile identity != preset/workflow identity
 ```
 
-This layer is independent of OpenSubdiv/openNURBS or any future geometry kernel and should therefore be part of the product specification before architecture freeze.
+---
+
+# 14. Product conclusion
+
+The profile system is a **semantic safety and provenance layer**. It is independent of the geometry kernel and constrains interpretation, not anatomy or diagnosis.
 
 ---
 
@@ -461,6 +539,7 @@ This layer is independent of OpenSubdiv/openNURBS or any future geometry kernel 
 [REF-CAD-004]: ../BIBLIOGRAPHY.md#ref-cad-004
 [REF-CAD-005]: ../BIBLIOGRAPHY.md#ref-cad-005
 [REF-CAD-011]: ../BIBLIOGRAPHY.md#ref-cad-011
+[REF-CAD-012]: ../BIBLIOGRAPHY.md#ref-cad-012
 [REF-CAD-013]: ../BIBLIOGRAPHY.md#ref-cad-013
 [REF-CAD-027]: ../BIBLIOGRAPHY.md#ref-cad-027
 [REF-CAD-041]: ../BIBLIOGRAPHY.md#ref-cad-041
@@ -469,8 +548,8 @@ This layer is independent of OpenSubdiv/openNURBS or any future geometry kernel 
 [REF-CAD-066]: ../BIBLIOGRAPHY.md#ref-cad-066
 [REF-CAD-068]: ../BIBLIOGRAPHY.md#ref-cad-068
 [REF-CAD-069]: ../BIBLIOGRAPHY.md#ref-cad-069
+[REF-CAD-072]: ../BIBLIOGRAPHY.md#ref-cad-072
 [REF-CAD-073]: ../BIBLIOGRAPHY.md#ref-cad-073
-[REF-CAD-074]: ../BIBLIOGRAPHY.md#ref-cad-074
 [REF-CAD-075]: ../BIBLIOGRAPHY.md#ref-cad-075
 [REF-CAD-076]: ../BIBLIOGRAPHY.md#ref-cad-076
 [REF-CAD-077]: ../BIBLIOGRAPHY.md#ref-cad-077
