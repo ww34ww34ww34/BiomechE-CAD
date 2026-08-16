@@ -42,7 +42,7 @@ Rules:
 5. M07/M10 are representative dark references;
 6. a mockup cannot introduce a clinical threshold, diagnosis, geometry algorithm or manufacturing authority not present in written specs;
 7. if a mockup conflicts with a frozen written contract, the mockup is corrected;
-8. the repository PNG binary archive is a rendered-reference convenience, not semantic authority or an architecture-entry gate.
+8. a repository PNG binary copy is a rendered-reference convenience, not semantic authority or an architecture-entry gate.
 
 Canonical browser audit:
 
@@ -143,6 +143,30 @@ FINAL ENGINE SELECTION             OPEN / NO WINNER
 
 ---
 
+## D-CAD-036 — Rendered visual references are reproducible derived artifacts; binary copies are optional cache
+
+**Status:** FROZEN VISUAL-GOVERNANCE RULE  
+**Date:** 2026-08-16
+
+Canonical renderer:
+
+`docs/ux/mockups/v1/rendered/render_reference.py`
+
+Rules:
+
+1. the written specification remains semantic authority and the self-contained HTML remains visual/interaction source authority;
+2. M01..M14 rendered references are deterministic derived artifacts of the exact HTML source, renderer, Chromium version, viewport and device-scale-factor;
+3. the versioned renderer SHALL emit `capture-manifest.json` containing source identity, source commit/blob where available, browser/version, viewport/theme, runtime exception state, PNG SHA-256 and file size;
+4. a materialized PNG stored in Git is a review/release cache, not the only preservation mechanism for the visual baseline;
+5. absence of duplicate PNG binaries does not reopen VIS closure when exact source + renderer + browser audit + reproducible manifest contract remain available;
+6. placeholder PNGs are forbidden;
+7. a release process that requires immutable binary screenshot evidence may explicitly materialize and commit the PNGs with their generated manifest;
+8. a new HTML visual baseline version requires new captures/manifest rather than silently treating prior PNGs as current.
+
+The renderer was implementation-tested on 2026-08-16 with Chromium `144.0.7559.96`: all 14 screen render calls completed with zero runtime exceptions under the source-equivalent reconstruction method already documented by the canonical browser audit.
+
+---
+
 ## Open decisions after this addendum
 
 Still intentionally open:
@@ -156,4 +180,5 @@ Still intentionally open:
 - physical pressure/material/manufacturing qualification;
 - formal regulatory classification/QMS/privacy/security deployment decisions;
 - exact built-in PROM licensing/selection;
-- repository storage of the 14 rendered PNG reference binaries.
+- actual UI implementation/verification of `VIS-A11Y-01..03`;
+- optional materialization of rendered PNG review caches when a review/release process requires them.
