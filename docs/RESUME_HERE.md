@@ -2,46 +2,51 @@
 
 **Repository:** `ww34ww34ww34/BiomechE-CAD`  
 **Canonical branch:** `main`  
-**Checkpoint date:** 2026-08-15  
-**Current phase:** **GEOMETRY ENGINE EVALUATION — SCORECARD BASELINE v0.1 COMPLETE; PoC QUALIFICATION NEXT.**  
-**Selection status:** **NO GEOMETRY ENGINE SELECTED.**
+**Checkpoint date:** 2026-08-16  
+**Current phase:** **P0-DOC-CLOSURE — remaining product documentation + canonical visual reference package.**  
+**Architecture status:** **NO GEOMETRY ENGINE SELECTED. Q0..Q7 PoC plan preserved but temporarily deferred by project priority.**
 
-The P0 authoring documentation remains frozen v1. The geometry-engine scorecard has now been derived from the frozen contracts and `AUTH-C01..C22`; the next executable architecture task is the candidate-neutral PoC/benchmark qualification sequence. Project Schema v0.2 remains approved but not materialized. GitHub CI remains deliberately deferred as `TD-CI-001` and is not a gate for this phase.
+The P0 authoring core is frozen and remains authoritative. The project owner has chosen to continue documentation before executing geometry-engine PoCs. The current work plan is:
+
+`docs/P0_DOCUMENTATION_CLOSURE_AND_VISUAL_REFERENCE_PLAN_2026-08-16.md`
+
+The goal is to close the remaining `ACTIVE v0` / provisional product documents, add missing implementation-neutral contracts, perform a final cross-document audit, and then create/save a versioned set of visual mockups as a canonical visual/interaction reference.
+
+Project Schema v0.2 remains **APPROVED / NOT MATERIALIZED**. `TD-CI-001` remains deliberately deferred and non-blocking.
 
 ---
 
 ## 1. Read these first
 
 1. `docs/RESUME_HERE.md`
-2. `docs/P0_AUTHORING_FREEZE_AUDIT_2026-08-15.md`
+2. `docs/P0_DOCUMENTATION_CLOSURE_AND_VISUAL_REFERENCE_PLAN_2026-08-16.md`
 3. `docs/SPEC_INDEX.md`
-4. `docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md`
-5. `docs/TRACEABILITY_MATRIX.md`
-6. `docs/spec/01_coordinate_registration.md`
-7. `docs/spec/02_project_schema.md`
-8. `docs/spec/16_geometry_authoring_contract.md`
-9. `docs/spec/17_workflow_preset_macro.md`
-10. `docs/spec/18_numerical_qualification_registry.md`
-11. `docs/validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md`
-12. `docs/spec/19_project_schema_v0_2_changeset.md`
-13. `docs/validation/P0_AUTHORING_CROSS_DOCUMENT_AUDIT_2026-08-15.md`
-14. `docs/validation/P0_AUTHORING_ACCEPTANCE_INTEGRATION_ADDENDUM.md`
-15. `docs/research/architecture/GEOMETRY_ENGINE_EVALUATION_SCORECARD_2026-08-15.md`
-16. `docs/validation/GEOMETRY_ENGINE_POC_QUALIFICATION_PLAN_2026-08-15.md`
-17. `docs/DECISIONS.md`
-18. `docs/TECHNICAL_DEBT.md`
-19. `docs/BIBLIOGRAPHY.md`
-20. `docs/NEXT_CHAT_PROMPT.md`
+4. `docs/P0_AUTHORING_FREEZE_AUDIT_2026-08-15.md`
+5. `docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md`
+6. `docs/TRACEABILITY_MATRIX.md`
+7. `docs/spec/01_coordinate_registration.md`
+8. `docs/spec/02_project_schema.md`
+9. `docs/spec/16_geometry_authoring_contract.md`
+10. `docs/spec/17_workflow_preset_macro.md`
+11. `docs/spec/18_numerical_qualification_registry.md`
+12. `docs/validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md`
+13. `docs/spec/19_project_schema_v0_2_changeset.md`
+14. `docs/validation/P0_AUTHORING_CROSS_DOCUMENT_AUDIT_2026-08-15.md`
+15. `docs/validation/P0_AUTHORING_ACCEPTANCE_INTEGRATION_ADDENDUM.md`
+16. `docs/research/architecture/GEOMETRY_ENGINE_EVALUATION_SCORECARD_2026-08-15.md`
+17. `docs/validation/GEOMETRY_ENGINE_POC_QUALIFICATION_PLAN_2026-08-15.md`
+18. `docs/DECISIONS.md`
+19. `docs/TECHNICAL_DEBT.md`
+20. `docs/BIBLIOGRAPHY.md`
+21. `docs/NEXT_CHAT_PROMPT.md`
 
-Additional frozen/context specs remain authoritative where referenced: `11_biomeche_integration.md`, `12_reporting_traceability.md`, `15_pressure_acquisition_qualification.md`.
-
-`BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md` is the functional authority. The old functional spec is historical/audit material.
+`BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md` remains the functional product authority. The previous functional spec is historical/audit material.
 
 ---
 
 ## 2. Mission
 
-BiomechE-CAD is a vertical CAD for custom foot orthoses. It should match mature orthotic-CAD productivity while preserving stronger scientific and lifecycle semantics:
+BiomechE-CAD is a vertical CAD for custom foot orthoses. It must combine mature orthotic-CAD productivity with stronger scientific and lifecycle semantics:
 
 ```text
 acquisition provenance
@@ -55,57 +60,20 @@ acquisition provenance
 + reproducible reporting
 ```
 
-The geometry engine is downstream of these contracts and is replaceable implementation infrastructure, not clinical/domain authority.
+The geometry engine is downstream infrastructure. It must satisfy product contracts and must never become the authority for clinical/domain semantics.
 
 ---
 
-## 3. Current work order
-
-```text
-FUNCTIONALITY + EASYCAD2 + SCIENTIFIC EVIDENCE       DONE baseline
-FUNCTIONAL SPEC v2                                   CANONICAL
-PROJECT SCHEMA / PROVENANCE                          ACTIVE baseline v0.1
-COORDINATE / REGISTRATION                            FROZEN v1
-BIOMECHE INTEGRATION                                 FROZEN v1
-REPORTING / TRACEABILITY                             FROZEN v1
-PRESSURE ACQUISITION QUALIFICATION METHOD            FROZEN v1
-COMPETITOR + LITERATURE SECOND PASS                  DONE
-REQUIREMENT TRACEABILITY                             ACTIVE canonical baseline
-GEOMETRY AUTHORING CONTRACT                          FROZEN v1
-WORKFLOW / PRESET / MACRO CONTRACT                   FROZEN v1
-NUMERICAL / TOLERANCE / QUALIFICATION REGISTRY      FROZEN v1
-P0 AUTHORING ACCEPTANCE CATALOG                      FROZEN semantic test-spec v1 — 22 scenarios
-PROJECT SCHEMA v0.2 CHANGE-SET                       APPROVED / NOT MATERIALIZED
-CROSS-DOCUMENT AUDIT                                 DONE — 0 blockers
-ACCEPTANCE SUITE INTEGRATION                         DONE — canonical addendum v1
-P0 AUTHORING FREEZE AUDIT                            DONE — architecture-entry GO
-GEOMETRY ENGINE EVALUATION SCORECARD                 DONE baseline v0.1 — NO WINNER
-GEOMETRY ENGINE POC/QUALIFICATION PLAN               DONE plan v0.1 — EXECUTION NEXT
-ARCHITECTURE SHOOT-OUT / FINAL SELECTION             BLOCKED ON POC EVIDENCE
-```
-
-Principal candidates remain:
-
-```text
-A. product-owned clinical/domain layer + Pixar OpenSubdiv
-B. product-owned clinical/domain layer + openNURBS / ON_SubD
-```
-
-Other geometry libraries are not admitted by default.
-
----
-
-## 4. Frozen product principles — DO NOT REOPEN WITHOUT NEW EVIDENCE/DECISION
+## 3. Frozen product principles — do not reopen without new evidence/decision
 
 - EasyCAD2 is behavioral evidence, not scientific truth.
 - BiomechE-CAD is orthosis-specific, not generic CAD.
 - A committed `DesignRevision` is immutable.
 - Semantic prescription survives final geometry.
 - Capture context and landmark provenance are first-class when design-relevant.
-- Dose, units, placement, side and anatomical reference are structured data.
 - Placement is typed anatomical/reference semantics, not anonymous XYZ.
-- Raw acquisitions/results remain immutable/hash-addressed evidence.
-- Reusable definitions resolve exact `id + version + hash/snapshot` and retain historical expansion.
+- Dose, units, placement, side and anatomical reference are structured data.
+- Reusable definitions resolve exact `id + version + hash/snapshot` and preserve historical expansion.
 - Geometry dose and mechanical/material dose are distinct.
 - Mirror is semantic and side-aware.
 - Pressure is quantitative; heatmaps are derived views.
@@ -114,14 +82,14 @@ Other geometry libraries are not admitted by default.
 - `MeasuredOutcome != PredictedOutcome`.
 - `UNAVAILABLE` is never zero.
 - `OPEN` remains `OPEN`.
-- Algorithm tolerance, device limit, manufacturing tolerance and clinical threshold are different authority classes.
+- Algorithm tolerance, device limit, manufacturing tolerance and clinical threshold are separate authority classes.
 - BiomechE is KPI authority; CAD owns prescription/design/lifecycle semantics.
 - `DesignRevision != ManufacturingArtifact != PhysicalOrthosis`.
 - CAD nominal geometry != measured manufactured geometry.
 - Reports are immutable derived artifacts over exact source entities.
 - The geometry kernel must satisfy the frozen contract, never redefine it.
 
-Canonical units:
+Canonical units remain:
 
 ```text
 mm, s, N, kPa, deg, mm²
@@ -129,253 +97,201 @@ mm, s, N, kPa, deg, mm²
 
 ---
 
-## 5. P0 frozen authoring package
+## 4. Frozen P0 authoring package
 
-### Geometry Authoring Contract — `spec/16_geometry_authoring_contract.md`
-
-Key frozen rules:
+The following are already frozen/canonical and are inputs to the documentation-closure phase, not targets for redesign:
 
 ```text
-semantic operation is authoritative
-preview != committed revision
-invalid/unresolved state is explicit
-capture condition survives into design provenance
-landmark provenance includes source method/review state
-placement uses typed anatomical/reference semantics
-requested dose and constrained realized dose are distinguishable
-geometry dose != mechanical dose
-sculpt must be replayable, not anonymous baked mesh state
-scan conform keeps source/registration/ROI/projection/residual/version provenance
-mirror transforms semantics, not only coordinates
-inspection definitions are reproducible
-clinical/contact surface intent is separate from production realization
-deterministic replay is version-bound
+01 coordinate / registration                  FROZEN v1
+11 BiomechE integration                       FROZEN v1
+12 reporting / traceability                   FROZEN v1
+15 pressure-acquisition qualification method  FROZEN v1
+16 Geometry Authoring Contract                FROZEN v1
+17 Workflow / Preset / Macro Contract         FROZEN v1
+18 Numerical / Tolerance / Qualification      FROZEN v1
+P0 Authoring Acceptance Catalog               FROZEN semantic test-spec v1
+AUTH-C01..C22                                  FROZEN scenarios
 ```
 
-### Workflow / Preset / Macro — `spec/17_workflow_preset_macro.md`
-
-```text
-PresetDefinition      one operation/family
-WorkflowDefinition    ordered reusable multi-step knowledge
-WorkflowApplication   project-owned exact expansion
-```
-
-Exact version/hash, typed inputs, explicit defaults/overrides/dependencies, compatibility/mirror policies, deterministic expansion and human confirmation are frozen.
-
-### Numerical / Tolerance / Qualification — `spec/18_numerical_qualification_registry.md`
-
-Authority classes include:
-
-```text
-CONVENTION
-UI_CONVENIENCE_DEFAULT
-PRODUCT_DEFAULT
-EVIDENCE_PROFILE_RULE
-ALGORITHM_PARAMETER
-ALGORITHM_NUMERICAL_TOLERANCE
-DEVICE_QUALIFICATION_LIMIT
-MANUFACTURING_ACCEPTANCE_LIMIT
-OUTCOME_INTERPRETATION_RULE
-```
-
-Status/lifecycle vocabulary:
-
-```text
-OPEN
-PROVISIONAL
-QUALIFIED
-FROZEN_CONVENTION
-DEPRECATED
-```
-
-No cross-class silent fallback is allowed.
+The prior cross-document audit found **0 blocking semantic contradictions**.
 
 ---
 
-## 6. P0 Authoring Acceptance — FROZEN
+## 5. Current documentation closure scope
 
-Canonical catalog: `docs/validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md`.
+Canonical work plan:
 
-```text
-AUTH-C01..C14  geometry / acquisition / inspection
-AUTH-C15..C18  workflow / macro
-AUTH-C19..C22  numerical governance
-```
+`docs/P0_DOCUMENTATION_CLOSURE_AND_VISUAL_REFERENCE_PLAN_2026-08-16.md`
 
-Frozen namespaces:
+### Wave 1 — close existing ACTIVE v0 specifications
 
 ```text
-GAUTH-001..040
-WFLOW-001..030
-NREG-001..030
+DOC-00  baseline inventory / closure audit
+DOC-01  06 corrective elements -> v1
+DOC-02  08 material/stiffness -> v1
+DOC-03  09 analysis/QC/DFM -> v1
+DOC-04  10 manufacturing -> v1
+DOC-05  13 use-case profiles -> v1
+DOC-06  14 PROM/comfort/adherence -> v1
 ```
 
-The geometry scorecard maps all 22 scenarios to architecture tests. `C17/C19/C20/C21` are mainly product/governance compatibility tests rather than reasons to prefer a geometry library; the stack must nevertheless not make them impossible.
+### Wave 2 — resolve provisional/historical ambiguity
+
+```text
+DOC-07  04 base template + 05 parametric orthosis geometry disposition
+```
+
+Each concept in `04/05` must become one of:
+
+```text
+PRODUCT SEMANTIC
+ALGORITHM HYPOTHESIS
+SUPERSEDED BY FROZEN CONTRACT
+ENGINE-SPECIFIC
+OPEN / UNSUPPORTED NUMERICAL DEFAULT
+```
+
+### Wave 3 — missing implementation-neutral contracts
+
+```text
+DOC-08  Input / Scan / Reference Data Contract
+DOC-09  Product Workflow & Interaction Contract
+DOC-10  Interchange & Manufacturing Handoff Contract
+DOC-11  Realtime Interaction & Performance Contract
+DOC-12  Validation & Verification Master Plan
+```
+
+### Wave 4 — safety/governance stream
+
+```text
+DOC-13  Intended Use / Risk / Privacy / Security boundary package
+```
+
+When executed, current regulatory/security facts and standards must be verified from current primary authoritative sources.
+
+### Wave 5 — closure
+
+```text
+DOC-14  final cross-document audit + documentation freeze
+```
+
+Desired verdict:
+
+```text
+PRODUCT / FUNCTIONAL / SEMANTIC DOCUMENTATION: COMPLETE FOR P0
+```
 
 ---
 
-## 7. Geometry Engine Evaluation Scorecard — BASELINE v0.1
+## 6. Visual reference package — required after documentation closure
 
-Canonical file:
+The project owner explicitly requires a saved visual reference after the written product semantics are stable.
 
-`docs/research/architecture/GEOMETRY_ENGINE_EVALUATION_SCORECARD_2026-08-15.md`
+The visual package is part of the current plan, not an optional branding exercise.
 
-Evaluation order is frozen for this architecture pass:
+Proposed authority document:
 
-```text
-1. HARD GATES
-2. WEIGHTED CRITERIA
-3. POC/BENCHMARK UNCERTAINTIES
-4. FINAL EVIDENCE-GRADED SCORING
-```
+`docs/ux/BIOMECHE_CAD_VISUAL_REFERENCE_V1.md`
 
-Hard gates cover:
+Proposed asset structure:
 
 ```text
-HG-01 product-owned semantic isolation
-HG-02 replayable derived geometry
-HG-03 stable authoring coordinates / IDs
-HG-04 limit/surface differential queries
-HG-05 local deformation / sculpt / semantic mirror feasibility
-HG-06 spatial query / scan-conform path
-HG-07 reproducible inspection path
-HG-08 production realization / DFM path
-HG-09 explicit numerical control
-HG-10 one C++ core native/server/web-WASM
-HG-11 interactive/incremental feasibility
-HG-12 large-scan feasibility
-HG-13 license/distribution acceptability
-HG-14 API/dependency containment
-HG-15 AUTH-C01..C22 coverage
+docs/ux/mockups/v1/
 ```
 
-Weighted criteria total **100 points** and are applied only after hard-gate compatibility. License is deliberately a hard gate, not a compensable score.
-
-Evidence grades:
+Minimum canonical screens:
 
 ```text
-A  current primary evidence + project PoC
-B  current primary API/source evidence only
-C  inference/indirect evidence
-U  unknown / not demonstrated
+M01 project / patient / case
+M02 import / scan qualification
+M03 registration / landmarks
+M04 base orthosis / template
+M05 parametric authoring
+M06 corrective / offloading elements
+M07 sculpt / local freeform edit
+M08 materials / regional mechanical prescription
+M09 inspection / geometry QC
+M10 BiomechE before / after / delta
+M11 DFM / manufacturing preparation
+M12 revision / provenance / report
+M13 physical-part QC / outcome follow-up
+M14 compact / responsive reference
 ```
 
-No final candidate recommendation is allowed while a selection-critical hard gate remains `UNKNOWN`.
+Where practical, preserve both:
+
+```text
+editable/source-controlled mockup form (HTML/CSS, SVG or equivalent)
++
+rendered reference export (PNG or equivalent)
+```
+
+Each mockup must have a manifest entry linking it to the written requirements/spec sections it represents.
+
+Authority rule:
+
+```text
+WRITTEN SPECIFICATION = SEMANTIC AUTHORITY
+MOCKUP = VISUAL / INTERACTION REFERENCE
+```
+
+A mockup may not silently redefine clinical/domain semantics.
 
 ---
 
-## 8. Current candidate evidence snapshot
+## 7. Geometry engine evaluation — preserved, not cancelled
 
-### OpenSubdiv
+The architecture work already completed remains valid:
 
-Evaluation baseline: upstream `v3.7.0`.
+- Geometry Engine Evaluation Scorecard v0.1;
+- hard gates `HG-01..HG-15`;
+- weighted criteria = 100 points;
+- OpenSubdiv vs openNURBS/ON_SubD evidence snapshot;
+- candidate-neutral PoC qualification plan `Q0..Q7`;
+- no winner selected.
 
-Current primary evidence is strongest for:
-
-```text
-focused high-performance SubD evaluation
-static-topology deforming surfaces at interactive rates
-limit-surface basis evaluation
-first/second derivative basis access
-lean C++ core — standard-library-only core dependency statement
-optional CPU/GPU evaluation backends
-```
-
-Still requires PoC/adapter proof for:
+Principal candidates remain:
 
 ```text
-WASM product build
-stable product authoring addressing
-nearest-point / scan projection
-large-scan acceleration
-sections / thickness / deviation
-production lower surface / closure / solid
-minimum-thickness / DFM
-.NET
-STL/3MF/CNC handoff
-cross-platform determinism
+A. product-owned domain layer + Pixar OpenSubdiv
+B. product-owned domain layer + openNURBS / ON_SubD
 ```
 
-### openNURBS / ON_SubD
+Architecture PoC execution resumes only after documentation/visual closure or by explicit project-owner decision.
 
-Evaluation baseline: upstream `v8.32.26160.13001`.
-
-Current primary evidence is strongest for:
-
-```text
-broader C++ geometry/interchange toolkit
-ON_SubD surface/limit-point concepts
-surface tangent/normal data
-component evaluation caches/invalidation
-SubD surface mesh fragments
-3DM ecosystem/interchange
-```
-
-`rhino3dm 8.32.1` provides current family-level evidence for `.NET` and JavaScript/WebAssembly/browser deployment. This is **not** proof that every native `ON_SubD` authoring API has WASM parity.
-
-A direct public `ON_SubD::ClosestPoint`-style primitive has not yet been established by the reviewed public SubD header, so nearest-point/projection remains PoC/adapter territory.
-
-### No selection conclusion yet
-
-Current evidence lead only:
-
-```text
-OpenSubdiv     focused evaluator / lean core / explicit derivative evaluation
-ON_SubD        toolkit breadth / existing .NET + WASM family precedent
-```
-
-Selection-critical unknowns remain spatial queries, production-body/DFM, determinism, interactive workload performance and complete frozen acceptance coverage.
+Do not select a winner from research evidence alone.
 
 ---
 
-## 9. PoC / qualification plan
+## 8. Performance doctrine during documentation closure
 
-Canonical plan:
+Performance remains a first-class product requirement even while implementation is deferred.
 
-`docs/validation/GEOMETRY_ENGINE_POC_QUALIFICATION_PLAN_2026-08-15.md`
-
-Execution sequence:
+`DOC-11` must define the product-owned performance contract for:
 
 ```text
-Q0  native build/dependency audit + direct WASM build
-Q1  canonical representation/replay + derivatives/normals
-Q2  local authoring + sculpt + semantic mirror
-Q3  scan/spatial queries + inspection
-Q4  production body / lower surface / closure / DFM
-Q5  determinism + incremental invalidation/performance
-Q6  rendering interop + .NET boundary + manufacturing handoff
-Q7  engine-backed AUTH-C01..C22 harness + final score
+input-to-preview latency
+operation rebuild latency
+commit latency
+surface queries
+scan registration/conform
+inspection/deviation maps
+render frame time
+memory/allocation behavior
+large-scan throughput
+WASM startup/heap/transfer
+serialization/replay
 ```
 
-Candidate-neutral fixtures must be used before candidate-specific optimization.
+Do not invent PASS thresholds. Until explicit `ARCH-PERF-*` budgets are approved, measured results remain:
 
-First benchmark pass is **MEASURED / NOT YET QUALIFIED** where no engineering performance budget exists. Do not invent p95/memory/WASM limits silently. A future `ARCH-PERF-*` profile must explicitly own those budgets before PASS/FAIL is declared.
-
-Replay epsilon remains an `ALGORITHM_NUMERICAL_TOLERANCE`; it must never be borrowed from manufacturing acceptance tolerance.
+```text
+MEASURED / NOT YET QUALIFIED
+```
 
 ---
 
-## 10. Auxiliary-library admission rule
-
-OCCT, Manifold, CGAL, libigl, geometry-central or another library enters only when a frozen hard gate + failed/insufficient PoC demonstrates a specific missing primitive.
-
-Required admission conditions:
-
-```text
-concrete frozen requirement
-measured/proven gap
-sharply bounded responsibility
-no second semantic geometry authority
-product-owned serialization/replay remains canonical
-license/WASM/dependency/performance evaluated
-replaceable adapter boundary
-```
-
-The first likely trigger to investigate is **HG-08 / production realization**, but no auxiliary library is currently approved or selected.
-
----
-
-## 11. Project Schema v0.2 — unchanged
+## 9. Project Schema v0.2 — unchanged
 
 `docs/spec/19_project_schema_v0_2_changeset.md` remains:
 
@@ -383,92 +299,78 @@ The first likely trigger to investigate is **HG-08 / production realization**, b
 APPROVED CHANGE-SET / NOT MATERIALIZED
 ```
 
-Do not modify JSON Schema, fixtures or migrations as part of geometry-engine evaluation unless separately authorized.
+Do not modify JSON Schema, fixtures or migrations during documentation closure unless explicitly authorized.
 
 ---
 
-## 12. CI / GitHub Actions technical debt — intentionally deferred
+## 10. CI technical debt — unchanged
 
-Canonical debt register: `docs/TECHNICAL_DEBT.md`.
-
-```text
-TD-CI-001 — GitHub Actions / fixture-validation reliability
-STATUS: DEFERRED BY PROJECT OWNER — NON-BLOCKING FOR CURRENT PHASE
-```
-
-Rules:
+`TD-CI-001` remains:
 
 ```text
-CI does not block documentation or architecture-analysis work.
-Current green CI is not proof that main is fully qualified.
-Semantic requirements are not weakened/deleted because the harness is behind.
-Do not spend geometry-engine evaluation time fixing CI.
+DEFERRED BY PROJECT OWNER
+NON-BLOCKING FOR CURRENT PHASE
 ```
+
+Do not spend documentation-closure time repairing CI/validator infrastructure unless explicitly requested.
 
 ---
 
-## 13. DONE
+## 11. DONE
 
-- [x] Functional v2 canonical.
+- [x] Functional spec v2 canonical.
 - [x] Coordinate/registration v1 frozen.
 - [x] BiomechE integration v1 frozen.
 - [x] Reporting/traceability v1 frozen.
-- [x] Pressure qualification methodology v1 frozen.
-- [x] Geometry Authoring Contract **FROZEN v1**.
-- [x] Workflow/Preset/Macro Contract **FROZEN v1**.
-- [x] Numerical/Tolerance/Qualification Registry **FROZEN v1**.
-- [x] P0 Authoring Acceptance Catalog **FROZEN semantic test-spec v1** — 22 scenarios.
-- [x] Project Schema v0.2 change-set **APPROVED / NOT MATERIALIZED**.
-- [x] Cross-document audit — 0 blockers.
-- [x] Acceptance-suite integration addendum v1.
-- [x] Definitive P0 authoring freeze audit — architecture-entry GO.
-- [x] Geometry Engine Evaluation Scorecard **baseline v0.1**.
-- [x] Hard gates separated from weighted criteria.
-- [x] `GAUTH/WFLOW/NREG/AUTH-Cxx` mapped to stack capabilities/tests.
-- [x] Updated primary-source comparison OpenSubdiv vs ON_SubD captured.
-- [x] Candidate uncertainties converted into explicit PoCs.
-- [x] Geometry Engine PoC/Qualification Plan **v0.1**.
-- [x] No engine selected prematurely.
-- [x] `TD-CI-001` remains excluded from current gating.
+- [x] Pressure-acquisition qualification methodology v1 frozen.
+- [x] Geometry Authoring Contract v1 frozen.
+- [x] Workflow/Preset/Macro Contract v1 frozen.
+- [x] Numerical/Tolerance/Qualification Registry v1 frozen.
+- [x] P0 Authoring Acceptance Catalog `AUTH-C01..C22` frozen.
+- [x] Project Schema v0.2 change-set approved / not materialized.
+- [x] P0 authoring cross-document audit — 0 blockers.
+- [x] Geometry Engine Evaluation Scorecard v0.1.
+- [x] Geometry Engine PoC/Qualification Plan Q0..Q7.
+- [x] No geometry engine selected prematurely.
+- [x] `P0-DOC-CLOSURE` work plan created.
+- [x] Canonical visual-reference/mockup phase included in the plan.
 
 ---
 
-## 14. TODO — exact restart point
+## 12. TODO — exact restart point
 
-### NEXT A — Q0 build / portability qualification
+### NEXT — DOC-00
 
-For **both candidates**, before optimization:
+Execute:
 
-1. pin exact upstream tag/commit;
-2. create the same narrow product-owned C++20 adapter/harness;
-3. build native desktop Release;
-4. build headless/server target;
-5. capture dependency/link/binary manifest;
-6. attempt direct Emscripten/WebAssembly build of the same core/adapter;
-7. record bundle/heap/startup and native-vs-WASM numerical evidence where executable.
+```text
+DOC-00 — P0 Documentation Closure Audit
+```
 
-### NEXT B — shared canonical geometry fixture
+Deliverable:
 
-Then create candidate-neutral `FIX-GEOM-01` and execute representation/replay + point/derivative/normal tests before implementing high-level orthosis operators.
+`docs/validation/P0_DOCUMENTATION_CLOSURE_AUDIT_2026-08-16.md`
 
-### AFTER
+The audit must inventory all `docs/spec/*` documents, classify authority/status, identify actual gaps/duplication, establish freeze criteria and verify that the current plan still has the right closure scope.
 
-Proceed Q2..Q7 and fill weighted scores only with evidence grades. Final architecture selection remains blocked until selection-critical hard gates close.
+### THEN
 
-### PARALLEL
+Proceed sequentially with `DOC-01..DOC-06`, because those documents already contain substantial evidence/model/acceptance material and can be closed with low architecture uncertainty.
 
-Real FM12050/material/manufacturing qualification when physical evidence is available.
+### AFTER WRITTEN CLOSURE
 
-### DEFERRED
+Execute `VIS-01..VIS-04` and save the visual baseline in the repository.
 
-`TD-CI-001` — dedicated future CI/validator repair pass.
+### ONLY AFTER THAT, unless explicitly reprioritized
+
+Resume geometry-engine qualification `Q0..Q7`.
 
 ---
 
-## 15. New-chat handover
+## 13. New-chat handover
 
-A copy/paste continuation prompt is maintained at:
+Copy/paste continuation prompt:
 
 `docs/NEXT_CHAT_PROMPT.md`
 
-That prompt must now resume from **Q0 Geometry Engine PoC Qualification**, not from generic CAD research or from scorecard design.
+The next chat must resume from **DOC-00 P0 Documentation Closure Audit**, not from Q0 geometry-engine PoC and not from generic CAD market research.
