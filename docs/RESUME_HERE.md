@@ -2,11 +2,13 @@
 
 **Repository:** `ww34ww34ww34/BiomechE-CAD`  
 **Canonical branch:** `main`  
-**Checkpoint date:** 2026-08-16  
-**Current phase:** **Q0 GEOMETRY ENGINE QUALIFICATION — HARNESS READY / REAL CANDIDATE BUILDS NEXT.**  
+**Checkpoint date:** 2026-08-17  
+**Immediate continuation:** **VISUAL DIRECTION V2 — SURFACE-CAD WORKSTATION / V2-S01 REVIEW.**  
+**Architecture phase:** **Q0 GEOMETRY ENGINE QUALIFICATION — READY / TEMPORARILY PARKED DURING VISUAL REFINEMENT.**  
 **Selection status:** **NO GEOMETRY ENGINE SELECTED.**  
 **P0 product documentation:** COMPLETE / GO / 0 blockers.  
-**Visual baseline:** source + browser audit + reproducible renderer COMPLETE; materialized PNG copies are optional derived cache.
+**V1 visual baseline:** COMPLETE as functional/state/traceability evidence.  
+**V2 visual direction:** ACTIVE / NOT YET FROZEN.
 
 Project Schema v0.2 remains **APPROVED / NOT MATERIALIZED**. `TD-CI-001` remains deliberately deferred and non-blocking.
 
@@ -14,27 +16,32 @@ Project Schema v0.2 remains **APPROVED / NOT MATERIALIZED**. `TD-CI-001` remains
 
 ## 1. Read first
 
-1. `docs/RESUME_HERE.md`
-2. `docs/SPEC_INDEX.md`
-3. `docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md`
-4. `docs/TRACEABILITY_MATRIX.md`
-5. `docs/DECISIONS.md`
-6. `docs/DECISIONS_2026-08-16_CLOSURE_Q0_ADDENDUM.md`
-7. `docs/spec/16_geometry_authoring_contract.md`
-8. `docs/spec/17_workflow_preset_macro.md`
-9. `docs/spec/18_numerical_qualification_registry.md`
-10. `docs/validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md`
-11. `docs/research/architecture/GEOMETRY_ENGINE_EVALUATION_SCORECARD_2026-08-15.md`
-12. `docs/validation/GEOMETRY_ENGINE_POC_QUALIFICATION_PLAN_2026-08-15.md`
-13. `docs/research/architecture/GEOMETRY_ENGINE_Q0_EVIDENCE_UPDATE_2026-08-16.md`
-14. `qualification/geometry-engine/q0/README.md`
-15. `qualification/geometry-engine/q0/candidate-lock.json`
-16. `qualification/geometry-engine/q0/results/Q0_EVIDENCE_STATUS_2026-08-16.md`
-17. `qualification/geometry-engine/q0/results/Q0_HARNESS_VALIDATION_2026-08-16.md`
-18. `docs/BIBLIOGRAPHY.md`
-19. `docs/NEXT_CHAT_PROMPT.md`
+For the current visual continuation, read in this order:
 
-Written/visual closure references remain available under `docs/validation/` and `docs/ux/` but are no longer the current execution point.
+1. `docs/RESUME_HERE.md`
+2. `docs/ux/BIOMECHE_CAD_VISUAL_DIRECTION_V2_SURFACE_CAD_2026-08-17.md`
+3. `docs/ux/mockups/v2/README.md`
+4. `docs/DECISIONS_2026-08-17_VISUAL_V2_ADDENDUM.md`
+5. `docs/spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md`
+6. `docs/TRACEABILITY_MATRIX.md`
+7. `docs/SPEC_INDEX.md`
+8. `docs/NEXT_CHAT_PROMPT.md`
+
+When returning to architecture/Q0, additionally read:
+
+9. `docs/DECISIONS_2026-08-16_CLOSURE_Q0_ADDENDUM.md`
+10. `docs/spec/16_geometry_authoring_contract.md`
+11. `docs/spec/17_workflow_preset_macro.md`
+12. `docs/spec/18_numerical_qualification_registry.md`
+13. `docs/validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md`
+14. `docs/research/architecture/GEOMETRY_ENGINE_EVALUATION_SCORECARD_2026-08-15.md`
+15. `docs/validation/GEOMETRY_ENGINE_POC_QUALIFICATION_PLAN_2026-08-15.md`
+16. `docs/research/architecture/GEOMETRY_ENGINE_Q0_EVIDENCE_UPDATE_2026-08-16.md`
+17. `qualification/geometry-engine/q0/README.md`
+18. `qualification/geometry-engine/q0/candidate-lock.json`
+19. `qualification/geometry-engine/q0/results/Q0_EVIDENCE_STATUS_2026-08-16.md`
+20. `qualification/geometry-engine/q0/results/Q0_HARNESS_VALIDATION_2026-08-16.md`
+21. `docs/BIBLIOGRAPHY.md`
 
 ---
 
@@ -68,13 +75,33 @@ geometry kernel must satisfy frozen contracts, never redefine them
 
 ---
 
-## 3. Completed product / documentation / visual state
+## 3. Product/documentation closure state
 
 ```text
 DOC-00..DOC-14                               COMPLETE
 written cross-document blockers             0
 P0 documentation closure                    GO
 canonical bibliography normalization        DONE
+Project Schema v0.2                         APPROVED / NOT MATERIALIZED
+TD-CI-001                                   DEFERRED / NON-BLOCKING
+```
+
+Historical engineering documents remain subordinate:
+
+```text
+04_base_template.md                 ENGINEERING CANDIDATE / QUALIFICATION FIXTURE
+05_parametric_orthosis_geometry.md PROVISIONAL ENGINEERING MATHEMATICAL REFERENCE
+```
+
+`41×17`, Catmull-Clark/OpenSubdiv and provisional formulas/sample values are not frozen product requirements.
+
+---
+
+## 4. Visual V1 — retained functional baseline
+
+V1 remains complete and useful for functional/state/traceability coverage:
+
+```text
 VIS-01 visual brief                         DONE
 VIS-02 M01..M14 HTML source                 DONE
 VIS-03 source/version archive               DONE
@@ -85,23 +112,9 @@ VIS-03R-REPRODUCIBILITY                     DONE — versioned renderer + captur
 materialized PNG copies                     OPTIONAL derived review cache
 ```
 
-Canonical reproducible renderer:
+Canonical V1 reproducible renderer:
 
 `docs/ux/mockups/v1/rendered/render_reference.py`
-
-It reads the exact self-contained HTML source, explicitly executes `render('Mxx')`, captures the frozen viewports and writes `capture-manifest.json` containing source identity, browser/version, viewport, runtime exception count, file size and SHA-256 for each materialized PNG.
-
-Browser reference:
-
-```text
-Chromium 144.0.7559.96
-M01..M13 1440×960
-M14      1024×768
-M07/M10  dark
-runtime exceptions 0
-```
-
-The renderer implementation was re-executed on 2026-08-16 using Chromium `144.0.7559.96` against the same source-equivalent reconstruction methodology as the canonical browser audit: all 14 screens captured with zero runtime exceptions. The canonical audit remains `docs/ux/VISUAL_RENDER_BROWSER_AUDIT_2026-08-16.md`.
 
 Visual implementation corrections to preserve:
 
@@ -111,9 +124,104 @@ VIS-A11Y-02 interactive viewport tools must be semantic controls with keyboard/n
 VIS-A11Y-03 explicit tested focus-visible treatment in light/dark
 ```
 
+V1 is **not** the preferred V2 aesthetic.
+
 ---
 
-## 4. Q0 candidate locks
+## 5. Visual V2 — current active direction
+
+Canonical V2 direction document:
+
+`docs/ux/BIOMECHE_CAD_VISUAL_DIRECTION_V2_SURFACE_CAD_2026-08-17.md`
+
+Workspace register:
+
+`docs/ux/mockups/v2/README.md`
+
+Decision addendum:
+
+`docs/DECISIONS_2026-08-17_VISUAL_V2_ADDENDUM.md`
+
+Core aesthetic decision:
+
+```text
+HIGH-LEVEL INDUSTRIAL SURFACE CAD
+not medical dashboard
+not SaaS cards
+not decorative Jarvis/HUD sci-fi
+```
+
+Visual grammar:
+
+```text
+dominant geometry viewport
+dark graphite neutral chrome
+compact monochrome CAD tools
+contextual properties
+Scene/Layers hierarchy
+surface curves/control points/sections when relevant
+restrained blue active state
+amber/orange selected geometry
+rich neutral geometry rendering
+minimal decorative glow
+orthotic data remains contextual, not dominant
+```
+
+Explicitly rejected directions:
+
+```text
+five-screen marketing collage as the actual screen design
+KPI-dashboard visual identity
+large medical cards
+neon/circuit HUD decoration
+rainbow heatmap everywhere
+small geometry surrounded by UI chrome
+consumer-app density
+```
+
+### V2 five-screen sequence
+
+```text
+V2-S01 Template / Modello                 REVIEW
+V2-S02 Superficie / Edit Parametrico      NOT GENERATED
+V2-S03 Elementi                           NOT GENERATED
+V2-S04 Scultura / Post Processing         NOT GENERATED
+V2-S05 Analisi / Produzione               NOT GENERATED
+```
+
+**Important:** generate/review **one full-screen image at a time**.
+
+Approval protocol:
+
+```text
+GENERATE -> REVIEW -> REVISE -> EXPLICIT APPROVAL -> PERSIST -> NEXT SCREEN
+```
+
+The latest V2-S01 image generated on 2026-08-17 is a **candidate only**, not yet approved/frozen.
+
+### Exact visual restart point
+
+Resume by refining **V2-S01 Template / Modello only**.
+
+The target should resemble a serious premium surface-modeling workstation:
+
+- full application window, no poster framing;
+- top mode tabs `MODELLO / SUPERFICIE / SCULTURA / ANALISI / PRODUZIONE`;
+- compact CAD toolbar;
+- central orthosis surface occupying most attention;
+- neutral clay/graphite surface with selected reference curve/control points;
+- metric dimensions;
+- compact pressure/Scan2D/Scan3D references on the left;
+- Scene/Layers and contextual base/template parameters on the right;
+- optional small top/side/rear views;
+- bottom units/grid/snap/status bar;
+- no decorative neon/Jarvis effects.
+
+Do not move to V2-S02 until the user explicitly approves S01.
+
+---
+
+## 6. Q0 candidate locks — preserved
 
 ### OpenSubdiv
 
@@ -133,7 +241,7 @@ These are qualification pins, not final production selections.
 
 ---
 
-## 5. Q0 harness — READY
+## 7. Q0 harness — READY / parked
 
 Implemented under:
 
@@ -171,11 +279,7 @@ common C++20 adapter contract           PASS
 candidate source-shape smoke            PASS
 ```
 
----
-
-## 6. Q0 real candidate execution — NEXT
-
-Current truth:
+Actual candidate builds remain:
 
 ```text
 OpenSubdiv native Release       NOT EXECUTED
@@ -186,87 +290,40 @@ openNURBS headless/server       NOT EXECUTED
 openNURBS direct WASM           NOT EXECUTED
 ```
 
-The current chat execution environment has:
-
-```text
-CMake 3.31.6
-GCC/G++ 14.2.0
-Ninja 1.12.1
-Node 22.16.0
-Python 3.13.5
-Emscripten NOT INSTALLED
-```
-
-Direct network/DNS access from the runtime is unavailable. GitHub/web access can verify the exact upstream source/tag/API evidence but cannot mount the complete pinned source trees into this build container as a local checkout. Attempts to obtain the archive through the available download path were blocked by the environment's redirect/safe-URL boundary. Therefore no candidate build PASS/FAIL is claimed here.
-
-Primary upstream evidence remains positive for the intended Q0 method: OpenSubdiv documents a dependency-light C++ core and build-time disabling of optional GPU/example stacks; openNURBS exposes a public native C++ toolkit/build. This is **not** a substitute for executed pinned-source builds.
-
-Exact runner:
-
-```bash
-python qualification/geometry-engine/q0/run_q0.py --candidate opensubdiv --source-root <OpenSubdiv-v3_7_0> --mode native --clean
-python qualification/geometry-engine/q0/run_q0.py --candidate opensubdiv --source-root <OpenSubdiv-v3_7_0> --mode wasm --clean
-python qualification/geometry-engine/q0/run_q0.py --candidate opennurbs --source-root <opennurbs-00bdd2ce> --mode native --clean
-python qualification/geometry-engine/q0/run_q0.py --candidate opennurbs --source-root <opennurbs-00bdd2ce> --mode wasm --clean
-```
-
-Generated JSON results must be committed before any Q0 hard gate is promoted to PASS.
-
----
-
-## 7. Current architecture-gate state
-
-```text
-HG-01 semantic isolation       POSITIVE STRUCTURAL EVIDENCE / BUILD CONFIRMATION PENDING
-HG-10 native+server+WASM       UNKNOWN / EXECUTION REQUIRED
-HG-13 license/distribution     UPSTREAM TERMS CAPTURED / FORMAL REVIEW REQUIRED
-HG-14 dependency containment   PARTIAL POSITIVE EVIDENCE / BUILD CONFIRMATION PENDING
-HG-15 full frozen acceptance   Q7 PENDING
-```
-
 No final weighted score and no winner are authorized.
 
-Selection sequence remains:
-
-```text
-HARD GATES -> Q0..Q7 EXECUTED EVIDENCE -> WEIGHTED CRITERIA -> FINAL DECISION
-```
+When visual work is paused/completed, the architecture restart point remains: execute Q0 against the exact pinned source trees on a machine with native toolchain + Emscripten, commit generated JSON evidence, then update HG-01/HG-10/HG-13/HG-14 strictly from executed evidence.
 
 ---
 
-## 8. Historical engineering documents remain subordinate
-
-```text
-04_base_template.md                 ENGINEERING CANDIDATE / QUALIFICATION FIXTURE
-05_parametric_orthosis_geometry.md PROVISIONAL ENGINEERING MATHEMATICAL REFERENCE
-```
-
-`41×17`, Catmull-Clark/OpenSubdiv and provisional formulas/sample values are not frozen product requirements.
-
----
-
-## 9. DONE
+## 8. Current DONE
 
 - [x] P0 written documentation closure / 0 blockers.
 - [x] canonical bibliography normalized.
-- [x] visual source M01..M14 + browser audit.
-- [x] reproducible visual renderer + generated SHA-256 capture-manifest contract.
-- [x] visual human-factors corrective items recorded.
-- [x] Q0 exact upstream candidate pins.
-- [x] Q0 product-owned C++20 adapter boundary.
-- [x] Q0 native/WASM evidence runner.
-- [x] Q0 harness validation.
+- [x] V1 visual functional/state baseline complete.
+- [x] reproducible V1 renderer and audit.
+- [x] V2 Surface-CAD visual doctrine captured.
+- [x] V2 five-workspace sequence defined.
+- [x] rejected visual directions documented.
+- [x] V2-S01 current candidate state recorded as REVIEW, not approved.
+- [x] Q0 exact candidate pins and harness preserved.
 - [x] no engine winner selected prematurely.
 
 ---
 
-## 10. TODO — exact restart point
+## 9. Current TODO / exact restart
 
-1. **Execute Q0 against the pinned upstream source trees** on a machine with native toolchain + Emscripten.
-2. Commit generated JSON evidence and dependency/binary-size data.
-3. Update HG-01/HG-10/HG-13/HG-14 strictly from executed evidence.
-4. If Q0 passes sufficiently, proceed to Q1 common geometry/replay/query fixture.
+### Immediate
 
-Materialized PNG copies may be committed opportunistically for review convenience, but are not a remaining documentation/visual gate because the canonical HTML + versioned renderer + generated hash manifest form the reproducible visual-reference contract.
+1. Refine **V2-S01 Template / Modello** only.
+2. Get explicit user approval.
+3. Persist the approved visual asset and mark `V2-S01 = APPROVED` in `docs/ux/mockups/v2/README.md`.
+4. Then generate V2-S02.
 
-Do not restart generic CAD/library research.
+### Architecture after visual checkpoint
+
+5. Execute Q0 native + WASM against both exact pinned candidates.
+6. Commit evidence and update gates.
+7. If acceptable, proceed to Q1 geometry/replay/query fixture.
+
+Do not restart generic CAD/library research and do not reinterpret V2 aesthetics as product/clinical semantics.
