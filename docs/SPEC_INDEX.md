@@ -1,34 +1,43 @@
 # BiomechE-CAD — Specification Index
 
 **Status:** CANONICAL DOCUMENT MAP  
-**Updated:** 2026-08-16  
-**Current phase:** **Q0 Geometry Engine Qualification — harness/pins ready, real native/WASM candidate builds next.**  
+**Updated:** 2026-08-17  
+**Immediate continuation:** **Visual Direction V2 — Surface-CAD Workstation / V2-S01 review.**  
+**Architecture phase:** **Q0 Geometry Engine Qualification — harness/pins ready, execution parked during visual refinement.**  
 **Selection:** **NO WINNER**.
 
 ---
 
 ## 1. Resume order
 
+### Current visual continuation
+
 1. `RESUME_HERE.md`
-2. `spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md`
-3. `TRACEABILITY_MATRIX.md` — **v0.9**
-4. `DECISIONS.md`
-5. `DECISIONS_2026-08-16_CLOSURE_Q0_ADDENDUM.md`
-6. `spec/01_coordinate_registration.md`
-7. `spec/02_project_schema.md`
-8. `spec/16_geometry_authoring_contract.md`
-9. `spec/17_workflow_preset_macro.md`
-10. `spec/18_numerical_qualification_registry.md`
-11. `validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md`
-12. `research/architecture/GEOMETRY_ENGINE_EVALUATION_SCORECARD_2026-08-15.md`
-13. `validation/GEOMETRY_ENGINE_POC_QUALIFICATION_PLAN_2026-08-15.md`
-14. `research/architecture/GEOMETRY_ENGINE_Q0_EVIDENCE_UPDATE_2026-08-16.md`
-15. `../qualification/geometry-engine/q0/README.md`
-16. `../qualification/geometry-engine/q0/candidate-lock.json`
-17. `../qualification/geometry-engine/q0/results/Q0_EVIDENCE_STATUS_2026-08-16.md`
-18. `../qualification/geometry-engine/q0/results/Q0_HARNESS_VALIDATION_2026-08-16.md`
-19. `BIBLIOGRAPHY.md`
-20. `NEXT_CHAT_PROMPT.md`
+2. `ux/BIOMECHE_CAD_VISUAL_DIRECTION_V2_SURFACE_CAD_2026-08-17.md`
+3. `ux/mockups/v2/README.md`
+4. `DECISIONS_2026-08-17_VISUAL_V2_ADDENDUM.md`
+5. `spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md`
+6. `TRACEABILITY_MATRIX.md` — **v0.10**
+7. `NEXT_CHAT_PROMPT.md`
+
+### Architecture/Q0 continuation
+
+8. `DECISIONS.md`
+9. `DECISIONS_2026-08-16_CLOSURE_Q0_ADDENDUM.md`
+10. `spec/01_coordinate_registration.md`
+11. `spec/02_project_schema.md`
+12. `spec/16_geometry_authoring_contract.md`
+13. `spec/17_workflow_preset_macro.md`
+14. `spec/18_numerical_qualification_registry.md`
+15. `validation/P0_AUTHORING_ACCEPTANCE_CATALOG.md`
+16. `research/architecture/GEOMETRY_ENGINE_EVALUATION_SCORECARD_2026-08-15.md`
+17. `validation/GEOMETRY_ENGINE_POC_QUALIFICATION_PLAN_2026-08-15.md`
+18. `research/architecture/GEOMETRY_ENGINE_Q0_EVIDENCE_UPDATE_2026-08-16.md`
+19. `../qualification/geometry-engine/q0/README.md`
+20. `../qualification/geometry-engine/q0/candidate-lock.json`
+21. `../qualification/geometry-engine/q0/results/Q0_EVIDENCE_STATUS_2026-08-16.md`
+22. `../qualification/geometry-engine/q0/results/Q0_HARNESS_VALIDATION_2026-08-16.md`
+23. `BIBLIOGRAPHY.md`
 
 ---
 
@@ -78,7 +87,9 @@ They cannot override the frozen product contracts.
 
 ---
 
-## 4. Visual-reference package
+## 4. Visual-reference packages
+
+### V1 — functional/state/traceability baseline
 
 ```text
 ux/BIOMECHE_CAD_VISUAL_REFERENCE_V1.md
@@ -101,10 +112,46 @@ VIS-04 source             DONE
 VIS-03R-RUN               DONE — 14/14 captures executed
 VIS-04R                   DONE — PASS WITH corrective items
 VIS-03R-REPRODUCIBILITY   DONE — versioned Chromium/Playwright renderer + SHA-256 manifest generation
-PNG MATERIALIZATION       OPTIONAL derived cache / not a semantic, documentation or architecture gate
+PNG MATERIALIZATION       OPTIONAL derived cache
 ```
 
-Visual corrective items: `VIS-A11Y-01..03` in `TRACEABILITY_MATRIX.md` and `DECISIONS_2026-08-16_CLOSURE_Q0_ADDENDUM.md`.
+V1 remains useful evidence but **is not the preferred current aesthetic**.
+
+### V2 — active Surface-CAD workstation direction
+
+```text
+ux/BIOMECHE_CAD_VISUAL_DIRECTION_V2_SURFACE_CAD_2026-08-17.md
+ux/mockups/v2/README.md
+DECISIONS_2026-08-17_VISUAL_V2_ADDENDUM.md
+```
+
+Status:
+
+```text
+V2 doctrine              CAPTURED / ACTIVE
+V2-S01 Template/Modello  REVIEW — generated candidate, not approved
+V2-S02                    NOT GENERATED
+V2-S03                    NOT GENERATED
+V2-S04                    NOT GENERATED
+V2-S05                    NOT GENERATED
+```
+
+V2 aesthetic doctrine:
+
+```text
+high-level industrial surface CAD
+geometry-first workstation
+dark graphite neutral chrome
+compact contextual controls
+Scene/Layers + properties
+restrained blue active state
+amber/orange selected geometry
+no decorative Jarvis/neon HUD
+```
+
+Generate and approve one full-screen workspace at a time.
+
+Visual corrective items from V1 still apply: `VIS-A11Y-01..03` in `TRACEABILITY_MATRIX.md`.
 
 ---
 
@@ -116,7 +163,7 @@ Research supplements remain intake/audit ledgers only.
 
 ---
 
-## 6. Q0 geometry-engine qualification — ACTIVE
+## 6. Q0 geometry-engine qualification — READY / PARKED
 
 Canonical plan/scorecard:
 
@@ -168,13 +215,13 @@ No winner is selected.
 
 ## 7. Current exact next task
 
-Execute Q0 native + direct Emscripten/WASM runs for both exact pinned candidates using:
+### Immediate visual task
 
-`qualification/geometry-engine/q0/run_q0.py`
+Refine **V2-S01 Template / Modello** only using the Surface-CAD direction. Obtain explicit approval before moving to V2-S02.
 
-Commit generated JSON evidence before promoting any hard gate.
+### Architecture task after visual checkpoint
 
-If Q0 qualifies both/sufficient candidates, proceed to Q1 common geometry/replay/query fixture.
+Execute Q0 native + direct Emscripten/WASM runs for both exact pinned candidates using `qualification/geometry-engine/q0/run_q0.py`. Commit generated JSON evidence before promoting any hard gate. If Q0 qualifies both/sufficient candidates, proceed to Q1 common geometry/replay/query fixture.
 
 ---
 
@@ -186,5 +233,5 @@ TD-CI-001                              DEFERRED / NON-BLOCKING
 physical pressure qualification       FUTURE evidence stream
 material/manufacturing qualification  FUTURE evidence stream
 formal regulatory/QMS deployment      FUTURE assessment
-materialized visual PNG copies        OPTIONAL review cache; reproducible renderer is canonical render contract
+materialized V1 visual PNG copies     OPTIONAL review cache
 ```
