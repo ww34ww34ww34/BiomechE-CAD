@@ -1,12 +1,13 @@
 # BiomechE-CAD — Requirement Traceability Matrix
 
-**Status:** **CANONICAL TRACEABILITY BASELINE v0.10**  
-**Date:** 2026-08-16  
+**Status:** **CANONICAL TRACEABILITY BASELINE v0.11**  
+**Date:** 2026-08-17  
 **Functional authority:** `spec/BIOMECHE_CAD_FUNCTIONAL_SPEC_V2.md`  
 **V&V authority:** `validation/24_validation_verification_master_plan.md`  
-**Visual authority:** `ux/BIOMECHE_CAD_VISUAL_REFERENCE_V1.md` + `ux/mockups/v1/manifest.md`  
+**V1 visual evidence:** `ux/BIOMECHE_CAD_VISUAL_REFERENCE_V1.md` + `ux/mockups/v1/manifest.md`  
+**V2 active aesthetic direction:** `ux/BIOMECHE_CAD_VISUAL_DIRECTION_V2_SURFACE_CAD_2026-08-17.md`  
 **Bibliographic authority:** `BIBLIOGRAPHY.md` — normalized 2026-08-16  
-**Architecture qualification:** **Q0 STARTED — harness/pins ready, real candidate builds pending**  
+**Architecture qualification:** **Q0 READY / PARKED DURING V2 VISUAL REFINEMENT**  
 **CI note:** `TD-CI-001` remains deferred/non-blocking.
 
 ---
@@ -38,8 +39,9 @@
 | V&V governance | CANONICAL v1 | `validation/24_validation_verification_master_plan.md` | `VV-*` | executable evidence grows with product |
 | Intended use/risk/privacy/security | CANONICAL / classification OPEN | `25_intended_use_risk_privacy_security_boundary.md` | `REG-*` | formal deployment/regulatory work |
 | Bibliography | CANONICAL / NORMALIZED | `BIBLIOGRAPHY.md` | stable IDs | maintenance only |
-| Visual baseline | CANONICAL SOURCE / BROWSER AUDITED / REPRODUCIBLE | `ux/BIOMECHE_CAD_VISUAL_REFERENCE_V1.md` + `ux/mockups/v1/rendered/render_reference.py` | `VIS-*` + browser audit + generated SHA-256 manifest contract | actual UI implementation / optional PNG review cache |
-| Geometry engine | **Q0 ACTIVE / NO WINNER** | scorecard + PoC plan + `qualification/geometry-engine/q0/` | `HG-01..15`, Q0..Q7 | real native/WASM Q0 builds |
+| Visual V1 baseline | CANONICAL FUNCTIONAL VISUAL EVIDENCE / BROWSER AUDITED / REPRODUCIBLE | `ux/BIOMECHE_CAD_VISUAL_REFERENCE_V1.md` + `ux/mockups/v1/rendered/render_reference.py` | `VIS-*` + browser audit + generated SHA-256 manifest contract | actual UI implementation / optional PNG review cache |
+| Visual V2 aesthetic/workspace | **ACTIVE / NOT FROZEN** | `ux/BIOMECHE_CAD_VISUAL_DIRECTION_V2_SURFACE_CAD_2026-08-17.md` + `ux/mockups/v2/README.md` | explicit per-screen user approval | V2-S01 approval then S02..S05 |
+| Geometry engine | **Q0 READY / NO WINNER** | scorecard + PoC plan + `qualification/geometry-engine/q0/` | `HG-01..15`, Q0..Q7 | real native/WASM Q0 builds |
 
 ---
 
@@ -58,6 +60,8 @@ CAD_ENGINE_ARCHITECTURE_STATUS_...      HISTORICAL
 ---
 
 ## 3. Documentation / visual gates
+
+### V1 closure
 
 ```text
 GATE-DOC-*             DONE — P0 written closure / 0 blockers
@@ -81,6 +85,26 @@ VIS-A11Y-03 explicit tested focus-visible treatment in light/dark
 ```
 
 These are implementation obligations, not reasons to reopen frozen product semantics.
+
+### V2 active design gate
+
+V2 is deliberately **not frozen yet**.
+
+```text
+V2-S01 Template / Modello                 REVIEW
+V2-S02 Superficie / Edit Parametrico      NOT GENERATED
+V2-S03 Elementi                           NOT GENERATED
+V2-S04 Scultura / Post Processing         NOT GENERATED
+V2-S05 Analisi / Produzione               NOT GENERATED
+```
+
+Approval sequence:
+
+```text
+GENERATE -> REVIEW -> REVISE -> EXPLICIT USER APPROVAL -> PERSIST -> NEXT SCREEN
+```
+
+V2 changes aesthetic/workspace composition only. It cannot modify clinical, geometry-authority, manufacturing or provenance semantics.
 
 ---
 
@@ -167,6 +191,8 @@ A registered test ID is a specification, not a claim of CI execution.
 ## 6. Current OPEN / QUALIFY items
 
 ```text
+V2-S01 explicit visual approval
+V2-S02..S05 generation/approval
 real Q0 candidate native/server/WASM builds
 Q1..Q7 geometry/query/DFM/determinism/performance evidence
 final geometry engine selection
@@ -176,7 +202,7 @@ Project Schema v0.2 implementation
 physical pressure/material/manufacturing qualification
 formal regulatory/QMS/privacy/security deployment assessment
 actual UI implementation of VIS-A11Y-01..03
-optional materialized PNG review copies when useful
+optional materialized V1 PNG review copies when useful
 ```
 
 ---
